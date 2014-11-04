@@ -1,5 +1,181 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[SPOJ - CG-2092]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Tue, 04 Nov 2014 08:42:38 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/tag/spoj/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[ADDREV]]></title><description><![CDATA[<p>The Antique Comedians of Malidinesia prefer comedies to tragedies. Unfortunately, most of the ancient plays are tragedies. Therefore the dramatic advisor of ACM has decided to transfigure some tragedies into comedies. Obviously, this work is very hard because the basic sense of the play must be kept intact, although all the things change to their opposites. For example the numbers: if any number appears in the tragedy, it must be converted to its reversed form before being accepted into the comedy play.</p>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[SPOJ - Code Jedi]]></title><description><![CDATA[Code, algorithms and design.]]></description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Tue, 04 Nov 2014 13:39:34 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/tag/spoj/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[ONP]]></title><description><![CDATA[<p>Transform the algebraic expression with brackets into RPN form (Reverse Polish Notation). Two-argument operators: +, -, <em>, /, ^ (priority from the lowest to the highest), brackets ( ). Operands: only letters: a,b,...,z. Assume that there is only one RPN form (no expressions like a</em>b*c).</p>
+
+<h6 id="input">Input</h6>
+
+<p>t [the number of expressions &lt;= 100] <br>
+expression [length &lt;= 400] <br>
+[other expressions]
+Text grouped in [ ] does not appear in the input file.</p>
+
+<h6 id="output">Output</h6>
+
+<p>The expressions in RPN form, one per line. <br>
+Example</p>
+
+<p>Input: <br>
+3 <br>
+(a+(b<em>c))
+((a+b)</em>(z+x))
+((a+t)*((b+(a+c))^(c+d)))</p>
+
+<p>Output: <br>
+abc<em>+ <br>
+ab+zx+</em> <br>
+at+bac++cd+^*</p>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;stack&gt;
+#include &lt;string&gt;
+
+using namespace std;
+
+int main() {  
+    int T;
+    cin &gt;&gt; T;
+
+    for(;T--;) {
+        string e;
+        cin &gt;&gt; e;
+        stack&lt;char&gt; op; 
+        for (int i = 0; i &lt; e.size(); ++i) {
+            if (e[i] &gt;= 'a' &amp;&amp; e[i] &lt;= 'z') {
+                cout &lt;&lt; e[i];
+            } else if (e[i] !='(' &amp;&amp; e[i] != ')') {
+                op.push(e[i]);
+            } else if (e[i] == ')') {
+                cout &lt;&lt; op.top();
+                op.pop();
+            }
+        }
+        cout &lt;&lt; "\n";
+    }
+    return 0;
+}
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/onp/</link><guid isPermaLink="false">f0d1db0a-dbd4-4bf0-b4ed-5bf14d10b9e3</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Tue, 04 Nov 2014 13:31:10 GMT</pubDate></item><item><title><![CDATA[FCTRL2]]></title><description><![CDATA[<p>You are asked to calculate factorials of some small positive integers.</p>
+
+<h6 id="input">Input</h6>
+
+<p>An integer t, 1&lt;=t&lt;=100, denoting the number of testcases, followed by t lines, each containing a single integer n, 1&lt;=n&lt;=100.</p>
+
+<h6 id="output">Output</h6>
+
+<p>For each integer n given at input, display a line with the value of n!</p>
+
+<p>Example</p>
+
+<p>Sample input: <br>
+4 <br>
+1 <br>
+2 <br>
+5 <br>
+3 <br>
+Sample output:</p>
+
+<p>1 <br>
+2 <br>
+120 <br>
+6</p>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+int main() {  
+    vector&lt;vector&lt;int&gt; &gt; FACT(101,vector&lt;int&gt;(200,0));
+    FACT[0][0] = 1;
+
+    for (int i = 1; i &lt;= 100; ++i) {
+        for (int j = 0; j &lt; 199; ++j) {
+            FACT[i][j] += FACT[i-1][j]*i;
+            FACT[i][j+1] = FACT[i][j]/10;
+            FACT[i][j] %= 10;
+        }
+    }
+
+    int T;
+    cin &gt;&gt; T;
+
+    for (;T--;) {
+        int N;
+        cin &gt;&gt; N;
+
+        bool flag = false;
+        for (int i = 199; i &gt;= 0; --i) {
+            if (!flag &amp;&amp; FACT[N][i] == 0) {
+                continue;
+            } else {
+                flag = true;
+                cout &lt;&lt; FACT[N][i];
+            }
+        }
+        cout &lt;&lt; "\n";
+    }
+    return 0;
+}
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/fctr2/</link><guid isPermaLink="false">a50f1e5d-f0f0-4c67-984b-85757786536e</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Tue, 04 Nov 2014 13:18:27 GMT</pubDate></item><item><title><![CDATA[FCTRL]]></title><description><![CDATA[<p>The most important part of a GSM network is so called Base Transceiver Station (BTS). These transceivers form the areas called cells (this term gave the name to the cellular phone) and every phone connects to the BTS with the strongest signal (in a little simplified view). Of course, BTSes need some attention and technicians need to check their function periodically.</p>
+
+<p>ACM technicians faced a very interesting problem recently. Given a set of BTSes to visit, they needed to find the shortest path to visit all of the given points and return back to the central company building. Programmers have spent several months studying this problem but with no results. They were unable to find the solution fast enough. After a long time, one of the programmers found this problem in a conference article. Unfortunately, he found that the problem is so called "Travelling Salesman Problem" and it is very hard to solve. If we have N BTSes to be visited, we can visit them in any order, giving us N! possibilities to examine. The function expressing that number is called factorial and can be computed as a product 1.2.3.4....N. The number is very high even for a relatively small N.</p>
+
+<p>The programmers understood they had no chance to solve the problem. But because they have already received the research grant from the government, they needed to continue with their studies and produce at least some results. So they started to study behaviour of the factorial function.</p>
+
+<p>For example, they defined the function Z. For any positive integer N, Z(N) is the number of zeros at the end of the decimal form of number N!. They noticed that this function never decreases. If we have two numbers N1&lt;N2, then Z(N1) &lt;= Z(N2). It is because we can never "lose" any trailing zero by multiplying by any positive number. We can only get new and new zeros. The function Z is very interesting, so we need a computer program that can determine its value efficiently.</p>
+
+<h6 id="input">Input</h6>
+
+<p>There is a single positive integer T on the first line of input (equal to about 100000). It stands for the number of numbers to follow. Then there are T lines, each containing exactly one positive integer number N, 1 &lt;= N &lt;= 1000000000.</p>
+
+<h6 id="output">Output</h6>
+
+<p>For every number N, output a single line containing the single non-negative integer Z(N).</p>
+
+<p>Example: <br>
+Sample Input: <br>
+6 <br>
+3 <br>
+60 <br>
+100 <br>
+1024 <br>
+23456 <br>
+8735373</p>
+
+<p>Sample Output: <br>
+0 <br>
+14 <br>
+24 <br>
+253 <br>
+5861 <br>
+2183837</p>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;cmath&gt;
+
+using namespace std;
+
+int main() {  
+    int T;
+    cin &gt;&gt; T;
+
+    for (;T--;) {
+        int N, S = 0;
+        cin &gt;&gt; N;
+
+        int i = 1;
+        while(N/pow(5,i) &gt; 0) {
+            S += N/pow(5,i++);
+        }
+        cout &lt;&lt; S &lt;&lt; "\n";
+    }
+    return 0;
+}
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/fctrl/</link><guid isPermaLink="false">0f6efc29-dc81-4ecf-ab8b-0c6a683e6ce2</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Tue, 04 Nov 2014 12:37:09 GMT</pubDate></item><item><title><![CDATA[ADDREV]]></title><description><![CDATA[<p>The Antique Comedians of Malidinesia prefer comedies to tragedies. Unfortunately, most of the ancient plays are tragedies. Therefore the dramatic advisor of ACM has decided to transfigure some tragedies into comedies. Obviously, this work is very hard because the basic sense of the play must be kept intact, although all the things change to their opposites. For example the numbers: if any number appears in the tragedy, it must be converted to its reversed form before being accepted into the comedy play.</p>
 
 <p>Reversed number is a number written in arabic numerals but the order of digits is reversed. The first digit becomes last and vice versa. For example, if the main hero had 1245 strawberries in the tragedy, he has 5421 of them now. Note that all the leading zeros are omitted. That means if the number ends with a zero, the zero is lost by reversing (e.g. 1200 gives 21). Also note that the reversed number never has any trailing zeros.</p>
 
