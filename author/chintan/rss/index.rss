@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Chintan Ghate - Code Jedi]]></title><description><![CDATA[Code, algorithms and design.]]></description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Tue, 04 Nov 2014 13:39:34 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/author/chintan/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[ONP]]></title><description><![CDATA[<p>Transform the algebraic expression with brackets into RPN form (Reverse Polish Notation). Two-argument operators: +, -, <em>, /, ^ (priority from the lowest to the highest), brackets ( ). Operands: only letters: a,b,...,z. Assume that there is only one RPN form (no expressions like a</em>b*c).</p>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Chintan Ghate - Code Jedi]]></title><description><![CDATA[Code, algorithms and design.]]></description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Tue, 04 Nov 2014 16:34:16 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/author/chintan/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[ONP]]></title><description><![CDATA[<p>Transform the algebraic expression with brackets into RPN form (Reverse Polish Notation). Two-argument operators: +, -, <em>, /, ^ (priority from the lowest to the highest), brackets ( ). Operands: only letters: a,b,...,z. Assume that there is only one RPN form (no expressions like a</em>b*c).</p>
 
 <h6 id="input">Input</h6>
 
@@ -10,8 +10,9 @@ Text grouped in [ ] does not appear in the input file.</p>
 
 <h6 id="output">Output</h6>
 
-<p>The expressions in RPN form, one per line. <br>
-Example</p>
+<p>The expressions in RPN form, one per line.</p>
+
+<p>Example</p>
 
 <p>Input: <br>
 3 <br>
@@ -71,10 +72,10 @@ int main() {
 1 <br>
 2 <br>
 5 <br>
-3 <br>
-Sample output:</p>
+3</p>
 
-<p>1 <br>
+<p>Sample output: <br>
+1 <br>
 2 <br>
 120 <br>
 6</p>
@@ -134,8 +135,9 @@ int main() {
 
 <p>For every number N, output a single line containing the single non-negative integer Z(N).</p>
 
-<p>Example: <br>
-Sample Input: <br>
+<p>Example</p>
+
+<p>Sample Input: <br>
 6 <br>
 3 <br>
 60 <br>
@@ -191,16 +193,14 @@ int main() {
 
 <p>Example</p>
 
-<p>Sample input: </p>
-
-<p>3 <br>
+<p>Sample input: <br>
+3 <br>
 24 1 <br>
 4358 754 <br>
 305 794</p>
 
-<p>Sample output:</p>
-
-<p>34 <br>
+<p>Sample output: <br>
+34 <br>
 1998 <br>
 1</p>
 
@@ -254,11 +254,11 @@ int main() {
 
 <p>Example</p>
 
-<p>First two lines of input:</p>
+<p>First two lines of input: <br>
+1010110010 10110 <br>
+1110111011 10011</p>
 
-<p>1010110010 10110 <br>
-1110111011 10011 <br>
-First two lines of output: <br>
+<p>First two lines of output: <br>
 1 <br>
 0</p>
 

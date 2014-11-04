@@ -1,4 +1,4 @@
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Code Jedi</title><description>Code, algorithms and design.</description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Tue, 04 Nov 2014 13:39:34 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>ONP</title><description>&lt;p&gt;Transform the algebraic expression with brackets into RPN form (Reverse Polish Notation). Two-argument operators: +, -, &lt;em&gt;, /, ^ (priority from the lowest to the highest), brackets ( ). Operands: only letters: a,b,...,z. Assume that there is only one RPN form (no expressions like a&lt;/em&gt;b*c).&lt;/p&gt;
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Code Jedi</title><description>Code, algorithms and design.</description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Tue, 04 Nov 2014 16:34:15 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>ONP</title><description>&lt;p&gt;Transform the algebraic expression with brackets into RPN form (Reverse Polish Notation). Two-argument operators: +, -, &lt;em&gt;, /, ^ (priority from the lowest to the highest), brackets ( ). Operands: only letters: a,b,...,z. Assume that there is only one RPN form (no expressions like a&lt;/em&gt;b*c).&lt;/p&gt;
 
 &lt;h6 id="input"&gt;Input&lt;/h6&gt;
 
@@ -9,8 +9,9 @@ Text grouped in [ ] does not appear in the input file.&lt;/p&gt;
 
 &lt;h6 id="output"&gt;Output&lt;/h6&gt;
 
-&lt;p&gt;The expressions in RPN form, one per line. &lt;br&gt;
-Example&lt;/p&gt;
+&lt;p&gt;The expressions in RPN form, one per line.&lt;/p&gt;
+
+&lt;p&gt;Example&lt;/p&gt;
 
 &lt;p&gt;Input: &lt;br&gt;
 3 &lt;br&gt;
@@ -70,10 +71,10 @@ int main() {
 1 &lt;br&gt;
 2 &lt;br&gt;
 5 &lt;br&gt;
-3 &lt;br&gt;
-Sample output:&lt;/p&gt;
+3&lt;/p&gt;
 
-&lt;p&gt;1 &lt;br&gt;
+&lt;p&gt;Sample output: &lt;br&gt;
+1 &lt;br&gt;
 2 &lt;br&gt;
 120 &lt;br&gt;
 6&lt;/p&gt;
@@ -133,8 +134,9 @@ int main() {
 
 &lt;p&gt;For every number N, output a single line containing the single non-negative integer Z(N).&lt;/p&gt;
 
-&lt;p&gt;Example: &lt;br&gt;
-Sample Input: &lt;br&gt;
+&lt;p&gt;Example&lt;/p&gt;
+
+&lt;p&gt;Sample Input: &lt;br&gt;
 6 &lt;br&gt;
 3 &lt;br&gt;
 60 &lt;br&gt;
@@ -190,16 +192,14 @@ int main() {
 
 &lt;p&gt;Example&lt;/p&gt;
 
-&lt;p&gt;Sample input: &lt;/p&gt;
-
-&lt;p&gt;3 &lt;br&gt;
+&lt;p&gt;Sample input: &lt;br&gt;
+3 &lt;br&gt;
 24 1 &lt;br&gt;
 4358 754 &lt;br&gt;
 305 794&lt;/p&gt;
 
-&lt;p&gt;Sample output:&lt;/p&gt;
-
-&lt;p&gt;34 &lt;br&gt;
+&lt;p&gt;Sample output: &lt;br&gt;
+34 &lt;br&gt;
 1998 &lt;br&gt;
 1&lt;/p&gt;
 
@@ -253,11 +253,11 @@ int main() {
 
 &lt;p&gt;Example&lt;/p&gt;
 
-&lt;p&gt;First two lines of input:&lt;/p&gt;
+&lt;p&gt;First two lines of input: &lt;br&gt;
+1010110010 10110 &lt;br&gt;
+1110111011 10011&lt;/p&gt;
 
-&lt;p&gt;1010110010 10110 &lt;br&gt;
-1110111011 10011 &lt;br&gt;
-First two lines of output: &lt;br&gt;
+&lt;p&gt;First two lines of output: &lt;br&gt;
 1 &lt;br&gt;
 0&lt;/p&gt;
 
