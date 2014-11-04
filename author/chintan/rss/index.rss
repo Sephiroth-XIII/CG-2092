@@ -1,5 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Chintan Ghate - CG-2092]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Tue, 04 Nov 2014 07:17:53 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/author/chintan/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[SBSTR1]]></title><description><![CDATA[<p>Given two binary strings, A (of length 10) and B (of length 5), output 1 if B is a substring of A and 0 otherwise.</p>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Chintan Ghate - CG-2092]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Tue, 04 Nov 2014 08:13:50 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/author/chintan/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[ADDREV]]></title><description><![CDATA[<p>The Antique Comedians of Malidinesia prefer comedies to tragedies. Unfortunately, most of the ancient plays are tragedies. Therefore the dramatic advisor of ACM has decided to transfigure some tragedies into comedies. Obviously, this work is very hard because the basic sense of the play must be kept intact, although all the things change to their opposites. For example the numbers: if any number appears in the tragedy, it must be converted to its reversed form before being accepted into the comedy play.</p>
+
+<p>Reversed number is a number written in arabic numerals but the order of digits is reversed. The first digit becomes last and vice versa. For example, if the main hero had 1245 strawberries in the tragedy, he has 5421 of them now. Note that all the leading zeros are omitted. That means if the number ends with a zero, the zero is lost by reversing (e.g. 1200 gives 21). Also note that the reversed number never has any trailing zeros.</p>
+
+<p>ACM needs to calculate with reversed numbers. Your task is to add two reversed numbers and output their reversed sum. Of course, the result is not unique because any particular number is a reversed form of several numbers (e.g. 21 could be 12, 120 or 1200 before reversing). Thus we must assume that no zeros were lost by reversing (e.g. assume that the original number was 12).</p>
+
+<h6 id="input">Input</h6>
+
+<p>The input consists of N cases (equal to about 10000). The first line of the input contains only positive integer N. Then follow the cases. Each case consists of exactly one line with two positive integers separated by space. These are the reversed numbers you are to add.</p>
+
+<h6 id="output">Output</h6>
+
+<p>For each case, print exactly one line containing only one integer - the reversed sum of two reversed numbers. Omit any leading zeros in the output.</p>
+
+<p>Example</p>
+
+<p>Sample input: </p>
+
+<p>3 <br>
+24 1 <br>
+4358 754 <br>
+305 794</p>
+
+<p>Sample output:</p>
+
+<p>34 <br>
+1998 <br>
+1</p>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;sstream&gt;
+#include &lt;algorithm&gt;
+
+using namespace std;
+
+int revadd(string a, string b) {  
+    int x, y, z, ans;
+    istringstream iss(a);
+    iss &gt;&gt; x;
+    istringstream iss1(b);
+    iss1 &gt;&gt; y;
+    z = x + y;
+    ostringstream oss;
+    oss &lt;&lt; z;
+    string c = oss.str();
+    reverse(c.begin(), c.end());
+    istringstream iss3(c);
+    iss3 &gt;&gt; ans;
+    return ans;
+}
+
+int main() {  
+    int N;
+    cin &gt;&gt; N;
+
+    for(;N--;) {
+        string a, b;
+        cin &gt;&gt; a &gt;&gt; b;
+        reverse(a.begin(), a.end());
+        reverse(b.begin(), b.end());
+        cout &lt;&lt; revadd(a, b) &lt;&lt; "\n";
+    }
+    return 0;
+}
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/addrev/</link><guid isPermaLink="false">72ca342b-56d7-4657-98d4-1769dc74c7c0</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Tue, 04 Nov 2014 08:06:56 GMT</pubDate></item><item><title><![CDATA[SBSTR1]]></title><description><![CDATA[<p>Given two binary strings, A (of length 10) and B (of length 5), output 1 if B is a substring of A and 0 otherwise.</p>
 
 <h6 id="input">Input</h6>
 
@@ -23,19 +90,17 @@ First two lines of output: <br>
 
 <pre><code class="prettyprint">    #include &lt;iostream&gt;
     #include &lt;string&gt;
+
     using namespace std;
-    int main()
-    {
-        for (int i = 0; i &lt; 24; ++i)
-        {
+
+    int main() {
+        for (int i = 0; i &lt; 24; ++i) {
             string a, b;
             cin &gt;&gt; a &gt;&gt; b;
-            if (a.find(b) == string::npos)
-            {
+            if (a.find(b) == string::npos) {
                 cout &lt;&lt; "0\n";
             }
-            else
-            {
+            else {
                 cout &lt;&lt; "1\n";
             }
         }
@@ -71,36 +136,30 @@ First two lines of output: <br>
 
 <pre><code class="prettyprint">    #include &lt;iostream&gt;
     #include &lt;cmath&gt;
+
     using namespace std;
-    int main()
-    {
+
+    int main() {
         int T;
         cin &gt;&gt; T;
 
-        for(;T--;)
-        {
+        for(;T--;) {
             int a, b;
             cin &gt;&gt; a &gt;&gt; b;
 
-            for (int i = a; i &lt;= b; ++i)
-            {
-                if (i == 2)
-                {
+            for (int i = a; i &lt;= b; ++i) {
+                if (i == 2) {
                     printf("%d\n",i);
                 }
-                if (i%2 != 0 &amp;&amp; i != 1)
-                {
+                if (i%2 != 0 &amp;&amp; i != 1) {
                     bool flag = true;
-                    for (int j = 3; j &lt;= sqrt(i); j+=2)
-                    {
-                        if(i%j == 0)
-                        {
+                    for (int j = 3; j &lt;= sqrt(i); j+=2) {
+                        if(i%j == 0) {
                             flag = false;
                             break;
                         }
                     }
-                    if (flag)
-                    {
+                    if (flag) {
                         printf("%d\n",i);
                     }
                 }
@@ -128,12 +187,12 @@ First two lines of output: <br>
 <hr>
 
 <pre><code class="prettyprint">    #include &lt;iostream&gt;
+
     using namespace std;
-    int main()
-    {
+
+    int main() {
         int n;
-        while(cin &gt;&gt; n)
-        {
+        while(cin &gt;&gt; n) {
             if(n != 42)
                 cout &lt;&lt; n &lt;&lt; "\n";
             else 
