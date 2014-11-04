@@ -1,4 +1,4 @@
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>CG-2092</title><description>Thoughts, stories and ideas.</description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Tue, 04 Nov 2014 03:25:39 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>SBSTR1</title><description>&lt;p&gt;Given two binary strings, A (of length 10) and B (of length 5), output 1 if B is a substring of A and 0 otherwise.&lt;/p&gt;
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>CG-2092</title><description>Thoughts, stories and ideas.</description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Tue, 04 Nov 2014 04:59:29 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>SBSTR1</title><description>&lt;p&gt;Given two binary strings, A (of length 10) and B (of length 5), output 1 if B is a substring of A and 0 otherwise.&lt;/p&gt;
 
 &lt;h6 id="input"&gt;Input&lt;/h6&gt;
 
@@ -20,27 +20,28 @@ First two lines of output: &lt;br&gt;
 
 &lt;hr&gt;
 
-&lt;pre&gt;&lt;code&gt;#include &amp;lt;iostream&amp;gt;
-#include &amp;lt;string&amp;gt;
-using namespace std;
-int main()
-{
-    for (int i = 0; i &amp;lt; 24; ++i)
+&lt;pre class="prettyprint"&gt;  
+    #include &amp;lt;iostream&gt;
+    #include &amp;lt;string&gt;
+    using namespace std;
+    int main()
     {
-        string a, b;
-        cin &amp;gt;&amp;gt; a &amp;gt;&amp;gt; b;
-        if (a.find(b) == string::npos)
+        for (int i = 0; i &lt; 24; ++i)
         {
-            cout &amp;lt;&amp;lt; "0\n";
+            string a, b;
+            cin &gt;&gt; a &gt;&gt; b;
+            if (a.find(b) == string::npos) // A long long line
+            {
+                cout &lt;&lt; "0\n";
+            }
+            else
+            {
+                cout &lt;&lt; "1\n";
+            }
         }
-        else
-        {
-            cout &amp;lt;&amp;lt; "1\n";
-        }
+        return 0;
     }
-    return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/sbstr1/</link><guid isPermaLink="false">bab76c32-6583-45f4-b3c7-8a507a28fe5e</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Mon, 03 Nov 2014 23:32:59 GMT</pubDate></item><item><title>PRIME1</title><description>&lt;p&gt;Peter wants to generate some prime numbers for his cryptosystem. Help him! Your task is to generate all prime numbers between two given numbers!&lt;/p&gt;
+&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/sbstr1/</link><guid isPermaLink="false">bab76c32-6583-45f4-b3c7-8a507a28fe5e</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Mon, 03 Nov 2014 23:32:59 GMT</pubDate></item><item><title>PRIME1</title><description>&lt;p&gt;Peter wants to generate some prime numbers for his cryptosystem. Help him! Your task is to generate all prime numbers between two given numbers!&lt;/p&gt;
 
 &lt;h6 id="input"&gt;Input&lt;/h6&gt;
 
@@ -68,47 +69,21 @@ int main()
 
 &lt;hr&gt;
 
-&lt;pre&gt;&lt;code&gt;#include &amp;lt;iostream&amp;gt;
-#include &amp;lt;cmath&amp;gt;
-using namespace std;
-int main()
-{
-    int T;
-    cin &amp;gt;&amp;gt; T;
-
-    for(;T--;)
+&lt;pre class="prettyprint"&gt;  
+    #include &amp;lt;iostream&gt;
+    #include &amp;lt;cmath&gt;
+    using namespace std;
+    int main()
     {
-        int a, b;
-        cin &amp;gt;&amp;gt; a &amp;gt;&amp;gt; b;
+        int T;
+        cin &gt;&gt; T;
 
-        for (int i = a; i &amp;lt;= b; ++i)
+        for(;T--;)
         {
-            if (i == 2)
-            {
-                printf("%d\n",i);
-            }
-            if (i%2 != 0 &amp;amp;&amp;amp; i != 1)
-            {
-                bool flag = true;
-                for (int j = 3; j &amp;lt;= sqrt(i); j+=2)
-                {
-                    if(i%j == 0)
-                    {
-                        flag = false;
-                        break;
-                    }
-                }
-                if (flag)
-                {
-                    printf("%d\n",i);
-                }
-            }
-        }
-        printf("\n");
-    }
-    return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/prime1/</link><guid isPermaLink="false">cd4ed102-9475-4ce2-b3a9-25987645d009</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Mon, 03 Nov 2014 23:25:33 GMT</pubDate></item><item><title>TEST</title><description>&lt;p&gt;Your program is to use the brute-force approach in order to find the Answer to Life, the Universe, and Everything. More precisely... rewrite small numbers from input to output. Stop processing input after reading in the number 42. All numbers at input are integers of one or two digits.&lt;/p&gt;
+            int a, b;
+            cin &gt;&gt; a &gt;&gt; b;
+
+            for (int i = a; i &lt;= b;="" ++i)="" {="" if="" (i="=" 2)="" printf("%d\n",i);="" }="" (i%2="" !="0" &amp;&amp;="" i="" bool="" flag="true;" for="" (int="" j="3;" &lt;="sqrt(i);" j+="2)" if(i%j="=" 0)="" break;="" (flag)="" printf("\n");="" return="" 0;="" pre=""&gt;&lt;/=&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/prime1/</link><guid isPermaLink="false">cd4ed102-9475-4ce2-b3a9-25987645d009</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Mon, 03 Nov 2014 23:25:33 GMT</pubDate></item><item><title>TEST</title><description>&lt;p&gt;Your program is to use the brute-force approach in order to find the Answer to Life, the Universe, and Everything. More precisely... rewrite small numbers from input to output. Stop processing input after reading in the number 42. All numbers at input are integers of one or two digits.&lt;/p&gt;
 
 &lt;p&gt;Example&lt;/p&gt;
 
@@ -126,18 +101,19 @@ int main()
 
 &lt;hr&gt;
 
-&lt;pre&gt;&lt;code&gt;#include &amp;lt;iostream&amp;gt;
-using namespace std;
-int main()
-{
-    int n;
-    while(cin &amp;gt;&amp;gt; n)
+&lt;pre class="prettyprint"&gt;  
+    #include &amp;lt;iostream&gt;
+    using namespace std;
+    int main()
     {
-        if(n != 42)
-            cout &amp;lt;&amp;lt; n &amp;lt;&amp;lt; "\n";
-        else 
-            break;
+        int n;
+        while(cin &gt;&gt; n)
+        {
+            if(n != 42)
+                cout &lt;&lt; n &lt;&lt; "\n";
+            else 
+                break;
+        }
+        return 0;
     }
-    return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/welcome-to-ghost/</link><guid isPermaLink="false">f04afdf3-c6e4-4ede-88ff-cf1a38e344f6</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Mon, 03 Nov 2014 08:12:01 GMT</pubDate></item></channel></rss>
+&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/test/</link><guid isPermaLink="false">f2321372-ed41-4695-acad-597953ced016</guid><dc:creator>Chintan Ghate</dc:creator><pubDate>Mon, 03 Nov 2014 04:59:00 GMT</pubDate></item></channel></rss>
