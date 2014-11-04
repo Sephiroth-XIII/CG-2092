@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[SPOJ - CG-2092]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Tue, 04 Nov 2014 04:59:30 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/tag/spoj/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[SBSTR1]]></title><description><![CDATA[<p>Given two binary strings, A (of length 10) and B (of length 5), output 1 if B is a substring of A and 0 otherwise.</p>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[SPOJ - CG-2092]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Tue, 04 Nov 2014 05:29:33 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/tag/spoj/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[SBSTR1]]></title><description><![CDATA[<p>Given two binary strings, A (of length 10) and B (of length 5), output 1 if B is a substring of A and 0 otherwise.</p>
 
 <h6 id="input">Input</h6>
 
@@ -21,28 +21,27 @@ First two lines of output: <br>
 
 <hr>
 
-<pre class="prettyprint">  
-    #include &lt;iostream>
-    #include &lt;string>
+<pre><code class="prettyprint">    #include &lt;iostream&gt;
+    #include &lt;string&gt;
     using namespace std;
     int main()
     {
-        for (int i = 0; i < 24; ++i)
+        for (int i = 0; i &lt; 24; ++i)
         {
             string a, b;
-            cin >> a >> b;
-            if (a.find(b) == string::npos) // A long long line
+            cin &gt;&gt; a &gt;&gt; b;
+            if (a.find(b) == string::npos)
             {
-                cout << "0\n";
+                cout &lt;&lt; "0\n";
             }
             else
             {
-                cout << "1\n";
+                cout &lt;&lt; "1\n";
             }
         }
         return 0;
     }
-</pre>]]></description><link>http://code-jedi.chintanghate.me/sbstr1/</link><guid isPermaLink="false">bab76c32-6583-45f4-b3c7-8a507a28fe5e</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Mon, 03 Nov 2014 23:32:59 GMT</pubDate></item><item><title><![CDATA[PRIME1]]></title><description><![CDATA[<p>Peter wants to generate some prime numbers for his cryptosystem. Help him! Your task is to generate all prime numbers between two given numbers!</p>
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/sbstr1/</link><guid isPermaLink="false">bab76c32-6583-45f4-b3c7-8a507a28fe5e</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Mon, 03 Nov 2014 23:32:59 GMT</pubDate></item><item><title><![CDATA[PRIME1]]></title><description><![CDATA[<p>Peter wants to generate some prime numbers for his cryptosystem. Help him! Your task is to generate all prime numbers between two given numbers!</p>
 
 <h6 id="input">Input</h6>
 
@@ -70,18 +69,44 @@ First two lines of output: <br>
 
 <hr>
 
-<pre class="prettyprint">  
-    #include &lt;iostream>
-    #include &lt;cmath>
+<pre><code class="prettyprint">    #include &lt;iostream&gt;
+    #include &lt;cmath&gt;
     using namespace std;
     int main()
     {
         int T;
-        cin >> T;
+        cin &gt;&gt; T;
 
         for(;T--;)
         {
             int a, b;
-            cin >> a >> b;
+            cin &gt;&gt; a &gt;&gt; b;
 
-            for (int i = a; i <= b;="" ++i)="" {="" if="" (i="=" 2)="" printf("%d\n",i);="" }="" (i%2="" !="0" &&="" i="" bool="" flag="true;" for="" (int="" j="3;" <="sqrt(i);" j+="2)" if(i%j="=" 0)="" break;="" (flag)="" printf("\n");="" return="" 0;="" pre=""></=></pre>]]></description><link>http://code-jedi.chintanghate.me/prime1/</link><guid isPermaLink="false">cd4ed102-9475-4ce2-b3a9-25987645d009</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Mon, 03 Nov 2014 23:25:33 GMT</pubDate></item></channel></rss>
+            for (int i = a; i &lt;= b; ++i)
+            {
+                if (i == 2)
+                {
+                    printf("%d\n",i);
+                }
+                if (i%2 != 0 &amp;&amp; i != 1)
+                {
+                    bool flag = true;
+                    for (int j = 3; j &lt;= sqrt(i); j+=2)
+                    {
+                        if(i%j == 0)
+                        {
+                            flag = false;
+                            break;
+                        }
+                    }
+                    if (flag)
+                    {
+                        printf("%d\n",i);
+                    }
+                }
+            }
+            printf("\n");
+        }
+        return 0;
+    }
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/prime1/</link><guid isPermaLink="false">cd4ed102-9475-4ce2-b3a9-25987645d009</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Mon, 03 Nov 2014 23:25:33 GMT</pubDate></item></channel></rss>

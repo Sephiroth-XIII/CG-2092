@@ -1,17 +1,9 @@
-:host {
-    display: block;
-};
-
 code,pre {
     color: #9f499b;
 }
       
 pre, .prettyprint {
-    overflow-x: scroll;
-    white-space:pre-wrap;
     background-color: #fafafa;
-    padding: 16px;
-    margin: 0;
 }
       
 pre .typ,pre .inline,.prettyprint .typ,.prettyprint .inline {
