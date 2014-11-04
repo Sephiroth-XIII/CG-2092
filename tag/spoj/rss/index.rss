@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[SPOJ - CG-2092]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Tue, 04 Nov 2014 08:13:50 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/tag/spoj/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[ADDREV]]></title><description><![CDATA[<p>The Antique Comedians of Malidinesia prefer comedies to tragedies. Unfortunately, most of the ancient plays are tragedies. Therefore the dramatic advisor of ACM has decided to transfigure some tragedies into comedies. Obviously, this work is very hard because the basic sense of the play must be kept intact, although all the things change to their opposites. For example the numbers: if any number appears in the tragedy, it must be converted to its reversed form before being accepted into the comedy play.</p>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[SPOJ - CG-2092]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Tue, 04 Nov 2014 08:42:38 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/tag/spoj/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[ADDREV]]></title><description><![CDATA[<p>The Antique Comedians of Malidinesia prefer comedies to tragedies. Unfortunately, most of the ancient plays are tragedies. Therefore the dramatic advisor of ACM has decided to transfigure some tragedies into comedies. Obviously, this work is very hard because the basic sense of the play must be kept intact, although all the things change to their opposites. For example the numbers: if any number appears in the tragedy, it must be converted to its reversed form before being accepted into the comedy play.</p>
 
 <p>Reversed number is a number written in arabic numerals but the order of digits is reversed. The first digit becomes last and vice versa. For example, if the main hero had 1245 strawberries in the tragedy, he has 5421 of them now. Note that all the leading zeros are omitted. That means if the number ends with a zero, the zero is lost by reversing (e.g. 1200 gives 21). Also note that the reversed number never has any trailing zeros.</p>
 
@@ -88,24 +88,23 @@ First two lines of output: <br>
 
 <hr>
 
-<pre><code class="prettyprint">    #include &lt;iostream&gt;
-    #include &lt;string&gt;
+<pre><code class="prettyprint">#include &lt;iostream&gt;    
+#include &lt;string&gt;
 
-    using namespace std;
+using namespace std;
 
-    int main() {
-        for (int i = 0; i &lt; 24; ++i) {
-            string a, b;
-            cin &gt;&gt; a &gt;&gt; b;
-            if (a.find(b) == string::npos) {
-                cout &lt;&lt; "0\n";
-            }
-            else {
+int main() {  
+    for (int i = 0; i &lt; 24; ++i) {
+        string a, b;
+        cin &gt;&gt; a &gt;&gt; b;
+        if (a.find(b) == string::npos) {
+            cout &lt;&lt; "0\n";
+        } else {
                 cout &lt;&lt; "1\n";
-            }
         }
-        return 0;
     }
+    return 0;
+}
 </code></pre>]]></description><link>http://code-jedi.chintanghate.me/sbstr1/</link><guid isPermaLink="false">bab76c32-6583-45f4-b3c7-8a507a28fe5e</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Mon, 03 Nov 2014 23:32:59 GMT</pubDate></item><item><title><![CDATA[PRIME1]]></title><description><![CDATA[<p>Peter wants to generate some prime numbers for his cryptosystem. Help him! Your task is to generate all prime numbers between two given numbers!</p>
 
 <h6 id="input">Input</h6>
@@ -134,40 +133,40 @@ First two lines of output: <br>
 
 <hr>
 
-<pre><code class="prettyprint">    #include &lt;iostream&gt;
-    #include &lt;cmath&gt;
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;cmath&gt;
 
-    using namespace std;
+using namespace std;
 
-    int main() {
-        int T;
-        cin &gt;&gt; T;
+int main() {  
+    int T;
+    cin &gt;&gt; T;
 
-        for(;T--;) {
-            int a, b;
-            cin &gt;&gt; a &gt;&gt; b;
+    for(;T--;) {
+        int a, b;
+        cin &gt;&gt; a &gt;&gt; b;
 
-            for (int i = a; i &lt;= b; ++i) {
-                if (i == 2) {
+        for (int i = a; i &lt;= b; ++i) {
+            if (i == 2) {
+                printf("%d\n",i);
+            }
+            if (i%2 != 0 &amp;&amp; i != 1) {
+                bool flag = true;
+                for (int j = 3; j &lt;= sqrt(i); j+=2) {
+                    if(i%j == 0) {
+                        flag = false;
+                        break;
+                    }
+                }
+                if (flag) {
                     printf("%d\n",i);
                 }
-                if (i%2 != 0 &amp;&amp; i != 1) {
-                    bool flag = true;
-                    for (int j = 3; j &lt;= sqrt(i); j+=2) {
-                        if(i%j == 0) {
-                            flag = false;
-                            break;
-                        }
-                    }
-                    if (flag) {
-                        printf("%d\n",i);
-                    }
-                }
             }
-            printf("\n");
         }
-        return 0;
+        printf("\n");
     }
+    return 0;
+}
 </code></pre>]]></description><link>http://code-jedi.chintanghate.me/prime1/</link><guid isPermaLink="false">cd4ed102-9475-4ce2-b3a9-25987645d009</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Mon, 03 Nov 2014 23:25:33 GMT</pubDate></item><item><title><![CDATA[TEST]]></title><description><![CDATA[<p>Your program is to use the brute-force approach in order to find the Answer to Life, the Universe, and Everything. More precisely... rewrite small numbers from input to output. Stop processing input after reading in the number 42. All numbers at input are integers of one or two digits.</p>
 
 <p>Example</p>
@@ -186,18 +185,19 @@ First two lines of output: <br>
 
 <hr>
 
-<pre><code class="prettyprint">    #include &lt;iostream&gt;
+<pre><code class="prettyprint">#include &lt;iostream&gt;
 
-    using namespace std;
+using namespace std;
 
-    int main() {
-        int n;
-        while(cin &gt;&gt; n) {
-            if(n != 42)
-                cout &lt;&lt; n &lt;&lt; "\n";
-            else 
-                break;
+int main() {  
+    int n;
+    while(cin &gt;&gt; n) {
+        if(n != 42) {
+            cout &lt;&lt; n &lt;&lt; "\n";
+        } else { 
+            break;
         }
-        return 0;
     }
+    return 0;
+}
 </code></pre>]]></description><link>http://code-jedi.chintanghate.me/test/</link><guid isPermaLink="false">f2321372-ed41-4695-acad-597953ced016</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Mon, 03 Nov 2014 04:59:00 GMT</pubDate></item></channel></rss>

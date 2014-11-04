@@ -23,7 +23,7 @@
     <meta property="og:description" content="Your program is to use the brute-force approach in order to find the Answer to Life, the Universe, and Everything. More precisely... rewrite small numbers from input to output. Stop processing input after reading in the number 42. All numbers...">
     <meta property="og:url" content="http://code-jedi.chintanghate.me/test/">
     <meta property="article:published_time" content="2014-11-03T04:59:00.000Z">
-    <meta property="article:modified_time" content="2014-11-04T08:12:38.414Z">
+    <meta property="article:modified_time" content="2014-11-04T08:40:40.076Z">
     <meta property="article:tag" content="SPOJ">
     
     <meta name="twitter:card" content="content">
@@ -45,7 +45,7 @@
     "headline": "TEST",
     "url": "http://code-jedi.chintanghate.me/test/",
     "datePublished": "2014-11-03T04:59:00.000Z",
-    "dateModified": "2014-11-04T08:12:38.414Z",
+    "dateModified": "2014-11-04T08:40:40.076Z",
     "keywords": "SPOJ",
     "description": "Your program is to use the brute-force approach in order to find the Answer to Life, the Universe, and Everything. More precisely... rewrite small numbers from input to output. Stop processing input after reading in the number 42. All numbers"
 }
@@ -96,20 +96,21 @@
 
 <hr>
 
-<pre><code class="prettyprint">    #include &lt;iostream&gt;
+<pre><code class="prettyprint">#include &lt;iostream&gt;
 
-    using namespace std;
+using namespace std;
 
-    int main() {
-        int n;
-        while(cin &gt;&gt; n) {
-            if(n != 42)
-                cout &lt;&lt; n &lt;&lt; "\n";
-            else 
-                break;
+int main() {  
+    int n;
+    while(cin &gt;&gt; n) {
+        if(n != 42) {
+            cout &lt;&lt; n &lt;&lt; "\n";
+        } else { 
+            break;
         }
-        return 0;
     }
+    return 0;
+}
 </code></pre>
         </section>
 
