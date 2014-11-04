@@ -1,4 +1,4 @@
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>CG-2092</title><description>Thoughts, stories and ideas.</description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Tue, 04 Nov 2014 05:29:32 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>SBSTR1</title><description>&lt;p&gt;Given two binary strings, A (of length 10) and B (of length 5), output 1 if B is a substring of A and 0 otherwise.&lt;/p&gt;
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>CG-2092</title><description>Thoughts, stories and ideas.</description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Tue, 04 Nov 2014 07:17:53 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>SBSTR1</title><description>&lt;p&gt;Given two binary strings, A (of length 10) and B (of length 5), output 1 if B is a substring of A and 0 otherwise.&lt;/p&gt;
 
 &lt;h6 id="input"&gt;Input&lt;/h6&gt;
 
@@ -140,4 +140,4 @@ First two lines of output: &lt;br&gt;
         }
         return 0;
     }
-&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/test/</link><guid isPermaLink="false">f2321372-ed41-4695-acad-597953ced016</guid><dc:creator>Chintan Ghate</dc:creator><pubDate>Mon, 03 Nov 2014 04:59:00 GMT</pubDate></item></channel></rss>
+&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/test/</link><guid isPermaLink="false">f2321372-ed41-4695-acad-597953ced016</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Mon, 03 Nov 2014 04:59:00 GMT</pubDate></item></channel></rss>
