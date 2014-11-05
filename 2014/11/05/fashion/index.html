@@ -1,0 +1,200 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>FASHION</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css?v=249f79c55a">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+    <link href="../../../../assets/css/prettify.css?v=249f79c55a" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="../../../../assets/js/prettify.js?v=249f79c55a"></script>
+    <link rel="canonical" href="http://code-jedi.chintanghate.me/2014/11/05/fashion/">
+    
+    <meta property="og:site_name" content="Code Jedi">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="FASHION">
+    <meta property="og:description" content="A fashion show rates participants according to their level of hotness. Two different fashion shows were organized, one for men and the other for women. A date for the third is yet to be decided ;) . Now the results of both...">
+    <meta property="og:url" content="http://code-jedi.chintanghate.me/2014/11/05/fashion/">
+    <meta property="article:published_time" content="2014-11-05T08:41:22.013Z">
+    <meta property="article:modified_time" content="2014-11-05T08:43:55.204Z">
+    <meta property="article:tag" content="SPOJ">
+    
+    <meta name="twitter:card" content="content">
+    <meta name="twitter:title" content="FASHION">
+    <meta name="twitter:description" content="A fashion show rates participants according to their level of hotness. Two different fashion shows were organized, one for men and the other for women. A date for the third is yet to be decided ;) . Now the results of both...">
+    <meta name="twitter:url" content="http://code-jedi.chintanghate.me/2014/11/05/fashion/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Code Jedi",
+    "author": {
+        "@type": "Person",
+        "name": "Chintan Ghate",
+        "url": "http://code-jedi.chintanghate.me/author/chintan",
+        "sameAs": null
+    },
+    "headline": "FASHION",
+    "url": "http://code-jedi.chintanghate.me/2014/11/05/fashion/",
+    "datePublished": "2014-11-05T08:41:22.013Z",
+    "dateModified": "2014-11-05T08:43:55.204Z",
+    "keywords": "SPOJ",
+    "description": "A fashion show rates participants according to their level of hotness. Two different fashion shows were organized, one for men and the other for women. A date for the third is yet to be decided ;) . Now the results of both"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Code Jedi" href="../../../../rss/index.html">
+</head>
+<body class="post-template tag-spoj" onload="prettyPrint()">
+
+    
+
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        <a class="back-button icon-arrow-left" href="http://code-jedi.chintanghate.me">Home</a>
+        <a class="subscribe-button icon-feed" href="http://code-jedi.chintanghate.me/rss/index.rss">Subscribe</a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+
+    <article class="post tag-spoj">
+
+        <header class="post-header">
+            <h1 class="post-title">FASHION</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2014-11-05">05 November 2014</time>  on <a href="../../../../tag/spoj/">SPOJ</a>
+            </section>
+        </header>
+
+        <section class="post-content">
+            <p>A fashion show rates participants according to their level of hotness. Two different fashion shows were organized, one for men and the other for women. A date for the third is yet to be decided ;) .</p>
+
+<p>Now the results of both fashion shows are out. The participants of both the fashion shows have decided to date each other, but as usual they have difficuly in choosing their partners. The Maximum Match dating service (MMDS) comes to their rescue and matches them in such a way that that maximizes the hotness bonds for all couples.</p>
+
+<p>If a man has been rated at hotness level x and a women at hotness level y, the value of their hotness bond is x*y.</p>
+
+<p>Both fashion shows contain N participants each. MMDS has done its job and your job is to find the sum of hotness bonds for all the couples that MMDS has proposed.</p>
+
+<h6 id="input">Input</h6>
+
+<p>The first line of the input contains an integer t, the number of test cases. t test cases follow.</p>
+
+<p>Each test case consists of 3 lines:</p>
+
+<p>The first line contains a single integer N (1 &lt;= N &lt;= 1000). <br>
+The second line contains N integers separated by single spaces denoting the hotness levels of the men. <br>
+The third line contains N integers separated by single spaces denoting the hotness levels of the women. <br>
+All hotness ratings are on a scale of 0 to 10.</p>
+
+<h6 id="output">Output</h6>
+
+<p>For each test case output a single line containing a single integer denoting the sum of the hotness bonds for all pairs that MMDS has proposed.</p>
+
+<p>Example</p>
+
+<p>Input: <br>
+2 <br>
+2 <br>
+1 1 <br>
+3 2 <br>
+3 <br>
+2 3 2 <br>
+1 3 2</p>
+
+<p>Output: <br>
+5 <br>
+15</p>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+
+using namespace std;
+
+int main() {  
+    int T;
+    cin &gt;&gt; T;
+
+    for(;T--;) {
+        int N;
+        cin &gt;&gt; N;
+        vector&lt;int&gt; MH(N), WH(N);
+        for (int i = 0; i &lt; N; ++i) {
+            cin &gt;&gt; MH[i];
+        }
+        for (int i = 0; i &lt; N; ++i) {
+            cin &gt;&gt; WH[i];
+        }
+        sort(MH.begin(), MH.end());
+        sort(WH.begin(), WH.end());
+        int total = 0;
+        for (int i = 0; i &lt; N; ++i) {
+            total += MH[i]*WH[i];
+        }
+        cout &lt;&lt; total &lt;&lt; "\n";
+    }
+    return 0;
+}
+</code></pre>
+        </section>
+
+        <footer class="post-footer">
+
+
+
+            <section class="author">
+                <h4><a href="../../../../author/chintan/">Chintan Ghate</a></h4>
+
+                    <p>Read <a href="../../../../author/chintan/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/share?text=FASHION&amp;url=http://code-jedi.chintanghate.me/2014/11/05/fashion/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://code-jedi.chintanghate.me/2014/11/05/fashion/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://code-jedi.chintanghate.me/2014/11/05/fashion/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+    </article>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+         <section class="copyright"><a href="http://code-jedi.chintanghate.me">Code Jedi</a> © 2014</section>
+         <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+    </footer>
+
+    <script src="../../../../public/jquery.js?v=249f79c55a"></script>
+
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js?v=249f79c55a"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js?v=249f79c55a"></script>
+
+</body>

@@ -1,5 +1,242 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[SPOJ - Code Jedi]]></title><description><![CDATA[Code, algorithms and design.]]></description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Wed, 05 Nov 2014 05:04:31 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/tag/spoj/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[ACPC10A]]></title><description><![CDATA[<p>According to Wikipedia, an arithmetic progression (AP) is a sequence of numbers such that the difference of any two successive members of the sequence is a constant. For instance, the sequence 3, 5, 7, 9, 11, 13, . . . is an arithmetic progression with common difference 2. For this problem, we will limit ourselves to arithmetic progression whose common difference is a non-zero integer. <br>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[SPOJ - Code Jedi]]></title><description><![CDATA[Code, algorithms and design.]]></description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Wed, 05 Nov 2014 11:01:14 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/tag/spoj/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[JULKA]]></title><description><![CDATA[<p>Julka surprised her teacher at preschool by solving the following riddle:</p>
+
+<p>Klaudia and Natalia have 10 apples together, but Klaudia has two apples more than Natalia. How many apples does each of he girls have?</p>
+
+<p>Julka said without thinking: Klaudia has 6 apples and Natalia 4 apples. The teacher tried to check if Julka's answer wasn't accidental and repeated the riddle every time increasing the numbers. Every time Julka answered correctly. The surprised teacher wanted to continue questioning Julka, but with big numbers she could't solve the riddle fast enough herself. Help the teacher and write a program which will give her the right answers.</p>
+
+<h6 id="task">Task</h6>
+
+<ul>
+<li>Write a program which reads from standard input the number of apples the girls have together and how many more apples Klaudia has.</li>
+<li>Counts the number of apples belonging to Klaudia and the number of apples belonging to Natalia.</li>
+<li>Writes the outcome to standard output.</li>
+</ul>
+
+<h6 id="input">Input</h6>
+
+<p>Ten test cases (given one under another, you have to process all!). Every test case consists of two lines. The first line says how many apples both girls have together. The second line says how many more apples Klaudia has. Both numbers are positive integers. It is known that both girls have no more than 10<sup>100</sup> (1 and 100 zeros) apples together. As you can see apples can be very small.</p>
+
+<h6 id="output">Output</h6>
+
+<p>For every test case your program should output two lines. The first line should contain the number of apples belonging to Klaudia. The second line should contain the number of apples belonging to Natalia.</p>
+
+<p>Example</p>
+
+<p>Input: <br>
+10 <br>
+2 <br>
+[and 9 test cases more]</p>
+
+<p>Output: <br>
+6 <br>
+4 <br>
+[and 9 test cases more]</p>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+
+using namespace std;
+
+string vectorToIntString(vector&lt;int&gt; A) {  
+    string S = "";
+    bool flag = false;
+    for (int i = A.size() - 1; i &gt;= 0 ; --i) {
+        if (!flag &amp;&amp; A[i] == 0) {
+            continue;
+        } else {
+            flag = true;
+            S += char(A[i]+'0');
+        }
+    }
+    return S;
+}
+
+//(A-B)
+vector&lt;int&gt; vectorSubstraction(vector&lt;int&gt; A, vector&lt;int&gt; B) {  
+    for (int i = 0; i &lt; A.size(); ++i) {
+        if (A[i] &gt;= B[i]) {
+            A[i] -= B[i];
+        } else {
+            A[i] += 10;
+            A[i] -= B[i];
+            --A[i+1];
+        }
+    }
+    return A;
+}
+
+//(A/n)
+vector&lt;int&gt; vectorDivision(vector&lt;int&gt; A, int n) {  
+    int current = 0;
+    for (int i = A.size() - 1; i &gt;= 0; --i)
+    {
+        current *= 10;
+        current += A[i];
+        A[i] = current / 2;
+        current %= 2;
+    }
+    return A;
+}
+
+int main() {  
+    for (int T = 0; T &lt; 10; ++T) {
+        string t, m;
+        cin &gt;&gt; t &gt;&gt; m;
+        vector&lt;int&gt; total(102,0), more(102,0), totalCopy(102,0);
+        for (int i = 0; i &lt; t.size(); ++i) {
+            total[i] = t[t.size()-1-i]-'0';
+        }
+        totalCopy = total;
+        for (int i = 0; i &lt; m.size(); ++i) {
+            more[i] = m[m.size()-1-i] - '0';
+        }
+
+        total = vectorSubstraction(total,more);
+        total = vectorDivision(total,2);
+        totalCopy = vectorSubstraction(totalCopy,total);
+        cout &lt;&lt; vectorToIntString(totalCopy) &lt;&lt; "\n";
+        cout &lt;&lt; vectorToIntString(total) &lt;&lt; "\n";
+    }
+    return 0;
+}
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/05/julka/</link><guid isPermaLink="false">c097ec1f-52d9-489f-a1f7-5992d20768a2</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Wed, 05 Nov 2014 09:36:58 GMT</pubDate></item><item><title><![CDATA[FASHION]]></title><description><![CDATA[<p>A fashion show rates participants according to their level of hotness. Two different fashion shows were organized, one for men and the other for women. A date for the third is yet to be decided ;) .</p>
+
+<p>Now the results of both fashion shows are out. The participants of both the fashion shows have decided to date each other, but as usual they have difficuly in choosing their partners. The Maximum Match dating service (MMDS) comes to their rescue and matches them in such a way that that maximizes the hotness bonds for all couples.</p>
+
+<p>If a man has been rated at hotness level x and a women at hotness level y, the value of their hotness bond is x*y.</p>
+
+<p>Both fashion shows contain N participants each. MMDS has done its job and your job is to find the sum of hotness bonds for all the couples that MMDS has proposed.</p>
+
+<h6 id="input">Input</h6>
+
+<p>The first line of the input contains an integer t, the number of test cases. t test cases follow.</p>
+
+<p>Each test case consists of 3 lines:</p>
+
+<p>The first line contains a single integer N (1 &lt;= N &lt;= 1000). <br>
+The second line contains N integers separated by single spaces denoting the hotness levels of the men. <br>
+The third line contains N integers separated by single spaces denoting the hotness levels of the women. <br>
+All hotness ratings are on a scale of 0 to 10.</p>
+
+<h6 id="output">Output</h6>
+
+<p>For each test case output a single line containing a single integer denoting the sum of the hotness bonds for all pairs that MMDS has proposed.</p>
+
+<p>Example</p>
+
+<p>Input: <br>
+2 <br>
+2 <br>
+1 1 <br>
+3 2 <br>
+3 <br>
+2 3 2 <br>
+1 3 2</p>
+
+<p>Output: <br>
+5 <br>
+15</p>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+
+using namespace std;
+
+int main() {  
+    int T;
+    cin &gt;&gt; T;
+
+    for(;T--;) {
+        int N;
+        cin &gt;&gt; N;
+        vector&lt;int&gt; MH(N), WH(N);
+        for (int i = 0; i &lt; N; ++i) {
+            cin &gt;&gt; MH[i];
+        }
+        for (int i = 0; i &lt; N; ++i) {
+            cin &gt;&gt; WH[i];
+        }
+        sort(MH.begin(), MH.end());
+        sort(WH.begin(), WH.end());
+        int total = 0;
+        for (int i = 0; i &lt; N; ++i) {
+            total += MH[i]*WH[i];
+        }
+        cout &lt;&lt; total &lt;&lt; "\n";
+    }
+    return 0;
+}
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/05/fashion/</link><guid isPermaLink="false">ab3b5bc5-75c8-47f3-ab82-adbc88c4bc55</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Wed, 05 Nov 2014 08:41:22 GMT</pubDate></item><item><title><![CDATA[CANDY]]></title><description><![CDATA[<p>Jennifer is a teacher in the first year of a primary school. She has gone for a trip with her class today. She has taken a packet of candies for each child. Unfortunatelly, the sizes of the packets are not the same.</p>
+
+<p>Jennifer is afraid that each child will want to have the biggest packet of candies and this will lead to quarrels or even fights among children. She wants to avoid this. Therefore, she has decided to open all the packets, count the candies in each packet and move some candies from bigger packets to smaller ones so that each packet will contain the same number of candies. The question is how many candies she has to move.</p>
+
+<h6 id="input">Input</h6>
+
+<p>The input file consists of several blocks of data. Each block starts with the number of candy packets N(1&lt;= N &lt;=10000) followed by N integers (each less than 1000) in separate lines, giving the number of candies in each packet. After the last block of data there is the number -1.</p>
+
+<h6 id="output">Output</h6>
+
+<p>The output file should contain one line with the smallest number of moves for each block of data. One move consists of taking one candy from a packet and putting it into another one. If it is not possible to have the same number of candies in each packet, output the number -1.</p>
+
+<p>Example</p>
+
+<p>Input file: <br>
+5 <br>
+1 <br>
+1 <br>
+1 <br>
+1 <br>
+6 <br>
+2 <br>
+3 <br>
+4 <br>
+-1</p>
+
+<p>Output file: <br>
+4 <br>
+-1</p>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+int main() {  
+    int N;
+    while((cin &gt;&gt; N) &amp;&amp; N != -1) {
+        vector&lt;int&gt; candies(N,0);
+        int total = 0;
+
+        for (int i = 0; i &lt; N; ++i) {
+            cin &gt;&gt; candies[i];
+            total += candies[i];
+        }
+
+        if (total % N != 0) {
+            cout &lt;&lt; "-1\n";
+        } else {
+            int indieCandies = total / N;
+            int transfers = 0;
+            for (int i = 0; i &lt; N; ++i) {
+                if (candies[i] &gt; indieCandies) {
+                    transfers += (candies[i] - indieCandies);
+                }
+            }
+            cout &lt;&lt; transfers &lt;&lt; "\n";
+        }
+    }
+    return 0;
+}
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/05/candy/</link><guid isPermaLink="false">a3bc4882-763a-4c07-b993-522b7f9db526</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Wed, 05 Nov 2014 08:31:29 GMT</pubDate></item><item><title><![CDATA[ACPC10A]]></title><description><![CDATA[<p>According to Wikipedia, an arithmetic progression (AP) is a sequence of numbers such that the difference of any two successive members of the sequence is a constant. For instance, the sequence 3, 5, 7, 9, 11, 13, . . . is an arithmetic progression with common difference 2. For this problem, we will limit ourselves to arithmetic progression whose common difference is a non-zero integer. <br>
 On the other hand, a geometric progression (GP) is a sequence of numbers where each term after the first is found by multiplying the previous one by a fixed non-zero number called the common ratio. For example, the sequence 2, 6, 18, 54, . . . is a geometric progression with common ratio 3. For this problem, we will limit ourselves to geometric progression whose common ratio is a non-zero integer. <br>
 Given three successive members of a sequence, you need to determine the type of the progression and the next successive member.</p>
 
@@ -43,7 +280,7 @@ int main() {
     }
     return 0;
 }
-</code></pre>]]></description><link>http://code-jedi.chintanghate.me/acpc10a/</link><guid isPermaLink="false">080098dd-c125-47ba-8250-5d17052f185a</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Wed, 05 Nov 2014 04:59:48 GMT</pubDate></item><item><title><![CDATA[TOANDFRO]]></title><description><![CDATA[<p>Mo and Larry have devised a way of encrypting messages. They first decide secretly on the number of columns and write the message (letters only) down the columns, padding with extra random letters so as to make a rectangular array of letters. For example, if the message is “There’s no place like home on a snowy night” and there are five columns, Mo would write down  </p>
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/05/acpc10a/</link><guid isPermaLink="false">080098dd-c125-47ba-8250-5d17052f185a</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Wed, 05 Nov 2014 04:59:48 GMT</pubDate></item><item><title><![CDATA[TOANDFRO]]></title><description><![CDATA[<p>Mo and Larry have devised a way of encrypting messages. They first decide secretly on the number of columns and write the message (letters only) down the columns, padding with extra random letters so as to make a rectangular array of letters. For example, if the message is “There’s no place like home on a snowy night” and there are five columns, Mo would write down  </p>
 
 <pre><code>t o i o y  
 h p k n n  
@@ -120,7 +357,7 @@ int main() {
     }
     return 0;
 }
-</code></pre>]]></description><link>http://code-jedi.chintanghate.me/toandfro/</link><guid isPermaLink="false">481707f0-2b22-4f46-840d-e3e6e32d28cd</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Wed, 05 Nov 2014 04:39:13 GMT</pubDate></item><item><title><![CDATA[SAMER08F]]></title><description><![CDATA[<p>Richard Phillips Feynman was a well known American physicist and a recipient of the Nobel Prize in Physics. He worked in theoretical physics and also pioneered the field of quantum computing. He visited South America for ten months, giving lectures and enjoying life in the tropics. He is also known for his books "Surely You're Joking, Mr. Feynman!" and "What Do You Care What Other People Think?", which include some of his adventures below the equator.</p>
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/05/toandfro/</link><guid isPermaLink="false">481707f0-2b22-4f46-840d-e3e6e32d28cd</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Wed, 05 Nov 2014 04:39:13 GMT</pubDate></item><item><title><![CDATA[SAMER08F]]></title><description><![CDATA[<p>Richard Phillips Feynman was a well known American physicist and a recipient of the Nobel Prize in Physics. He worked in theoretical physics and also pioneered the field of quantum computing. He visited South America for ten months, giving lectures and enjoying life in the tropics. He is also known for his books "Surely You're Joking, Mr. Feynman!" and "What Do You Care What Other People Think?", which include some of his adventures below the equator.</p>
 
 <p>His life-long addiction was solving and making puzzles, locks, and cyphers. Recently, an old farmer in South America, who was a host to the young physicist in 1949, found some papers and notes that is believed to have belonged to Feynman. Among notes about mesons and electromagnetism, there was a napkin where he wrote a simple puzzle: "how many different squares are there in a grid of N ×N squares?".</p>
 
@@ -171,7 +408,7 @@ int main() {
     }
     return 0;
 }
-</code></pre>]]></description><link>http://code-jedi.chintanghate.me/samer08f/</link><guid isPermaLink="false">f91be8f7-583b-49ae-a8da-411d7cbaaa52</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Wed, 05 Nov 2014 03:46:32 GMT</pubDate></item><item><title><![CDATA[NSTEPS]]></title><description><![CDATA[<p>Starting from point (0,0) on a plane, we have written all non-negative integers 0, 1, 2,... as shown in the figure. For example, 1, 2, and 3 has been written at points (1,1), (2,0), and (3, 1) respectively and this pattern has continued.</p>
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/05/samer08f/</link><guid isPermaLink="false">f91be8f7-583b-49ae-a8da-411d7cbaaa52</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Wed, 05 Nov 2014 03:46:32 GMT</pubDate></item><item><title><![CDATA[NSTEPS]]></title><description><![CDATA[<p>Starting from point (0,0) on a plane, we have written all non-negative integers 0, 1, 2,... as shown in the figure. For example, 1, 2, and 3 has been written at points (1,1), (2,0), and (3, 1) respectively and this pattern has continued.</p>
 
 <p><img src="http://code-jedi.chintanghate.me/content/images/2014/11/NSTEPS.png" alt="Illustration"></p>
 
@@ -224,7 +461,7 @@ int main() {
     }
     return 0;
 }
-</code></pre>]]></description><link>http://code-jedi.chintanghate.me/nsteps/</link><guid isPermaLink="false">98054c18-b6ee-47d8-9175-75403a49b3b3</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Wed, 05 Nov 2014 03:13:01 GMT</pubDate></item><item><title><![CDATA[ONP]]></title><description><![CDATA[<p>Transform the algebraic expression with brackets into RPN form (Reverse Polish Notation). Two-argument operators: +, -, <em>, /, ^ (priority from the lowest to the highest), brackets ( ). Operands: only letters: a,b,...,z. Assume that there is only one RPN form (no expressions like a</em>b*c).</p>
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/05/nsteps/</link><guid isPermaLink="false">98054c18-b6ee-47d8-9175-75403a49b3b3</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Wed, 05 Nov 2014 03:13:01 GMT</pubDate></item><item><title><![CDATA[ONP]]></title><description><![CDATA[<p>Transform the algebraic expression with brackets into RPN form (Reverse Polish Notation). Two-argument operators: +, -, <em>, /, ^ (priority from the lowest to the highest), brackets ( ). Operands: only letters: a,b,...,z. Assume that there is only one RPN form (no expressions like a</em>b*c).</p>
 
 <h6 id="input">Input</h6>
 
@@ -280,7 +517,7 @@ int main() {
     }
     return 0;
 }
-</code></pre>]]></description><link>http://code-jedi.chintanghate.me/onp/</link><guid isPermaLink="false">f0d1db0a-dbd4-4bf0-b4ed-5bf14d10b9e3</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Tue, 04 Nov 2014 13:31:10 GMT</pubDate></item><item><title><![CDATA[FCTRL2]]></title><description><![CDATA[<p>You are asked to calculate factorials of some small positive integers.</p>
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/04/onp/</link><guid isPermaLink="false">f0d1db0a-dbd4-4bf0-b4ed-5bf14d10b9e3</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Tue, 04 Nov 2014 13:31:10 GMT</pubDate></item><item><title><![CDATA[FCTRL2]]></title><description><![CDATA[<p>You are asked to calculate factorials of some small positive integers.</p>
 
 <h6 id="input">Input</h6>
 
@@ -344,7 +581,7 @@ int main() {
     }
     return 0;
 }
-</code></pre>]]></description><link>http://code-jedi.chintanghate.me/fctr2/</link><guid isPermaLink="false">a50f1e5d-f0f0-4c67-984b-85757786536e</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Tue, 04 Nov 2014 13:18:27 GMT</pubDate></item><item><title><![CDATA[FCTRL]]></title><description><![CDATA[<p>The most important part of a GSM network is so called Base Transceiver Station (BTS). These transceivers form the areas called cells (this term gave the name to the cellular phone) and every phone connects to the BTS with the strongest signal (in a little simplified view). Of course, BTSes need some attention and technicians need to check their function periodically.</p>
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/04/fctr2/</link><guid isPermaLink="false">a50f1e5d-f0f0-4c67-984b-85757786536e</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Tue, 04 Nov 2014 13:18:27 GMT</pubDate></item><item><title><![CDATA[FCTRL]]></title><description><![CDATA[<p>The most important part of a GSM network is so called Base Transceiver Station (BTS). These transceivers form the areas called cells (this term gave the name to the cellular phone) and every phone connects to the BTS with the strongest signal (in a little simplified view). Of course, BTSes need some attention and technicians need to check their function periodically.</p>
 
 <p>ACM technicians faced a very interesting problem recently. Given a set of BTSes to visit, they needed to find the shortest path to visit all of the given points and return back to the central company building. Programmers have spent several months studying this problem but with no results. They were unable to find the solution fast enough. After a long time, one of the programmers found this problem in a conference article. Unfortunately, he found that the problem is so called "Travelling Salesman Problem" and it is very hard to solve. If we have N BTSes to be visited, we can visit them in any order, giving us N! possibilities to examine. The function expressing that number is called factorial and can be computed as a product 1.2.3.4....N. The number is very high even for a relatively small N.</p>
 
@@ -402,7 +639,7 @@ int main() {
     }
     return 0;
 }
-</code></pre>]]></description><link>http://code-jedi.chintanghate.me/fctrl/</link><guid isPermaLink="false">0f6efc29-dc81-4ecf-ab8b-0c6a683e6ce2</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Tue, 04 Nov 2014 12:37:09 GMT</pubDate></item><item><title><![CDATA[ADDREV]]></title><description><![CDATA[<p>The Antique Comedians of Malidinesia prefer comedies to tragedies. Unfortunately, most of the ancient plays are tragedies. Therefore the dramatic advisor of ACM has decided to transfigure some tragedies into comedies. Obviously, this work is very hard because the basic sense of the play must be kept intact, although all the things change to their opposites. For example the numbers: if any number appears in the tragedy, it must be converted to its reversed form before being accepted into the comedy play.</p>
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/04/fctrl/</link><guid isPermaLink="false">0f6efc29-dc81-4ecf-ab8b-0c6a683e6ce2</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Tue, 04 Nov 2014 12:37:09 GMT</pubDate></item><item><title><![CDATA[ADDREV]]></title><description><![CDATA[<p>The Antique Comedians of Malidinesia prefer comedies to tragedies. Unfortunately, most of the ancient plays are tragedies. Therefore the dramatic advisor of ACM has decided to transfigure some tragedies into comedies. Obviously, this work is very hard because the basic sense of the play must be kept intact, although all the things change to their opposites. For example the numbers: if any number appears in the tragedy, it must be converted to its reversed form before being accepted into the comedy play.</p>
 
 <p>Reversed number is a number written in arabic numerals but the order of digits is reversed. The first digit becomes last and vice versa. For example, if the main hero had 1245 strawberries in the tragedy, he has 5421 of them now. Note that all the leading zeros are omitted. That means if the number ends with a zero, the zero is lost by reversing (e.g. 1200 gives 21). Also note that the reversed number never has any trailing zeros.</p>
 
@@ -467,7 +704,7 @@ int main() {
     }
     return 0;
 }
-</code></pre>]]></description><link>http://code-jedi.chintanghate.me/addrev/</link><guid isPermaLink="false">72ca342b-56d7-4657-98d4-1769dc74c7c0</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Tue, 04 Nov 2014 08:06:56 GMT</pubDate></item><item><title><![CDATA[SBSTR1]]></title><description><![CDATA[<p>Given two binary strings, A (of length 10) and B (of length 5), output 1 if B is a substring of A and 0 otherwise.</p>
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/04/addrev/</link><guid isPermaLink="false">72ca342b-56d7-4657-98d4-1769dc74c7c0</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Tue, 04 Nov 2014 08:06:56 GMT</pubDate></item><item><title><![CDATA[SBSTR1]]></title><description><![CDATA[<p>Given two binary strings, A (of length 10) and B (of length 5), output 1 if B is a substring of A and 0 otherwise.</p>
 
 <h6 id="input">Input</h6>
 
@@ -506,7 +743,7 @@ int main() {
     }
     return 0;
 }
-</code></pre>]]></description><link>http://code-jedi.chintanghate.me/sbstr1/</link><guid isPermaLink="false">bab76c32-6583-45f4-b3c7-8a507a28fe5e</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Mon, 03 Nov 2014 23:32:59 GMT</pubDate></item><item><title><![CDATA[PRIME1]]></title><description><![CDATA[<p>Peter wants to generate some prime numbers for his cryptosystem. Help him! Your task is to generate all prime numbers between two given numbers!</p>
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/04/sbstr1/</link><guid isPermaLink="false">bab76c32-6583-45f4-b3c7-8a507a28fe5e</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Mon, 03 Nov 2014 23:32:59 GMT</pubDate></item><item><title><![CDATA[PRIME1]]></title><description><![CDATA[<p>Peter wants to generate some prime numbers for his cryptosystem. Help him! Your task is to generate all prime numbers between two given numbers!</p>
 
 <h6 id="input">Input</h6>
 
@@ -568,7 +805,7 @@ int main() {
     }
     return 0;
 }
-</code></pre>]]></description><link>http://code-jedi.chintanghate.me/prime1/</link><guid isPermaLink="false">cd4ed102-9475-4ce2-b3a9-25987645d009</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Mon, 03 Nov 2014 23:25:33 GMT</pubDate></item><item><title><![CDATA[TEST]]></title><description><![CDATA[<p>Your program is to use the brute-force approach in order to find the Answer to Life, the Universe, and Everything. More precisely... rewrite small numbers from input to output. Stop processing input after reading in the number 42. All numbers at input are integers of one or two digits.</p>
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/04/prime1/</link><guid isPermaLink="false">cd4ed102-9475-4ce2-b3a9-25987645d009</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Mon, 03 Nov 2014 23:25:33 GMT</pubDate></item><item><title><![CDATA[TEST]]></title><description><![CDATA[<p>Your program is to use the brute-force approach in order to find the Answer to Life, the Universe, and Everything. More precisely... rewrite small numbers from input to output. Stop processing input after reading in the number 42. All numbers at input are integers of one or two digits.</p>
 
 <p>Example</p>
 
@@ -601,4 +838,4 @@ int main() {
     }
     return 0;
 }
-</code></pre>]]></description><link>http://code-jedi.chintanghate.me/test/</link><guid isPermaLink="false">f2321372-ed41-4695-acad-597953ced016</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Mon, 03 Nov 2014 04:59:00 GMT</pubDate></item></channel></rss>
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/03/test/</link><guid isPermaLink="false">f2321372-ed41-4695-acad-597953ced016</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Mon, 03 Nov 2014 04:59:00 GMT</pubDate></item></channel></rss>

@@ -1,0 +1,234 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>JULKA</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css?v=249f79c55a">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+    <link href="../../../../assets/css/prettify.css?v=249f79c55a" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="../../../../assets/js/prettify.js?v=249f79c55a"></script>
+    <link rel="canonical" href="http://code-jedi.chintanghate.me/2014/11/05/julka/">
+    
+    <meta property="og:site_name" content="Code Jedi">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="JULKA">
+    <meta property="og:description" content="Julka surprised her teacher at preschool by solving the following riddle: Klaudia and Natalia have 10 apples together, but Klaudia has two apples more than Natalia. How many apples does each of he girls have? Julka said without thinking: Klaudia...">
+    <meta property="og:url" content="http://code-jedi.chintanghate.me/2014/11/05/julka/">
+    <meta property="article:published_time" content="2014-11-05T09:36:58.328Z">
+    <meta property="article:modified_time" content="2014-11-05T09:43:16.084Z">
+    <meta property="article:tag" content="SPOJ">
+    
+    <meta name="twitter:card" content="content">
+    <meta name="twitter:title" content="JULKA">
+    <meta name="twitter:description" content="Julka surprised her teacher at preschool by solving the following riddle: Klaudia and Natalia have 10 apples together, but Klaudia has two apples more than Natalia. How many apples does each of he girls have? Julka said without thinking: Klaudia...">
+    <meta name="twitter:url" content="http://code-jedi.chintanghate.me/2014/11/05/julka/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Code Jedi",
+    "author": {
+        "@type": "Person",
+        "name": "Chintan Ghate",
+        "url": "http://code-jedi.chintanghate.me/author/chintan",
+        "sameAs": null
+    },
+    "headline": "JULKA",
+    "url": "http://code-jedi.chintanghate.me/2014/11/05/julka/",
+    "datePublished": "2014-11-05T09:36:58.328Z",
+    "dateModified": "2014-11-05T09:43:16.084Z",
+    "keywords": "SPOJ",
+    "description": "Julka surprised her teacher at preschool by solving the following riddle: Klaudia and Natalia have 10 apples together, but Klaudia has two apples more than Natalia. How many apples does each of he girls have? Julka said without thinking: Klaudia"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Code Jedi" href="../../../../rss/index.html">
+</head>
+<body class="post-template tag-spoj" onload="prettyPrint()">
+
+    
+
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        <a class="back-button icon-arrow-left" href="http://code-jedi.chintanghate.me">Home</a>
+        <a class="subscribe-button icon-feed" href="http://code-jedi.chintanghate.me/rss/index.rss">Subscribe</a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+
+    <article class="post tag-spoj">
+
+        <header class="post-header">
+            <h1 class="post-title">JULKA</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2014-11-05">05 November 2014</time>  on <a href="../../../../tag/spoj/">SPOJ</a>
+            </section>
+        </header>
+
+        <section class="post-content">
+            <p>Julka surprised her teacher at preschool by solving the following riddle:</p>
+
+<p>Klaudia and Natalia have 10 apples together, but Klaudia has two apples more than Natalia. How many apples does each of he girls have?</p>
+
+<p>Julka said without thinking: Klaudia has 6 apples and Natalia 4 apples. The teacher tried to check if Julka's answer wasn't accidental and repeated the riddle every time increasing the numbers. Every time Julka answered correctly. The surprised teacher wanted to continue questioning Julka, but with big numbers she could't solve the riddle fast enough herself. Help the teacher and write a program which will give her the right answers.</p>
+
+<h6 id="task">Task</h6>
+
+<ul>
+<li>Write a program which reads from standard input the number of apples the girls have together and how many more apples Klaudia has.</li>
+<li>Counts the number of apples belonging to Klaudia and the number of apples belonging to Natalia.</li>
+<li>Writes the outcome to standard output.</li>
+</ul>
+
+<h6 id="input">Input</h6>
+
+<p>Ten test cases (given one under another, you have to process all!). Every test case consists of two lines. The first line says how many apples both girls have together. The second line says how many more apples Klaudia has. Both numbers are positive integers. It is known that both girls have no more than 10<sup>100</sup> (1 and 100 zeros) apples together. As you can see apples can be very small.</p>
+
+<h6 id="output">Output</h6>
+
+<p>For every test case your program should output two lines. The first line should contain the number of apples belonging to Klaudia. The second line should contain the number of apples belonging to Natalia.</p>
+
+<p>Example</p>
+
+<p>Input: <br>
+10 <br>
+2 <br>
+[and 9 test cases more]</p>
+
+<p>Output: <br>
+6 <br>
+4 <br>
+[and 9 test cases more]</p>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+
+using namespace std;
+
+string vectorToIntString(vector&lt;int&gt; A) {  
+    string S = "";
+    bool flag = false;
+    for (int i = A.size() - 1; i &gt;= 0 ; --i) {
+        if (!flag &amp;&amp; A[i] == 0) {
+            continue;
+        } else {
+            flag = true;
+            S += char(A[i]+'0');
+        }
+    }
+    return S;
+}
+
+//(A-B)
+vector&lt;int&gt; vectorSubstraction(vector&lt;int&gt; A, vector&lt;int&gt; B) {  
+    for (int i = 0; i &lt; A.size(); ++i) {
+        if (A[i] &gt;= B[i]) {
+            A[i] -= B[i];
+        } else {
+            A[i] += 10;
+            A[i] -= B[i];
+            --A[i+1];
+        }
+    }
+    return A;
+}
+
+//(A/n)
+vector&lt;int&gt; vectorDivision(vector&lt;int&gt; A, int n) {  
+    int current = 0;
+    for (int i = A.size() - 1; i &gt;= 0; --i)
+    {
+        current *= 10;
+        current += A[i];
+        A[i] = current / 2;
+        current %= 2;
+    }
+    return A;
+}
+
+int main() {  
+    for (int T = 0; T &lt; 10; ++T) {
+        string t, m;
+        cin &gt;&gt; t &gt;&gt; m;
+        vector&lt;int&gt; total(102,0), more(102,0), totalCopy(102,0);
+        for (int i = 0; i &lt; t.size(); ++i) {
+            total[i] = t[t.size()-1-i]-'0';
+        }
+        totalCopy = total;
+        for (int i = 0; i &lt; m.size(); ++i) {
+            more[i] = m[m.size()-1-i] - '0';
+        }
+
+        total = vectorSubstraction(total,more);
+        total = vectorDivision(total,2);
+        totalCopy = vectorSubstraction(totalCopy,total);
+        cout &lt;&lt; vectorToIntString(totalCopy) &lt;&lt; "\n";
+        cout &lt;&lt; vectorToIntString(total) &lt;&lt; "\n";
+    }
+    return 0;
+}
+</code></pre>
+        </section>
+
+        <footer class="post-footer">
+
+
+
+            <section class="author">
+                <h4><a href="../../../../author/chintan/">Chintan Ghate</a></h4>
+
+                    <p>Read <a href="../../../../author/chintan/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/share?text=JULKA&amp;url=http://code-jedi.chintanghate.me/2014/11/05/julka/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://code-jedi.chintanghate.me/2014/11/05/julka/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://code-jedi.chintanghate.me/2014/11/05/julka/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+    </article>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+         <section class="copyright"><a href="http://code-jedi.chintanghate.me">Code Jedi</a> © 2014</section>
+         <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+    </footer>
+
+    <script src="../../../../public/jquery.js?v=249f79c55a"></script>
+
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js?v=249f79c55a"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js?v=249f79c55a"></script>
+
+</body>
