@@ -1,5 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Chintan Ghate - Code Jedi]]></title><description><![CDATA[Code, algorithms and design.]]></description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Wed, 05 Nov 2014 11:01:14 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/author/chintan/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[JULKA]]></title><description><![CDATA[<p>Julka surprised her teacher at preschool by solving the following riddle:</p>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Chintan Ghate - Code Jedi]]></title><description><![CDATA[Code, algorithms and design.]]></description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Wed, 05 Nov 2014 19:12:07 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/author/chintan/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Hello, Objective-C!]]></title><description><![CDATA[<h6 id="oldschoolobjectivec">Old School Objective-C</h6>
+
+<p>I will be attempting to learn Objective-C using a text-editor, <strong>Sublime Text</strong>, and <strong>terminal</strong>, and will be maintaining a log of my adventures here, under the tag <strong>Objective-C</strong>. As always, beginning with "Hello, world!".</p>
+
+<hr>
+
+<h6 id="setup">Setup</h6>
+
+<p>I am currently running <strong>OS X Yosemtie</strong> with <strong>Xcode 6</strong> and <strong>Xcode Command Line Tools</strong> installed. We will be needing <em>Xcode Command Line Tools</em> to run our programs from terminal.</p>
+
+<hr>
+
+<h6 id="code">Code</h6>
+
+<p>Open the text-editor of your choice and type the code given below, save it as <code>HelloWorld.m</code>. Objective-C implemetation files use the <code>.m</code> extension.  </p>
+
+<pre><code class="prettyprint">#import &lt;Foundation/Foundation.h&gt;
+
+int main() {  
+    NSLog(@"Hello, World!");
+    return 0;
+} 
+</code></pre>
+
+<hr>
+
+<h6 id="compile">Compile</h6>
+
+<p>Fire-up the terminal. Go to the directory where you have saved the code using <code>cd</code> command, and type the following command.  </p>
+
+<pre><code>gcc -framework Foundation HelloWorld.m -o HelloWorld  
+</code></pre>
+
+<p>We are using the <code>gcc</code> compiler, the same which is used for compiling C-programs. The compiler transforms our Objective-C code  into an executable program. We are using the <code>Foundation</code> framework to compile <code>HelloWorld.m</code> into an executable named <code>HelloWorld</code>. The last part <code>-o HelloWorld</code> is optional, ignoring which would name the executable file with a default name <code>a.out</code>. Now that we have compiled the code successfully, lets run it.</p>
+
+<hr>
+
+<h6 id="run">Run</h6>
+
+<p>To run the executable we get after compiling <code>HelloWorld.m</code>, type the below command in terminal and you will be able to see the output.</p>
+
+<pre><code>./HelloWorld
+</code></pre>
+
+<p>On running the code, you will be getting an output like this:</p>
+
+<pre><code>2014-11-05 22:39:13.065 HelloWorld[5715:121885] Hello, World!  
+</code></pre>
+
+<hr>
+
+<h6 id="trickbehindthemagic">Trick behind the Magic</h6>
+
+<blockquote>
+  <p>Programming is like magic. First you see the magician cast a spell, see the magic happen, feel amazed and then try to figure out how it was done.</p>
+</blockquote>
+
+<p>Now that we have ran the program successfully and recieved an output, lets see how the pieces in the code worked to give us the output.  </p>
+
+<pre><code class="prettyprint">#import &lt;Foundation/Foundation.h&gt;
+</code></pre>
+
+<p>To include header files in our code, we use <code>#import</code> directive. The <code>#import</code> directive is like C’s <code>#include</code> directive, except that it makes sure that the same file is never included more than once. Here we are including <code>Foundation.h</code> file from <code>Foundation</code> framework. Files with <code>.h</code> extension are header files. The header file having same name as the framework is called an <em>umbrella header file</em>, it prevents us from having to add all the individual header files from a framework. <em>Foundation</em> framework provides  a set of useful primitive object classes. In this program we use the <code>NSLog</code> function from the <em>Foundation</em> framework. The framework was developed by NeXTStep, which was acquired by Apple and these <em>Foundation</em> classes became part of Mac OS X and iOS. Since it was developed by NeXTStep, it has class prefix of "NS".  </p>
+
+<pre><code class="prettyprint">int main() {  
+    NSLog(@"Hello, World!");
+    return 0;
+}
+</code></pre>
+
+<p>This is the <code>main</code> function. Every program has one and only one main function, and the execution of a program starts from here. The return type of <em>main</em> function is <em>int</em>. On successful execution it returns <em>0</em>.</p>
+
+<p>The <code>NSLog</code> function accepts a string as its argument and outputs it to the console/terminal. In this case the string is <code>@"Hello, World!"</code>. In Objective-C <code>@</code> is used before the literal to denote it as an <em>object</em>. String objects are closed in double-quotes <code>"</code>. Thats all there is to know about <code>HelloWorld.m</code>, enough to get enthusiastic and excited about our next adventure.</p>
+
+<p>Now that you know the trick, try to break it, experiment with it; try doing something new with it.  I'll see you in our next adventure.</p>]]></description><link>http://code-jedi.chintanghate.me/2014/11/05/hello-objective-c/</link><guid isPermaLink="false">9ebd4df7-1252-4f6e-8a83-7e30e3d3d5b5</guid><category><![CDATA[Objective-C]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Wed, 05 Nov 2014 16:45:43 GMT</pubDate></item><item><title><![CDATA[JULKA]]></title><description><![CDATA[<p>Julka surprised her teacher at preschool by solving the following riddle:</p>
 
 <p>Klaudia and Natalia have 10 apples together, but Klaudia has two apples more than Natalia. How many apples does each of he girls have?</p>
 

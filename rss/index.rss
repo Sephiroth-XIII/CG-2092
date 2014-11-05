@@ -1,4 +1,78 @@
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Code Jedi</title><description>Code, algorithms and design.</description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Wed, 05 Nov 2014 11:01:14 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>JULKA</title><description>&lt;p&gt;Julka surprised her teacher at preschool by solving the following riddle:&lt;/p&gt;
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Code Jedi</title><description>Code, algorithms and design.</description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Wed, 05 Nov 2014 19:12:06 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>Hello, Objective-C!</title><description>&lt;h6 id="oldschoolobjectivec"&gt;Old School Objective-C&lt;/h6&gt;
+
+&lt;p&gt;I will be attempting to learn Objective-C using a text-editor, &lt;strong&gt;Sublime Text&lt;/strong&gt;, and &lt;strong&gt;terminal&lt;/strong&gt;, and will be maintaining a log of my adventures here, under the tag &lt;strong&gt;Objective-C&lt;/strong&gt;. As always, beginning with "Hello, world!".&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h6 id="setup"&gt;Setup&lt;/h6&gt;
+
+&lt;p&gt;I am currently running &lt;strong&gt;OS X Yosemtie&lt;/strong&gt; with &lt;strong&gt;Xcode 6&lt;/strong&gt; and &lt;strong&gt;Xcode Command Line Tools&lt;/strong&gt; installed. We will be needing &lt;em&gt;Xcode Command Line Tools&lt;/em&gt; to run our programs from terminal.&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h6 id="code"&gt;Code&lt;/h6&gt;
+
+&lt;p&gt;Open the text-editor of your choice and type the code given below, save it as &lt;code&gt;HelloWorld.m&lt;/code&gt;. Objective-C implemetation files use the &lt;code&gt;.m&lt;/code&gt; extension.  &lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="prettyprint"&gt;#import &amp;lt;Foundation/Foundation.h&amp;gt;
+
+int main() {  
+    NSLog(@"Hello, World!");
+    return 0;
+} 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr&gt;
+
+&lt;h6 id="compile"&gt;Compile&lt;/h6&gt;
+
+&lt;p&gt;Fire-up the terminal. Go to the directory where you have saved the code using &lt;code&gt;cd&lt;/code&gt; command, and type the following command.  &lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;gcc -framework Foundation HelloWorld.m -o HelloWorld  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We are using the &lt;code&gt;gcc&lt;/code&gt; compiler, the same which is used for compiling C-programs. The compiler transforms our Objective-C code  into an executable program. We are using the &lt;code&gt;Foundation&lt;/code&gt; framework to compile &lt;code&gt;HelloWorld.m&lt;/code&gt; into an executable named &lt;code&gt;HelloWorld&lt;/code&gt;. The last part &lt;code&gt;-o HelloWorld&lt;/code&gt; is optional, ignoring which would name the executable file with a default name &lt;code&gt;a.out&lt;/code&gt;. Now that we have compiled the code successfully, lets run it.&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h6 id="run"&gt;Run&lt;/h6&gt;
+
+&lt;p&gt;To run the executable we get after compiling &lt;code&gt;HelloWorld.m&lt;/code&gt;, type the below command in terminal and you will be able to see the output.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;./HelloWorld
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;On running the code, you will be getting an output like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;2014-11-05 22:39:13.065 HelloWorld[5715:121885] Hello, World!  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr&gt;
+
+&lt;h6 id="trickbehindthemagic"&gt;Trick behind the Magic&lt;/h6&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Programming is like magic. First you see the magician cast a spell, see the magic happen, feel amazed and then try to figure out how it was done.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Now that we have ran the program successfully and recieved an output, lets see how the pieces in the code worked to give us the output.  &lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="prettyprint"&gt;#import &amp;lt;Foundation/Foundation.h&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To include header files in our code, we use &lt;code&gt;#import&lt;/code&gt; directive. The &lt;code&gt;#import&lt;/code&gt; directive is like C’s &lt;code&gt;#include&lt;/code&gt; directive, except that it makes sure that the same file is never included more than once. Here we are including &lt;code&gt;Foundation.h&lt;/code&gt; file from &lt;code&gt;Foundation&lt;/code&gt; framework. Files with &lt;code&gt;.h&lt;/code&gt; extension are header files. The header file having same name as the framework is called an &lt;em&gt;umbrella header file&lt;/em&gt;, it prevents us from having to add all the individual header files from a framework. &lt;em&gt;Foundation&lt;/em&gt; framework provides  a set of useful primitive object classes. In this program we use the &lt;code&gt;NSLog&lt;/code&gt; function from the &lt;em&gt;Foundation&lt;/em&gt; framework. The framework was developed by NeXTStep, which was acquired by Apple and these &lt;em&gt;Foundation&lt;/em&gt; classes became part of Mac OS X and iOS. Since it was developed by NeXTStep, it has class prefix of "NS".  &lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="prettyprint"&gt;int main() {  
+    NSLog(@"Hello, World!");
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This is the &lt;code&gt;main&lt;/code&gt; function. Every program has one and only one main function, and the execution of a program starts from here. The return type of &lt;em&gt;main&lt;/em&gt; function is &lt;em&gt;int&lt;/em&gt;. On successful execution it returns &lt;em&gt;0&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code&gt;NSLog&lt;/code&gt; function accepts a string as its argument and outputs it to the console/terminal. In this case the string is &lt;code&gt;@"Hello, World!"&lt;/code&gt;. In Objective-C &lt;code&gt;@&lt;/code&gt; is used before the literal to denote it as an &lt;em&gt;object&lt;/em&gt;. String objects are closed in double-quotes &lt;code&gt;"&lt;/code&gt;. Thats all there is to know about &lt;code&gt;HelloWorld.m&lt;/code&gt;, enough to get enthusiastic and excited about our next adventure.&lt;/p&gt;
+
+&lt;p&gt;Now that you know the trick, try to break it, experiment with it; try doing something new with it.  I'll see you in our next adventure.&lt;/p&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/05/hello-objective-c/</link><guid isPermaLink="false">9ebd4df7-1252-4f6e-8a83-7e30e3d3d5b5</guid><category>Objective-C</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Wed, 05 Nov 2014 16:45:43 GMT</pubDate></item><item><title>JULKA</title><description>&lt;p&gt;Julka surprised her teacher at preschool by solving the following riddle:&lt;/p&gt;
 
 &lt;p&gt;Klaudia and Natalia have 10 apples together, but Klaudia has two apples more than Natalia. How many apples does each of he girls have?&lt;/p&gt;
 
