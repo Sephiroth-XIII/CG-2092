@@ -1,0 +1,174 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>ACPC10A</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=b0e0c8d975">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+    <link href="../assets/css/prettify.css?v=b0e0c8d975" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="../assets/js/prettify.js?v=b0e0c8d975"></script>
+    <link rel="canonical" href="http://code-jedi.chintanghate.me/acpc10a/">
+    
+    <meta property="og:site_name" content="Code Jedi">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="ACPC10A">
+    <meta property="og:description" content="According to Wikipedia, an arithmetic progression (AP) is a sequence of numbers such that the difference of any two successive members of the sequence is a constant. For instance, the sequence 3, 5, 7, 9, 11, 13, . . . is an arithmetic...">
+    <meta property="og:url" content="http://code-jedi.chintanghate.me/acpc10a/">
+    <meta property="article:published_time" content="2014-11-05T04:59:48.650Z">
+    <meta property="article:modified_time" content="2014-11-05T05:02:11.243Z">
+    <meta property="article:tag" content="SPOJ">
+    
+    <meta name="twitter:card" content="content">
+    <meta name="twitter:title" content="ACPC10A">
+    <meta name="twitter:description" content="According to Wikipedia, an arithmetic progression (AP) is a sequence of numbers such that the difference of any two successive members of the sequence is a constant. For instance, the sequence 3, 5, 7, 9, 11, 13, . . . is an arithmetic...">
+    <meta name="twitter:url" content="http://code-jedi.chintanghate.me/acpc10a/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Code Jedi",
+    "author": {
+        "@type": "Person",
+        "name": "Chintan Ghate",
+        "url": "http://code-jedi.chintanghate.me/author/chintan",
+        "sameAs": null
+    },
+    "headline": "ACPC10A",
+    "url": "http://code-jedi.chintanghate.me/acpc10a/",
+    "datePublished": "2014-11-05T04:59:48.650Z",
+    "dateModified": "2014-11-05T05:02:11.243Z",
+    "keywords": "SPOJ",
+    "description": "According to Wikipedia, an arithmetic progression (AP) is a sequence of numbers such that the difference of any two successive members of the sequence is a constant. For instance, the sequence 3, 5, 7, 9, 11, 13, . . . is an arithmetic"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Code Jedi" href="../rss/index.html">
+</head>
+<body class="post-template tag-spoj" onload="prettyPrint()">
+
+    
+
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        <a class="back-button icon-arrow-left" href="http://code-jedi.chintanghate.me">Home</a>
+        <a class="subscribe-button icon-feed" href="http://code-jedi.chintanghate.me/rss/index.rss">Subscribe</a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+
+    <article class="post tag-spoj">
+
+        <header class="post-header">
+            <h1 class="post-title">ACPC10A</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2014-11-05">05 November 2014</time>  on <a href="../tag/spoj/">SPOJ</a>
+            </section>
+        </header>
+
+        <section class="post-content">
+            <p>According to Wikipedia, an arithmetic progression (AP) is a sequence of numbers such that the difference of any two successive members of the sequence is a constant. For instance, the sequence 3, 5, 7, 9, 11, 13, . . . is an arithmetic progression with common difference 2. For this problem, we will limit ourselves to arithmetic progression whose common difference is a non-zero integer. <br>
+On the other hand, a geometric progression (GP) is a sequence of numbers where each term after the first is found by multiplying the previous one by a fixed non-zero number called the common ratio. For example, the sequence 2, 6, 18, 54, . . . is a geometric progression with common ratio 3. For this problem, we will limit ourselves to geometric progression whose common ratio is a non-zero integer. <br>
+Given three successive members of a sequence, you need to determine the type of the progression and the next successive member.</p>
+
+<h6 id="input">Input</h6>
+
+<p>Your program will be tested on one or more test cases. Each case is specified on a single line with three integers (−10, 000 &lt; a1 , a2 , a3 &lt; 10, 000) where a1 , a2 , and a3 are distinct. <br>
+The last case is followed by a line with three zeros.</p>
+
+<h6 id="output">Output</h6>
+
+<p>For each test case, you program must print a single line of the form: <br>
+XX v <br>
+where XX is either AP or GP depending if the given progression is an Arithmetic or Geometric Progression. v is the next member of the given sequence. All input cases are guaranteed to be either an arithmetic or geometric progressions.</p>
+
+<p>Example</p>
+
+<p>Input: <br>
+4 7 10 <br>
+2 6 18 <br>
+0 0 0</p>
+
+<p>Output: <br>
+AP 13 <br>
+GP 54</p>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+
+using namespace std;
+
+int main() {  
+    int a1, a2, a3;
+    while ((cin &gt;&gt; a1 &gt;&gt; a2 &gt;&gt; a3) &amp;&amp; 
+          !(a1 == 0 &amp;&amp; a2 == 0 &amp;&amp; a3 == 0)) {
+        if (a3 - a2 == a2 - a1) {
+            cout &lt;&lt; "AP " &lt;&lt; 2*a3 - a2 &lt;&lt; "\n"; 
+        } else {
+            cout &lt;&lt; "GP " &lt;&lt; a3*a3/a2 &lt;&lt; "\n";
+        }
+    }
+    return 0;
+}
+</code></pre>
+        </section>
+
+        <footer class="post-footer">
+
+
+
+            <section class="author">
+                <h4><a href="../author/chintan/">Chintan Ghate</a></h4>
+
+                    <p>Read <a href="../author/chintan/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/share?text=ACPC10A&amp;url=http://code-jedi.chintanghate.me/acpc10a/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://code-jedi.chintanghate.me/acpc10a/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://code-jedi.chintanghate.me/acpc10a/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+    </article>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+         <section class="copyright"><a href="http://code-jedi.chintanghate.me">Code Jedi</a> © 2014</section>
+         <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+    </footer>
+
+    <script src="../public/jquery.js?v=b0e0c8d975"></script>
+
+    <script type="text/javascript" src="../assets/js/jquery.fitvids.js?v=b0e0c8d975"></script>
+    <script type="text/javascript" src="../assets/js/index.js?v=b0e0c8d975"></script>
+
+</body>

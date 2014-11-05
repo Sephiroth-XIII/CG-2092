@@ -1,5 +1,230 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[SPOJ - Code Jedi]]></title><description><![CDATA[Code, algorithms and design.]]></description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Tue, 04 Nov 2014 16:34:16 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/tag/spoj/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[ONP]]></title><description><![CDATA[<p>Transform the algebraic expression with brackets into RPN form (Reverse Polish Notation). Two-argument operators: +, -, <em>, /, ^ (priority from the lowest to the highest), brackets ( ). Operands: only letters: a,b,...,z. Assume that there is only one RPN form (no expressions like a</em>b*c).</p>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[SPOJ - Code Jedi]]></title><description><![CDATA[Code, algorithms and design.]]></description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Wed, 05 Nov 2014 05:04:31 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/tag/spoj/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[ACPC10A]]></title><description><![CDATA[<p>According to Wikipedia, an arithmetic progression (AP) is a sequence of numbers such that the difference of any two successive members of the sequence is a constant. For instance, the sequence 3, 5, 7, 9, 11, 13, . . . is an arithmetic progression with common difference 2. For this problem, we will limit ourselves to arithmetic progression whose common difference is a non-zero integer. <br>
+On the other hand, a geometric progression (GP) is a sequence of numbers where each term after the first is found by multiplying the previous one by a fixed non-zero number called the common ratio. For example, the sequence 2, 6, 18, 54, . . . is a geometric progression with common ratio 3. For this problem, we will limit ourselves to geometric progression whose common ratio is a non-zero integer. <br>
+Given three successive members of a sequence, you need to determine the type of the progression and the next successive member.</p>
+
+<h6 id="input">Input</h6>
+
+<p>Your program will be tested on one or more test cases. Each case is specified on a single line with three integers (−10, 000 &lt; a1 , a2 , a3 &lt; 10, 000) where a1 , a2 , and a3 are distinct. <br>
+The last case is followed by a line with three zeros.</p>
+
+<h6 id="output">Output</h6>
+
+<p>For each test case, you program must print a single line of the form: <br>
+XX v <br>
+where XX is either AP or GP depending if the given progression is an Arithmetic or Geometric Progression. v is the next member of the given sequence. All input cases are guaranteed to be either an arithmetic or geometric progressions.</p>
+
+<p>Example</p>
+
+<p>Input: <br>
+4 7 10 <br>
+2 6 18 <br>
+0 0 0</p>
+
+<p>Output: <br>
+AP 13 <br>
+GP 54</p>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+
+using namespace std;
+
+int main() {  
+    int a1, a2, a3;
+    while ((cin &gt;&gt; a1 &gt;&gt; a2 &gt;&gt; a3) &amp;&amp; 
+          !(a1 == 0 &amp;&amp; a2 == 0 &amp;&amp; a3 == 0)) {
+        if (a3 - a2 == a2 - a1) {
+            cout &lt;&lt; "AP " &lt;&lt; 2*a3 - a2 &lt;&lt; "\n"; 
+        } else {
+            cout &lt;&lt; "GP " &lt;&lt; a3*a3/a2 &lt;&lt; "\n";
+        }
+    }
+    return 0;
+}
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/acpc10a/</link><guid isPermaLink="false">080098dd-c125-47ba-8250-5d17052f185a</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Wed, 05 Nov 2014 04:59:48 GMT</pubDate></item><item><title><![CDATA[TOANDFRO]]></title><description><![CDATA[<p>Mo and Larry have devised a way of encrypting messages. They first decide secretly on the number of columns and write the message (letters only) down the columns, padding with extra random letters so as to make a rectangular array of letters. For example, if the message is “There’s no place like home on a snowy night” and there are five columns, Mo would write down  </p>
+
+<pre><code>t o i o y  
+h p k n n  
+e l e a i  
+r a h s g  
+e c o n h  
+s e m o t  
+n l e w x  
+</code></pre>
+
+<p>Note that Mo includes only letters and writes them all in lower case. In this example, Mo used the character ‘x’ to pad the message out to make a rectangle, although he could have used any letter. Mo then sends the message to Larry by writing the letters in each row, alternating left-to-right and right-to-left. So, the above would be encrypted as</p>
+
+<p>toioynnkpheleaigshareconhtomesnlewx</p>
+
+<p>Your job is to recover for Larry the original message (along with any extra padding letters) from the encrypted one.</p>
+
+<h6 id="input">Input</h6>
+
+<p>There will be multiple input sets. Input for each set will consist of two lines. The first line will contain an integer in the range 2...20 indicating the number of columns used. The next line is a string of up to 200 lower case letters. The last input set is followed by a line containing a single 0, indicating end of input.</p>
+
+<h6 id="output">Output</h6>
+
+<p>Each input set should generate one line of output, giving the original plaintext message, with no spaces.</p>
+
+<p>Example</p>
+
+<p>Input:</p>
+
+<p>5 <br>
+toioynnkpheleaigshareconhtomesnlewx <br>
+3 <br>
+ttyohhieneesiaabss <br>
+0</p>
+
+<p>Output:</p>
+
+<p>theresnoplacelikehomeonasnowynightx <br>
+thisistheeasyoneab</p>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+int main() {  
+    int N;
+    while((cin &gt;&gt; N) &amp;&amp; N != 0) {
+        string S;
+        cin &gt;&gt; S;
+
+        int M = S.size()/N;
+        vector&lt;vector&lt;char&gt; &gt; grid(M, vector&lt;char&gt; (N));
+
+        for (int i = 0, k = 0; i &lt; M; ++i) {
+            for (int j = 0; j &lt; N; ++j) {
+                if (i&amp;1) {
+                    grid[i][N-1-j] = S[k++];
+                } else {
+                    grid[i][j] = S[k++];
+                }
+            }
+        }
+
+        for (int i = 0; i &lt; N; ++i) {
+            for (int j = 0; j &lt; M; ++j) {
+                cout &lt;&lt; grid[j][i];
+            }
+        }
+
+        cout &lt;&lt; "\n";
+    }
+    return 0;
+}
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/toandfro/</link><guid isPermaLink="false">481707f0-2b22-4f46-840d-e3e6e32d28cd</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Wed, 05 Nov 2014 04:39:13 GMT</pubDate></item><item><title><![CDATA[SAMER08F]]></title><description><![CDATA[<p>Richard Phillips Feynman was a well known American physicist and a recipient of the Nobel Prize in Physics. He worked in theoretical physics and also pioneered the field of quantum computing. He visited South America for ten months, giving lectures and enjoying life in the tropics. He is also known for his books "Surely You're Joking, Mr. Feynman!" and "What Do You Care What Other People Think?", which include some of his adventures below the equator.</p>
+
+<p>His life-long addiction was solving and making puzzles, locks, and cyphers. Recently, an old farmer in South America, who was a host to the young physicist in 1949, found some papers and notes that is believed to have belonged to Feynman. Among notes about mesons and electromagnetism, there was a napkin where he wrote a simple puzzle: "how many different squares are there in a grid of N ×N squares?".</p>
+
+<p>In the same napkin there was a drawing which is reproduced below, showing that, for N=2, the answer is 5. </p>
+
+<p><img src="http://code-jedi.chintanghate.me/content/images/2014/11/disatoba-feynman.gif" alt="Illustration"></p>
+
+<h6 id="input">Input</h6>
+
+<p>The input contains several test cases. Each test case is composed of a single line, containing only one integer N, representing the number of squares in each side of the grid (1 ≤ N ≤ 100).</p>
+
+<p>The end of input is indicated by a line containing only one zero.</p>
+
+<h6 id="output">Output</h6>
+
+<p>For each test case in the input, your program must print a single line, containing the number of different squares for the corresponding input.</p>
+
+<p>Example</p>
+
+<p>Input: <br>
+2 <br>
+1 <br>
+8 <br>
+0</p>
+
+<p>Output: <br>
+5 <br>
+1 <br>
+204</p>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;numeric&gt;
+
+using namespace std;
+
+int main() {  
+    vector&lt;int&gt; SQR(101, 0);
+    for (int i = 0; i &lt; 101; ++i) {
+        SQR[i] = i*i;
+    }
+
+    int N;
+    while((cin &gt;&gt; N) &amp;&amp; N != 0) {
+        cout &lt;&lt; accumulate(SQR.begin(), SQR.begin()+N+1, 0) &lt;&lt; "\n";
+    }
+    return 0;
+}
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/samer08f/</link><guid isPermaLink="false">f91be8f7-583b-49ae-a8da-411d7cbaaa52</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Wed, 05 Nov 2014 03:46:32 GMT</pubDate></item><item><title><![CDATA[NSTEPS]]></title><description><![CDATA[<p>Starting from point (0,0) on a plane, we have written all non-negative integers 0, 1, 2,... as shown in the figure. For example, 1, 2, and 3 has been written at points (1,1), (2,0), and (3, 1) respectively and this pattern has continued.</p>
+
+<p><img src="http://code-jedi.chintanghate.me/content/images/2014/11/NSTEPS.png" alt="Illustration"></p>
+
+<p>You are to write a program that reads the coordinates of a point (x, y), and writes the number (if any) that has been written at that point. (x, y) coordinates in the input are in the range 0...10000.</p>
+
+<h6 id="input">Input</h6>
+
+<p>The first line of the input is N, the number of test cases for this problem. In each of the N following lines, there is x, and y representing the coordinates (x, y) of a point.</p>
+
+<h6 id="output">Output</h6>
+
+<p>For each point in the input, write the number written at that point or write No Number if there is none.</p>
+
+<p>Example</p>
+
+<p>Input: <br>
+3 <br>
+4 2 <br>
+6 6 <br>
+3 4</p>
+
+<p>Output: <br>
+6 <br>
+12 <br>
+No Number</p>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+
+using namespace std;
+
+int main() {  
+    int T;
+    cin &gt;&gt; T;
+
+    for(;T--;) {
+        int x, y;
+        cin &gt;&gt; x &gt;&gt; y;
+
+        if (x == y || x - y == 2) {
+            if (x&amp;1) {
+                cout &lt;&lt; x + y - 1 &lt;&lt; "\n";
+            } else {
+                cout &lt;&lt; x + y &lt;&lt; "\n";
+            }
+        } else {
+            cout &lt;&lt; "No Number\n";
+        }
+    }
+    return 0;
+}
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/nsteps/</link><guid isPermaLink="false">98054c18-b6ee-47d8-9175-75403a49b3b3</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Wed, 05 Nov 2014 03:13:01 GMT</pubDate></item><item><title><![CDATA[ONP]]></title><description><![CDATA[<p>Transform the algebraic expression with brackets into RPN form (Reverse Polish Notation). Two-argument operators: +, -, <em>, /, ^ (priority from the lowest to the highest), brackets ( ). Operands: only letters: a,b,...,z. Assume that there is only one RPN form (no expressions like a</em>b*c).</p>
 
 <h6 id="input">Input</h6>
 
