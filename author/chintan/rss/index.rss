@@ -1,5 +1,173 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Chintan Ghate - Code Jedi]]></title><description><![CDATA[Code, algorithms and design.]]></description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Thu, 06 Nov 2014 04:57:07 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/author/chintan/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[COINS]]></title><description><![CDATA[<p>In Byteland they have a very strange monetary system.</p>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Chintan Ghate - Code Jedi]]></title><description><![CDATA[Code, algorithms and design.]]></description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Thu, 06 Nov 2014 18:00:49 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/author/chintan/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[PALIN]]></title><description><![CDATA[<p>A positive integer is called a palindrome if its representation in the decimal system is the same when read from left to right and from right to left. For a given positive integer K of not more than 1,000,000 digits, write the value of the smallest palindrome larger than K to output. Numbers are always displayed without leading zeros.</p>
+
+<h6 id="input">Input</h6>
+
+<p>The first line contains integer t, the number of test cases. Integers K are given in the next t lines.</p>
+
+<h6 id="output">Output</h6>
+
+<p>For each K, output the smallest palindrome larger than K.</p>
+
+<p>Example</p>
+
+<p>Input: <br>
+2 <br>
+808 <br>
+2133</p>
+
+<p>Output: <br>
+818 <br>
+2222</p>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;algorithm&gt;
+
+using namespace std;
+
+bool isPalindrome(string s) {  
+    string s1 = s;
+    reverse(s.begin(), s.end());
+    return s == s1;
+}
+
+string palin(string s) {  
+    string s1 = s;
+    for (int i = 0; i &lt; s.size()/2; ++i) {
+        s[s.size() - i - 1] = s[i];
+    }
+    if (s &gt; s1) {
+        return s;
+    } else {
+        int carry = 0;
+        int cur = 0;
+        int n = s.size()/2 + (s.size()%2 - 1);
+        for (int i = n; i &gt;= 0; --i) {
+            cur = s[i]-'0';
+            if (i == n) {
+                cur = cur + carry + 1;
+            } else {
+                cur += carry;
+            }
+            carry = cur / 10;
+            cur %= 10;
+            s[i] = char(cur+'0');
+        }
+        if(carry &gt; 0) {
+            s = char(carry+'0') + s;
+        }
+        for (int i = 0; i &lt; s.size()/2; ++i) {
+            s[s.size() - i - 1] = s[i];
+        }
+    }
+    return s;
+}
+
+int main() {  
+    int t;
+    cin &gt;&gt; t;
+    for (;t--;) {
+        string K;
+        cin &gt;&gt; K;
+        cout &lt;&lt; palin(K) &lt;&lt; "\n";
+    }    
+    return 0;
+}
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/06/palin/</link><guid isPermaLink="false">7f08e0bb-34ab-449a-a4be-3595be29f26f</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Thu, 06 Nov 2014 16:50:48 GMT</pubDate></item><item><title><![CDATA[HANGOVER]]></title><description><![CDATA[<p>How far can you make a stack of cards overhang a table? If you have one card, you can create a maximum overhang of half a card length. (We're assuming that the cards must be perpendicular to the table.) With two cards you can make the top card overhang the bottom one by half a card length, and the bottom one overhang the table by a third of a card length, for a total maximum overhang of 1/2 + 1/3 = 5/6 card lengths. In general you can make n cards overhang by 1/2 + 1/3 + 1/4 + ... + 1/(n + 1) card lengths, where the top card overhangs the second by 1/2, the second overhangs tha third by 1/3, the third overhangs the fourth by 1/4, etc., and the bottom card overhangs the table by 1/(n + 1). This is illustrated in the figure below.</p>
+
+<p><img src="http://code-jedi.chintanghate.me/content/images/2014/11/wanderley-hangover.jpg" alt="Figure"></p>
+
+<h6 id="input">Input</h6>
+
+<p>The input consists of one or more test cases, followed by a line containing the number 0.00 that signals the end of the input. Each test case is a single line containing a positive floating-point number c whose value is at least 0.01 and at most 5.20; c will contain exactly three digits.</p>
+
+<h6 id="output">Output</h6>
+
+<p>For each test case, output the minimum number of cards necessary to achieve an overhang of at least c card lengths. Use the exact output format shown in the examples.</p>
+
+<p>Example</p>
+
+<p>Input: <br>
+1.00 <br>
+3.71 <br>
+0.04 <br>
+5.19 <br>
+0.00</p>
+
+<p>Output: <br>
+3 card(s) <br>
+61 card(s) <br>
+1 card(s) <br>
+273 card(s)</p>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+
+using namespace std;
+
+int main() {  
+    double c;
+    while((cin &gt;&gt; c) &amp;&amp; c != 0.00) {
+        double i = 2, t = 0;
+        while (t &lt; c) {
+            t += 1.0/i;
+            i += 1;
+        }
+        cout &lt;&lt; i-2 &lt;&lt; " card(s)\n";
+    }
+    return 0;
+}
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/06/hangover/</link><guid isPermaLink="false">827b0aef-e1ba-43e9-9868-e7e9f8a954af</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Thu, 06 Nov 2014 15:35:12 GMT</pubDate></item><item><title><![CDATA[EIGHTS]]></title><description><![CDATA[<p>Pattern Matchers have been designed for various sorts of patterns. Mr. HKP likes to observe patterns in numbers. After completing his extensive research on the squares of numbers, he has moved on to cubes. Now he wants to know all numbers whose cube ends in 888.</p>
+
+<p>Given a number k, help Mr. HKP find the kth number (indexed from 1) whose cube ends in 888.</p>
+
+<h6 id="input">Input</h6>
+
+<p>The first line of the input contains an integer t, the number of test cases. t test cases follow.</p>
+
+<p>Each test case consists of a single line containing a single integer k (1 &lt;= k &lt;= 2,000,000,000,000).</p>
+
+<h6 id="output">Output</h6>
+
+<p>For each test case, output a single integer which denotes the kth number whose cube ends in 888. The result will be less than 263.</p>
+
+<p>Example</p>
+
+<p>Input: <br>
+1 <br>
+1</p>
+
+<p>Output: <br>
+192</p>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+int main() {  
+    vector&lt;int&gt; pattern;
+    pattern.push_back(192);
+    pattern.push_back(442);
+    pattern.push_back(692);
+    pattern.push_back(942);
+
+    int t;
+    cin &gt;&gt; t;
+    for(;t--;) {
+        unsigned long long n;
+        cin &gt;&gt; n;
+        cout &lt;&lt; ((n - 1) / 4) * 1000 + pattern[(n - 1) % 4] &lt;&lt; "\n";
+    }
+    return 0;
+}
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/06/eights/</link><guid isPermaLink="false">cf52e075-2603-4adb-a28e-74ebc16e7fd5</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Thu, 06 Nov 2014 14:32:55 GMT</pubDate></item><item><title><![CDATA[COINS]]></title><description><![CDATA[<p>In Byteland they have a very strange monetary system.</p>
 
 <p>Each Bytelandian gold coin has an integer number written on it. A coin n can be exchanged in a bank into three coins: n/2, n/3 and n/4. But these numbers are all rounded down (the banks have to make a profit).</p>
 
@@ -795,182 +963,4 @@ int main() {
     }
     return 0;
 }
-</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/05/nsteps/</link><guid isPermaLink="false">98054c18-b6ee-47d8-9175-75403a49b3b3</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Wed, 05 Nov 2014 03:13:01 GMT</pubDate></item><item><title><![CDATA[ONP]]></title><description><![CDATA[<p>Transform the algebraic expression with brackets into RPN form (Reverse Polish Notation). Two-argument operators: +, -, <em>, /, ^ (priority from the lowest to the highest), brackets ( ). Operands: only letters: a,b,...,z. Assume that there is only one RPN form (no expressions like a</em>b*c).</p>
-
-<h6 id="input">Input</h6>
-
-<p>t [the number of expressions &lt;= 100] <br>
-expression [length &lt;= 400] <br>
-[other expressions]
-Text grouped in [ ] does not appear in the input file.</p>
-
-<h6 id="output">Output</h6>
-
-<p>The expressions in RPN form, one per line.</p>
-
-<p>Example</p>
-
-<p>Input: <br>
-3 <br>
-(a+(b<em>c))
-((a+b)</em>(z+x))
-((a+t)*((b+(a+c))^(c+d)))</p>
-
-<p>Output: <br>
-abc<em>+ <br>
-ab+zx+</em> <br>
-at+bac++cd+^*</p>
-
-<hr>
-
-<pre><code class="prettyprint">#include &lt;iostream&gt;
-#include &lt;stack&gt;
-#include &lt;string&gt;
-
-using namespace std;
-
-int main() {  
-    int T;
-    cin &gt;&gt; T;
-
-    for(;T--;) {
-        string e;
-        cin &gt;&gt; e;
-        stack&lt;char&gt; op; 
-        for (int i = 0; i &lt; e.size(); ++i) {
-            if (e[i] &gt;= 'a' &amp;&amp; e[i] &lt;= 'z') {
-                cout &lt;&lt; e[i];
-            } else if (e[i] !='(' &amp;&amp; e[i] != ')') {
-                op.push(e[i]);
-            } else if (e[i] == ')') {
-                cout &lt;&lt; op.top();
-                op.pop();
-            }
-        }
-        cout &lt;&lt; "\n";
-    }
-    return 0;
-}
-</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/04/onp/</link><guid isPermaLink="false">f0d1db0a-dbd4-4bf0-b4ed-5bf14d10b9e3</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Tue, 04 Nov 2014 13:31:10 GMT</pubDate></item><item><title><![CDATA[FCTRL2]]></title><description><![CDATA[<p>You are asked to calculate factorials of some small positive integers.</p>
-
-<h6 id="input">Input</h6>
-
-<p>An integer t, 1&lt;=t&lt;=100, denoting the number of testcases, followed by t lines, each containing a single integer n, 1&lt;=n&lt;=100.</p>
-
-<h6 id="output">Output</h6>
-
-<p>For each integer n given at input, display a line with the value of n!</p>
-
-<p>Example</p>
-
-<p>Sample input: <br>
-4 <br>
-1 <br>
-2 <br>
-5 <br>
-3</p>
-
-<p>Sample output: <br>
-1 <br>
-2 <br>
-120 <br>
-6</p>
-
-<hr>
-
-<pre><code class="prettyprint">#include &lt;iostream&gt;
-#include &lt;vector&gt;
-
-using namespace std;
-
-int main() {  
-    vector&lt;vector&lt;int&gt; &gt; FACT(101,vector&lt;int&gt;(200,0));
-    FACT[0][0] = 1;
-
-    for (int i = 1; i &lt;= 100; ++i) {
-        for (int j = 0; j &lt; 199; ++j) {
-            FACT[i][j] += FACT[i-1][j]*i;
-            FACT[i][j+1] = FACT[i][j]/10;
-            FACT[i][j] %= 10;
-        }
-    }
-
-    int T;
-    cin &gt;&gt; T;
-
-    for (;T--;) {
-        int N;
-        cin &gt;&gt; N;
-
-        bool flag = false;
-        for (int i = 199; i &gt;= 0; --i) {
-            if (!flag &amp;&amp; FACT[N][i] == 0) {
-                continue;
-            } else {
-                flag = true;
-                cout &lt;&lt; FACT[N][i];
-            }
-        }
-        cout &lt;&lt; "\n";
-    }
-    return 0;
-}
-</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/04/fctr2/</link><guid isPermaLink="false">a50f1e5d-f0f0-4c67-984b-85757786536e</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Tue, 04 Nov 2014 13:18:27 GMT</pubDate></item><item><title><![CDATA[FCTRL]]></title><description><![CDATA[<p>The most important part of a GSM network is so called Base Transceiver Station (BTS). These transceivers form the areas called cells (this term gave the name to the cellular phone) and every phone connects to the BTS with the strongest signal (in a little simplified view). Of course, BTSes need some attention and technicians need to check their function periodically.</p>
-
-<p>ACM technicians faced a very interesting problem recently. Given a set of BTSes to visit, they needed to find the shortest path to visit all of the given points and return back to the central company building. Programmers have spent several months studying this problem but with no results. They were unable to find the solution fast enough. After a long time, one of the programmers found this problem in a conference article. Unfortunately, he found that the problem is so called "Travelling Salesman Problem" and it is very hard to solve. If we have N BTSes to be visited, we can visit them in any order, giving us N! possibilities to examine. The function expressing that number is called factorial and can be computed as a product 1.2.3.4....N. The number is very high even for a relatively small N.</p>
-
-<p>The programmers understood they had no chance to solve the problem. But because they have already received the research grant from the government, they needed to continue with their studies and produce at least some results. So they started to study behaviour of the factorial function.</p>
-
-<p>For example, they defined the function Z. For any positive integer N, Z(N) is the number of zeros at the end of the decimal form of number N!. They noticed that this function never decreases. If we have two numbers N1&lt;N2, then Z(N1) &lt;= Z(N2). It is because we can never "lose" any trailing zero by multiplying by any positive number. We can only get new and new zeros. The function Z is very interesting, so we need a computer program that can determine its value efficiently.</p>
-
-<h6 id="input">Input</h6>
-
-<p>There is a single positive integer T on the first line of input (equal to about 100000). It stands for the number of numbers to follow. Then there are T lines, each containing exactly one positive integer number N, 1 &lt;= N &lt;= 1000000000.</p>
-
-<h6 id="output">Output</h6>
-
-<p>For every number N, output a single line containing the single non-negative integer Z(N).</p>
-
-<p>Example</p>
-
-<p>Sample Input: <br>
-6 <br>
-3 <br>
-60 <br>
-100 <br>
-1024 <br>
-23456 <br>
-8735373</p>
-
-<p>Sample Output: <br>
-0 <br>
-14 <br>
-24 <br>
-253 <br>
-5861 <br>
-2183837</p>
-
-<hr>
-
-<pre><code class="prettyprint">#include &lt;iostream&gt;
-#include &lt;cmath&gt;
-
-using namespace std;
-
-int main() {  
-    int T;
-    cin &gt;&gt; T;
-
-    for (;T--;) {
-        int N, S = 0;
-        cin &gt;&gt; N;
-
-        int i = 1;
-        while(N/pow(5,i) &gt; 0) {
-            S += N/pow(5,i++);
-        }
-        cout &lt;&lt; S &lt;&lt; "\n";
-    }
-    return 0;
-}
-</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/04/fctrl/</link><guid isPermaLink="false">0f6efc29-dc81-4ecf-ab8b-0c6a683e6ce2</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Tue, 04 Nov 2014 12:37:09 GMT</pubDate></item></channel></rss>
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/05/nsteps/</link><guid isPermaLink="false">98054c18-b6ee-47d8-9175-75403a49b3b3</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Wed, 05 Nov 2014 03:13:01 GMT</pubDate></item></channel></rss>
