@@ -3,7 +3,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>SBSTR1</title>
+    <title>AE00</title>
     <meta name="description" content="">
 
     <meta name="HandheldFriendly" content="True">
@@ -15,21 +15,21 @@
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
     <link href="../../../../assets/css/prettify.css?v=3394315a82" type="text/css" rel="stylesheet">
 	<script type="text/javascript" src="../../../../assets/js/prettify.js?v=3394315a82"></script>
-    <link rel="canonical" href="http://code-jedi.chintanghate.me/2014/11/04/sbstr1/">
+    <link rel="canonical" href="http://code-jedi.chintanghate.me/2014/11/06/ae00/">
     
     <meta property="og:site_name" content="Code Jedi">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="SBSTR1">
-    <meta property="og:description" content="Given two binary strings, A (of length 10) and B (of length 5), output 1 if B is a substring of A and 0 otherwise. Input 24 lines consisting of pairs of binary strings A and B separated by a...">
-    <meta property="og:url" content="http://code-jedi.chintanghate.me/2014/11/04/sbstr1/">
-    <meta property="article:published_time" content="2014-11-03T23:32:59.625Z">
-    <meta property="article:modified_time" content="2014-11-04T15:47:49.430Z">
+    <meta property="og:title" content="AE00">
+    <meta property="og:description" content="Byteman has a collection of N squares with side 1. How many different rectangles can he form using these squares? Two rectangles are considered different if none of them can be rotated and moved to obtain the second one. During...">
+    <meta property="og:url" content="http://code-jedi.chintanghate.me/2014/11/06/ae00/">
+    <meta property="article:published_time" content="2014-11-06T04:05:44.225Z">
+    <meta property="article:modified_time" content="2014-11-06T04:05:44.224Z">
     <meta property="article:tag" content="SPOJ">
     
     <meta name="twitter:card" content="content">
-    <meta name="twitter:title" content="SBSTR1">
-    <meta name="twitter:description" content="Given two binary strings, A (of length 10) and B (of length 5), output 1 if B is a substring of A and 0 otherwise. Input 24 lines consisting of pairs of binary strings A and B separated by a...">
-    <meta name="twitter:url" content="http://code-jedi.chintanghate.me/2014/11/04/sbstr1/">
+    <meta name="twitter:title" content="AE00">
+    <meta name="twitter:description" content="Byteman has a collection of N squares with side 1. How many different rectangles can he form using these squares? Two rectangles are considered different if none of them can be rotated and moved to obtain the second one. During...">
+    <meta name="twitter:url" content="http://code-jedi.chintanghate.me/2014/11/06/ae00/">
     
     <script type="application/ld+json">
 {
@@ -42,12 +42,12 @@
         "url": "http://code-jedi.chintanghate.me/author/chintan",
         "sameAs": null
     },
-    "headline": "SBSTR1",
-    "url": "http://code-jedi.chintanghate.me/2014/11/04/sbstr1/",
-    "datePublished": "2014-11-03T23:32:59.625Z",
-    "dateModified": "2014-11-04T15:47:49.430Z",
+    "headline": "AE00",
+    "url": "http://code-jedi.chintanghate.me/2014/11/06/ae00/",
+    "datePublished": "2014-11-06T04:05:44.225Z",
+    "dateModified": "2014-11-06T04:05:44.224Z",
     "keywords": "SPOJ",
-    "description": "Given two binary strings, A (of length 10) and B (of length 5), output 1 if B is a substring of A and 0 otherwise. Input 24 lines consisting of pairs of binary strings A and B separated by a"
+    "description": "Byteman has a collection of N squares with side 1. How many different rectangles can he form using these squares? Two rectangles are considered different if none of them can be rotated and moved to obtain the second one. During"
 }
     </script>
 
@@ -71,50 +71,56 @@
     <article class="post tag-spoj">
 
         <header class="post-header">
-            <h1 class="post-title">SBSTR1</h1>
+            <h1 class="post-title">AE00</h1>
             <section class="post-meta">
-                <time class="post-date" datetime="2014-11-04">04 November 2014</time>  on <a href="../../../../tag/spoj/">SPOJ</a>
+                <time class="post-date" datetime="2014-11-06">06 November 2014</time>  on <a href="../../../../tag/spoj/">SPOJ</a>
             </section>
         </header>
 
         <section class="post-content">
-            <p>Given two binary strings, A (of length 10) and B (of length 5), output 1 if B is a substring of A and 0 otherwise.</p>
+            <p>Byteman has a collection of N squares with side 1. How many different rectangles can he form using these squares?</p>
+
+<p>Two rectangles are considered different if none of them can be rotated and moved to obtain the second one. During rectangle construction, Byteman can neither deform the squares nor put any squares upon any other ones.</p>
 
 <h6 id="input">Input</h6>
 
-<p>24 lines consisting of pairs of binary strings A and B separated by a single space.</p>
+<p>The first and only line of the standard input contains one integer N (1 ≤ N ≤ 10000).</p>
 
 <h6 id="output">Output</h6>
 
-<p>The logical value of: 'B is a substring of A'.</p>
+<p>The first and only line of the standard output should contain a single integer equal to the number of different rectangles that Byteman can form using his squares.</p>
 
 <p>Example</p>
 
-<p>First two lines of input: <br>
-1010110010 10110 <br>
-1110111011 10011</p>
+<p>Input: <br>
+6</p>
 
-<p>First two lines of output: <br>
-1 <br>
-0</p>
+<p>Output: <br>
+8</p>
+
+<p><img src="../../../../content/images/2014/11/ae00.jpg" alt="Illustration"></p>
 
 <hr>
 
-<pre><code class="prettyprint">#include &lt;iostream&gt;    
-#include &lt;string&gt;
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;cmath&gt;
 
 using namespace std;
 
 int main() {  
-    for (int i = 0; i &lt; 24; ++i) {
-        string a, b;
-        cin &gt;&gt; a &gt;&gt; b;
-        if (a.find(b) == string::npos) {
-            cout &lt;&lt; "0\n";
-        } else {
-                cout &lt;&lt; "1\n";
+    int N;
+    cin &gt;&gt; N;
+
+    int squares = 0;
+    for (int i = 1; i &lt;= N; ++i) {
+        for (int j = 1; j &lt;= sqrt(i); ++j)
+        {
+            if(i%j == 0) {
+                ++squares;
+            }
         }
     }
+    cout &lt;&lt; squares &lt;&lt; "\n";
     return 0;
 }
 </code></pre>
@@ -137,13 +143,13 @@ int main() {
 
             <section class="share">
                 <h4>Share this post</h4>
-                <a class="icon-twitter" href="https://twitter.com/share?text=SBSTR1&amp;url=http://code-jedi.chintanghate.me/2014/11/04/sbstr1/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <a class="icon-twitter" href="https://twitter.com/share?text=AE00&amp;url=http://code-jedi.chintanghate.me/2014/11/06/ae00/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
                     <span class="hidden">Twitter</span>
                 </a>
-                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://code-jedi.chintanghate.me/2014/11/04/sbstr1/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://code-jedi.chintanghate.me/2014/11/06/ae00/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
                     <span class="hidden">Facebook</span>
                 </a>
-                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://code-jedi.chintanghate.me/2014/11/04/sbstr1/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://code-jedi.chintanghate.me/2014/11/06/ae00/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
                     <span class="hidden">Google+</span>
                 </a>
             </section>

@@ -1,0 +1,210 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>COINS</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css?v=3394315a82">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+    <link href="../../../../assets/css/prettify.css?v=3394315a82" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="../../../../assets/js/prettify.js?v=3394315a82"></script>
+    <link rel="canonical" href="http://code-jedi.chintanghate.me/2014/11/06/coins/">
+    
+    <meta property="og:site_name" content="Code Jedi">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="COINS">
+    <meta property="og:description" content="In Byteland they have a very strange monetary system. Each Bytelandian gold coin has an integer number written on it. A coin n can be exchanged in a bank into three coins: n/2, n/3 and n/4. But...">
+    <meta property="og:url" content="http://code-jedi.chintanghate.me/2014/11/06/coins/">
+    <meta property="article:published_time" content="2014-11-06T04:52:37.476Z">
+    <meta property="article:modified_time" content="2014-11-06T04:55:30.456Z">
+    <meta property="article:tag" content="SPOJ">
+    
+    <meta name="twitter:card" content="content">
+    <meta name="twitter:title" content="COINS">
+    <meta name="twitter:description" content="In Byteland they have a very strange monetary system. Each Bytelandian gold coin has an integer number written on it. A coin n can be exchanged in a bank into three coins: n/2, n/3 and n/4. But...">
+    <meta name="twitter:url" content="http://code-jedi.chintanghate.me/2014/11/06/coins/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Code Jedi",
+    "author": {
+        "@type": "Person",
+        "name": "Chintan Ghate",
+        "url": "http://code-jedi.chintanghate.me/author/chintan",
+        "sameAs": null
+    },
+    "headline": "COINS",
+    "url": "http://code-jedi.chintanghate.me/2014/11/06/coins/",
+    "datePublished": "2014-11-06T04:52:37.476Z",
+    "dateModified": "2014-11-06T04:55:30.456Z",
+    "keywords": "SPOJ",
+    "description": "In Byteland they have a very strange monetary system. Each Bytelandian gold coin has an integer number written on it. A coin n can be exchanged in a bank into three coins: n/2, n/3 and n/4. But"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Code Jedi" href="../../../../rss/index.html">
+</head>
+<body class="post-template tag-spoj" onload="prettyPrint()">
+
+    
+
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        <a class="back-button icon-arrow-left" href="http://code-jedi.chintanghate.me">Home</a>
+        <a class="subscribe-button icon-feed" href="http://code-jedi.chintanghate.me/rss/index.rss">Subscribe</a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+
+    <article class="post tag-spoj">
+
+        <header class="post-header">
+            <h1 class="post-title">COINS</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2014-11-06">06 November 2014</time>  on <a href="../../../../tag/spoj/">SPOJ</a>
+            </section>
+        </header>
+
+        <section class="post-content">
+            <p>In Byteland they have a very strange monetary system.</p>
+
+<p>Each Bytelandian gold coin has an integer number written on it. A coin n can be exchanged in a bank into three coins: n/2, n/3 and n/4. But these numbers are all rounded down (the banks have to make a profit).</p>
+
+<p>You can also sell Bytelandian coins for American dollars. The exchange rate is 1:1. But you can not buy Bytelandian coins.</p>
+
+<p>You have one gold coin. What is the maximum amount of American dollars you can get for it?</p>
+
+<h6 id="input">Input</h6>
+
+<p>The input will contain several test cases (not more than 10). Each testcase is a single line with a number n, 0 &lt;= n &lt;= 1,000,000,000. It is the number written on your coin.</p>
+
+<h6 id="output">Output</h6>
+
+<p>For each test case output a single line, containing the maximum amount of American dollars you can make.</p>
+
+<p>Example</p>
+
+<p>Input: <br>
+12 <br>
+2</p>
+
+<p>Output: <br>
+13 <br>
+2</p>
+
+<p>You can change 12 into 6, 4 and 3, and then change these into $6+$4+$3 = $13. If you try changing the coin 2 into 3 smaller coins, you will get 1, 0 and 0, and later you can get no more than $1 out of them. It is better just to change the 2 coin directly into $2.</p>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;deque&gt;
+#include &lt;set&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+int main() {
+
+    vector&lt;int&gt; preCompute(1000001,0);
+
+    for (int i = 0; i &lt;= 1000000; ++i) {
+        int divided = preCompute[i/2] + preCompute[i/3] + 
+                      preCompute[i/4];
+        if (divided &gt; i) {
+            preCompute[i] = divided;
+        } else {
+            preCompute[i] = i;
+        }
+    }
+
+    int n;
+
+    while (cin &gt;&gt; n) {
+        deque&lt;int&gt; q;
+        q.push_back(n);
+
+        set&lt;int&gt; doNotDivide;
+        long long total = 0;
+
+        while(!q.empty()) {
+            int x = q.front();
+
+            if(x &lt;= 1000000) {
+                total += preCompute[x];
+            } else if (doNotDivide.find(x) == doNotDivide.end() &amp;&amp; 
+                      (x/2 + x/3 + x/4) &gt;= x) {
+                q.push_back(x/2);
+                q.push_back(x/3);
+                q.push_back(x/4);
+            } else {
+                total += x;
+                doNotDivide.insert(x);
+            }
+            q.pop_front();
+        }
+        cout &lt;&lt; total &lt;&lt; "\n";
+    }
+    return 0;
+}
+</code></pre>
+        </section>
+
+        <footer class="post-footer">
+
+
+
+            <section class="author">
+                <h4><a href="../../../../author/chintan/">Chintan Ghate</a></h4>
+
+                    <p>Read <a href="../../../../author/chintan/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/share?text=COINS&amp;url=http://code-jedi.chintanghate.me/2014/11/06/coins/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://code-jedi.chintanghate.me/2014/11/06/coins/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://code-jedi.chintanghate.me/2014/11/06/coins/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+    </article>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+         <section class="copyright"><a href="http://code-jedi.chintanghate.me">Code Jedi</a> © 2014</section>
+         <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+    </footer>
+
+    <script src="../../../../public/jquery.js?v=3394315a82"></script>
+
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js?v=3394315a82"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js?v=3394315a82"></script>
+
+</body>

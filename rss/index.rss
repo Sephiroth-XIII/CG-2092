@@ -1,4 +1,264 @@
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Code Jedi</title><description>Code, algorithms and design.</description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Wed, 05 Nov 2014 19:54:36 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>Hello, Objective-C!</title><description>&lt;h6 id="oldschoolobjectivec"&gt;Old School Objective-C&lt;/h6&gt;
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Code Jedi</title><description>Code, algorithms and design.</description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Thu, 06 Nov 2014 04:57:06 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>COINS</title><description>&lt;p&gt;In Byteland they have a very strange monetary system.&lt;/p&gt;
+
+&lt;p&gt;Each Bytelandian gold coin has an integer number written on it. A coin n can be exchanged in a bank into three coins: n/2, n/3 and n/4. But these numbers are all rounded down (the banks have to make a profit).&lt;/p&gt;
+
+&lt;p&gt;You can also sell Bytelandian coins for American dollars. The exchange rate is 1:1. But you can not buy Bytelandian coins.&lt;/p&gt;
+
+&lt;p&gt;You have one gold coin. What is the maximum amount of American dollars you can get for it?&lt;/p&gt;
+
+&lt;h6 id="input"&gt;Input&lt;/h6&gt;
+
+&lt;p&gt;The input will contain several test cases (not more than 10). Each testcase is a single line with a number n, 0 &amp;lt;= n &amp;lt;= 1,000,000,000. It is the number written on your coin.&lt;/p&gt;
+
+&lt;h6 id="output"&gt;Output&lt;/h6&gt;
+
+&lt;p&gt;For each test case output a single line, containing the maximum amount of American dollars you can make.&lt;/p&gt;
+
+&lt;p&gt;Example&lt;/p&gt;
+
+&lt;p&gt;Input: &lt;br&gt;
+12 &lt;br&gt;
+2&lt;/p&gt;
+
+&lt;p&gt;Output: &lt;br&gt;
+13 &lt;br&gt;
+2&lt;/p&gt;
+
+&lt;p&gt;You can change 12 into 6, 4 and 3, and then change these into $6+$4+$3 = $13. If you try changing the coin 2 into 3 smaller coins, you will get 1, 0 and 0, and later you can get no more than $1 out of them. It is better just to change the 2 coin directly into $2.&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;deque&amp;gt;
+#include &amp;lt;set&amp;gt;
+#include &amp;lt;vector&amp;gt;
+
+using namespace std;
+
+int main() {
+
+    vector&amp;lt;int&amp;gt; preCompute(1000001,0);
+
+    for (int i = 0; i &amp;lt;= 1000000; ++i) {
+        int divided = preCompute[i/2] + preCompute[i/3] + 
+                      preCompute[i/4];
+        if (divided &amp;gt; i) {
+            preCompute[i] = divided;
+        } else {
+            preCompute[i] = i;
+        }
+    }
+
+    int n;
+
+    while (cin &amp;gt;&amp;gt; n) {
+        deque&amp;lt;int&amp;gt; q;
+        q.push_back(n);
+
+        set&amp;lt;int&amp;gt; doNotDivide;
+        long long total = 0;
+
+        while(!q.empty()) {
+            int x = q.front();
+
+            if(x &amp;lt;= 1000000) {
+                total += preCompute[x];
+            } else if (doNotDivide.find(x) == doNotDivide.end() &amp;amp;&amp;amp; 
+                      (x/2 + x/3 + x/4) &amp;gt;= x) {
+                q.push_back(x/2);
+                q.push_back(x/3);
+                q.push_back(x/4);
+            } else {
+                total += x;
+                doNotDivide.insert(x);
+            }
+            q.pop_front();
+        }
+        cout &amp;lt;&amp;lt; total &amp;lt;&amp;lt; "\n";
+    }
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/06/coins/</link><guid isPermaLink="false">05cf5cc6-7d69-4745-8939-b270443ea6a0</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Thu, 06 Nov 2014 04:52:37 GMT</pubDate></item><item><title>CANDY3</title><description>&lt;p&gt;A class went to a school trip. And, as usually, all N kids have got their backpacks stuffed with candy. But soon quarrels started all over the place, as some of the kids had more candies than others. Soon, the teacher realized that he has to step in: "Everybody, listen! Put all the candies you have on this table here!"&lt;/p&gt;
+
+&lt;p&gt;Soon, there was quite a large heap of candies on the teacher's table. "Now, I will divide the candies into N equal heaps and everyone will get one of them." announced the teacher.&lt;/p&gt;
+
+&lt;p&gt;"Wait, is this really possible?" wondered some of the smarter kids.&lt;/p&gt;
+
+&lt;h6 id="problem"&gt;Problem&lt;/h6&gt;
+
+&lt;p&gt;You are given the number of candies each child brought. Find out whether the teacher can divide the candies into N exactly equal heaps. (For the purpose of this task, all candies are of the same type.)&lt;/p&gt;
+
+&lt;h6 id="input"&gt;Input&lt;/h6&gt;
+
+&lt;p&gt;The first line of the input file contains an integer T specifying the number of test cases. Each test case is preceded by a blank line.&lt;/p&gt;
+
+&lt;p&gt;Each test case looks as follows: The first line contains N : the number of children. Each of the next N lines contains the number of candies one child brought.&lt;/p&gt;
+
+&lt;h6 id="output"&gt;Output&lt;/h6&gt;
+
+&lt;p&gt;For each of the test cases output a single line with a single word "YES" if the candies can be distributed equally, or "NO" otherwise.&lt;/p&gt;
+
+&lt;p&gt;Example&lt;/p&gt;
+
+&lt;p&gt;Input: &lt;br&gt;
+2&lt;/p&gt;
+
+&lt;p&gt;5 &lt;br&gt;
+5 &lt;br&gt;
+2 &lt;br&gt;
+7 &lt;br&gt;
+3 &lt;br&gt;
+8&lt;/p&gt;
+
+&lt;p&gt;6 &lt;br&gt;
+7 &lt;br&gt;
+11 &lt;br&gt;
+2 &lt;br&gt;
+7 &lt;br&gt;
+3 &lt;br&gt;
+4&lt;/p&gt;
+
+&lt;p&gt;Output: &lt;br&gt;
+YES &lt;br&gt;
+NO&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
+
+using namespace std;
+
+int main() {  
+    int T;
+    cin &amp;gt;&amp;gt; T;
+
+    for(;T--;) {
+        unsigned long long N;
+        cin &amp;gt;&amp;gt; N;
+
+        unsigned long long total = 0;
+        for (int i = 0; i &amp;lt; N; ++i) {
+            unsigned long long x;
+            cin &amp;gt;&amp;gt; x;
+            total = (total + x) % N;
+        }
+
+        if (total % N == 0) {
+            cout &amp;lt;&amp;lt; "YES\n";
+        } else {
+            cout &amp;lt;&amp;lt; "NO\n";
+        }
+    }
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/06/candy3/</link><guid isPermaLink="false">d18b1659-698e-42e5-9464-d401ed545110</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Thu, 06 Nov 2014 04:17:05 GMT</pubDate></item><item><title>AE00</title><description>&lt;p&gt;Byteman has a collection of N squares with side 1. How many different rectangles can he form using these squares?&lt;/p&gt;
+
+&lt;p&gt;Two rectangles are considered different if none of them can be rotated and moved to obtain the second one. During rectangle construction, Byteman can neither deform the squares nor put any squares upon any other ones.&lt;/p&gt;
+
+&lt;h6 id="input"&gt;Input&lt;/h6&gt;
+
+&lt;p&gt;The first and only line of the standard input contains one integer N (1 ≤ N ≤ 10000).&lt;/p&gt;
+
+&lt;h6 id="output"&gt;Output&lt;/h6&gt;
+
+&lt;p&gt;The first and only line of the standard output should contain a single integer equal to the number of different rectangles that Byteman can form using his squares.&lt;/p&gt;
+
+&lt;p&gt;Example&lt;/p&gt;
+
+&lt;p&gt;Input: &lt;br&gt;
+6&lt;/p&gt;
+
+&lt;p&gt;Output: &lt;br&gt;
+8&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://code-jedi.chintanghate.me/content/images/2014/11/ae00.jpg" alt="Illustration"&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;cmath&amp;gt;
+
+using namespace std;
+
+int main() {  
+    int N;
+    cin &amp;gt;&amp;gt; N;
+
+    int squares = 0;
+    for (int i = 1; i &amp;lt;= N; ++i) {
+        for (int j = 1; j &amp;lt;= sqrt(i); ++j)
+        {
+            if(i%j == 0) {
+                ++squares;
+            }
+        }
+    }
+    cout &amp;lt;&amp;lt; squares &amp;lt;&amp;lt; "\n";
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/06/ae00/</link><guid isPermaLink="false">c3c7f42b-4b47-4472-b147-34bde82f18c4</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Thu, 06 Nov 2014 04:05:44 GMT</pubDate></item><item><title>LASTDIG</title><description>&lt;p&gt;Nestor was doing the work of his math class about three days but he is tired of make operations a lot and he should deliver his task tomorrow. His math’s teacher gives two numbers a and b. The problem consist in find the last digit of the potency of base a and index b. Help Nestor with his problem. You are given two integer numbers: the base a (0 &amp;lt;= a &amp;lt;= 20) and the index b (0 &amp;lt;= b &amp;lt;= 2,147,483,000), a and b both are not 0. You have to find the last digit of a^b.&lt;/p&gt;
+
+&lt;h6 id="input"&gt;Input&lt;/h6&gt;
+
+&lt;p&gt;The first line of input contains an integer t, the number of test cases (t &amp;lt;= 30). t test cases follow. For each test case will appear a and b separated by space.&lt;/p&gt;
+
+&lt;h6 id="output"&gt;Output&lt;/h6&gt;
+
+&lt;p&gt;For each test case output an integer per line representing the result.&lt;/p&gt;
+
+&lt;p&gt;Example&lt;/p&gt;
+
+&lt;p&gt;Input: &lt;br&gt;
+2 &lt;br&gt;
+3 10 &lt;br&gt;
+6 2&lt;/p&gt;
+
+&lt;p&gt;Output: &lt;br&gt;
+9 &lt;br&gt;
+6&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;vector&amp;gt;
+
+using namespace std;
+
+long long mod(long long a, long long b) {  
+    return (a % b &amp;lt; 0 ? a % b + b : a % b);
+}
+
+int powMod10(long long a, long long b) {  
+    if (b == 0) {
+        return 1;
+    } else if (a == 0) {
+        return 0;
+    } else {
+        vector &amp;lt;long long&amp;gt; powers;
+        powers.push_back(a%10);
+
+        do {
+            powers.push_back((powers.back()*(a%10))%10);
+        } while(powers.back() != powers.front());
+
+        int cycleSize = powers.size() - 1;
+        return powers[mod((b-1),cycleSize)];
+    }
+    return 0;
+}
+
+int main() {  
+    int t;
+    cin &amp;gt;&amp;gt; t;
+
+    for (;t--;) {
+        long long a, b;
+        cin &amp;gt;&amp;gt; a &amp;gt;&amp;gt; b;
+        cout &amp;lt;&amp;lt; powMod10(a, b) &amp;lt;&amp;lt; "\n";
+    }
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/06/lastdig/</link><guid isPermaLink="false">d64aa5b2-b645-44fd-80ab-e8fd44b1e99c</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Thu, 06 Nov 2014 03:50:48 GMT</pubDate></item><item><title>Hello, Objective-C!</title><description>&lt;h6 id="oldschoolobjectivec"&gt;Old School Objective-C&lt;/h6&gt;
 
 &lt;p&gt;I will be attempting to relearn Objective-C using a text-editor, &lt;strong&gt;Sublime Text&lt;/strong&gt;, and &lt;strong&gt;terminal&lt;/strong&gt;, and will be maintaining a log of my adventures here, under the tag &lt;strong&gt;Objective-C&lt;/strong&gt;. As always, beginning with "Hello, world!".&lt;/p&gt;
 
@@ -712,203 +972,4 @@ int main() {
     }
     return 0;
 }
-&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/04/fctrl/</link><guid isPermaLink="false">0f6efc29-dc81-4ecf-ab8b-0c6a683e6ce2</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Tue, 04 Nov 2014 12:37:09 GMT</pubDate></item><item><title>ADDREV</title><description>&lt;p&gt;The Antique Comedians of Malidinesia prefer comedies to tragedies. Unfortunately, most of the ancient plays are tragedies. Therefore the dramatic advisor of ACM has decided to transfigure some tragedies into comedies. Obviously, this work is very hard because the basic sense of the play must be kept intact, although all the things change to their opposites. For example the numbers: if any number appears in the tragedy, it must be converted to its reversed form before being accepted into the comedy play.&lt;/p&gt;
-
-&lt;p&gt;Reversed number is a number written in arabic numerals but the order of digits is reversed. The first digit becomes last and vice versa. For example, if the main hero had 1245 strawberries in the tragedy, he has 5421 of them now. Note that all the leading zeros are omitted. That means if the number ends with a zero, the zero is lost by reversing (e.g. 1200 gives 21). Also note that the reversed number never has any trailing zeros.&lt;/p&gt;
-
-&lt;p&gt;ACM needs to calculate with reversed numbers. Your task is to add two reversed numbers and output their reversed sum. Of course, the result is not unique because any particular number is a reversed form of several numbers (e.g. 21 could be 12, 120 or 1200 before reversing). Thus we must assume that no zeros were lost by reversing (e.g. assume that the original number was 12).&lt;/p&gt;
-
-&lt;h6 id="input"&gt;Input&lt;/h6&gt;
-
-&lt;p&gt;The input consists of N cases (equal to about 10000). The first line of the input contains only positive integer N. Then follow the cases. Each case consists of exactly one line with two positive integers separated by space. These are the reversed numbers you are to add.&lt;/p&gt;
-
-&lt;h6 id="output"&gt;Output&lt;/h6&gt;
-
-&lt;p&gt;For each case, print exactly one line containing only one integer - the reversed sum of two reversed numbers. Omit any leading zeros in the output.&lt;/p&gt;
-
-&lt;p&gt;Example&lt;/p&gt;
-
-&lt;p&gt;Sample input: &lt;br&gt;
-3 &lt;br&gt;
-24 1 &lt;br&gt;
-4358 754 &lt;br&gt;
-305 794&lt;/p&gt;
-
-&lt;p&gt;Sample output: &lt;br&gt;
-34 &lt;br&gt;
-1998 &lt;br&gt;
-1&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
-#include &amp;lt;string&amp;gt;
-#include &amp;lt;sstream&amp;gt;
-#include &amp;lt;algorithm&amp;gt;
-
-using namespace std;
-
-int revadd(string a, string b) {  
-    int x, y, z, ans;
-    istringstream iss(a);
-    iss &amp;gt;&amp;gt; x;
-    istringstream iss1(b);
-    iss1 &amp;gt;&amp;gt; y;
-    z = x + y;
-    ostringstream oss;
-    oss &amp;lt;&amp;lt; z;
-    string c = oss.str();
-    reverse(c.begin(), c.end());
-    istringstream iss3(c);
-    iss3 &amp;gt;&amp;gt; ans;
-    return ans;
-}
-
-int main() {  
-    int N;
-    cin &amp;gt;&amp;gt; N;
-
-    for(;N--;) {
-        string a, b;
-        cin &amp;gt;&amp;gt; a &amp;gt;&amp;gt; b;
-        reverse(a.begin(), a.end());
-        reverse(b.begin(), b.end());
-        cout &amp;lt;&amp;lt; revadd(a, b) &amp;lt;&amp;lt; "\n";
-    }
-    return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/04/addrev/</link><guid isPermaLink="false">72ca342b-56d7-4657-98d4-1769dc74c7c0</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Tue, 04 Nov 2014 08:06:56 GMT</pubDate></item><item><title>SBSTR1</title><description>&lt;p&gt;Given two binary strings, A (of length 10) and B (of length 5), output 1 if B is a substring of A and 0 otherwise.&lt;/p&gt;
-
-&lt;h6 id="input"&gt;Input&lt;/h6&gt;
-
-&lt;p&gt;24 lines consisting of pairs of binary strings A and B separated by a single space.&lt;/p&gt;
-
-&lt;h6 id="output"&gt;Output&lt;/h6&gt;
-
-&lt;p&gt;The logical value of: 'B is a substring of A'.&lt;/p&gt;
-
-&lt;p&gt;Example&lt;/p&gt;
-
-&lt;p&gt;First two lines of input: &lt;br&gt;
-1010110010 10110 &lt;br&gt;
-1110111011 10011&lt;/p&gt;
-
-&lt;p&gt;First two lines of output: &lt;br&gt;
-1 &lt;br&gt;
-0&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;    
-#include &amp;lt;string&amp;gt;
-
-using namespace std;
-
-int main() {  
-    for (int i = 0; i &amp;lt; 24; ++i) {
-        string a, b;
-        cin &amp;gt;&amp;gt; a &amp;gt;&amp;gt; b;
-        if (a.find(b) == string::npos) {
-            cout &amp;lt;&amp;lt; "0\n";
-        } else {
-                cout &amp;lt;&amp;lt; "1\n";
-        }
-    }
-    return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/04/sbstr1/</link><guid isPermaLink="false">bab76c32-6583-45f4-b3c7-8a507a28fe5e</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Mon, 03 Nov 2014 23:32:59 GMT</pubDate></item><item><title>PRIME1</title><description>&lt;p&gt;Peter wants to generate some prime numbers for his cryptosystem. Help him! Your task is to generate all prime numbers between two given numbers!&lt;/p&gt;
-
-&lt;h6 id="input"&gt;Input&lt;/h6&gt;
-
-&lt;p&gt;The input begins with the number t of test cases in a single line (t&amp;lt;=10). In each of the next t lines there are two numbers m and n (1 &amp;lt;= m &amp;lt;= n &amp;lt;= 1000000000, n-m&amp;lt;=100000) separated by a space.&lt;/p&gt;
-
-&lt;h6 id="output"&gt;Output&lt;/h6&gt;
-
-&lt;p&gt;For every test case print all prime numbers p such that m &amp;lt;= p &amp;lt;= n, one number per line, test cases separated by an empty line.&lt;/p&gt;
-
-&lt;p&gt;Example&lt;/p&gt;
-
-&lt;p&gt;Input: &lt;br&gt;
-2 &lt;br&gt;
-1 10 &lt;br&gt;
-3 5&lt;/p&gt;
-
-&lt;p&gt;Output: &lt;br&gt;
-2 &lt;br&gt;
-3 &lt;br&gt;
-5 &lt;br&gt;
-7&lt;/p&gt;
-
-&lt;p&gt;3 &lt;br&gt;
-5&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
-#include &amp;lt;cmath&amp;gt;
-
-using namespace std;
-
-int main() {  
-    int T;
-    cin &amp;gt;&amp;gt; T;
-
-    for(;T--;) {
-        int a, b;
-        cin &amp;gt;&amp;gt; a &amp;gt;&amp;gt; b;
-
-        for (int i = a; i &amp;lt;= b; ++i) {
-            if (i == 2) {
-                printf("%d\n",i);
-            }
-            if (i%2 != 0 &amp;amp;&amp;amp; i != 1) {
-                bool flag = true;
-                for (int j = 3; j &amp;lt;= sqrt(i); j+=2) {
-                    if(i%j == 0) {
-                        flag = false;
-                        break;
-                    }
-                }
-                if (flag) {
-                    printf("%d\n",i);
-                }
-            }
-        }
-        printf("\n");
-    }
-    return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/04/prime1/</link><guid isPermaLink="false">cd4ed102-9475-4ce2-b3a9-25987645d009</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Mon, 03 Nov 2014 23:25:33 GMT</pubDate></item><item><title>TEST</title><description>&lt;p&gt;Your program is to use the brute-force approach in order to find the Answer to Life, the Universe, and Everything. More precisely... rewrite small numbers from input to output. Stop processing input after reading in the number 42. All numbers at input are integers of one or two digits.&lt;/p&gt;
-
-&lt;p&gt;Example&lt;/p&gt;
-
-&lt;p&gt;Input: &lt;br&gt;
-1 &lt;br&gt;
-2 &lt;br&gt;
-88 &lt;br&gt;
-42 &lt;br&gt;
-99&lt;/p&gt;
-
-&lt;p&gt;Output: &lt;br&gt;
-1 &lt;br&gt;
-2 &lt;br&gt;
-88&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
-
-using namespace std;
-
-int main() {  
-    int n;
-    while(cin &amp;gt;&amp;gt; n) {
-        if(n != 42) {
-            cout &amp;lt;&amp;lt; n &amp;lt;&amp;lt; "\n";
-        } else { 
-            break;
-        }
-    }
-    return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/03/test/</link><guid isPermaLink="false">f2321372-ed41-4695-acad-597953ced016</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Mon, 03 Nov 2014 04:59:00 GMT</pubDate></item></channel></rss>
+&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/04/fctrl/</link><guid isPermaLink="false">0f6efc29-dc81-4ecf-ab8b-0c6a683e6ce2</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Tue, 04 Nov 2014 12:37:09 GMT</pubDate></item></channel></rss>
