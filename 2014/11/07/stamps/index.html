@@ -1,0 +1,201 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>STAMPS</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css?v=2742a244e3">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+    <link href="../../../../assets/css/prettify.css?v=2742a244e3" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="../../../../assets/js/prettify.js?v=2742a244e3"></script>
+    <link rel="canonical" href="http://code-jedi.chintanghate.me/2014/11/07/stamps/">
+    
+    <meta property="og:site_name" content="Code Jedi">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="STAMPS">
+    <meta property="og:description" content="Everybody hates Raymond. He’s the largest stamp collector on planet earth and because of that he always makes fun of all the others at the stamp collector parties. Fortunately everybody loves Lucy, and she has a plan. She secretly...">
+    <meta property="og:url" content="http://code-jedi.chintanghate.me/2014/11/07/stamps/">
+    <meta property="article:published_time" content="2014-11-07T13:12:08.195Z">
+    <meta property="article:modified_time" content="2014-11-07T13:12:08.194Z">
+    <meta property="article:tag" content="SPOJ">
+    
+    <meta name="twitter:card" content="content">
+    <meta name="twitter:title" content="STAMPS">
+    <meta name="twitter:description" content="Everybody hates Raymond. He’s the largest stamp collector on planet earth and because of that he always makes fun of all the others at the stamp collector parties. Fortunately everybody loves Lucy, and she has a plan. She secretly...">
+    <meta name="twitter:url" content="http://code-jedi.chintanghate.me/2014/11/07/stamps/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Code Jedi",
+    "author": {
+        "@type": "Person",
+        "name": "Chintan Ghate",
+        "url": "http://code-jedi.chintanghate.me/author/chintan",
+        "sameAs": null
+    },
+    "headline": "STAMPS",
+    "url": "http://code-jedi.chintanghate.me/2014/11/07/stamps/",
+    "datePublished": "2014-11-07T13:12:08.195Z",
+    "dateModified": "2014-11-07T13:12:08.194Z",
+    "keywords": "SPOJ",
+    "description": "Everybody hates Raymond. He’s the largest stamp collector on planet earth and because of that he always makes fun of all the others at the stamp collector parties. Fortunately everybody loves Lucy, and she has a plan. She secretly"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Code Jedi" href="../../../../rss/index.html">
+</head>
+<body class="post-template tag-spoj" onload="prettyPrint()">
+
+    
+
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        <a class="back-button icon-arrow-left" href="http://code-jedi.chintanghate.me">Home</a>
+        <a class="subscribe-button icon-feed" href="http://code-jedi.chintanghate.me/rss/index.rss">Subscribe</a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+
+    <article class="post tag-spoj">
+
+        <header class="post-header">
+            <h1 class="post-title">STAMPS</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2014-11-07">07 November 2014</time>  on <a href="../../../../tag/spoj/">SPOJ</a>
+            </section>
+        </header>
+
+        <section class="post-content">
+            <p>Everybody hates Raymond. He’s the largest stamp collector on planet earth and because of that he always makes fun of all the others at the stamp collector parties. Fortunately everybody loves Lucy, and she has a plan. She secretly asks her friends whether they could lend her some stamps, so that she can embarrass Raymond by showing an even larger collection than his. Raymond is so sure about his superiority that he always tells how many stamps he’ll show.And since Lucy knows how many she owns, she knows how many more she needs. She also knows how many friends would lend her some stamps and how many each would lend. But she’s like to borrow from as few friends as possible and if she needs too many then she’d rather not do it at all. Can you tell her the minimum number of friends she needs to borrow from?</p>
+
+<h6 id="input">Input</h6>
+
+<p>The first line contains the number of scenarios. Each scenario describes one collectors party and its first line tells you how many stamps (from 1 to 1000000) Lucy needs to borrow and how many friends (from 1 to 1000) offer her some stamps. In a second line you’ll get the number of stamps (from 1 to 10000) each of her friends id offering.</p>
+
+<h6 id="output">Output</h6>
+
+<p>The output for every scenario begins with a line containing “Scenario #i:”, where i is the number of the scenario starting at 1. Then print a single line with the minimum number of friends Lucy needs to borrow stamps from. If it’s impossible even if she borrows everything from everybody, write impossible. Terminate the output for the scenario with a blank line.</p>
+
+<p>Example</p>
+
+<p>Input: <br>
+3 <br>
+100 6 <br>
+13 17 42 9 23 57 <br>
+99 6 <br>
+13 17 42 9 23 57 <br>
+1000 3 <br>
+314 159 265</p>
+
+<p>Output: <br>
+Scenario #1: <br>
+3</p>
+
+<p>Scenario #2: <br>
+2</p>
+
+<p>Scenario #3: <br>
+impossible</p>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+
+using namespace std;
+
+bool compare (int a, int b) {  
+    return a &gt; b;
+}
+
+int main() {  
+    int T;
+    cin &gt;&gt; T;
+    for (int t = 1; t &lt;= T; ++t) {
+        int needed, friends;
+        cin &gt;&gt; needed &gt;&gt; friends;
+        vector&lt;int&gt; stamps(friends);
+        for (int i = 0; i &lt; friends; ++i) {
+            cin &gt;&gt; stamps[i];
+        }
+        sort(stamps.begin(), stamps.end(), compare);
+        int count = 0, sum = 0;
+        for (int i = 0; i &lt; friends; ++i) {
+            sum += stamps[i];
+            ++count;
+            if (sum &gt;= needed) {
+                break;
+            }
+        }
+        cout &lt;&lt; "Scenario #" &lt;&lt; t &lt;&lt; ":\n";
+        if(sum &gt;= needed) {
+            cout &lt;&lt; count &lt;&lt; "\n\n";
+        } else {
+            cout &lt;&lt; "impossible\n\n";
+        }
+    }
+    return 0;
+}
+</code></pre>
+        </section>
+
+        <footer class="post-footer">
+
+
+
+            <section class="author">
+                <h4><a href="../../../../author/chintan/">Chintan Ghate</a></h4>
+
+                    <p>Read <a href="../../../../author/chintan/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/share?text=STAMPS&amp;url=http://code-jedi.chintanghate.me/2014/11/07/stamps/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://code-jedi.chintanghate.me/2014/11/07/stamps/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://code-jedi.chintanghate.me/2014/11/07/stamps/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+    </article>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+         <section class="copyright"><a href="http://code-jedi.chintanghate.me">Code Jedi</a> © 2014</section>
+         <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+    </footer>
+
+    <script src="../../../../public/jquery.js?v=2742a244e3"></script>
+
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js?v=2742a244e3"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js?v=2742a244e3"></script>
+
+</body>

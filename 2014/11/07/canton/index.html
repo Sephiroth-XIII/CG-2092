@@ -1,0 +1,207 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>CANTON</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css?v=2742a244e3">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+    <link href="../../../../assets/css/prettify.css?v=2742a244e3" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="../../../../assets/js/prettify.js?v=2742a244e3"></script>
+    <link rel="canonical" href="http://code-jedi.chintanghate.me/2014/11/07/canton/">
+    
+    <meta property="og:site_name" content="Code Jedi">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="CANTON">
+    <meta property="og:description" content="One of the famous proofs of modern mathematics is Georg Cantor's demonstration that the set of rational numbers is enumerable. The proof works by using an explicit enumeration of rational numbers as shown in the diagram below.   1/1  1...">
+    <meta property="og:url" content="http://code-jedi.chintanghate.me/2014/11/07/canton/">
+    <meta property="article:published_time" content="2014-11-07T03:52:32.191Z">
+    <meta property="article:modified_time" content="2014-11-07T03:56:14.207Z">
+    <meta property="article:tag" content="SPOJ">
+    
+    <meta name="twitter:card" content="content">
+    <meta name="twitter:title" content="CANTON">
+    <meta name="twitter:description" content="One of the famous proofs of modern mathematics is Georg Cantor's demonstration that the set of rational numbers is enumerable. The proof works by using an explicit enumeration of rational numbers as shown in the diagram below.   1/1  1...">
+    <meta name="twitter:url" content="http://code-jedi.chintanghate.me/2014/11/07/canton/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Code Jedi",
+    "author": {
+        "@type": "Person",
+        "name": "Chintan Ghate",
+        "url": "http://code-jedi.chintanghate.me/author/chintan",
+        "sameAs": null
+    },
+    "headline": "CANTON",
+    "url": "http://code-jedi.chintanghate.me/2014/11/07/canton/",
+    "datePublished": "2014-11-07T03:52:32.191Z",
+    "dateModified": "2014-11-07T03:56:14.207Z",
+    "keywords": "SPOJ",
+    "description": "One of the famous proofs of modern mathematics is Georg Cantor's demonstration that the set of rational numbers is enumerable. The proof works by using an explicit enumeration of rational numbers as shown in the diagram below.   1/1  1"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Code Jedi" href="../../../../rss/index.html">
+</head>
+<body class="post-template tag-spoj" onload="prettyPrint()">
+
+    
+
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        <a class="back-button icon-arrow-left" href="http://code-jedi.chintanghate.me">Home</a>
+        <a class="subscribe-button icon-feed" href="http://code-jedi.chintanghate.me/rss/index.rss">Subscribe</a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+
+    <article class="post tag-spoj">
+
+        <header class="post-header">
+            <h1 class="post-title">CANTON</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2014-11-07">07 November 2014</time>  on <a href="../../../../tag/spoj/">SPOJ</a>
+            </section>
+        </header>
+
+        <section class="post-content">
+            <p>One of the famous proofs of modern mathematics is Georg Cantor's demonstration that the set of rational numbers is enumerable. The proof works by using an explicit enumeration of rational numbers as shown in the diagram below.  </p>
+
+<pre><code>1/1  1/2   1/3   1/4   1/5 ...  
+2/1  2/2   2/3   2/4  
+3/1  3/2   3/3  
+4/1  4/2  
+5/1  
+</code></pre>
+
+<p>In the above diagram, the first term is 1/1, the second term is 1/2, the third term is 2/1, the fourth term is 3/1, the fifth term is 2/2, and so on.</p>
+
+<h6 id="input">Input</h6>
+
+<p>The input starts with a line containing a single integer t &lt;= 20, the number of test cases. t test cases follow.</p>
+
+<p>Then, it contains a single number per line.</p>
+
+<h6 id="output">Output</h6>
+
+<p>You are to write a program that will read a list of numbers in the range from 1 to 10^7 and will print for each number the corresponding term in Cantor's enumeration as given below.</p>
+
+<p>Example</p>
+
+<p>Input: <br>
+3 <br>
+3 <br>
+14 <br>
+7</p>
+
+<p>Output: <br>
+TERM 3 IS 2/1 <br>
+TERM 14 IS 2/4 <br>
+TERM 7 IS 1/4</p>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+int main() {  
+    vector&lt;pair&lt;int,int&gt; &gt; range;
+    int i = 1, dif = 0;
+    range.push_back(make_pair(i,i));
+    while (i &lt;= 10000000) {
+        dif += 1;
+        range.push_back(make_pair(i + 1,i + 1 + dif));
+        i += (1 + dif);
+    }
+
+    int t;
+    cin &gt;&gt; t;
+    for(;t--;) {
+        int n;
+        cin &gt;&gt; n;
+        for (int i = 0; i &lt; range.size(); ++i) {
+            if (n &gt;= range[i].first &amp;&amp; n &lt;= range[i].second) {
+                int row = i+1;
+                if (row &amp; 1) {
+                    int rangeDif = n - range[i].first;
+                    int numertor = row - rangeDif;
+                    int denominator = 1 + rangeDif;
+                    cout &lt;&lt; "TERM " &lt;&lt; n &lt;&lt; " IS " &lt;&lt; numertor &lt;&lt; 
+                            "/" &lt;&lt; denominator &lt;&lt; "\n"; 
+                } else {
+                    int rangeDif = n - range[i].first;
+                    int numertor = 1 + rangeDif;
+                    int denominator = row - rangeDif;
+                    cout &lt;&lt; "TERM " &lt;&lt; n &lt;&lt; " IS " &lt;&lt; numertor &lt;&lt; 
+                            "/" &lt;&lt; denominator &lt;&lt; "\n"; 
+                }
+            }
+        }
+    }
+    return 0;
+}
+</code></pre>
+        </section>
+
+        <footer class="post-footer">
+
+
+
+            <section class="author">
+                <h4><a href="../../../../author/chintan/">Chintan Ghate</a></h4>
+
+                    <p>Read <a href="../../../../author/chintan/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/share?text=CANTON&amp;url=http://code-jedi.chintanghate.me/2014/11/07/canton/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://code-jedi.chintanghate.me/2014/11/07/canton/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://code-jedi.chintanghate.me/2014/11/07/canton/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+    </article>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+         <section class="copyright"><a href="http://code-jedi.chintanghate.me">Code Jedi</a> © 2014</section>
+         <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+    </footer>
+
+    <script src="../../../../public/jquery.js?v=2742a244e3"></script>
+
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js?v=2742a244e3"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js?v=2742a244e3"></script>
+
+</body>

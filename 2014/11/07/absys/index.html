@@ -1,0 +1,222 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>ABSYS</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css?v=2742a244e3">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+    <link href="../../../../assets/css/prettify.css?v=2742a244e3" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="../../../../assets/js/prettify.js?v=2742a244e3"></script>
+    <link rel="canonical" href="http://code-jedi.chintanghate.me/2014/11/07/absys/">
+    
+    <meta property="og:site_name" content="Code Jedi">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="ABSYS">
+    <meta property="og:description" content="Jimmy is a hard-working pupil in his second year at primary school. Recently he decided to convert all his notes into an electronic version. Sadly, he found that his math notes were full of ink blots. He scanned the notes...">
+    <meta property="og:url" content="http://code-jedi.chintanghate.me/2014/11/07/absys/">
+    <meta property="article:published_time" content="2014-11-07T03:11:05.224Z">
+    <meta property="article:modified_time" content="2014-11-07T03:11:56.454Z">
+    <meta property="article:tag" content="SPOJ">
+    
+    <meta name="twitter:card" content="content">
+    <meta name="twitter:title" content="ABSYS">
+    <meta name="twitter:description" content="Jimmy is a hard-working pupil in his second year at primary school. Recently he decided to convert all his notes into an electronic version. Sadly, he found that his math notes were full of ink blots. He scanned the notes...">
+    <meta name="twitter:url" content="http://code-jedi.chintanghate.me/2014/11/07/absys/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Code Jedi",
+    "author": {
+        "@type": "Person",
+        "name": "Chintan Ghate",
+        "url": "http://code-jedi.chintanghate.me/author/chintan",
+        "sameAs": null
+    },
+    "headline": "ABSYS",
+    "url": "http://code-jedi.chintanghate.me/2014/11/07/absys/",
+    "datePublished": "2014-11-07T03:11:05.224Z",
+    "dateModified": "2014-11-07T03:11:56.454Z",
+    "keywords": "SPOJ",
+    "description": "Jimmy is a hard-working pupil in his second year at primary school. Recently he decided to convert all his notes into an electronic version. Sadly, he found that his math notes were full of ink blots. He scanned the notes"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Code Jedi" href="../../../../rss/index.html">
+</head>
+<body class="post-template tag-spoj" onload="prettyPrint()">
+
+    
+
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        <a class="back-button icon-arrow-left" href="http://code-jedi.chintanghate.me">Home</a>
+        <a class="subscribe-button icon-feed" href="http://code-jedi.chintanghate.me/rss/index.rss">Subscribe</a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+
+    <article class="post tag-spoj">
+
+        <header class="post-header">
+            <h1 class="post-title">ABSYS</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2014-11-07">07 November 2014</time>  on <a href="../../../../tag/spoj/">SPOJ</a>
+            </section>
+        </header>
+
+        <section class="post-content">
+            <p>Jimmy is a hard-working pupil in his second year at primary school. Recently he decided to convert all his notes into an electronic version. Sadly, he found that his math notes were full of ink blots.</p>
+
+<p>He scanned the notes and sent them through his own OCR package (yes, he coded it all by himself at the age of 8). The OCR package replaced all ink blots by the string "machula".</p>
+
+<h6 id="problem">Problem</h6>
+
+<p>You are given Jimmy's notes, processed by the OCR. They contain simple math exercises, which were used to practice addition on positive integers. Your task is to recover the damaged part of the notes.</p>
+
+<h6 id="input">Input</h6>
+
+<p>The first line of the input file contains an integer T specifying the number of test cases. Each test case is preceded by a blank line.</p>
+
+<p>Each test case consists of exactly one line. The line represents an equation of the form "number + number = number", where each number is a positive integer. One part of the equation will be replaced by the string "machula". The string always covers a contiguous non-empty sequence of digits, possibly even an entire number. You may assume that for each equation in the input there will be exactly one way to fill in the missing digits.</p>
+
+<h6 id="output">Output</h6>
+
+<p>For each test case, the output shall contain one line of the form "number + number = number". The line must represent the equation from that test case with all missing digits filled in.</p>
+
+<p>Example</p>
+
+<p>Input: <br>
+3</p>
+
+<p>23 + 47 = machula</p>
+
+<p>3247 + 5machula2 = 3749</p>
+
+<p>machula13 + 75425 = 77038</p>
+
+<p>Output: <br>
+23 + 47 = 70 <br>
+3247 + 502 = 3749 <br>
+1613 + 75425 = 77038</p>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;sstream&gt;
+
+using namespace std;
+
+int stringToInt(string s) {  
+    if (s.find("machula") == string::npos) {
+        istringstream iss(s);
+        int n;
+        iss &gt;&gt; n;
+        return n;
+    }
+    return -1;
+}
+
+string intToString(int n) {  
+    ostringstream oss;
+    oss &lt;&lt; n;
+    return oss.str();
+}
+
+string processed(string s) {  
+    istringstream iss(s);
+    string a, b, c, op;
+    iss &gt;&gt; a &gt;&gt; op &gt;&gt; b &gt;&gt; op &gt;&gt; c;
+
+    int A, B, C;
+    A = stringToInt(a);
+    B = stringToInt(b);
+    C = stringToInt(c);
+
+    if (A == -1) {
+        A = C - B;
+    } else if (B == -1) {
+        B = C - A;
+    } else if (C == -1) {
+        C = A + B;
+    }
+
+    return intToString(A) + " + " + intToString(B) + " = " +       
+           intToString(C);
+}
+
+int main() {  
+    int T;
+    cin &gt;&gt; T;
+    cin.ignore();
+    for (;T--;) {
+        string S;
+        cin.ignore();
+        getline(cin,S);
+        cout &lt;&lt; processed(S) &lt;&lt; "\n";
+    }
+    return 0;
+}
+</code></pre>
+        </section>
+
+        <footer class="post-footer">
+
+
+
+            <section class="author">
+                <h4><a href="../../../../author/chintan/">Chintan Ghate</a></h4>
+
+                    <p>Read <a href="../../../../author/chintan/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/share?text=ABSYS&amp;url=http://code-jedi.chintanghate.me/2014/11/07/absys/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://code-jedi.chintanghate.me/2014/11/07/absys/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://code-jedi.chintanghate.me/2014/11/07/absys/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+    </article>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+         <section class="copyright"><a href="http://code-jedi.chintanghate.me">Code Jedi</a> © 2014</section>
+         <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+    </footer>
+
+    <script src="../../../../public/jquery.js?v=2742a244e3"></script>
+
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js?v=2742a244e3"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js?v=2742a244e3"></script>
+
+</body>

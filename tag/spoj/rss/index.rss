@@ -1,5 +1,498 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[SPOJ - Code Jedi]]></title><description><![CDATA[Code, algorithms and design.]]></description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Thu, 06 Nov 2014 18:00:49 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/tag/spoj/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[PALIN]]></title><description><![CDATA[<p>A positive integer is called a palindrome if its representation in the decimal system is the same when read from left to right and from right to left. For a given positive integer K of not more than 1,000,000 digits, write the value of the smallest palindrome larger than K to output. Numbers are always displayed without leading zeros.</p>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[SPOJ - Code Jedi]]></title><description><![CDATA[Code, algorithms and design.]]></description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Fri, 07 Nov 2014 17:59:11 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/tag/spoj/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[WILLITST]]></title><description><![CDATA[<p>When Bob was in library in University of Warsaw he saw on one of facades caption :"Will it ever stop?" and below some mysterious code:  </p>
+
+<pre><code class="prettyprint">while n &gt; 1  
+  if n mod 2 = 0 then
+    n:=n/2
+  else
+    n:=3*n+3
+</code></pre>
+
+<p>Help him finding it out !</p>
+
+<h6 id="input">Input</h6>
+
+<p>In first line one number n&lt;=10^14.</p>
+
+<h6 id="output">Output</h6>
+
+<p>Print "TAK" if program will stop, otherwise print "NIE"</p>
+
+<p>Example</p>
+
+<p>Input: <br>
+4</p>
+
+<p>Output: <br>
+TAK</p>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+
+using namespace std;
+
+int main() {  
+    unsigned long long N;
+    cin &gt;&gt; N;
+
+    unsigned long long i = 1;
+    while (i &lt; N) {
+        i *= 2;
+    }
+    if (i == N) {
+        cout &lt;&lt; "TAK\n";
+    } else {
+        cout &lt;&lt; "NIE\n";
+    }
+
+    return 0;
+}
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/07/willitst/</link><guid isPermaLink="false">8367d7e9-3ece-4651-bcae-8f74c68912d8</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Fri, 07 Nov 2014 17:55:15 GMT</pubDate></item><item><title><![CDATA[ARMY]]></title><description><![CDATA[<p>The next MechaGodzilla invasion is on its way to Earth. And once again, Earth will be the battleground for an epic war.</p>
+
+<p>MechaGodzilla's army consists of many nasty alien monsters, such as Space Godzilla, King Gidorah, and MechaGodzilla herself.</p>
+
+<p>To stop them and defend Earth, Godzilla and her friends are preparing for the battle.</p>
+
+<h6 id="problem">Problem</h6>
+
+<p>Each army consists of many different monsters. Each monster has a strength that can be described by a positive integer. (The larger the value, the stronger the monster.)</p>
+
+<p>The war will consist of a series of battles. In each battle, the weakest of all the monsters that are still alive is killed.</p>
+
+<p>If there are several weakest monsters, but all of them in the same army, one of them is killed at random. If both armies have at least one of the weakest monsters, a random weakest monster of MechaGodzilla's army is killed.</p>
+
+<p>The war is over if in one of the armies all monsters are dead. The dead army lost, the other one won.</p>
+
+<p>You are given the strengths of all the monsters. Find out who wins the war.</p>
+
+<h6 id="input">Input</h6>
+
+<p>The first line of the input file contains an integer T specifying the number of test cases. Each test case is preceded by a blank line.</p>
+
+<p>Each test case starts with line containing two positive integers NG and NM – the number of monsters in Godzilla's and in MechaGodzilla's army. Two lines follow. The first one contains NG positive integers – the strengths of the monsters in Godzilla's army. Similarly, the second one contains NM positive integers – the strengths of the monsters in MechaGodzilla's army.</p>
+
+<h6 id="output">Output</h6>
+
+<p>For each test case, output a single line with a string that describes the outcome of the battle.</p>
+
+<p>If it is sure that Godzilla's army wins, output the string "Godzilla".</p>
+
+<p>If it is sure that MechaGodzilla's army wins, output the string "MechaGodzilla".</p>
+
+<p>Otherwise, output the string "uncertain".</p>
+
+<p>Example</p>
+
+<p>Input: <br>
+2</p>
+
+<p>1 1 <br>
+1 <br>
+1</p>
+
+<p>3 2 <br>
+1 3 2 <br>
+5 5</p>
+
+<p>Output: <br>
+Godzilla <br>
+MechaGodzilla</p>
+
+<h6 id="hint">Hint</h6>
+
+<p>In the first test case, there are only two monsters, and they are equally strong. In this situation, MechaGodzilla's monster is killed and the war ends.</p>
+
+<p>In the second test case, the war will consist of three battles, and in each of them one of Godzilla's monsters dies.</p>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+#include &lt;deque&gt;
+
+using namespace std;
+
+int main() {  
+    int T;
+    cin &gt;&gt; T;
+    for (;T--;) {
+        int NG, NM;
+        cin &gt;&gt; NG &gt;&gt; NM;
+
+        if (NG == 0 &amp;&amp; NM == 0) {
+            cout &lt;&lt; "uncertain\n";
+        } else {
+            vector&lt;int&gt; NGA(NG), NMA(NM);
+            for (int i = 0; i &lt; NG; ++i) {
+                cin &gt;&gt; NGA[i];
+            }
+            sort(NGA.begin(), NGA.end());
+            for (int i = 0; i &lt; NM; ++i) {
+                cin &gt;&gt; NMA[i];
+            }
+            sort(NMA.begin(), NMA.end());
+
+            deque&lt;int&gt; NGQ(NGA.begin(), NGA.end()), 
+                       NMQ(NMA.begin(), NMA.end());
+            while (!NGQ.empty() &amp;&amp; !NMQ.empty()) {
+                if (NGQ.front() &gt;= NMQ.front()) {
+                    NMQ.pop_front();
+                } else {
+                    NGQ.pop_front();
+                }
+            }
+            if (NGQ.empty()) {
+                cout &lt;&lt; "MechaGodzilla\n";
+            } else {
+                cout &lt;&lt; "Godzilla\n";
+            }
+        }
+    }
+    return 0;
+}
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/07/army/</link><guid isPermaLink="false">32331cd3-7c18-4fc6-b3b6-23ce3e45394d</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Fri, 07 Nov 2014 17:41:53 GMT</pubDate></item><item><title><![CDATA[STAMPS]]></title><description><![CDATA[<p>Everybody hates Raymond. He’s the largest stamp collector on planet earth and because of that he always makes fun of all the others at the stamp collector parties. Fortunately everybody loves Lucy, and she has a plan. She secretly asks her friends whether they could lend her some stamps, so that she can embarrass Raymond by showing an even larger collection than his. Raymond is so sure about his superiority that he always tells how many stamps he’ll show.And since Lucy knows how many she owns, she knows how many more she needs. She also knows how many friends would lend her some stamps and how many each would lend. But she’s like to borrow from as few friends as possible and if she needs too many then she’d rather not do it at all. Can you tell her the minimum number of friends she needs to borrow from?</p>
+
+<h6 id="input">Input</h6>
+
+<p>The first line contains the number of scenarios. Each scenario describes one collectors party and its first line tells you how many stamps (from 1 to 1000000) Lucy needs to borrow and how many friends (from 1 to 1000) offer her some stamps. In a second line you’ll get the number of stamps (from 1 to 10000) each of her friends id offering.</p>
+
+<h6 id="output">Output</h6>
+
+<p>The output for every scenario begins with a line containing “Scenario #i:”, where i is the number of the scenario starting at 1. Then print a single line with the minimum number of friends Lucy needs to borrow stamps from. If it’s impossible even if she borrows everything from everybody, write impossible. Terminate the output for the scenario with a blank line.</p>
+
+<p>Example</p>
+
+<p>Input: <br>
+3 <br>
+100 6 <br>
+13 17 42 9 23 57 <br>
+99 6 <br>
+13 17 42 9 23 57 <br>
+1000 3 <br>
+314 159 265</p>
+
+<p>Output: <br>
+Scenario #1: <br>
+3</p>
+
+<p>Scenario #2: <br>
+2</p>
+
+<p>Scenario #3: <br>
+impossible</p>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+
+using namespace std;
+
+bool compare (int a, int b) {  
+    return a &gt; b;
+}
+
+int main() {  
+    int T;
+    cin &gt;&gt; T;
+    for (int t = 1; t &lt;= T; ++t) {
+        int needed, friends;
+        cin &gt;&gt; needed &gt;&gt; friends;
+        vector&lt;int&gt; stamps(friends);
+        for (int i = 0; i &lt; friends; ++i) {
+            cin &gt;&gt; stamps[i];
+        }
+        sort(stamps.begin(), stamps.end(), compare);
+        int count = 0, sum = 0;
+        for (int i = 0; i &lt; friends; ++i) {
+            sum += stamps[i];
+            ++count;
+            if (sum &gt;= needed) {
+                break;
+            }
+        }
+        cout &lt;&lt; "Scenario #" &lt;&lt; t &lt;&lt; ":\n";
+        if(sum &gt;= needed) {
+            cout &lt;&lt; count &lt;&lt; "\n\n";
+        } else {
+            cout &lt;&lt; "impossible\n\n";
+        }
+    }
+    return 0;
+}
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/07/stamps/</link><guid isPermaLink="false">59bd02c8-92bc-49d8-a36d-b5c7867409ff</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Fri, 07 Nov 2014 13:12:08 GMT</pubDate></item><item><title><![CDATA[TRICOUNT]]></title><description><![CDATA[<p>We define the LEVEL of a triangle as in the following illustrative image:</p>
+
+<p><img src="http://code-jedi.chintanghate.me/content/images/2014/11/duonghanguyen-tricount.png" alt="Illustration"></p>
+
+<p>Task: Your task is very easy. All you have to do is to count all triangles in the biggest one (Level N).</p>
+
+<h6 id="input">Input</h6>
+
+<p>The first line of the input contains an integer T (T ≤ 10000) - the number of test cases and T lines follow. Each line contains an integer N (1 ≤ N ≤ 10<sup>6</sup>) which is the level of the triangle in that test case.</p>
+
+<h6 id="output">Output</h6>
+
+<p>For each test case, you should write a seperate line: the number of triangles in the biggest one (Level N). (All answers will fit within the range of a 64-bit integer)</p>
+
+<p>Example</p>
+
+<p>Input: <br>
+3 <br>
+1 <br>
+2 <br>
+3</p>
+
+<p>Output: <br>
+1 <br>
+5 <br>
+13</p>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+
+using namespace std;
+
+int main() {  
+    int T;
+    cin &gt;&gt; T;
+    for (;T--;) {
+        unsigned long long n;
+        cin &gt;&gt; n;
+        cout &lt;&lt; (n * (n + 2) * (2 * n + 1)) / 8 &lt;&lt; "\n";
+    }
+    return 0;
+}
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/07/tricount/</link><guid isPermaLink="false">f8268540-6cb8-4806-b1f7-b4630a35d49c</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Fri, 07 Nov 2014 12:27:11 GMT</pubDate></item><item><title><![CDATA[PERMUT2]]></title><description><![CDATA[<p>Some programming contest problems are really tricky: not only do they require a different output format from what you might have expected, but also the sample output does not show the difference. For an example, let us look at permutations.</p>
+
+<p>A permutation of the integers 1 to n is an ordering of these integers. So the natural way to represent a permutation is to list the integers in this order. With n = 5, a permutation might look like 2, 3, 4, 5, 1. </p>
+
+<p>However, there is another possibility of representing a permutation: You create a list of numbers where the i-th number is the position of the integer i in the permutation. Let us call this second possibility an inverse permutation. The inverse permutation for the sequence above is 5, 1, 2, 3, 4. </p>
+
+<p>An ambiguous permutation is a permutation which cannot be distinguished from its inverse permutation. The permutation 1, 4, 3, 2 for example is ambiguous, because its inverse permutation is the same. To get rid of such annoying sample test cases, you have to write a program which detects if a given permutation is ambiguous or not.</p>
+
+<h6 id="input">Input</h6>
+
+<p>The input contains several test cases. <br>
+The first line of each test case contains an integer n (1 ≤ n ≤ 100000). Then a permutation of the integers 1 to n follows in the next line. There is exactly one space character between consecutive integers. You can assume that every integer between 1 and n appears exactly once in the permutation. <br>
+The last test case is followed by a zero.</p>
+
+<h6 id="output">Output</h6>
+
+<p>For each test case output whether the permutation is ambiguous or not. Adhere to the format shown in the sample output.</p>
+
+<p>Example</p>
+
+<p>Input: <br>
+4 <br>
+1 4 3 2 <br>
+5 <br>
+2 3 4 5 1 <br>
+1 <br>
+1 <br>
+0</p>
+
+<p>Output: <br>
+ambiguous <br>
+not ambiguous <br>
+ambiguous</p>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+int main() {  
+    int n;
+    while((cin &gt;&gt; n) &amp;&amp; n != 0) {
+        vector&lt;int&gt; p(n + 1, 0), pi(n + 1, 0);
+        for (int i = 0; i &lt; n; ++i) {
+            cin &gt;&gt; p[i + 1];
+            pi[p[i + 1]] = i + 1;
+        }
+        if(p == pi) {
+            cout &lt;&lt; "ambiguous\n";
+        } else {
+            cout &lt;&lt; "not ambiguous\n";
+        }
+    }   
+    return 0;
+}
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/07/permut2/</link><guid isPermaLink="false">c7ea02a8-f71f-4e0f-9ab1-52f9084d0d29</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Fri, 07 Nov 2014 11:44:07 GMT</pubDate></item><item><title><![CDATA[CANTON]]></title><description><![CDATA[<p>One of the famous proofs of modern mathematics is Georg Cantor's demonstration that the set of rational numbers is enumerable. The proof works by using an explicit enumeration of rational numbers as shown in the diagram below.  </p>
+
+<pre><code>1/1  1/2   1/3   1/4   1/5 ...  
+2/1  2/2   2/3   2/4  
+3/1  3/2   3/3  
+4/1  4/2  
+5/1  
+</code></pre>
+
+<p>In the above diagram, the first term is 1/1, the second term is 1/2, the third term is 2/1, the fourth term is 3/1, the fifth term is 2/2, and so on.</p>
+
+<h6 id="input">Input</h6>
+
+<p>The input starts with a line containing a single integer t &lt;= 20, the number of test cases. t test cases follow.</p>
+
+<p>Then, it contains a single number per line.</p>
+
+<h6 id="output">Output</h6>
+
+<p>You are to write a program that will read a list of numbers in the range from 1 to 10^7 and will print for each number the corresponding term in Cantor's enumeration as given below.</p>
+
+<p>Example</p>
+
+<p>Input: <br>
+3 <br>
+3 <br>
+14 <br>
+7</p>
+
+<p>Output: <br>
+TERM 3 IS 2/1 <br>
+TERM 14 IS 2/4 <br>
+TERM 7 IS 1/4</p>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+int main() {  
+    vector&lt;pair&lt;int,int&gt; &gt; range;
+    int i = 1, dif = 0;
+    range.push_back(make_pair(i,i));
+    while (i &lt;= 10000000) {
+        dif += 1;
+        range.push_back(make_pair(i + 1,i + 1 + dif));
+        i += (1 + dif);
+    }
+
+    int t;
+    cin &gt;&gt; t;
+    for(;t--;) {
+        int n;
+        cin &gt;&gt; n;
+        for (int i = 0; i &lt; range.size(); ++i) {
+            if (n &gt;= range[i].first &amp;&amp; n &lt;= range[i].second) {
+                int row = i+1;
+                if (row &amp; 1) {
+                    int rangeDif = n - range[i].first;
+                    int numertor = row - rangeDif;
+                    int denominator = 1 + rangeDif;
+                    cout &lt;&lt; "TERM " &lt;&lt; n &lt;&lt; " IS " &lt;&lt; numertor &lt;&lt; 
+                            "/" &lt;&lt; denominator &lt;&lt; "\n"; 
+                } else {
+                    int rangeDif = n - range[i].first;
+                    int numertor = 1 + rangeDif;
+                    int denominator = row - rangeDif;
+                    cout &lt;&lt; "TERM " &lt;&lt; n &lt;&lt; " IS " &lt;&lt; numertor &lt;&lt; 
+                            "/" &lt;&lt; denominator &lt;&lt; "\n"; 
+                }
+            }
+        }
+    }
+    return 0;
+}
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/07/canton/</link><guid isPermaLink="false">e1f7597f-f6d5-4c36-936d-3484c2a0b7f0</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Fri, 07 Nov 2014 03:52:32 GMT</pubDate></item><item><title><![CDATA[ABSYS]]></title><description><![CDATA[<p>Jimmy is a hard-working pupil in his second year at primary school. Recently he decided to convert all his notes into an electronic version. Sadly, he found that his math notes were full of ink blots.</p>
+
+<p>He scanned the notes and sent them through his own OCR package (yes, he coded it all by himself at the age of 8). The OCR package replaced all ink blots by the string "machula".</p>
+
+<h6 id="problem">Problem</h6>
+
+<p>You are given Jimmy's notes, processed by the OCR. They contain simple math exercises, which were used to practice addition on positive integers. Your task is to recover the damaged part of the notes.</p>
+
+<h6 id="input">Input</h6>
+
+<p>The first line of the input file contains an integer T specifying the number of test cases. Each test case is preceded by a blank line.</p>
+
+<p>Each test case consists of exactly one line. The line represents an equation of the form "number + number = number", where each number is a positive integer. One part of the equation will be replaced by the string "machula". The string always covers a contiguous non-empty sequence of digits, possibly even an entire number. You may assume that for each equation in the input there will be exactly one way to fill in the missing digits.</p>
+
+<h6 id="output">Output</h6>
+
+<p>For each test case, the output shall contain one line of the form "number + number = number". The line must represent the equation from that test case with all missing digits filled in.</p>
+
+<p>Example</p>
+
+<p>Input: <br>
+3</p>
+
+<p>23 + 47 = machula</p>
+
+<p>3247 + 5machula2 = 3749</p>
+
+<p>machula13 + 75425 = 77038</p>
+
+<p>Output: <br>
+23 + 47 = 70 <br>
+3247 + 502 = 3749 <br>
+1613 + 75425 = 77038</p>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;sstream&gt;
+
+using namespace std;
+
+int stringToInt(string s) {  
+    if (s.find("machula") == string::npos) {
+        istringstream iss(s);
+        int n;
+        iss &gt;&gt; n;
+        return n;
+    }
+    return -1;
+}
+
+string intToString(int n) {  
+    ostringstream oss;
+    oss &lt;&lt; n;
+    return oss.str();
+}
+
+string processed(string s) {  
+    istringstream iss(s);
+    string a, b, c, op;
+    iss &gt;&gt; a &gt;&gt; op &gt;&gt; b &gt;&gt; op &gt;&gt; c;
+
+    int A, B, C;
+    A = stringToInt(a);
+    B = stringToInt(b);
+    C = stringToInt(c);
+
+    if (A == -1) {
+        A = C - B;
+    } else if (B == -1) {
+        B = C - A;
+    } else if (C == -1) {
+        C = A + B;
+    }
+
+    return intToString(A) + " + " + intToString(B) + " = " +       
+           intToString(C);
+}
+
+int main() {  
+    int T;
+    cin &gt;&gt; T;
+    cin.ignore();
+    for (;T--;) {
+        string S;
+        cin.ignore();
+        getline(cin,S);
+        cout &lt;&lt; processed(S) &lt;&lt; "\n";
+    }
+    return 0;
+}
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/07/absys/</link><guid isPermaLink="false">2f10d925-a6f2-4040-bd0c-9230c26718d9</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Fri, 07 Nov 2014 03:11:05 GMT</pubDate></item><item><title><![CDATA[PALIN]]></title><description><![CDATA[<p>A positive integer is called a palindrome if its representation in the decimal system is the same when read from left to right and from right to left. For a given positive integer K of not more than 1,000,000 digits, write the value of the smallest palindrome larger than K to output. Numbers are always displayed without leading zeros.</p>
 
 <h6 id="input">Input</h6>
 
@@ -531,418 +1024,4 @@ int main() {
     }
     return 0;
 }
-</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/05/julka/</link><guid isPermaLink="false">c097ec1f-52d9-489f-a1f7-5992d20768a2</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Wed, 05 Nov 2014 09:36:58 GMT</pubDate></item><item><title><![CDATA[FASHION]]></title><description><![CDATA[<p>A fashion show rates participants according to their level of hotness. Two different fashion shows were organized, one for men and the other for women. A date for the third is yet to be decided ;) .</p>
-
-<p>Now the results of both fashion shows are out. The participants of both the fashion shows have decided to date each other, but as usual they have difficuly in choosing their partners. The Maximum Match dating service (MMDS) comes to their rescue and matches them in such a way that that maximizes the hotness bonds for all couples.</p>
-
-<p>If a man has been rated at hotness level x and a women at hotness level y, the value of their hotness bond is x*y.</p>
-
-<p>Both fashion shows contain N participants each. MMDS has done its job and your job is to find the sum of hotness bonds for all the couples that MMDS has proposed.</p>
-
-<h6 id="input">Input</h6>
-
-<p>The first line of the input contains an integer t, the number of test cases. t test cases follow.</p>
-
-<p>Each test case consists of 3 lines:</p>
-
-<p>The first line contains a single integer N (1 &lt;= N &lt;= 1000). <br>
-The second line contains N integers separated by single spaces denoting the hotness levels of the men. <br>
-The third line contains N integers separated by single spaces denoting the hotness levels of the women. <br>
-All hotness ratings are on a scale of 0 to 10.</p>
-
-<h6 id="output">Output</h6>
-
-<p>For each test case output a single line containing a single integer denoting the sum of the hotness bonds for all pairs that MMDS has proposed.</p>
-
-<p>Example</p>
-
-<p>Input: <br>
-2 <br>
-2 <br>
-1 1 <br>
-3 2 <br>
-3 <br>
-2 3 2 <br>
-1 3 2</p>
-
-<p>Output: <br>
-5 <br>
-15</p>
-
-<hr>
-
-<pre><code class="prettyprint">#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;algorithm&gt;
-
-using namespace std;
-
-int main() {  
-    int T;
-    cin &gt;&gt; T;
-
-    for(;T--;) {
-        int N;
-        cin &gt;&gt; N;
-        vector&lt;int&gt; MH(N), WH(N);
-        for (int i = 0; i &lt; N; ++i) {
-            cin &gt;&gt; MH[i];
-        }
-        for (int i = 0; i &lt; N; ++i) {
-            cin &gt;&gt; WH[i];
-        }
-        sort(MH.begin(), MH.end());
-        sort(WH.begin(), WH.end());
-        int total = 0;
-        for (int i = 0; i &lt; N; ++i) {
-            total += MH[i]*WH[i];
-        }
-        cout &lt;&lt; total &lt;&lt; "\n";
-    }
-    return 0;
-}
-</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/05/fashion/</link><guid isPermaLink="false">ab3b5bc5-75c8-47f3-ab82-adbc88c4bc55</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Wed, 05 Nov 2014 08:41:22 GMT</pubDate></item><item><title><![CDATA[CANDY]]></title><description><![CDATA[<p>Jennifer is a teacher in the first year of a primary school. She has gone for a trip with her class today. She has taken a packet of candies for each child. Unfortunatelly, the sizes of the packets are not the same.</p>
-
-<p>Jennifer is afraid that each child will want to have the biggest packet of candies and this will lead to quarrels or even fights among children. She wants to avoid this. Therefore, she has decided to open all the packets, count the candies in each packet and move some candies from bigger packets to smaller ones so that each packet will contain the same number of candies. The question is how many candies she has to move.</p>
-
-<h6 id="input">Input</h6>
-
-<p>The input file consists of several blocks of data. Each block starts with the number of candy packets N(1&lt;= N &lt;=10000) followed by N integers (each less than 1000) in separate lines, giving the number of candies in each packet. After the last block of data there is the number -1.</p>
-
-<h6 id="output">Output</h6>
-
-<p>The output file should contain one line with the smallest number of moves for each block of data. One move consists of taking one candy from a packet and putting it into another one. If it is not possible to have the same number of candies in each packet, output the number -1.</p>
-
-<p>Example</p>
-
-<p>Input file: <br>
-5 <br>
-1 <br>
-1 <br>
-1 <br>
-1 <br>
-6 <br>
-2 <br>
-3 <br>
-4 <br>
--1</p>
-
-<p>Output file: <br>
-4 <br>
--1</p>
-
-<hr>
-
-<pre><code class="prettyprint">#include &lt;iostream&gt;
-#include &lt;vector&gt;
-
-using namespace std;
-
-int main() {  
-    int N;
-    while((cin &gt;&gt; N) &amp;&amp; N != -1) {
-        vector&lt;int&gt; candies(N,0);
-        int total = 0;
-
-        for (int i = 0; i &lt; N; ++i) {
-            cin &gt;&gt; candies[i];
-            total += candies[i];
-        }
-
-        if (total % N != 0) {
-            cout &lt;&lt; "-1\n";
-        } else {
-            int indieCandies = total / N;
-            int transfers = 0;
-            for (int i = 0; i &lt; N; ++i) {
-                if (candies[i] &gt; indieCandies) {
-                    transfers += (candies[i] - indieCandies);
-                }
-            }
-            cout &lt;&lt; transfers &lt;&lt; "\n";
-        }
-    }
-    return 0;
-}
-</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/05/candy/</link><guid isPermaLink="false">a3bc4882-763a-4c07-b993-522b7f9db526</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Wed, 05 Nov 2014 08:31:29 GMT</pubDate></item><item><title><![CDATA[ACPC10A]]></title><description><![CDATA[<p>According to Wikipedia, an arithmetic progression (AP) is a sequence of numbers such that the difference of any two successive members of the sequence is a constant. For instance, the sequence 3, 5, 7, 9, 11, 13, . . . is an arithmetic progression with common difference 2. For this problem, we will limit ourselves to arithmetic progression whose common difference is a non-zero integer. <br>
-On the other hand, a geometric progression (GP) is a sequence of numbers where each term after the first is found by multiplying the previous one by a fixed non-zero number called the common ratio. For example, the sequence 2, 6, 18, 54, . . . is a geometric progression with common ratio 3. For this problem, we will limit ourselves to geometric progression whose common ratio is a non-zero integer. <br>
-Given three successive members of a sequence, you need to determine the type of the progression and the next successive member.</p>
-
-<h6 id="input">Input</h6>
-
-<p>Your program will be tested on one or more test cases. Each case is specified on a single line with three integers (−10, 000 &lt; a1 , a2 , a3 &lt; 10, 000) where a1 , a2 , and a3 are distinct. <br>
-The last case is followed by a line with three zeros.</p>
-
-<h6 id="output">Output</h6>
-
-<p>For each test case, you program must print a single line of the form: <br>
-XX v <br>
-where XX is either AP or GP depending if the given progression is an Arithmetic or Geometric Progression. v is the next member of the given sequence. All input cases are guaranteed to be either an arithmetic or geometric progressions.</p>
-
-<p>Example</p>
-
-<p>Input: <br>
-4 7 10 <br>
-2 6 18 <br>
-0 0 0</p>
-
-<p>Output: <br>
-AP 13 <br>
-GP 54</p>
-
-<hr>
-
-<pre><code class="prettyprint">#include &lt;iostream&gt;
-
-using namespace std;
-
-int main() {  
-    int a1, a2, a3;
-    while ((cin &gt;&gt; a1 &gt;&gt; a2 &gt;&gt; a3) &amp;&amp; 
-          !(a1 == 0 &amp;&amp; a2 == 0 &amp;&amp; a3 == 0)) {
-        if (a3 - a2 == a2 - a1) {
-            cout &lt;&lt; "AP " &lt;&lt; 2*a3 - a2 &lt;&lt; "\n"; 
-        } else {
-            cout &lt;&lt; "GP " &lt;&lt; a3*a3/a2 &lt;&lt; "\n";
-        }
-    }
-    return 0;
-}
-</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/05/acpc10a/</link><guid isPermaLink="false">080098dd-c125-47ba-8250-5d17052f185a</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Wed, 05 Nov 2014 04:59:48 GMT</pubDate></item><item><title><![CDATA[TOANDFRO]]></title><description><![CDATA[<p>Mo and Larry have devised a way of encrypting messages. They first decide secretly on the number of columns and write the message (letters only) down the columns, padding with extra random letters so as to make a rectangular array of letters. For example, if the message is “There’s no place like home on a snowy night” and there are five columns, Mo would write down  </p>
-
-<pre><code>t o i o y  
-h p k n n  
-e l e a i  
-r a h s g  
-e c o n h  
-s e m o t  
-n l e w x  
-</code></pre>
-
-<p>Note that Mo includes only letters and writes them all in lower case. In this example, Mo used the character ‘x’ to pad the message out to make a rectangle, although he could have used any letter. Mo then sends the message to Larry by writing the letters in each row, alternating left-to-right and right-to-left. So, the above would be encrypted as</p>
-
-<p>toioynnkpheleaigshareconhtomesnlewx</p>
-
-<p>Your job is to recover for Larry the original message (along with any extra padding letters) from the encrypted one.</p>
-
-<h6 id="input">Input</h6>
-
-<p>There will be multiple input sets. Input for each set will consist of two lines. The first line will contain an integer in the range 2...20 indicating the number of columns used. The next line is a string of up to 200 lower case letters. The last input set is followed by a line containing a single 0, indicating end of input.</p>
-
-<h6 id="output">Output</h6>
-
-<p>Each input set should generate one line of output, giving the original plaintext message, with no spaces.</p>
-
-<p>Example</p>
-
-<p>Input:</p>
-
-<p>5 <br>
-toioynnkpheleaigshareconhtomesnlewx <br>
-3 <br>
-ttyohhieneesiaabss <br>
-0</p>
-
-<p>Output:</p>
-
-<p>theresnoplacelikehomeonasnowynightx <br>
-thisistheeasyoneab</p>
-
-<hr>
-
-<pre><code class="prettyprint">#include &lt;iostream&gt;
-#include &lt;string&gt;
-#include &lt;vector&gt;
-
-using namespace std;
-
-int main() {  
-    int N;
-    while((cin &gt;&gt; N) &amp;&amp; N != 0) {
-        string S;
-        cin &gt;&gt; S;
-
-        int M = S.size()/N;
-        vector&lt;vector&lt;char&gt; &gt; grid(M, vector&lt;char&gt; (N));
-
-        for (int i = 0, k = 0; i &lt; M; ++i) {
-            for (int j = 0; j &lt; N; ++j) {
-                if (i&amp;1) {
-                    grid[i][N-1-j] = S[k++];
-                } else {
-                    grid[i][j] = S[k++];
-                }
-            }
-        }
-
-        for (int i = 0; i &lt; N; ++i) {
-            for (int j = 0; j &lt; M; ++j) {
-                cout &lt;&lt; grid[j][i];
-            }
-        }
-
-        cout &lt;&lt; "\n";
-    }
-    return 0;
-}
-</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/05/toandfro/</link><guid isPermaLink="false">481707f0-2b22-4f46-840d-e3e6e32d28cd</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Wed, 05 Nov 2014 04:39:13 GMT</pubDate></item><item><title><![CDATA[SAMER08F]]></title><description><![CDATA[<p>Richard Phillips Feynman was a well known American physicist and a recipient of the Nobel Prize in Physics. He worked in theoretical physics and also pioneered the field of quantum computing. He visited South America for ten months, giving lectures and enjoying life in the tropics. He is also known for his books "Surely You're Joking, Mr. Feynman!" and "What Do You Care What Other People Think?", which include some of his adventures below the equator.</p>
-
-<p>His life-long addiction was solving and making puzzles, locks, and cyphers. Recently, an old farmer in South America, who was a host to the young physicist in 1949, found some papers and notes that is believed to have belonged to Feynman. Among notes about mesons and electromagnetism, there was a napkin where he wrote a simple puzzle: "how many different squares are there in a grid of N ×N squares?".</p>
-
-<p>In the same napkin there was a drawing which is reproduced below, showing that, for N=2, the answer is 5. </p>
-
-<p><img src="http://code-jedi.chintanghate.me/content/images/2014/11/disatoba-feynman.gif" alt="Illustration"></p>
-
-<h6 id="input">Input</h6>
-
-<p>The input contains several test cases. Each test case is composed of a single line, containing only one integer N, representing the number of squares in each side of the grid (1 ≤ N ≤ 100).</p>
-
-<p>The end of input is indicated by a line containing only one zero.</p>
-
-<h6 id="output">Output</h6>
-
-<p>For each test case in the input, your program must print a single line, containing the number of different squares for the corresponding input.</p>
-
-<p>Example</p>
-
-<p>Input: <br>
-2 <br>
-1 <br>
-8 <br>
-0</p>
-
-<p>Output: <br>
-5 <br>
-1 <br>
-204</p>
-
-<hr>
-
-<pre><code class="prettyprint">#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;numeric&gt;
-
-using namespace std;
-
-int main() {  
-    vector&lt;int&gt; SQR(101, 0);
-    for (int i = 0; i &lt; 101; ++i) {
-        SQR[i] = i*i;
-    }
-
-    int N;
-    while((cin &gt;&gt; N) &amp;&amp; N != 0) {
-        cout &lt;&lt; accumulate(SQR.begin(), SQR.begin()+N+1, 0) &lt;&lt; "\n";
-    }
-    return 0;
-}
-</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/05/samer08f/</link><guid isPermaLink="false">f91be8f7-583b-49ae-a8da-411d7cbaaa52</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Wed, 05 Nov 2014 03:46:32 GMT</pubDate></item><item><title><![CDATA[NSTEPS]]></title><description><![CDATA[<p>Starting from point (0,0) on a plane, we have written all non-negative integers 0, 1, 2,... as shown in the figure. For example, 1, 2, and 3 has been written at points (1,1), (2,0), and (3, 1) respectively and this pattern has continued.</p>
-
-<p><img src="http://code-jedi.chintanghate.me/content/images/2014/11/NSTEPS.png" alt="Illustration"></p>
-
-<p>You are to write a program that reads the coordinates of a point (x, y), and writes the number (if any) that has been written at that point. (x, y) coordinates in the input are in the range 0...10000.</p>
-
-<h6 id="input">Input</h6>
-
-<p>The first line of the input is N, the number of test cases for this problem. In each of the N following lines, there is x, and y representing the coordinates (x, y) of a point.</p>
-
-<h6 id="output">Output</h6>
-
-<p>For each point in the input, write the number written at that point or write No Number if there is none.</p>
-
-<p>Example</p>
-
-<p>Input: <br>
-3 <br>
-4 2 <br>
-6 6 <br>
-3 4</p>
-
-<p>Output: <br>
-6 <br>
-12 <br>
-No Number</p>
-
-<hr>
-
-<pre><code class="prettyprint">#include &lt;iostream&gt;
-
-using namespace std;
-
-int main() {  
-    int T;
-    cin &gt;&gt; T;
-
-    for(;T--;) {
-        int x, y;
-        cin &gt;&gt; x &gt;&gt; y;
-
-        if (x == y || x - y == 2) {
-            if (x&amp;1) {
-                cout &lt;&lt; x + y - 1 &lt;&lt; "\n";
-            } else {
-                cout &lt;&lt; x + y &lt;&lt; "\n";
-            }
-        } else {
-            cout &lt;&lt; "No Number\n";
-        }
-    }
-    return 0;
-}
-</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/05/nsteps/</link><guid isPermaLink="false">98054c18-b6ee-47d8-9175-75403a49b3b3</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Wed, 05 Nov 2014 03:13:01 GMT</pubDate></item><item><title><![CDATA[ONP]]></title><description><![CDATA[<p>Transform the algebraic expression with brackets into RPN form (Reverse Polish Notation). Two-argument operators: +, -, <em>, /, ^ (priority from the lowest to the highest), brackets ( ). Operands: only letters: a,b,...,z. Assume that there is only one RPN form (no expressions like a</em>b*c).</p>
-
-<h6 id="input">Input</h6>
-
-<p>t [the number of expressions &lt;= 100] <br>
-expression [length &lt;= 400] <br>
-[other expressions]
-Text grouped in [ ] does not appear in the input file.</p>
-
-<h6 id="output">Output</h6>
-
-<p>The expressions in RPN form, one per line.</p>
-
-<p>Example</p>
-
-<p>Input: <br>
-3 <br>
-(a+(b<em>c))
-((a+b)</em>(z+x))
-((a+t)*((b+(a+c))^(c+d)))</p>
-
-<p>Output: <br>
-abc<em>+ <br>
-ab+zx+</em> <br>
-at+bac++cd+^*</p>
-
-<hr>
-
-<pre><code class="prettyprint">#include &lt;iostream&gt;
-#include &lt;stack&gt;
-#include &lt;string&gt;
-
-using namespace std;
-
-int main() {  
-    int T;
-    cin &gt;&gt; T;
-
-    for(;T--;) {
-        string e;
-        cin &gt;&gt; e;
-        stack&lt;char&gt; op; 
-        for (int i = 0; i &lt; e.size(); ++i) {
-            if (e[i] &gt;= 'a' &amp;&amp; e[i] &lt;= 'z') {
-                cout &lt;&lt; e[i];
-            } else if (e[i] !='(' &amp;&amp; e[i] != ')') {
-                op.push(e[i]);
-            } else if (e[i] == ')') {
-                cout &lt;&lt; op.top();
-                op.pop();
-            }
-        }
-        cout &lt;&lt; "\n";
-    }
-    return 0;
-}
-</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/04/onp/</link><guid isPermaLink="false">f0d1db0a-dbd4-4bf0-b4ed-5bf14d10b9e3</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Tue, 04 Nov 2014 13:31:10 GMT</pubDate></item></channel></rss>
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/05/julka/</link><guid isPermaLink="false">c097ec1f-52d9-489f-a1f7-5992d20768a2</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Wed, 05 Nov 2014 09:36:58 GMT</pubDate></item></channel></rss>

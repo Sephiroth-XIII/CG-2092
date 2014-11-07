@@ -1,0 +1,234 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>ARMY</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css?v=2742a244e3">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+    <link href="../../../../assets/css/prettify.css?v=2742a244e3" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="../../../../assets/js/prettify.js?v=2742a244e3"></script>
+    <link rel="canonical" href="http://code-jedi.chintanghate.me/2014/11/07/army/">
+    
+    <meta property="og:site_name" content="Code Jedi">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="ARMY">
+    <meta property="og:description" content="The next MechaGodzilla invasion is on its way to Earth. And once again, Earth will be the battleground for an epic war. MechaGodzilla's army consists of many nasty alien monsters, such as Space Godzilla, King Gidorah, and MechaGodzilla herself. To...">
+    <meta property="og:url" content="http://code-jedi.chintanghate.me/2014/11/07/army/">
+    <meta property="article:published_time" content="2014-11-07T17:41:53.368Z">
+    <meta property="article:modified_time" content="2014-11-07T17:41:53.367Z">
+    <meta property="article:tag" content="SPOJ">
+    
+    <meta name="twitter:card" content="content">
+    <meta name="twitter:title" content="ARMY">
+    <meta name="twitter:description" content="The next MechaGodzilla invasion is on its way to Earth. And once again, Earth will be the battleground for an epic war. MechaGodzilla's army consists of many nasty alien monsters, such as Space Godzilla, King Gidorah, and MechaGodzilla herself. To...">
+    <meta name="twitter:url" content="http://code-jedi.chintanghate.me/2014/11/07/army/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Code Jedi",
+    "author": {
+        "@type": "Person",
+        "name": "Chintan Ghate",
+        "url": "http://code-jedi.chintanghate.me/author/chintan",
+        "sameAs": null
+    },
+    "headline": "ARMY",
+    "url": "http://code-jedi.chintanghate.me/2014/11/07/army/",
+    "datePublished": "2014-11-07T17:41:53.368Z",
+    "dateModified": "2014-11-07T17:41:53.367Z",
+    "keywords": "SPOJ",
+    "description": "The next MechaGodzilla invasion is on its way to Earth. And once again, Earth will be the battleground for an epic war. MechaGodzilla's army consists of many nasty alien monsters, such as Space Godzilla, King Gidorah, and MechaGodzilla herself. To"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Code Jedi" href="../../../../rss/index.html">
+</head>
+<body class="post-template tag-spoj" onload="prettyPrint()">
+
+    
+
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        <a class="back-button icon-arrow-left" href="http://code-jedi.chintanghate.me">Home</a>
+        <a class="subscribe-button icon-feed" href="http://code-jedi.chintanghate.me/rss/index.rss">Subscribe</a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+
+    <article class="post tag-spoj">
+
+        <header class="post-header">
+            <h1 class="post-title">ARMY</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2014-11-07">07 November 2014</time>  on <a href="../../../../tag/spoj/">SPOJ</a>
+            </section>
+        </header>
+
+        <section class="post-content">
+            <p>The next MechaGodzilla invasion is on its way to Earth. And once again, Earth will be the battleground for an epic war.</p>
+
+<p>MechaGodzilla's army consists of many nasty alien monsters, such as Space Godzilla, King Gidorah, and MechaGodzilla herself.</p>
+
+<p>To stop them and defend Earth, Godzilla and her friends are preparing for the battle.</p>
+
+<h6 id="problem">Problem</h6>
+
+<p>Each army consists of many different monsters. Each monster has a strength that can be described by a positive integer. (The larger the value, the stronger the monster.)</p>
+
+<p>The war will consist of a series of battles. In each battle, the weakest of all the monsters that are still alive is killed.</p>
+
+<p>If there are several weakest monsters, but all of them in the same army, one of them is killed at random. If both armies have at least one of the weakest monsters, a random weakest monster of MechaGodzilla's army is killed.</p>
+
+<p>The war is over if in one of the armies all monsters are dead. The dead army lost, the other one won.</p>
+
+<p>You are given the strengths of all the monsters. Find out who wins the war.</p>
+
+<h6 id="input">Input</h6>
+
+<p>The first line of the input file contains an integer T specifying the number of test cases. Each test case is preceded by a blank line.</p>
+
+<p>Each test case starts with line containing two positive integers NG and NM – the number of monsters in Godzilla's and in MechaGodzilla's army. Two lines follow. The first one contains NG positive integers – the strengths of the monsters in Godzilla's army. Similarly, the second one contains NM positive integers – the strengths of the monsters in MechaGodzilla's army.</p>
+
+<h6 id="output">Output</h6>
+
+<p>For each test case, output a single line with a string that describes the outcome of the battle.</p>
+
+<p>If it is sure that Godzilla's army wins, output the string "Godzilla".</p>
+
+<p>If it is sure that MechaGodzilla's army wins, output the string "MechaGodzilla".</p>
+
+<p>Otherwise, output the string "uncertain".</p>
+
+<p>Example</p>
+
+<p>Input: <br>
+2</p>
+
+<p>1 1 <br>
+1 <br>
+1</p>
+
+<p>3 2 <br>
+1 3 2 <br>
+5 5</p>
+
+<p>Output: <br>
+Godzilla <br>
+MechaGodzilla</p>
+
+<h6 id="hint">Hint</h6>
+
+<p>In the first test case, there are only two monsters, and they are equally strong. In this situation, MechaGodzilla's monster is killed and the war ends.</p>
+
+<p>In the second test case, the war will consist of three battles, and in each of them one of Godzilla's monsters dies.</p>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+#include &lt;deque&gt;
+
+using namespace std;
+
+int main() {  
+    int T;
+    cin &gt;&gt; T;
+    for (;T--;) {
+        int NG, NM;
+        cin &gt;&gt; NG &gt;&gt; NM;
+
+        if (NG == 0 &amp;&amp; NM == 0) {
+            cout &lt;&lt; "uncertain\n";
+        } else {
+            vector&lt;int&gt; NGA(NG), NMA(NM);
+            for (int i = 0; i &lt; NG; ++i) {
+                cin &gt;&gt; NGA[i];
+            }
+            sort(NGA.begin(), NGA.end());
+            for (int i = 0; i &lt; NM; ++i) {
+                cin &gt;&gt; NMA[i];
+            }
+            sort(NMA.begin(), NMA.end());
+
+            deque&lt;int&gt; NGQ(NGA.begin(), NGA.end()), 
+                       NMQ(NMA.begin(), NMA.end());
+            while (!NGQ.empty() &amp;&amp; !NMQ.empty()) {
+                if (NGQ.front() &gt;= NMQ.front()) {
+                    NMQ.pop_front();
+                } else {
+                    NGQ.pop_front();
+                }
+            }
+            if (NGQ.empty()) {
+                cout &lt;&lt; "MechaGodzilla\n";
+            } else {
+                cout &lt;&lt; "Godzilla\n";
+            }
+        }
+    }
+    return 0;
+}
+</code></pre>
+        </section>
+
+        <footer class="post-footer">
+
+
+
+            <section class="author">
+                <h4><a href="../../../../author/chintan/">Chintan Ghate</a></h4>
+
+                    <p>Read <a href="../../../../author/chintan/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/share?text=ARMY&amp;url=http://code-jedi.chintanghate.me/2014/11/07/army/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://code-jedi.chintanghate.me/2014/11/07/army/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://code-jedi.chintanghate.me/2014/11/07/army/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+    </article>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+         <section class="copyright"><a href="http://code-jedi.chintanghate.me">Code Jedi</a> © 2014</section>
+         <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+    </footer>
+
+    <script src="../../../../public/jquery.js?v=2742a244e3"></script>
+
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js?v=2742a244e3"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js?v=2742a244e3"></script>
+
+</body>
