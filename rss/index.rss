@@ -1,4 +1,120 @@
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Code Jedi</title><description>Code, algorithms and design.</description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Fri, 07 Nov 2014 17:59:10 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>WILLITST</title><description>&lt;p&gt;When Bob was in library in University of Warsaw he saw on one of facades caption :"Will it ever stop?" and below some mysterious code:  &lt;/p&gt;
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Code Jedi</title><description>Code, algorithms and design.</description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Thu, 13 Nov 2014 18:39:20 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>STPAR</title><description>&lt;p&gt;For sure, the love mobiles will roll again on this summer's street parade. Each year, the organisers decide on a fixed order for the decorated trucks. Experience taught them to keep free a side street to be able to bring the trucks into order. &lt;/p&gt;
+
+&lt;p&gt;The side street is so narrow that no two cars can pass each other. Thus, the love mobile that enters the side street last must necessarily leave the side street first. Because the trucks and the ravers move up closely, a truck cannot drive back and re-enter the side street or the approach street. &lt;/p&gt;
+
+&lt;p&gt;You are given the order in which the love mobiles arrive. Write a program that decides if the love mobiles can be brought into the order that the organisers want them to be.&lt;/p&gt;
+
+&lt;h6 id="input"&gt;Input&lt;/h6&gt;
+
+&lt;p&gt;There are several test cases. The first line of each test case contains a single number n, the number of love mobiles. The second line contains the numbers 1 to n in an arbitrary order. All the numbers are separated by single spaces. These numbers indicate the order in which the trucks arrive in the approach street. No more than 1000 love mobiles participate in the street parade. Input ends with number 0.&lt;/p&gt;
+
+&lt;h6 id="output"&gt;Output&lt;/h6&gt;
+
+&lt;p&gt;For each test case your program has to output a line containing a single word yes if the love mobiles can be re-ordered with the help of the side street, and a single word no in the opposite case.&lt;/p&gt;
+
+&lt;p&gt;Example&lt;/p&gt;
+
+&lt;p&gt;Sample input: &lt;br&gt;
+5 &lt;br&gt;
+5 1 2 4 3 &lt;br&gt;
+0&lt;/p&gt;
+
+&lt;p&gt;Sample output: &lt;br&gt;
+yes&lt;/p&gt;
+
+&lt;h6 id="illustration"&gt;Illustration&lt;/h6&gt;
+
+&lt;p&gt;The sample input reflects the following situation: &lt;br&gt;
+&lt;img src="http://code-jedi.chintanghate.me/content/images/2014/11/pomyk-parade1.gif" alt="Illustration0"&gt;
+The five trucks can be re-ordered in the following way: &lt;br&gt;
+&lt;img src="http://code-jedi.chintanghate.me/content/images/2014/11/pomyk-parade2.gif" alt="Illustration1"&gt;
+&lt;img src="http://code-jedi.chintanghate.me/content/images/2014/11/pomyk-parade3.gif" alt="Illustration2"&gt;
+&lt;img src="http://code-jedi.chintanghate.me/content/images/2014/11/pomyk-parade4.gif" alt="Illustration3"&gt;
+&lt;img src="http://code-jedi.chintanghate.me/content/images/2014/11/pomyk-parade5.gif" alt="Illustration4"&gt;
+&lt;img src="http://code-jedi.chintanghate.me/content/images/2014/11/pomyk-parade6.gif" alt="Illustration5"&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;stack&amp;gt;
+#include &amp;lt;deque&amp;gt;
+
+using namespace std;
+
+int main() {  
+    int T;
+    while ((cin &amp;gt;&amp;gt; T) &amp;amp;&amp;amp; T != 0) {
+        deque&amp;lt;int&amp;gt; Q;
+        for (int i = 0; i &amp;lt; T; ++i) {
+            int x;
+            cin &amp;gt;&amp;gt; x;
+            Q.push_back(x);
+        }
+
+        int vehicle = 1;
+        stack&amp;lt;int&amp;gt; S;
+        while (!Q.empty() || !S.empty()) {
+            if (!S.empty() &amp;amp;&amp;amp; S.top() == vehicle) {
+                S.pop();
+                ++vehicle;
+            } else if (!Q.empty() &amp;amp;&amp;amp; Q.front() == vehicle) {
+                Q.pop_front();
+                ++vehicle;
+            } else if (!Q.empty()) {
+                S.push(Q.front());
+                Q.pop_front();
+            } else if (!S.empty()) {
+                S.pop();
+            }
+        }
+        if (vehicle == T + 1) {
+            cout &amp;lt;&amp;lt; "yes\n";
+        } else {
+            cout &amp;lt;&amp;lt; "no\n";
+        }
+    }
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/13/stpar/</link><guid isPermaLink="false">f7029305-37d1-472a-a96d-21655dfd9245</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Thu, 13 Nov 2014 17:52:08 GMT</pubDate></item><item><title>FENCE1</title><description>&lt;p&gt;There is a wall in your backyard. It is so long that you can’t see its endpoints. You want to build a fence of length L such that the area enclosed between the wall and the fence is maximized. The fence can be of arbitrary shape, but only its two endpoints may touch the wall.&lt;/p&gt;
+
+&lt;h6 id="input"&gt;Input&lt;/h6&gt;
+
+&lt;p&gt;The input consists of several test cases.&lt;/p&gt;
+
+&lt;p&gt;For every test case, there is only one integer L (1&amp;lt;=L&amp;lt;=100), indicating the length of the fence.&lt;/p&gt;
+
+&lt;p&gt;The input ends with L=0.&lt;/p&gt;
+
+&lt;h6 id="output"&gt;Output&lt;/h6&gt;
+
+&lt;p&gt;For each test case, output one line containing the largest area. Your answer should be rounded to 2 digits after the decimal point.&lt;/p&gt;
+
+&lt;p&gt;Example&lt;/p&gt;
+
+&lt;p&gt;Input: &lt;br&gt;
+1 &lt;br&gt;
+0&lt;/p&gt;
+
+&lt;p&gt;Output: &lt;br&gt;
+0.16&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;iomanip&amp;gt;
+
+using namespace std;
+
+int main() {  
+    double PI = 3.14159265358979323846;
+    double L;
+    while((cin &amp;gt;&amp;gt; L) &amp;amp;&amp;amp; L != 0) {
+        cout &amp;lt;&amp;lt; setprecision(2) &amp;lt;&amp;lt; fixed 
+             &amp;lt;&amp;lt; L*L/2.0/PI &amp;lt;&amp;lt; "\n";
+    }
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/13/fence1/</link><guid isPermaLink="false">9af4f18a-8fef-4eb0-bb0b-a9b2e36f7b47</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Thu, 13 Nov 2014 17:42:29 GMT</pubDate></item><item><title>WILLITST</title><description>&lt;p&gt;When Bob was in library in University of Warsaw he saw on one of facades caption :"Will it ever stop?" and below some mysterious code:  &lt;/p&gt;
 
 &lt;pre&gt;&lt;code class="prettyprint"&gt;while n &amp;gt; 1  
   if n mod 2 = 0 then
@@ -857,140 +973,4 @@ int main() {
     cout &amp;lt;&amp;lt; squares &amp;lt;&amp;lt; "\n";
     return 0;
 }
-&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/06/ae00/</link><guid isPermaLink="false">c3c7f42b-4b47-4472-b147-34bde82f18c4</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Thu, 06 Nov 2014 04:05:44 GMT</pubDate></item><item><title>LASTDIG</title><description>&lt;p&gt;Nestor was doing the work of his math class about three days but he is tired of make operations a lot and he should deliver his task tomorrow. His math’s teacher gives two numbers a and b. The problem consist in find the last digit of the potency of base a and index b. Help Nestor with his problem. You are given two integer numbers: the base a (0 &amp;lt;= a &amp;lt;= 20) and the index b (0 &amp;lt;= b &amp;lt;= 2,147,483,000), a and b both are not 0. You have to find the last digit of a^b.&lt;/p&gt;
-
-&lt;h6 id="input"&gt;Input&lt;/h6&gt;
-
-&lt;p&gt;The first line of input contains an integer t, the number of test cases (t &amp;lt;= 30). t test cases follow. For each test case will appear a and b separated by space.&lt;/p&gt;
-
-&lt;h6 id="output"&gt;Output&lt;/h6&gt;
-
-&lt;p&gt;For each test case output an integer per line representing the result.&lt;/p&gt;
-
-&lt;p&gt;Example&lt;/p&gt;
-
-&lt;p&gt;Input: &lt;br&gt;
-2 &lt;br&gt;
-3 10 &lt;br&gt;
-6 2&lt;/p&gt;
-
-&lt;p&gt;Output: &lt;br&gt;
-9 &lt;br&gt;
-6&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
-#include &amp;lt;vector&amp;gt;
-
-using namespace std;
-
-long long mod(long long a, long long b) {  
-    return (a % b &amp;lt; 0 ? a % b + b : a % b);
-}
-
-int powMod10(long long a, long long b) {  
-    if (b == 0) {
-        return 1;
-    } else if (a == 0) {
-        return 0;
-    } else {
-        vector &amp;lt;long long&amp;gt; powers;
-        powers.push_back(a%10);
-
-        do {
-            powers.push_back((powers.back()*(a%10))%10);
-        } while(powers.back() != powers.front());
-
-        int cycleSize = powers.size() - 1;
-        return powers[mod((b-1),cycleSize)];
-    }
-    return 0;
-}
-
-int main() {  
-    int t;
-    cin &amp;gt;&amp;gt; t;
-
-    for (;t--;) {
-        long long a, b;
-        cin &amp;gt;&amp;gt; a &amp;gt;&amp;gt; b;
-        cout &amp;lt;&amp;lt; powMod10(a, b) &amp;lt;&amp;lt; "\n";
-    }
-    return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/06/lastdig/</link><guid isPermaLink="false">d64aa5b2-b645-44fd-80ab-e8fd44b1e99c</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Thu, 06 Nov 2014 03:50:48 GMT</pubDate></item><item><title>Hello, Objective-C!</title><description>&lt;h6 id="oldschoolobjectivec"&gt;Old School Objective-C&lt;/h6&gt;
-
-&lt;p&gt;I will be attempting to relearn Objective-C using a text-editor, &lt;strong&gt;Sublime Text&lt;/strong&gt;, and &lt;strong&gt;terminal&lt;/strong&gt;, and will be maintaining a log of my adventures here, under the tag &lt;strong&gt;Objective-C&lt;/strong&gt;. As always, beginning with "Hello, world!".&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;h6 id="setup"&gt;Setup&lt;/h6&gt;
-
-&lt;p&gt;I am currently running &lt;strong&gt;OS X Yosemtie&lt;/strong&gt; with &lt;strong&gt;Xcode 6&lt;/strong&gt; and &lt;strong&gt;Xcode Command Line Tools&lt;/strong&gt; installed. We will be needing &lt;em&gt;Xcode Command Line Tools&lt;/em&gt; to run our programs from terminal.&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;h6 id="code"&gt;Code&lt;/h6&gt;
-
-&lt;p&gt;Open the text-editor of your choice and type the code given below, save it as &lt;code&gt;HelloWorld.m&lt;/code&gt;. Objective-C implemetation files use the &lt;code&gt;.m&lt;/code&gt; extension.  &lt;/p&gt;
-
-&lt;pre&gt;&lt;code class="prettyprint"&gt;#import &amp;lt;Foundation/Foundation.h&amp;gt;
-
-int main() {  
-    NSLog(@"Hello, World!");
-    return 0;
-} 
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;hr&gt;
-
-&lt;h6 id="compile"&gt;Compile&lt;/h6&gt;
-
-&lt;p&gt;Fire-up the terminal. Go to the directory where you have saved the code using &lt;code&gt;cd&lt;/code&gt; command, and type the following command.  &lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;gcc -framework Foundation HelloWorld.m -o HelloWorld  
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;We are using the &lt;code&gt;gcc&lt;/code&gt; compiler, the same which is used for compiling C-programs. The compiler transforms our Objective-C code  into an executable program. We are using the &lt;code&gt;Foundation&lt;/code&gt; framework to compile &lt;code&gt;HelloWorld.m&lt;/code&gt; into an executable named &lt;code&gt;HelloWorld&lt;/code&gt;. The last part &lt;code&gt;-o HelloWorld&lt;/code&gt; is optional, ignoring which would name the executable file with a default name &lt;code&gt;a.out&lt;/code&gt;. Now that we have compiled the code successfully, lets run it.&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;h6 id="run"&gt;Run&lt;/h6&gt;
-
-&lt;p&gt;To run the executable we get after compiling &lt;code&gt;HelloWorld.m&lt;/code&gt;, type the below command in terminal and you will be able to see the output.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;./HelloWorld
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;On running the code, you will be getting an output like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;2014-11-05 22:39:13.065 HelloWorld[5715:121885] Hello, World!  
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;hr&gt;
-
-&lt;h6 id="trickbehindthemagic"&gt;Trick behind the Magic&lt;/h6&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Programming is like magic. First you see the magician cast a spell, see the magic happen, feel amazed and then try to figure out how it was done.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Now that we have ran the program successfully and recieved an output, lets see how the pieces in the code worked to give us the output.  &lt;/p&gt;
-
-&lt;pre&gt;&lt;code class="prettyprint"&gt;#import &amp;lt;Foundation/Foundation.h&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;To include header files in our code, we use &lt;code&gt;#import&lt;/code&gt; directive. The &lt;code&gt;#import&lt;/code&gt; directive is like C’s &lt;code&gt;#include&lt;/code&gt; directive, except that it makes sure that the same file is never included more than once. Here we are including &lt;code&gt;Foundation.h&lt;/code&gt; file from &lt;code&gt;Foundation&lt;/code&gt; framework. Files with &lt;code&gt;.h&lt;/code&gt; extension are header files. The header file having same name as the framework is called an &lt;em&gt;umbrella header file&lt;/em&gt;, it prevents us from having to add all the individual header files from a framework. &lt;em&gt;Foundation&lt;/em&gt; framework provides  a set of useful primitive object classes. In this program we use the &lt;code&gt;NSLog&lt;/code&gt; function from the &lt;em&gt;Foundation&lt;/em&gt; framework. The framework was developed by NeXTStep, which was acquired by Apple and these &lt;em&gt;Foundation&lt;/em&gt; classes became part of Mac OS X and iOS. Since it was developed by NeXTStep, it has class prefix of "NS".  &lt;/p&gt;
-
-&lt;pre&gt;&lt;code class="prettyprint"&gt;int main() {  
-    NSLog(@"Hello, World!");
-    return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This is the &lt;code&gt;main&lt;/code&gt; function. Every program has one and only one main function, and the execution of a program starts from here. The return type of &lt;em&gt;main&lt;/em&gt; function is &lt;em&gt;int&lt;/em&gt;. On successful execution it returns &lt;em&gt;0&lt;/em&gt;.&lt;/p&gt;
-
-&lt;p&gt;The &lt;code&gt;NSLog&lt;/code&gt; function accepts a string as its argument and outputs it to the console/terminal. In this case the string is &lt;code&gt;@"Hello, World!"&lt;/code&gt;. In Objective-C &lt;code&gt;@&lt;/code&gt; is used before the literal to denote it as an &lt;em&gt;object&lt;/em&gt;. String objects are closed in double-quotes &lt;code&gt;"&lt;/code&gt;. Thats all there is to know about &lt;code&gt;HelloWorld.m&lt;/code&gt;, enough to get enthusiastic and excited about our next adventure.&lt;/p&gt;
-
-&lt;p&gt;Now that you know the trick, try to break it, experiment with it; try doing something new with it.  I'll see you in our next adventure.&lt;/p&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/05/hello-objective-c/</link><guid isPermaLink="false">9ebd4df7-1252-4f6e-8a83-7e30e3d3d5b5</guid><category>Objective-C</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Wed, 05 Nov 2014 16:45:43 GMT</pubDate></item></channel></rss>
+&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/06/ae00/</link><guid isPermaLink="false">c3c7f42b-4b47-4472-b147-34bde82f18c4</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Thu, 06 Nov 2014 04:05:44 GMT</pubDate></item></channel></rss>
