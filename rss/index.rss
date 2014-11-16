@@ -1,4 +1,664 @@
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Code Jedi</title><description>Code, algorithms and design.</description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Thu, 13 Nov 2014 18:39:20 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>STPAR</title><description>&lt;p&gt;For sure, the love mobiles will roll again on this summer's street parade. Each year, the organisers decide on a fixed order for the decorated trucks. Experience taught them to keep free a side street to be able to bring the trucks into order. &lt;/p&gt;
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Code Jedi</title><description>Code, algorithms and design.</description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Sun, 16 Nov 2014 15:06:00 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>HUBULLU</title><description>&lt;p&gt;After duelling in quake (a multiplayer game), Airborne and Pagfloyd decide do test themselves out in another game called Hubulullu. The rules of the game are as follows:&lt;/p&gt;
+
+&lt;p&gt;N wooden pieces (marked with numbers 1 to N) are placed in a transparent bottle. On his turn the first player takes out some piece (numbered x) and all the pieces numbered by divisors of x that are present in the transparent bottle. The second player picks another number and removes it and its divisors as well. Play continues in an alternating fashion until all pieces have been removed from the bottle. The player who removes the last piece from the bottle wins the game.&lt;/p&gt;
+
+&lt;p&gt;Both players play optimally. Given N (the number of wooden pieces in the transparent bottle initially) and the name of the player who starts the game, determine the winner.&lt;/p&gt;
+
+&lt;h6 id="input"&gt;Input&lt;/h6&gt;
+
+&lt;p&gt;The first line of the input contains an integer t, the number of test cases. t test cases follow.&lt;/p&gt;
+
+&lt;p&gt;Each test case consists of a single line containing two integers separated by a single space. The first integer is N (1 &amp;lt;= N &amp;lt;= 2000000000), indicating the number of pieces, and the second integer indicates the player who starts - "0" means Airborne starts the game and "1" means Pagfloyd starts the game (quotes for clarity).&lt;/p&gt;
+
+&lt;h6 id="output"&gt;Output&lt;/h6&gt;
+
+&lt;p&gt;For each test case output one line containing either "Airborne wins." or "Pagfloyd wins."&lt;/p&gt;
+
+&lt;p&gt;For each N, it's possible to determine a winner if both players play optimally.&lt;/p&gt;
+
+&lt;p&gt;Example&lt;/p&gt;
+
+&lt;p&gt;Input: &lt;br&gt;
+1 &lt;br&gt;
+1 0&lt;/p&gt;
+
+&lt;p&gt;Output: &lt;br&gt;
+Airborne wins.&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
+
+using namespace std;
+
+int main() {  
+    int T;
+    cin &amp;gt;&amp;gt; T;
+    for(;T--;) {
+        int N, P;
+        cin &amp;gt;&amp;gt; N &amp;gt;&amp;gt; P;
+        cout &amp;lt;&amp;lt; (P == 0 ? "Airborne wins." : 
+                "Pagfloyd wins.") &amp;lt;&amp;lt; "\n";
+    }
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/16/hubullu/</link><guid isPermaLink="false">7b7856a4-6b55-4114-afe8-74756a8fce3e</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Sun, 16 Nov 2014 13:57:13 GMT</pubDate></item><item><title>EASYPROB</title><description>&lt;h6 id="input"&gt;Input&lt;/h6&gt;
+
+&lt;p&gt;There's no input.&lt;/p&gt;
+
+&lt;h6 id="output"&gt;Output&lt;/h6&gt;
+
+&lt;p&gt;Output some form of these numbers: 137, 1315, 73, 136, 255, 1384, 16385, one per line in the listed order.&lt;/p&gt;
+
+&lt;p&gt;Example&lt;/p&gt;
+
+&lt;p&gt;The first two lines of the CORRECT output file are:&lt;/p&gt;
+
+&lt;p&gt;137=2(2(2)+2+2(0))+2(2+2(0))+2(0) &lt;br&gt;
+1315=2(2(2+2(0))+2)+2(2(2+2(0)))+2(2(2)+2(0))+2+2(0)&lt;/p&gt;
+
+&lt;p&gt;The correct output file should contain 7 lines.&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h6 id="code"&gt;Code&lt;/h6&gt;
+
+&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;string&amp;gt;
+#include &amp;lt;bitset&amp;gt;
+
+using namespace std;
+
+string expressInPowersOfTwo(unsigned long long n) {  
+    string final = "";
+    if(n == 2 || n == 0) {
+        return final + char('0' + n);
+    }
+    bitset&amp;lt;64&amp;gt; bitRep(n);
+    for (int i = 63; i &amp;gt;= 0; --i) {
+        if (bitRep[i]) {
+            string ans = (i == 1 ? "2" : 
+                         "2(" + expressInPowersOfTwo(i) + ")");
+            final += (final == "" ? ans : "+" + ans);
+        }
+    }
+    return final;
+}
+
+int main() {  
+    unsigned long long n;
+    while((cin &amp;gt;&amp;gt; n) &amp;amp;&amp;amp; n != -1) {
+        cout &amp;lt;&amp;lt; n &amp;lt;&amp;lt; "=" &amp;lt;&amp;lt; expressInPowersOfTwo(n) &amp;lt;&amp;lt; "\n";
+    }
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h6 id="solution"&gt;Solution&lt;/h6&gt;
+
+&lt;pre&gt;&lt;code&gt;137=2(2(2)+2+2(0))+2(2+2(0))+2(0)  
+1315=2(2(2+2(0))+2)+2(2(2+2(0)))+2(2(2)+2(0))+2+2(0)  
+73=2(2(2)+2)+2(2+2(0))+2(0)  
+136=2(2(2)+2+2(0))+2(2+2(0))  
+255=2(2(2)+2+2(0))+2(2(2)+2)+2(2(2)+2(0))+2(2(2))+2(2+2(0))+2(2)+2+2(0)  
+1384=2(2(2+2(0))+2)+2(2(2+2(0)))+2(2(2)+2)+2(2(2)+2(0))+2(2+2(0))  
+16385=2(2(2+2(0))+2(2)+2)+2(0)
+&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/16/easyprob/</link><guid isPermaLink="false">1a8dd66a-d626-4e46-ab34-f2226fda313e</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Sun, 16 Nov 2014 13:17:14 GMT</pubDate></item><item><title>BEENUMS</title><description>&lt;p&gt;A beehive is an enclosed structure in which some honey bee species live and raise their young. In this problem we consider a two-dimensional sketch of the beehives. Each beehive is composed of a certain number of cells, where each cell is a regular hexagon. Each cell may have some neighbors, which are other cells that share a side with that cell. A cell with exactly 6 neighbors is an internal cell, while a cell with fewer neighbors is an external one. Notice that an external cell can always be changed to internal by adding some neighbor cells.&lt;/p&gt;
+
+&lt;p&gt;We are interested in a particular class of beehives. This class of valid beehives is defined recursively as follows: a) a single cell is a valid beehive; and b) given a valid beehive B, if we add the minimum number of cells such that each external cell of B becomes an internal cell, the result is a valid beehive.&lt;/p&gt;
+
+&lt;p&gt;The number of cells in a valid beehive is called a beehive number. Given an integer N, you must decide whether it is a beehive number.&lt;/p&gt;
+
+&lt;h6 id="input"&gt;Input&lt;/h6&gt;
+
+&lt;p&gt;Each test case is described using a single line. The line contains an integer N (1 ≤ N ≤ 10&lt;sup&gt;9&lt;/sup&gt; ). The end of input is indicated with a line containing a single −1.&lt;/p&gt;
+
+&lt;h6 id="output"&gt;Output&lt;/h6&gt;
+
+&lt;p&gt;For each test case, output a single line containing an uppercase “Y” if N is a beehive number, or an uppercase “N” otherwise.&lt;/p&gt;
+
+&lt;p&gt;Example&lt;/p&gt;
+
+&lt;p&gt;Input: &lt;br&gt;
+43 &lt;br&gt;
+1 &lt;br&gt;
+7 &lt;br&gt;
+19 &lt;br&gt;
+15 &lt;br&gt;
+-1&lt;/p&gt;
+
+&lt;p&gt;Output: &lt;br&gt;
+N &lt;br&gt;
+Y &lt;br&gt;
+Y &lt;br&gt;
+Y &lt;br&gt;
+N&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;cmath&amp;gt;
+
+using namespace std;
+
+int main() {  
+    int N;
+    while ((cin &amp;gt;&amp;gt; N) &amp;amp;&amp;amp; N != -1) {
+        --N;
+        if (N % 6 != 0) {
+            cout &amp;lt;&amp;lt; "N\n";
+        } else {
+            N /= 3;
+            double x = (-1.0 + sqrt(1 + 4*N)) / 2.0;
+            if(ceil(x) == floor(x)) {
+                cout &amp;lt;&amp;lt; "Y\n";
+            } else {
+                cout &amp;lt;&amp;lt; "N\n";
+            }
+        }
+    }
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/16/beenums/</link><guid isPermaLink="false">da0aee15-e541-4347-adea-57756f9a67b2</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Sun, 16 Nov 2014 11:42:19 GMT</pubDate></item><item><title>INVCNT</title><description>&lt;p&gt;Let A[0...n - 1] be an array of n distinct positive integers. If i &amp;lt; j and A[i] &gt; A[j] then the pair (i, j) is called an inversion of A. Given n and an array A your task is to find the number of inversions of A.&lt;/p&gt;
+
+&lt;h6 id="input"&gt;Input&lt;/h6&gt;
+
+&lt;p&gt;The first line contains t, the number of testcases followed by a blank space. Each of the t tests start with a number n (n &amp;lt;= 200000). Then n + 1 lines follow. In the ith line a number A[i - 1] is given (A[i - 1] &amp;lt;= 10^7). The (n + 1)th line is a blank space.&lt;/p&gt;
+
+&lt;h6 id="output"&gt;Output&lt;/h6&gt;
+
+&lt;p&gt;For every test output one line giving the number of inversions of A.&lt;/p&gt;
+
+&lt;p&gt;Example&lt;/p&gt;
+
+&lt;p&gt;Input: &lt;br&gt;
+2&lt;/p&gt;
+
+&lt;p&gt;3 &lt;br&gt;
+3 &lt;br&gt;
+1 &lt;br&gt;
+2&lt;/p&gt;
+
+&lt;p&gt;5 &lt;br&gt;
+2 &lt;br&gt;
+3 &lt;br&gt;
+8 &lt;br&gt;
+6 &lt;br&gt;
+1&lt;/p&gt;
+
+&lt;p&gt;Output: &lt;br&gt;
+2 &lt;br&gt;
+5&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;vector&amp;gt;
+#include &amp;lt;climits&amp;gt;
+#include &amp;lt;cmath&amp;gt;
+
+using namespace std;
+
+unsigned long long counter;
+
+void merge(vector&amp;lt;int&amp;gt; &amp;amp;A, int p, int q, int r) {  
+    int n1 = q - p + 1,
+        n2 = r - q;
+    vector&amp;lt;int&amp;gt; L(n1 + 1), R(n2 + 1);
+    for (int i = 0; i &amp;lt; n1; ++i) {
+        L[i] = A[p + i];
+    }
+    for (int i = 0; i &amp;lt; n2; ++i) {
+        R[i] = A[q + i + 1];
+    }
+    L[n1] = R[n2] = INT_MAX;
+    int i = 0,
+        j = 0;
+    for (int k = p; k &amp;lt;= r; ++k) {
+        if (L[i] &amp;lt;= R[j] &amp;amp;&amp;amp; L[i] != INT_MAX) {
+            A[k] = L[i++];
+        } else {
+            A[k] = R[j++];
+            counter += n1 - i;
+        }
+    }
+    return;
+}
+
+void mergeSort(vector&amp;lt;int&amp;gt; &amp;amp;A, int p, int r) {  
+    if (p &amp;lt; r) {
+        int q = (p + r) / 2;
+        mergeSort(A, p, q);
+        mergeSort(A, q + 1, r);
+        merge(A, p, q, r);
+    }
+}
+
+int main() {  
+    int T;
+    cin &amp;gt;&amp;gt; T;
+    for (;T--;) {
+        int N;
+        cin &amp;gt;&amp;gt; N;
+        vector&amp;lt;int&amp;gt; A(N);
+        for (int i = 0; i &amp;lt; N; ++i) {
+            cin &amp;gt;&amp;gt; A[i];
+        }
+        counter = 0;
+        mergeSort(A, 0, N - 1);
+        cout &amp;lt;&amp;lt; counter &amp;lt;&amp;lt; "\n";
+    }
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/16/invcnt/</link><guid isPermaLink="false">77cfe6b0-2afd-410a-a9ee-4290b2d7bc20</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Sun, 16 Nov 2014 10:45:16 GMT</pubDate></item><item><title>OFFSIDE</title><description>&lt;p&gt;Hemisphere Network is the largest television network in Tumbolia, a small country located east of South America (or south of East America). The most popular sport in Tumbolia, unsurprisingly, is soccer; many games are broadcast every week in Tumbolia.&lt;/p&gt;
+
+&lt;p&gt;Hemisphere Network receives many requests to replay dubious plays; usually, these happen when a player is deemed to be offside by the referee. An attacking player is offside if he is nearer to his opponents’ goal line than the second last opponent. A player is not offside if&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;he is level with the second last opponent or&lt;/li&gt;
+&lt;li&gt;he is level with the last two opponents.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Through the use of computer graphics technology, Hemisphere Network can take an image of the field and determine the distances of the players to the defending team’s goal line, but they still need a program that, given these distances, decides whether a player is offside.&lt;/p&gt;
+
+&lt;h6 id="input"&gt;Input&lt;/h6&gt;
+
+&lt;p&gt;The input file contains several test cases. The first line of each test case contains two integers A and D separated by a single space indicating, respectively, the number of attacking and defending players involved in the play (2 &amp;lt;= A,D &amp;lt;= 11). The next line contains A integers Bi separated by single spaces, indicating the distances of the attacking players to the goal line (1 &amp;lt;= Bi &amp;lt;= 10&lt;sup&gt;4&lt;/sup&gt;). The next line contains D integers Cj separated by single spaces, indicating the distances of the defending players to the goal line (1 &amp;lt;= Cj &amp;lt;= 10&lt;sup&gt;4&lt;/sup&gt;). The end of input is indicated by A = D = 0.&lt;/p&gt;
+
+&lt;h6 id="output"&gt;Output&lt;/h6&gt;
+
+&lt;p&gt;For each test case in the input print a line containing a single character: “Y” (uppercase) if there is an attacking player offside, and “N” (uppercase) otherwise.&lt;/p&gt;
+
+&lt;p&gt;Example&lt;/p&gt;
+
+&lt;p&gt;Input: &lt;br&gt;
+2 3 &lt;br&gt;
+500 700 &lt;br&gt;
+700 500 500 &lt;br&gt;
+2 2 &lt;br&gt;
+200 400 &lt;br&gt;
+200 1000 &lt;br&gt;
+3 4 &lt;br&gt;
+530 510 490 &lt;br&gt;
+480 470 50 310 &lt;br&gt;
+0 0&lt;/p&gt;
+
+&lt;p&gt;Output: &lt;br&gt;
+N &lt;br&gt;
+Y &lt;br&gt;
+N&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;vector&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+
+using namespace std;
+
+int main() {  
+    int A, D;
+    while ((cin &amp;gt;&amp;gt; A &amp;gt;&amp;gt; D) &amp;amp;&amp;amp; A != 0 &amp;amp;&amp;amp; D != 0) {
+        vector&amp;lt;int&amp;gt; attackers(A),
+                    defenders(D);
+        for (int i = 0; i &amp;lt; A; ++i) {
+            cin &amp;gt;&amp;gt; attackers[i];
+        }
+        for (int i = 0; i &amp;lt; D; ++i) {
+            cin &amp;gt;&amp;gt; defenders[i];
+        }
+        sort(defenders.begin(), defenders.end());
+        bool flag = false;
+        for (int i = 0; i &amp;lt; A; ++i) {
+            if (attackers[i] &amp;lt; defenders[1]) {
+                flag = true;
+                break;
+            }
+        }
+        if (flag) {
+            cout &amp;lt;&amp;lt; "Y\n";
+        } else {
+            cout &amp;lt;&amp;lt; "N\n";
+        }
+    }
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/15/offside/</link><guid isPermaLink="false">bcad7e40-9e78-4b3e-8d5f-6ca8ec927d03</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Sat, 15 Nov 2014 14:13:43 GMT</pubDate></item><item><title>BISHOPS</title><description>&lt;p&gt;Yesterday was Sam's birthday. The most interesting gift was definitely the chessboard. Sam quickly learned the rules of chess and defeated his father, all his friends, his little sister, and now no one wants to play with him any more. &lt;/p&gt;
+
+&lt;p&gt;So he decided to play with another birthday gift – a Book of Math Problems for Young Mathematicians. He opened the book somewhere in the middle and read the following problem: "How many knights can be placed on a chessboard without threatening each other?" After a while he realized that this was trivial and moved on to the next problem: "How many bishops can be placed on a chessboard without threatening each other?". Sam is in trouble here. He is not able to solve this problem and needs your help.&lt;/p&gt;
+
+&lt;p&gt;Sam's chessboard has size N x N. A bishop can move to any distance in any of the four diagonal directions. A bishop threatens another bishop if it can move to the other bishop's position. Your task is to compute the maximum number of bishops that can be placed on a chessboard in such a way that no two bishops threaten each other. &lt;/p&gt;
+
+&lt;h6 id="input"&gt;Input&lt;/h6&gt;
+
+&lt;p&gt;The input file consists of several lines. The line number i contains a single number N representing the size of the i-th chessboard. [N &amp;lt;= 10^100]&lt;/p&gt;
+
+&lt;h6 id="output"&gt;Output&lt;/h6&gt;
+
+&lt;p&gt;The output file should contain the same number of lines as the input file. The i-th line should contain one number – the maximum number of bishops that can be placed on i-th chessboard without threatening each other.&lt;/p&gt;
+
+&lt;p&gt;Example&lt;/p&gt;
+
+&lt;p&gt;Input: &lt;br&gt;
+2 &lt;br&gt;
+3&lt;/p&gt;
+
+&lt;p&gt;Output: &lt;br&gt;
+2 &lt;br&gt;
+4&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;string&amp;gt;
+#include &amp;lt;vector&amp;gt;
+
+using namespace std;
+
+int mod(int a, int b) {  
+    return (a % b &amp;lt; 0 ? a % b + b : a % b);
+}
+
+void vectorMultiplication(vector&amp;lt;int&amp;gt; &amp;amp;N, int n) {  
+    int carry = 0;
+    for (int i = 0; i &amp;lt; N.size(); ++i) {
+        N[i] *= n;
+        N[i] += carry;
+        carry = N[i] / 10;
+        N[i] %= 10;
+    }
+    return;
+}
+
+void vectorSubstraction(vector&amp;lt;int&amp;gt; &amp;amp;N, int n) {  
+    N[0] -= n;
+    for (int i = 0; i &amp;lt; N.size() - 1; ++i) {
+        if (N[i] &amp;lt; 0) {
+            N[i] = mod(N[i], 10);
+            --N[i + 1];
+        }
+    }
+    return;
+}
+
+string bishops(string S) {  
+    vector&amp;lt;int&amp;gt; N(102,0);
+    for (int i = 0; i &amp;lt; S.size(); ++i) {
+        N[i] = S[S.size() - 1 - i] - '0';
+    }
+    vectorMultiplication(N, 2);
+    vectorSubstraction(N, 2);
+    string ans = "";
+    bool flag = false;
+    for (int i = 101; i &amp;gt;= 0; --i) {
+        if (!flag &amp;amp;&amp;amp; N[i] == 0){
+            continue;
+        } else {
+            flag = true;
+            ans += char(N[i] + '0');
+        }
+    }
+    return ans;
+}
+
+int main() {  
+    string S;
+    while(cin &amp;gt;&amp;gt; S) {
+        if (S == "0" || S == "1") {
+            cout &amp;lt;&amp;lt; S &amp;lt;&amp;lt; "\n";
+        } else {
+            cout &amp;lt;&amp;lt; bishops(S) &amp;lt;&amp;lt; "\n";
+        }
+    }
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/15/bishops/</link><guid isPermaLink="false">e0cb9f41-0068-48ae-92af-ebbc85b5f02c</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Sat, 15 Nov 2014 13:13:23 GMT</pubDate></item><item><title>NGM</title><description>&lt;p&gt;Nikifor and Trofim play the following game: they write some integer smaller then 2000000000 and take turns one after another. Nikifor is the first to make a move. The turn is made by the following rule: from the written integer any non-zero digit is subtracted, and the new integer replaces the old one on the desk. For example for integer 40534, the next move can be: 40530, 40531 or 40529. The winner is the player who writes zero on the desk.&lt;/p&gt;
+
+&lt;p&gt;Write a program to decide who will win if both players do their best.&lt;/p&gt;
+
+&lt;h6 id="input"&gt;Input&lt;/h6&gt;
+
+&lt;p&gt;The input contains the integer from which the game is started.&lt;/p&gt;
+
+&lt;h6 id="output"&gt;Output&lt;/h6&gt;
+
+&lt;p&gt;In the first line you must write 1 if Nikifor wins and 2 otherwise. If Nikifor wins then in the second line you must output the move in the first turn which guarantees victory for him. If there are many such moves then output any of them.&lt;/p&gt;
+
+&lt;p&gt;Example&lt;/p&gt;
+
+&lt;p&gt;Input: &lt;br&gt;
+14&lt;/p&gt;
+
+&lt;p&gt;Output: &lt;br&gt;
+1 &lt;br&gt;
+4&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
+
+using namespace std;
+
+int main() {  
+    long long T;
+    cin &amp;gt;&amp;gt; T;
+    if (T % 10 == 0) {
+        cout &amp;lt;&amp;lt; "2\n";
+    } else {
+        cout &amp;lt;&amp;lt; "1\n" &amp;lt;&amp;lt; T % 10 &amp;lt;&amp;lt; "\n";
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/15/ngm/</link><guid isPermaLink="false">b6635f7b-a9b2-4298-9ac4-7404ac43be96</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Sat, 15 Nov 2014 12:29:56 GMT</pubDate></item><item><title>GIRLSNBS</title><description>&lt;p&gt;There are G girl students and B boy students in a class that is about to graduate. You &lt;br&gt;
+need to arrange them in a single row for the graduation. To give a better impression of &lt;br&gt;
+diversity, you want to avoid having too many girls or too many boys seating consecutively. &lt;br&gt;
+You decided to arrange the students in order to minimize the gender regularity. The &lt;br&gt;
+gender regularity of an arrangement is the maximum number of students of the same &lt;br&gt;
+gender (all girls or all boys) that appear consecutively. &lt;br&gt;
+Given G and B, calculate the minimum gender regularity among all possible arrange- &lt;br&gt;
+ments.&lt;/p&gt;
+
+&lt;h6 id="input"&gt;Input&lt;/h6&gt;
+
+&lt;p&gt;Each test case is described using a single line. The line contains two integers G and B &lt;br&gt;
+representing the number of girls and boys in the class, respectively (0 ≤ G, B ≤ 1000). &lt;br&gt;
+The end of input is indicated with a line containing the number −1 twice.&lt;/p&gt;
+
+&lt;h6 id="output"&gt;Output&lt;/h6&gt;
+
+&lt;p&gt;For each test case, output a single line with a single integer representing the minimum &lt;br&gt;
+gender regularity that an arrangement of G girls and B boys can have.&lt;/p&gt;
+
+&lt;p&gt;Example&lt;/p&gt;
+
+&lt;p&gt;Input: &lt;br&gt;
+10 10 &lt;br&gt;
+5 1 &lt;br&gt;
+0 1000 &lt;br&gt;
+-1 -1&lt;/p&gt;
+
+&lt;p&gt;Output: &lt;br&gt;
+1 &lt;br&gt;
+3 &lt;br&gt;
+1000&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+#include &amp;lt;cmath&amp;gt;
+
+using namespace std;
+
+int main() {  
+    int G, B;
+    while ((cin &amp;gt;&amp;gt; G &amp;gt;&amp;gt; B) &amp;amp;&amp;amp; G != -1 &amp;amp;&amp;amp; B != -1) {
+        if (G == 0 &amp;amp;&amp;amp; B == 0) {
+            cout &amp;lt;&amp;lt; "0\n";
+        } else {
+            double GinB = ceil(G / (B + 1.0)),
+                   BinG = ceil(B / (G + 1.0));
+            cout &amp;lt;&amp;lt; max(GinB, BinG) &amp;lt;&amp;lt; "\n";
+        }
+    }
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/15/girlsnbs/</link><guid isPermaLink="false">63d53c0d-bd89-4771-a3f3-d7e532ef2179</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Sat, 15 Nov 2014 11:37:30 GMT</pubDate></item><item><title>AP2</title><description>&lt;p&gt;Arithmatic and geometric Progressions are 2 of the well known progressions in maths.&lt;/p&gt;
+
+&lt;p&gt;Arithmatic progression(AP) is a set in which the difference between 2 numbers in constant. for eg, 1,3,5,7,9 .... In this series the difference between 2 numbers is 2.&lt;/p&gt;
+
+&lt;p&gt;The task here is very simple indeed.&lt;/p&gt;
+
+&lt;p&gt;You will be given the 3rd term , 3rd last term and the sum of the series. You need print length of the series &amp;amp; the series.&lt;/p&gt;
+
+&lt;h6 id="input"&gt;Input&lt;/h6&gt;
+
+&lt;p&gt;First line will contain a number indicating the number of test cases.&lt;/p&gt;
+
+&lt;p&gt;Each of the following t lines will have 3 number '3term' ,'3Lastterm' and 'sum'&lt;/p&gt;
+
+&lt;p&gt;3term  - is the 3rd term in of the series and&lt;/p&gt;
+
+&lt;p&gt;3Lastterm  - is the 3rd term in of the series and&lt;/p&gt;
+
+&lt;p&gt;sum - is the sum of the series.&lt;/p&gt;
+
+&lt;h6 id="output"&gt;Output&lt;/h6&gt;
+
+&lt;p&gt;For each input of the test case, you need to print 2 lines.&lt;/p&gt;
+
+&lt;p&gt;fist line should have 1 value- number of terms in the series.&lt;/p&gt;
+
+&lt;p&gt;2nd line of the output should print the series numbers separated by single space.&lt;/p&gt;
+
+&lt;p&gt;Example&lt;/p&gt;
+
+&lt;p&gt;Input: &lt;br&gt;
+1 &lt;br&gt;
+3 8 55&lt;/p&gt;
+
+&lt;p&gt;Output: &lt;br&gt;
+10 &lt;br&gt;
+1 2 3 4 5 6 7 8 9 10&lt;/p&gt;
+
+&lt;p&gt;NOTE - In all the test cases all the series elements are positive integers. &lt;br&gt;
+The series will have at least 7 elements. &lt;br&gt;
+number of test cases &amp;lt;=100. &lt;br&gt;
+All the numbers will fit in 64 bits(long long in C)&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
+
+using namespace std;
+
+int main() {  
+    int T;
+    cin &amp;gt;&amp;gt; T;
+
+    for(;T--;) {
+        long long a3, an_2, Sn;
+        cin &amp;gt;&amp;gt; a3 &amp;gt;&amp;gt; an_2 &amp;gt;&amp;gt; Sn;
+
+        long long n = (2 * Sn) / (a3 + an_2),
+                  d = (an_2 - a3) / (n - 5),
+                  a = an_2 + 3 * d - n * d;
+
+        cout &amp;lt;&amp;lt; n &amp;lt;&amp;lt; "\n";
+        for (int i = 0; i &amp;lt; n; ++i) {
+            cout &amp;lt;&amp;lt; a + i * d &amp;lt;&amp;lt; " ";
+        }
+        cout &amp;lt;&amp;lt; "\n";
+    }
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/15/ap2/</link><guid isPermaLink="false">33b28c2c-309d-4565-b80e-983dae151ffb</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Sat, 15 Nov 2014 11:17:04 GMT</pubDate></item><item><title>PT07Y</title><description>&lt;p&gt;You are given an unweighted, undirected graph. Write a program to check if it's a tree topology.&lt;/p&gt;
+
+&lt;h6 id="input"&gt;Input&lt;/h6&gt;
+
+&lt;p&gt;The first line of the input file contains two integers N and M --- number of nodes and number of edges in the graph (0 &amp;lt; N &amp;lt;= 10000, 0 &amp;lt;= M &amp;lt;= 20000). Next M lines contain M edges of that graph --- Each line contains a pair (u, v) means there is an edge between node u and node v (1 &amp;lt;= u,v &amp;lt;= N).&lt;/p&gt;
+
+&lt;h6 id="output"&gt;Output&lt;/h6&gt;
+
+&lt;p&gt;Print YES if the given graph is a tree, otherwise print NO.&lt;/p&gt;
+
+&lt;p&gt;Example&lt;/p&gt;
+
+&lt;p&gt;Input: &lt;br&gt;
+3 2 &lt;br&gt;
+1 2 &lt;br&gt;
+2 3&lt;/p&gt;
+
+&lt;p&gt;Output: &lt;br&gt;
+YES&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;vector&amp;gt;
+
+using namespace std;
+
+int root(int a, vector&amp;lt;int&amp;gt; &amp;amp;id) {  
+    while (a != id[a]) {
+        id[a] = id[id[a]];
+        a = id[a];
+    }
+    return a;
+}
+
+bool isConnected(int a, int b, vector&amp;lt;int&amp;gt; &amp;amp;id) {  
+    return (root(a, id) == root(b, id));
+}
+
+void Union(int a, int b, vector&amp;lt;int&amp;gt; &amp;amp;id, vector&amp;lt;int&amp;gt; &amp;amp;size) {  
+    int roota = root(a,id);
+    int rootb = root(b,id);
+    if (size[roota] &amp;lt; size[rootb]) {
+        id[roota] = rootb;
+        size[rootb] += size[roota];
+    } else {
+        id[rootb] = roota;
+        size[roota] += size[rootb];
+    }
+    return;
+}
+
+bool isATree(int N, vector&amp;lt;pair&amp;lt;int, int&amp;gt; &amp;gt; edges) {  
+    vector&amp;lt;int&amp;gt; id(N),
+                sz(N,1);
+    for (int i = 0; i &amp;lt; N; ++i) {
+        id[i] = i;
+    }
+    for (int i = 0; i &amp;lt; edges.size(); ++i) {
+        if (isConnected(edges[i].first, edges[i].second, id)) {
+            return false;
+        } else {
+            Union(edges[i].first, edges[i].second, id, sz);
+        }
+    }
+    return true;
+}
+
+int main() {  
+    int N, M;
+    cin &amp;gt;&amp;gt; N &amp;gt;&amp;gt; M;
+    vector&amp;lt;pair&amp;lt;int, int&amp;gt; &amp;gt; edges(M);
+    for (int i = 0; i &amp;lt; M; ++i) {
+        int a, b;
+        cin &amp;gt;&amp;gt; a &amp;gt;&amp;gt; b;
+        --a, --b;
+        edges[i] = make_pair(a,b);
+    }
+
+    if (isATree(N, edges)) {
+        cout &amp;lt;&amp;lt; "YES\n";
+    } else {
+        cout &amp;lt;&amp;lt; "NO\n";
+    }
+
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/15/pt07y/</link><guid isPermaLink="false">9443e4d8-7ed7-4a59-b088-880dde6a4902</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Sat, 15 Nov 2014 10:31:16 GMT</pubDate></item><item><title>STPAR</title><description>&lt;p&gt;For sure, the love mobiles will roll again on this summer's street parade. Each year, the organisers decide on a fixed order for the decorated trucks. Experience taught them to keep free a side street to be able to bring the trucks into order. &lt;/p&gt;
 
 &lt;p&gt;The side street is so narrow that no two cars can pass each other. Thus, the love mobile that enters the side street last must necessarily leave the side street first. Because the trucks and the ravers move up closely, a truck cannot drive back and re-enter the side street or the approach street. &lt;/p&gt;
 
@@ -14,12 +674,12 @@
 
 &lt;p&gt;Example&lt;/p&gt;
 
-&lt;p&gt;Sample input: &lt;br&gt;
+&lt;p&gt;Input: &lt;br&gt;
 5 &lt;br&gt;
 5 1 2 4 3 &lt;br&gt;
 0&lt;/p&gt;
 
-&lt;p&gt;Sample output: &lt;br&gt;
+&lt;p&gt;Output: &lt;br&gt;
 yes&lt;/p&gt;
 
 &lt;h6 id="illustration"&gt;Illustration&lt;/h6&gt;
@@ -338,639 +998,4 @@ int main() {
     }
     return 0;
 }
-&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/07/stamps/</link><guid isPermaLink="false">59bd02c8-92bc-49d8-a36d-b5c7867409ff</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Fri, 07 Nov 2014 13:12:08 GMT</pubDate></item><item><title>TRICOUNT</title><description>&lt;p&gt;We define the LEVEL of a triangle as in the following illustrative image:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://code-jedi.chintanghate.me/content/images/2014/11/duonghanguyen-tricount.png" alt="Illustration"&gt;&lt;/p&gt;
-
-&lt;p&gt;Task: Your task is very easy. All you have to do is to count all triangles in the biggest one (Level N).&lt;/p&gt;
-
-&lt;h6 id="input"&gt;Input&lt;/h6&gt;
-
-&lt;p&gt;The first line of the input contains an integer T (T ≤ 10000) - the number of test cases and T lines follow. Each line contains an integer N (1 ≤ N ≤ 10&lt;sup&gt;6&lt;/sup&gt;) which is the level of the triangle in that test case.&lt;/p&gt;
-
-&lt;h6 id="output"&gt;Output&lt;/h6&gt;
-
-&lt;p&gt;For each test case, you should write a seperate line: the number of triangles in the biggest one (Level N). (All answers will fit within the range of a 64-bit integer)&lt;/p&gt;
-
-&lt;p&gt;Example&lt;/p&gt;
-
-&lt;p&gt;Input: &lt;br&gt;
-3 &lt;br&gt;
-1 &lt;br&gt;
-2 &lt;br&gt;
-3&lt;/p&gt;
-
-&lt;p&gt;Output: &lt;br&gt;
-1 &lt;br&gt;
-5 &lt;br&gt;
-13&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
-
-using namespace std;
-
-int main() {  
-    int T;
-    cin &amp;gt;&amp;gt; T;
-    for (;T--;) {
-        unsigned long long n;
-        cin &amp;gt;&amp;gt; n;
-        cout &amp;lt;&amp;lt; (n * (n + 2) * (2 * n + 1)) / 8 &amp;lt;&amp;lt; "\n";
-    }
-    return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/07/tricount/</link><guid isPermaLink="false">f8268540-6cb8-4806-b1f7-b4630a35d49c</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Fri, 07 Nov 2014 12:27:11 GMT</pubDate></item><item><title>PERMUT2</title><description>&lt;p&gt;Some programming contest problems are really tricky: not only do they require a different output format from what you might have expected, but also the sample output does not show the difference. For an example, let us look at permutations.&lt;/p&gt;
-
-&lt;p&gt;A permutation of the integers 1 to n is an ordering of these integers. So the natural way to represent a permutation is to list the integers in this order. With n = 5, a permutation might look like 2, 3, 4, 5, 1. &lt;/p&gt;
-
-&lt;p&gt;However, there is another possibility of representing a permutation: You create a list of numbers where the i-th number is the position of the integer i in the permutation. Let us call this second possibility an inverse permutation. The inverse permutation for the sequence above is 5, 1, 2, 3, 4. &lt;/p&gt;
-
-&lt;p&gt;An ambiguous permutation is a permutation which cannot be distinguished from its inverse permutation. The permutation 1, 4, 3, 2 for example is ambiguous, because its inverse permutation is the same. To get rid of such annoying sample test cases, you have to write a program which detects if a given permutation is ambiguous or not.&lt;/p&gt;
-
-&lt;h6 id="input"&gt;Input&lt;/h6&gt;
-
-&lt;p&gt;The input contains several test cases. &lt;br&gt;
-The first line of each test case contains an integer n (1 ≤ n ≤ 100000). Then a permutation of the integers 1 to n follows in the next line. There is exactly one space character between consecutive integers. You can assume that every integer between 1 and n appears exactly once in the permutation. &lt;br&gt;
-The last test case is followed by a zero.&lt;/p&gt;
-
-&lt;h6 id="output"&gt;Output&lt;/h6&gt;
-
-&lt;p&gt;For each test case output whether the permutation is ambiguous or not. Adhere to the format shown in the sample output.&lt;/p&gt;
-
-&lt;p&gt;Example&lt;/p&gt;
-
-&lt;p&gt;Input: &lt;br&gt;
-4 &lt;br&gt;
-1 4 3 2 &lt;br&gt;
-5 &lt;br&gt;
-2 3 4 5 1 &lt;br&gt;
-1 &lt;br&gt;
-1 &lt;br&gt;
-0&lt;/p&gt;
-
-&lt;p&gt;Output: &lt;br&gt;
-ambiguous &lt;br&gt;
-not ambiguous &lt;br&gt;
-ambiguous&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
-#include &amp;lt;vector&amp;gt;
-
-using namespace std;
-
-int main() {  
-    int n;
-    while((cin &amp;gt;&amp;gt; n) &amp;amp;&amp;amp; n != 0) {
-        vector&amp;lt;int&amp;gt; p(n + 1, 0), pi(n + 1, 0);
-        for (int i = 0; i &amp;lt; n; ++i) {
-            cin &amp;gt;&amp;gt; p[i + 1];
-            pi[p[i + 1]] = i + 1;
-        }
-        if(p == pi) {
-            cout &amp;lt;&amp;lt; "ambiguous\n";
-        } else {
-            cout &amp;lt;&amp;lt; "not ambiguous\n";
-        }
-    }   
-    return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/07/permut2/</link><guid isPermaLink="false">c7ea02a8-f71f-4e0f-9ab1-52f9084d0d29</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Fri, 07 Nov 2014 11:44:07 GMT</pubDate></item><item><title>CANTON</title><description>&lt;p&gt;One of the famous proofs of modern mathematics is Georg Cantor's demonstration that the set of rational numbers is enumerable. The proof works by using an explicit enumeration of rational numbers as shown in the diagram below.  &lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;1/1  1/2   1/3   1/4   1/5 ...  
-2/1  2/2   2/3   2/4  
-3/1  3/2   3/3  
-4/1  4/2  
-5/1  
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;In the above diagram, the first term is 1/1, the second term is 1/2, the third term is 2/1, the fourth term is 3/1, the fifth term is 2/2, and so on.&lt;/p&gt;
-
-&lt;h6 id="input"&gt;Input&lt;/h6&gt;
-
-&lt;p&gt;The input starts with a line containing a single integer t &amp;lt;= 20, the number of test cases. t test cases follow.&lt;/p&gt;
-
-&lt;p&gt;Then, it contains a single number per line.&lt;/p&gt;
-
-&lt;h6 id="output"&gt;Output&lt;/h6&gt;
-
-&lt;p&gt;You are to write a program that will read a list of numbers in the range from 1 to 10^7 and will print for each number the corresponding term in Cantor's enumeration as given below.&lt;/p&gt;
-
-&lt;p&gt;Example&lt;/p&gt;
-
-&lt;p&gt;Input: &lt;br&gt;
-3 &lt;br&gt;
-3 &lt;br&gt;
-14 &lt;br&gt;
-7&lt;/p&gt;
-
-&lt;p&gt;Output: &lt;br&gt;
-TERM 3 IS 2/1 &lt;br&gt;
-TERM 14 IS 2/4 &lt;br&gt;
-TERM 7 IS 1/4&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
-#include &amp;lt;vector&amp;gt;
-
-using namespace std;
-
-int main() {  
-    vector&amp;lt;pair&amp;lt;int,int&amp;gt; &amp;gt; range;
-    int i = 1, dif = 0;
-    range.push_back(make_pair(i,i));
-    while (i &amp;lt;= 10000000) {
-        dif += 1;
-        range.push_back(make_pair(i + 1,i + 1 + dif));
-        i += (1 + dif);
-    }
-
-    int t;
-    cin &amp;gt;&amp;gt; t;
-    for(;t--;) {
-        int n;
-        cin &amp;gt;&amp;gt; n;
-        for (int i = 0; i &amp;lt; range.size(); ++i) {
-            if (n &amp;gt;= range[i].first &amp;amp;&amp;amp; n &amp;lt;= range[i].second) {
-                int row = i+1;
-                if (row &amp;amp; 1) {
-                    int rangeDif = n - range[i].first;
-                    int numertor = row - rangeDif;
-                    int denominator = 1 + rangeDif;
-                    cout &amp;lt;&amp;lt; "TERM " &amp;lt;&amp;lt; n &amp;lt;&amp;lt; " IS " &amp;lt;&amp;lt; numertor &amp;lt;&amp;lt; 
-                            "/" &amp;lt;&amp;lt; denominator &amp;lt;&amp;lt; "\n"; 
-                } else {
-                    int rangeDif = n - range[i].first;
-                    int numertor = 1 + rangeDif;
-                    int denominator = row - rangeDif;
-                    cout &amp;lt;&amp;lt; "TERM " &amp;lt;&amp;lt; n &amp;lt;&amp;lt; " IS " &amp;lt;&amp;lt; numertor &amp;lt;&amp;lt; 
-                            "/" &amp;lt;&amp;lt; denominator &amp;lt;&amp;lt; "\n"; 
-                }
-            }
-        }
-    }
-    return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/07/canton/</link><guid isPermaLink="false">e1f7597f-f6d5-4c36-936d-3484c2a0b7f0</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Fri, 07 Nov 2014 03:52:32 GMT</pubDate></item><item><title>ABSYS</title><description>&lt;p&gt;Jimmy is a hard-working pupil in his second year at primary school. Recently he decided to convert all his notes into an electronic version. Sadly, he found that his math notes were full of ink blots.&lt;/p&gt;
-
-&lt;p&gt;He scanned the notes and sent them through his own OCR package (yes, he coded it all by himself at the age of 8). The OCR package replaced all ink blots by the string "machula".&lt;/p&gt;
-
-&lt;h6 id="problem"&gt;Problem&lt;/h6&gt;
-
-&lt;p&gt;You are given Jimmy's notes, processed by the OCR. They contain simple math exercises, which were used to practice addition on positive integers. Your task is to recover the damaged part of the notes.&lt;/p&gt;
-
-&lt;h6 id="input"&gt;Input&lt;/h6&gt;
-
-&lt;p&gt;The first line of the input file contains an integer T specifying the number of test cases. Each test case is preceded by a blank line.&lt;/p&gt;
-
-&lt;p&gt;Each test case consists of exactly one line. The line represents an equation of the form "number + number = number", where each number is a positive integer. One part of the equation will be replaced by the string "machula". The string always covers a contiguous non-empty sequence of digits, possibly even an entire number. You may assume that for each equation in the input there will be exactly one way to fill in the missing digits.&lt;/p&gt;
-
-&lt;h6 id="output"&gt;Output&lt;/h6&gt;
-
-&lt;p&gt;For each test case, the output shall contain one line of the form "number + number = number". The line must represent the equation from that test case with all missing digits filled in.&lt;/p&gt;
-
-&lt;p&gt;Example&lt;/p&gt;
-
-&lt;p&gt;Input: &lt;br&gt;
-3&lt;/p&gt;
-
-&lt;p&gt;23 + 47 = machula&lt;/p&gt;
-
-&lt;p&gt;3247 + 5machula2 = 3749&lt;/p&gt;
-
-&lt;p&gt;machula13 + 75425 = 77038&lt;/p&gt;
-
-&lt;p&gt;Output: &lt;br&gt;
-23 + 47 = 70 &lt;br&gt;
-3247 + 502 = 3749 &lt;br&gt;
-1613 + 75425 = 77038&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
-#include &amp;lt;string&amp;gt;
-#include &amp;lt;sstream&amp;gt;
-
-using namespace std;
-
-int stringToInt(string s) {  
-    if (s.find("machula") == string::npos) {
-        istringstream iss(s);
-        int n;
-        iss &amp;gt;&amp;gt; n;
-        return n;
-    }
-    return -1;
-}
-
-string intToString(int n) {  
-    ostringstream oss;
-    oss &amp;lt;&amp;lt; n;
-    return oss.str();
-}
-
-string processed(string s) {  
-    istringstream iss(s);
-    string a, b, c, op;
-    iss &amp;gt;&amp;gt; a &amp;gt;&amp;gt; op &amp;gt;&amp;gt; b &amp;gt;&amp;gt; op &amp;gt;&amp;gt; c;
-
-    int A, B, C;
-    A = stringToInt(a);
-    B = stringToInt(b);
-    C = stringToInt(c);
-
-    if (A == -1) {
-        A = C - B;
-    } else if (B == -1) {
-        B = C - A;
-    } else if (C == -1) {
-        C = A + B;
-    }
-
-    return intToString(A) + " + " + intToString(B) + " = " +       
-           intToString(C);
-}
-
-int main() {  
-    int T;
-    cin &amp;gt;&amp;gt; T;
-    cin.ignore();
-    for (;T--;) {
-        string S;
-        cin.ignore();
-        getline(cin,S);
-        cout &amp;lt;&amp;lt; processed(S) &amp;lt;&amp;lt; "\n";
-    }
-    return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/07/absys/</link><guid isPermaLink="false">2f10d925-a6f2-4040-bd0c-9230c26718d9</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Fri, 07 Nov 2014 03:11:05 GMT</pubDate></item><item><title>PALIN</title><description>&lt;p&gt;A positive integer is called a palindrome if its representation in the decimal system is the same when read from left to right and from right to left. For a given positive integer K of not more than 1,000,000 digits, write the value of the smallest palindrome larger than K to output. Numbers are always displayed without leading zeros.&lt;/p&gt;
-
-&lt;h6 id="input"&gt;Input&lt;/h6&gt;
-
-&lt;p&gt;The first line contains integer t, the number of test cases. Integers K are given in the next t lines.&lt;/p&gt;
-
-&lt;h6 id="output"&gt;Output&lt;/h6&gt;
-
-&lt;p&gt;For each K, output the smallest palindrome larger than K.&lt;/p&gt;
-
-&lt;p&gt;Example&lt;/p&gt;
-
-&lt;p&gt;Input: &lt;br&gt;
-2 &lt;br&gt;
-808 &lt;br&gt;
-2133&lt;/p&gt;
-
-&lt;p&gt;Output: &lt;br&gt;
-818 &lt;br&gt;
-2222&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
-#include &amp;lt;string&amp;gt;
-#include &amp;lt;algorithm&amp;gt;
-
-using namespace std;
-
-bool isPalindrome(string s) {  
-    string s1 = s;
-    reverse(s.begin(), s.end());
-    return s == s1;
-}
-
-string palin(string s) {  
-    string s1 = s;
-    for (int i = 0; i &amp;lt; s.size()/2; ++i) {
-        s[s.size() - i - 1] = s[i];
-    }
-    if (s &amp;gt; s1) {
-        return s;
-    } else {
-        int carry = 0;
-        int cur = 0;
-        int n = s.size()/2 + (s.size()%2 - 1);
-        for (int i = n; i &amp;gt;= 0; --i) {
-            cur = s[i]-'0';
-            if (i == n) {
-                cur = cur + carry + 1;
-            } else {
-                cur += carry;
-            }
-            carry = cur / 10;
-            cur %= 10;
-            s[i] = char(cur+'0');
-        }
-        if(carry &amp;gt; 0) {
-            s = char(carry+'0') + s;
-        }
-        for (int i = 0; i &amp;lt; s.size()/2; ++i) {
-            s[s.size() - i - 1] = s[i];
-        }
-    }
-    return s;
-}
-
-int main() {  
-    int t;
-    cin &amp;gt;&amp;gt; t;
-    for (;t--;) {
-        string K;
-        cin &amp;gt;&amp;gt; K;
-        cout &amp;lt;&amp;lt; palin(K) &amp;lt;&amp;lt; "\n";
-    }    
-    return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/06/palin/</link><guid isPermaLink="false">7f08e0bb-34ab-449a-a4be-3595be29f26f</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Thu, 06 Nov 2014 16:50:48 GMT</pubDate></item><item><title>HANGOVER</title><description>&lt;p&gt;How far can you make a stack of cards overhang a table? If you have one card, you can create a maximum overhang of half a card length. (We're assuming that the cards must be perpendicular to the table.) With two cards you can make the top card overhang the bottom one by half a card length, and the bottom one overhang the table by a third of a card length, for a total maximum overhang of 1/2 + 1/3 = 5/6 card lengths. In general you can make n cards overhang by 1/2 + 1/3 + 1/4 + ... + 1/(n + 1) card lengths, where the top card overhangs the second by 1/2, the second overhangs tha third by 1/3, the third overhangs the fourth by 1/4, etc., and the bottom card overhangs the table by 1/(n + 1). This is illustrated in the figure below.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://code-jedi.chintanghate.me/content/images/2014/11/wanderley-hangover.jpg" alt="Figure"&gt;&lt;/p&gt;
-
-&lt;h6 id="input"&gt;Input&lt;/h6&gt;
-
-&lt;p&gt;The input consists of one or more test cases, followed by a line containing the number 0.00 that signals the end of the input. Each test case is a single line containing a positive floating-point number c whose value is at least 0.01 and at most 5.20; c will contain exactly three digits.&lt;/p&gt;
-
-&lt;h6 id="output"&gt;Output&lt;/h6&gt;
-
-&lt;p&gt;For each test case, output the minimum number of cards necessary to achieve an overhang of at least c card lengths. Use the exact output format shown in the examples.&lt;/p&gt;
-
-&lt;p&gt;Example&lt;/p&gt;
-
-&lt;p&gt;Input: &lt;br&gt;
-1.00 &lt;br&gt;
-3.71 &lt;br&gt;
-0.04 &lt;br&gt;
-5.19 &lt;br&gt;
-0.00&lt;/p&gt;
-
-&lt;p&gt;Output: &lt;br&gt;
-3 card(s) &lt;br&gt;
-61 card(s) &lt;br&gt;
-1 card(s) &lt;br&gt;
-273 card(s)&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
-
-using namespace std;
-
-int main() {  
-    double c;
-    while((cin &amp;gt;&amp;gt; c) &amp;amp;&amp;amp; c != 0.00) {
-        double i = 2, t = 0;
-        while (t &amp;lt; c) {
-            t += 1.0/i;
-            i += 1;
-        }
-        cout &amp;lt;&amp;lt; i-2 &amp;lt;&amp;lt; " card(s)\n";
-    }
-    return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/06/hangover/</link><guid isPermaLink="false">827b0aef-e1ba-43e9-9868-e7e9f8a954af</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Thu, 06 Nov 2014 15:35:12 GMT</pubDate></item><item><title>EIGHTS</title><description>&lt;p&gt;Pattern Matchers have been designed for various sorts of patterns. Mr. HKP likes to observe patterns in numbers. After completing his extensive research on the squares of numbers, he has moved on to cubes. Now he wants to know all numbers whose cube ends in 888.&lt;/p&gt;
-
-&lt;p&gt;Given a number k, help Mr. HKP find the kth number (indexed from 1) whose cube ends in 888.&lt;/p&gt;
-
-&lt;h6 id="input"&gt;Input&lt;/h6&gt;
-
-&lt;p&gt;The first line of the input contains an integer t, the number of test cases. t test cases follow.&lt;/p&gt;
-
-&lt;p&gt;Each test case consists of a single line containing a single integer k (1 &amp;lt;= k &amp;lt;= 2,000,000,000,000).&lt;/p&gt;
-
-&lt;h6 id="output"&gt;Output&lt;/h6&gt;
-
-&lt;p&gt;For each test case, output a single integer which denotes the kth number whose cube ends in 888. The result will be less than 263.&lt;/p&gt;
-
-&lt;p&gt;Example&lt;/p&gt;
-
-&lt;p&gt;Input: &lt;br&gt;
-1 &lt;br&gt;
-1&lt;/p&gt;
-
-&lt;p&gt;Output: &lt;br&gt;
-192&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
-#include &amp;lt;vector&amp;gt;
-
-using namespace std;
-
-int main() {  
-    vector&amp;lt;int&amp;gt; pattern;
-    pattern.push_back(192);
-    pattern.push_back(442);
-    pattern.push_back(692);
-    pattern.push_back(942);
-
-    int t;
-    cin &amp;gt;&amp;gt; t;
-    for(;t--;) {
-        unsigned long long n;
-        cin &amp;gt;&amp;gt; n;
-        cout &amp;lt;&amp;lt; ((n - 1) / 4) * 1000 + pattern[(n - 1) % 4] &amp;lt;&amp;lt; "\n";
-    }
-    return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/06/eights/</link><guid isPermaLink="false">cf52e075-2603-4adb-a28e-74ebc16e7fd5</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Thu, 06 Nov 2014 14:32:55 GMT</pubDate></item><item><title>COINS</title><description>&lt;p&gt;In Byteland they have a very strange monetary system.&lt;/p&gt;
-
-&lt;p&gt;Each Bytelandian gold coin has an integer number written on it. A coin n can be exchanged in a bank into three coins: n/2, n/3 and n/4. But these numbers are all rounded down (the banks have to make a profit).&lt;/p&gt;
-
-&lt;p&gt;You can also sell Bytelandian coins for American dollars. The exchange rate is 1:1. But you can not buy Bytelandian coins.&lt;/p&gt;
-
-&lt;p&gt;You have one gold coin. What is the maximum amount of American dollars you can get for it?&lt;/p&gt;
-
-&lt;h6 id="input"&gt;Input&lt;/h6&gt;
-
-&lt;p&gt;The input will contain several test cases (not more than 10). Each testcase is a single line with a number n, 0 &amp;lt;= n &amp;lt;= 1,000,000,000. It is the number written on your coin.&lt;/p&gt;
-
-&lt;h6 id="output"&gt;Output&lt;/h6&gt;
-
-&lt;p&gt;For each test case output a single line, containing the maximum amount of American dollars you can make.&lt;/p&gt;
-
-&lt;p&gt;Example&lt;/p&gt;
-
-&lt;p&gt;Input: &lt;br&gt;
-12 &lt;br&gt;
-2&lt;/p&gt;
-
-&lt;p&gt;Output: &lt;br&gt;
-13 &lt;br&gt;
-2&lt;/p&gt;
-
-&lt;p&gt;You can change 12 into 6, 4 and 3, and then change these into $6+$4+$3 = $13. If you try changing the coin 2 into 3 smaller coins, you will get 1, 0 and 0, and later you can get no more than $1 out of them. It is better just to change the 2 coin directly into $2.&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
-#include &amp;lt;deque&amp;gt;
-#include &amp;lt;set&amp;gt;
-#include &amp;lt;vector&amp;gt;
-
-using namespace std;
-
-int main() {
-
-    vector&amp;lt;int&amp;gt; preCompute(1000001,0);
-
-    for (int i = 0; i &amp;lt;= 1000000; ++i) {
-        int divided = preCompute[i/2] + preCompute[i/3] + 
-                      preCompute[i/4];
-        if (divided &amp;gt; i) {
-            preCompute[i] = divided;
-        } else {
-            preCompute[i] = i;
-        }
-    }
-
-    int n;
-
-    while (cin &amp;gt;&amp;gt; n) {
-        deque&amp;lt;int&amp;gt; q;
-        q.push_back(n);
-
-        set&amp;lt;int&amp;gt; doNotDivide;
-        long long total = 0;
-
-        while(!q.empty()) {
-            int x = q.front();
-
-            if(x &amp;lt;= 1000000) {
-                total += preCompute[x];
-            } else if (doNotDivide.find(x) == doNotDivide.end() &amp;amp;&amp;amp; 
-                      (x/2 + x/3 + x/4) &amp;gt;= x) {
-                q.push_back(x/2);
-                q.push_back(x/3);
-                q.push_back(x/4);
-            } else {
-                total += x;
-                doNotDivide.insert(x);
-            }
-            q.pop_front();
-        }
-        cout &amp;lt;&amp;lt; total &amp;lt;&amp;lt; "\n";
-    }
-    return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/06/coins/</link><guid isPermaLink="false">05cf5cc6-7d69-4745-8939-b270443ea6a0</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Thu, 06 Nov 2014 04:52:37 GMT</pubDate></item><item><title>CANDY3</title><description>&lt;p&gt;A class went to a school trip. And, as usually, all N kids have got their backpacks stuffed with candy. But soon quarrels started all over the place, as some of the kids had more candies than others. Soon, the teacher realized that he has to step in: "Everybody, listen! Put all the candies you have on this table here!"&lt;/p&gt;
-
-&lt;p&gt;Soon, there was quite a large heap of candies on the teacher's table. "Now, I will divide the candies into N equal heaps and everyone will get one of them." announced the teacher.&lt;/p&gt;
-
-&lt;p&gt;"Wait, is this really possible?" wondered some of the smarter kids.&lt;/p&gt;
-
-&lt;h6 id="problem"&gt;Problem&lt;/h6&gt;
-
-&lt;p&gt;You are given the number of candies each child brought. Find out whether the teacher can divide the candies into N exactly equal heaps. (For the purpose of this task, all candies are of the same type.)&lt;/p&gt;
-
-&lt;h6 id="input"&gt;Input&lt;/h6&gt;
-
-&lt;p&gt;The first line of the input file contains an integer T specifying the number of test cases. Each test case is preceded by a blank line.&lt;/p&gt;
-
-&lt;p&gt;Each test case looks as follows: The first line contains N : the number of children. Each of the next N lines contains the number of candies one child brought.&lt;/p&gt;
-
-&lt;h6 id="output"&gt;Output&lt;/h6&gt;
-
-&lt;p&gt;For each of the test cases output a single line with a single word "YES" if the candies can be distributed equally, or "NO" otherwise.&lt;/p&gt;
-
-&lt;p&gt;Example&lt;/p&gt;
-
-&lt;p&gt;Input: &lt;br&gt;
-2&lt;/p&gt;
-
-&lt;p&gt;5 &lt;br&gt;
-5 &lt;br&gt;
-2 &lt;br&gt;
-7 &lt;br&gt;
-3 &lt;br&gt;
-8&lt;/p&gt;
-
-&lt;p&gt;6 &lt;br&gt;
-7 &lt;br&gt;
-11 &lt;br&gt;
-2 &lt;br&gt;
-7 &lt;br&gt;
-3 &lt;br&gt;
-4&lt;/p&gt;
-
-&lt;p&gt;Output: &lt;br&gt;
-YES &lt;br&gt;
-NO&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
-
-using namespace std;
-
-int main() {  
-    int T;
-    cin &amp;gt;&amp;gt; T;
-
-    for(;T--;) {
-        unsigned long long N;
-        cin &amp;gt;&amp;gt; N;
-
-        unsigned long long total = 0;
-        for (int i = 0; i &amp;lt; N; ++i) {
-            unsigned long long x;
-            cin &amp;gt;&amp;gt; x;
-            total = (total + x) % N;
-        }
-
-        if (total % N == 0) {
-            cout &amp;lt;&amp;lt; "YES\n";
-        } else {
-            cout &amp;lt;&amp;lt; "NO\n";
-        }
-    }
-    return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/06/candy3/</link><guid isPermaLink="false">d18b1659-698e-42e5-9464-d401ed545110</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Thu, 06 Nov 2014 04:17:05 GMT</pubDate></item><item><title>AE00</title><description>&lt;p&gt;Byteman has a collection of N squares with side 1. How many different rectangles can he form using these squares?&lt;/p&gt;
-
-&lt;p&gt;Two rectangles are considered different if none of them can be rotated and moved to obtain the second one. During rectangle construction, Byteman can neither deform the squares nor put any squares upon any other ones.&lt;/p&gt;
-
-&lt;h6 id="input"&gt;Input&lt;/h6&gt;
-
-&lt;p&gt;The first and only line of the standard input contains one integer N (1 ≤ N ≤ 10000).&lt;/p&gt;
-
-&lt;h6 id="output"&gt;Output&lt;/h6&gt;
-
-&lt;p&gt;The first and only line of the standard output should contain a single integer equal to the number of different rectangles that Byteman can form using his squares.&lt;/p&gt;
-
-&lt;p&gt;Example&lt;/p&gt;
-
-&lt;p&gt;Input: &lt;br&gt;
-6&lt;/p&gt;
-
-&lt;p&gt;Output: &lt;br&gt;
-8&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://code-jedi.chintanghate.me/content/images/2014/11/ae00.jpg" alt="Illustration"&gt;&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
-#include &amp;lt;cmath&amp;gt;
-
-using namespace std;
-
-int main() {  
-    int N;
-    cin &amp;gt;&amp;gt; N;
-
-    int squares = 0;
-    for (int i = 1; i &amp;lt;= N; ++i) {
-        for (int j = 1; j &amp;lt;= sqrt(i); ++j)
-        {
-            if(i%j == 0) {
-                ++squares;
-            }
-        }
-    }
-    cout &amp;lt;&amp;lt; squares &amp;lt;&amp;lt; "\n";
-    return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/06/ae00/</link><guid isPermaLink="false">c3c7f42b-4b47-4472-b147-34bde82f18c4</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Thu, 06 Nov 2014 04:05:44 GMT</pubDate></item></channel></rss>
+&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/07/stamps/</link><guid isPermaLink="false">59bd02c8-92bc-49d8-a36d-b5c7867409ff</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Fri, 07 Nov 2014 13:12:08 GMT</pubDate></item></channel></rss>

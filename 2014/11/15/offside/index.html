@@ -1,0 +1,203 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>OFFSIDE</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css?v=d42b9e9a04">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+    <link href="../../../../assets/css/prettify.css?v=d42b9e9a04" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="../../../../assets/js/prettify.js?v=d42b9e9a04"></script>
+    <link rel="canonical" href="http://code-jedi.chintanghate.me/2014/11/15/offside/">
+    
+    <meta property="og:site_name" content="Code Jedi">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="OFFSIDE">
+    <meta property="og:description" content="Hemisphere Network is the largest television network in Tumbolia, a small country located east of South America (or south of East America). The most popular sport in Tumbolia, unsurprisingly, is soccer; many games are broadcast every week in Tumbolia. Hemisphere...">
+    <meta property="og:url" content="http://code-jedi.chintanghate.me/2014/11/15/offside/">
+    <meta property="article:published_time" content="2014-11-15T14:13:43.191Z">
+    <meta property="article:modified_time" content="2014-11-15T14:13:43.190Z">
+    <meta property="article:tag" content="SPOJ">
+    
+    <meta name="twitter:card" content="content">
+    <meta name="twitter:title" content="OFFSIDE">
+    <meta name="twitter:description" content="Hemisphere Network is the largest television network in Tumbolia, a small country located east of South America (or south of East America). The most popular sport in Tumbolia, unsurprisingly, is soccer; many games are broadcast every week in Tumbolia. Hemisphere...">
+    <meta name="twitter:url" content="http://code-jedi.chintanghate.me/2014/11/15/offside/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Code Jedi",
+    "author": {
+        "@type": "Person",
+        "name": "Chintan Ghate",
+        "url": "http://code-jedi.chintanghate.me/author/chintan",
+        "sameAs": null
+    },
+    "headline": "OFFSIDE",
+    "url": "http://code-jedi.chintanghate.me/2014/11/15/offside/",
+    "datePublished": "2014-11-15T14:13:43.191Z",
+    "dateModified": "2014-11-15T14:13:43.190Z",
+    "keywords": "SPOJ",
+    "description": "Hemisphere Network is the largest television network in Tumbolia, a small country located east of South America (or south of East America). The most popular sport in Tumbolia, unsurprisingly, is soccer; many games are broadcast every week in Tumbolia. Hemisphere"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Code Jedi" href="../../../../rss/index.html">
+</head>
+<body class="post-template tag-spoj" onload="prettyPrint()">
+
+    
+
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        <a class="back-button icon-arrow-left" href="http://code-jedi.chintanghate.me">Home</a>
+        <a class="subscribe-button icon-feed" href="http://code-jedi.chintanghate.me/rss/index.rss">Subscribe</a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+
+    <article class="post tag-spoj">
+
+        <header class="post-header">
+            <h1 class="post-title">OFFSIDE</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2014-11-15">15 November 2014</time>  on <a href="../../../../tag/spoj/">SPOJ</a>
+            </section>
+        </header>
+
+        <section class="post-content">
+            <p>Hemisphere Network is the largest television network in Tumbolia, a small country located east of South America (or south of East America). The most popular sport in Tumbolia, unsurprisingly, is soccer; many games are broadcast every week in Tumbolia.</p>
+
+<p>Hemisphere Network receives many requests to replay dubious plays; usually, these happen when a player is deemed to be offside by the referee. An attacking player is offside if he is nearer to his opponents’ goal line than the second last opponent. A player is not offside if</p>
+
+<ul>
+<li>he is level with the second last opponent or</li>
+<li>he is level with the last two opponents.</li>
+</ul>
+
+<p>Through the use of computer graphics technology, Hemisphere Network can take an image of the field and determine the distances of the players to the defending team’s goal line, but they still need a program that, given these distances, decides whether a player is offside.</p>
+
+<h6 id="input">Input</h6>
+
+<p>The input file contains several test cases. The first line of each test case contains two integers A and D separated by a single space indicating, respectively, the number of attacking and defending players involved in the play (2 &lt;= A,D &lt;= 11). The next line contains A integers Bi separated by single spaces, indicating the distances of the attacking players to the goal line (1 &lt;= Bi &lt;= 10<sup>4</sup>). The next line contains D integers Cj separated by single spaces, indicating the distances of the defending players to the goal line (1 &lt;= Cj &lt;= 10<sup>4</sup>). The end of input is indicated by A = D = 0.</p>
+
+<h6 id="output">Output</h6>
+
+<p>For each test case in the input print a line containing a single character: “Y” (uppercase) if there is an attacking player offside, and “N” (uppercase) otherwise.</p>
+
+<p>Example</p>
+
+<p>Input: <br>
+2 3 <br>
+500 700 <br>
+700 500 500 <br>
+2 2 <br>
+200 400 <br>
+200 1000 <br>
+3 4 <br>
+530 510 490 <br>
+480 470 50 310 <br>
+0 0</p>
+
+<p>Output: <br>
+N <br>
+Y <br>
+N</p>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+
+using namespace std;
+
+int main() {  
+    int A, D;
+    while ((cin &gt;&gt; A &gt;&gt; D) &amp;&amp; A != 0 &amp;&amp; D != 0) {
+        vector&lt;int&gt; attackers(A),
+                    defenders(D);
+        for (int i = 0; i &lt; A; ++i) {
+            cin &gt;&gt; attackers[i];
+        }
+        for (int i = 0; i &lt; D; ++i) {
+            cin &gt;&gt; defenders[i];
+        }
+        sort(defenders.begin(), defenders.end());
+        bool flag = false;
+        for (int i = 0; i &lt; A; ++i) {
+            if (attackers[i] &lt; defenders[1]) {
+                flag = true;
+                break;
+            }
+        }
+        if (flag) {
+            cout &lt;&lt; "Y\n";
+        } else {
+            cout &lt;&lt; "N\n";
+        }
+    }
+    return 0;
+}
+</code></pre>
+        </section>
+
+        <footer class="post-footer">
+
+
+
+            <section class="author">
+                <h4><a href="../../../../author/chintan/">Chintan Ghate</a></h4>
+
+                    <p>Read <a href="../../../../author/chintan/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/share?text=OFFSIDE&amp;url=http://code-jedi.chintanghate.me/2014/11/15/offside/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://code-jedi.chintanghate.me/2014/11/15/offside/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://code-jedi.chintanghate.me/2014/11/15/offside/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+    </article>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+         <section class="copyright"><a href="http://code-jedi.chintanghate.me">Code Jedi</a> © 2014</section>
+         <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+    </footer>
+
+    <script src="../../../../public/jquery.js?v=d42b9e9a04"></script>
+
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js?v=d42b9e9a04"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js?v=d42b9e9a04"></script>
+
+</body>

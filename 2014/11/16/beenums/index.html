@@ -1,0 +1,186 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>BEENUMS</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css?v=d42b9e9a04">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+    <link href="../../../../assets/css/prettify.css?v=d42b9e9a04" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="../../../../assets/js/prettify.js?v=d42b9e9a04"></script>
+    <link rel="canonical" href="http://code-jedi.chintanghate.me/2014/11/16/beenums/">
+    
+    <meta property="og:site_name" content="Code Jedi">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="BEENUMS">
+    <meta property="og:description" content="A beehive is an enclosed structure in which some honey bee species live and raise their young. In this problem we consider a two-dimensional sketch of the beehives. Each beehive is composed of a certain number of cells, where each...">
+    <meta property="og:url" content="http://code-jedi.chintanghate.me/2014/11/16/beenums/">
+    <meta property="article:published_time" content="2014-11-16T11:42:19.540Z">
+    <meta property="article:modified_time" content="2014-11-16T11:42:19.539Z">
+    <meta property="article:tag" content="SPOJ">
+    
+    <meta name="twitter:card" content="content">
+    <meta name="twitter:title" content="BEENUMS">
+    <meta name="twitter:description" content="A beehive is an enclosed structure in which some honey bee species live and raise their young. In this problem we consider a two-dimensional sketch of the beehives. Each beehive is composed of a certain number of cells, where each...">
+    <meta name="twitter:url" content="http://code-jedi.chintanghate.me/2014/11/16/beenums/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Code Jedi",
+    "author": {
+        "@type": "Person",
+        "name": "Chintan Ghate",
+        "url": "http://code-jedi.chintanghate.me/author/chintan",
+        "sameAs": null
+    },
+    "headline": "BEENUMS",
+    "url": "http://code-jedi.chintanghate.me/2014/11/16/beenums/",
+    "datePublished": "2014-11-16T11:42:19.540Z",
+    "dateModified": "2014-11-16T11:42:19.539Z",
+    "keywords": "SPOJ",
+    "description": "A beehive is an enclosed structure in which some honey bee species live and raise their young. In this problem we consider a two-dimensional sketch of the beehives. Each beehive is composed of a certain number of cells, where each"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Code Jedi" href="../../../../rss/index.html">
+</head>
+<body class="post-template tag-spoj" onload="prettyPrint()">
+
+    
+
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        <a class="back-button icon-arrow-left" href="http://code-jedi.chintanghate.me">Home</a>
+        <a class="subscribe-button icon-feed" href="http://code-jedi.chintanghate.me/rss/index.rss">Subscribe</a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+
+    <article class="post tag-spoj">
+
+        <header class="post-header">
+            <h1 class="post-title">BEENUMS</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2014-11-16">16 November 2014</time>  on <a href="../../../../tag/spoj/">SPOJ</a>
+            </section>
+        </header>
+
+        <section class="post-content">
+            <p>A beehive is an enclosed structure in which some honey bee species live and raise their young. In this problem we consider a two-dimensional sketch of the beehives. Each beehive is composed of a certain number of cells, where each cell is a regular hexagon. Each cell may have some neighbors, which are other cells that share a side with that cell. A cell with exactly 6 neighbors is an internal cell, while a cell with fewer neighbors is an external one. Notice that an external cell can always be changed to internal by adding some neighbor cells.</p>
+
+<p>We are interested in a particular class of beehives. This class of valid beehives is defined recursively as follows: a) a single cell is a valid beehive; and b) given a valid beehive B, if we add the minimum number of cells such that each external cell of B becomes an internal cell, the result is a valid beehive.</p>
+
+<p>The number of cells in a valid beehive is called a beehive number. Given an integer N, you must decide whether it is a beehive number.</p>
+
+<h6 id="input">Input</h6>
+
+<p>Each test case is described using a single line. The line contains an integer N (1 ≤ N ≤ 10<sup>9</sup> ). The end of input is indicated with a line containing a single −1.</p>
+
+<h6 id="output">Output</h6>
+
+<p>For each test case, output a single line containing an uppercase “Y” if N is a beehive number, or an uppercase “N” otherwise.</p>
+
+<p>Example</p>
+
+<p>Input: <br>
+43 <br>
+1 <br>
+7 <br>
+19 <br>
+15 <br>
+-1</p>
+
+<p>Output: <br>
+N <br>
+Y <br>
+Y <br>
+Y <br>
+N</p>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;cmath&gt;
+
+using namespace std;
+
+int main() {  
+    int N;
+    while ((cin &gt;&gt; N) &amp;&amp; N != -1) {
+        --N;
+        if (N % 6 != 0) {
+            cout &lt;&lt; "N\n";
+        } else {
+            N /= 3;
+            double x = (-1.0 + sqrt(1 + 4*N)) / 2.0;
+            if(ceil(x) == floor(x)) {
+                cout &lt;&lt; "Y\n";
+            } else {
+                cout &lt;&lt; "N\n";
+            }
+        }
+    }
+    return 0;
+}
+</code></pre>
+        </section>
+
+        <footer class="post-footer">
+
+
+
+            <section class="author">
+                <h4><a href="../../../../author/chintan/">Chintan Ghate</a></h4>
+
+                    <p>Read <a href="../../../../author/chintan/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/share?text=BEENUMS&amp;url=http://code-jedi.chintanghate.me/2014/11/16/beenums/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://code-jedi.chintanghate.me/2014/11/16/beenums/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://code-jedi.chintanghate.me/2014/11/16/beenums/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+    </article>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+         <section class="copyright"><a href="http://code-jedi.chintanghate.me">Code Jedi</a> © 2014</section>
+         <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+    </footer>
+
+    <script src="../../../../public/jquery.js?v=d42b9e9a04"></script>
+
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js?v=d42b9e9a04"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js?v=d42b9e9a04"></script>
+
+</body>
