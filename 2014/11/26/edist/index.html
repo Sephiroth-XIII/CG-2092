@@ -1,0 +1,217 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>EDIST</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css?v=1fe7f69c8e">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+    <link href="../../../../assets/css/prettify.css?v=1fe7f69c8e" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="../../../../assets/js/prettify.js?v=1fe7f69c8e"></script>
+    <link rel="canonical" href="http://code-jedi.chintanghate.me/2014/11/26/edist/">
+    
+    <meta property="og:site_name" content="Code Jedi">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="EDIST">
+    <meta property="og:description" content="You are given two strings, A and B. Answer, what is the smallest number of operations you need to  transform A to B? Operations are: Delete one letter from one of strings Insert one letter into one of strings Replace...">
+    <meta property="og:url" content="http://code-jedi.chintanghate.me/2014/11/26/edist/">
+    <meta property="article:published_time" content="2014-11-26T03:46:18.041Z">
+    <meta property="article:modified_time" content="2014-11-26T03:46:37.895Z">
+    <meta property="article:tag" content="SPOJ">
+    
+    <meta name="twitter:card" content="content">
+    <meta name="twitter:title" content="EDIST">
+    <meta name="twitter:description" content="You are given two strings, A and B. Answer, what is the smallest number of operations you need to  transform A to B? Operations are: Delete one letter from one of strings Insert one letter into one of strings Replace...">
+    <meta name="twitter:url" content="http://code-jedi.chintanghate.me/2014/11/26/edist/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Code Jedi",
+    "author": {
+        "@type": "Person",
+        "name": "Chintan Ghate",
+        "url": "http://code-jedi.chintanghate.me/author/chintan",
+        "sameAs": null
+    },
+    "headline": "EDIST",
+    "url": "http://code-jedi.chintanghate.me/2014/11/26/edist/",
+    "datePublished": "2014-11-26T03:46:18.041Z",
+    "dateModified": "2014-11-26T03:46:37.895Z",
+    "keywords": "SPOJ",
+    "description": "You are given two strings, A and B. Answer, what is the smallest number of operations you need to  transform A to B? Operations are: Delete one letter from one of strings Insert one letter into one of strings Replace"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Code Jedi" href="../../../../rss/index.html">
+</head>
+<body class="post-template tag-spoj" onload="prettyPrint()">
+
+    
+
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        <a class="back-button icon-arrow-left" href="http://code-jedi.chintanghate.me">Home</a>
+        <a class="subscribe-button icon-feed" href="http://code-jedi.chintanghate.me/rss/index.rss">Subscribe</a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+
+    <article class="post tag-spoj">
+
+        <header class="post-header">
+            <h1 class="post-title">EDIST</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2014-11-26">26 November 2014</time>  on <a href="../../../../tag/spoj/">SPOJ</a>
+            </section>
+        </header>
+
+        <section class="post-content">
+            <p>You are given two strings, A and B. Answer, what is the smallest number of operations you need to <br>
+transform A to B?</p>
+
+<p>Operations are:</p>
+
+<ol>
+<li>Delete one letter from one of strings</li>
+<li>Insert one letter into one of strings</li>
+<li>Replace one of letters from one of strings with another letter </li>
+</ol>
+
+<h6 id="input">Input</h6>
+
+<p>T - number of test cases</p>
+
+<p>For each test case:</p>
+
+<p>String A</p>
+
+<p>String B</p>
+
+<p>Both strings will contain only uppercase characters and they won't <br>
+be longer than 2000 characters. </p>
+
+<p>There will be 10 test cases in data set.</p>
+
+<h6 id="output">Output</h6>
+
+<p>For each test case, one line, minimum number of operations.</p>
+
+<p>Example</p>
+
+<p>Input: <br>
+1 <br>
+FOOD <br>
+MONEY </p>
+
+<p>Output: <br>
+4</p>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+
+using namespace std;
+
+int LevenshteinDistance(string s, string t) {  
+    if (s == t) {
+        return 0;
+    } else if (s.size() == 0) {
+        return t.size();
+    } else if (t.size() == 0) {
+        return s.size();
+    }
+
+    vector&lt;int&gt; v0 = vector&lt;int&gt; (t.size() + 1),
+                v1 = vector&lt;int&gt; (t.size() + 1);
+
+    for (int i = 0; i &lt; v0.size(); ++i) {
+        v0[i] = i;
+    }
+
+    for (int i = 0; i &lt; s.size(); ++i) {
+        v1[0] = i + 1;
+        for (int j = 0; j &lt; t.size(); ++j) {
+            int cost = (s[i] == t[j] ? 0 : 1);
+            v1[j + 1] = min(min(v1[j] + 1, v0[j + 1] + 1), 
+                        v0[j] + cost);
+        }
+        v0 = v1;
+    }
+    return v1[t.size()];
+}
+
+int main() {  
+    int T;
+    cin &gt;&gt; T;
+    for (;T--;) {
+        string a,b;
+        cin &gt;&gt; a &gt;&gt; b;
+        cout &lt;&lt; LevenshteinDistance(a, b) &lt;&lt; "\n";
+    }
+    return 0;
+}
+</code></pre>
+        </section>
+
+        <footer class="post-footer">
+
+
+
+            <section class="author">
+                <h4><a href="../../../../author/chintan/">Chintan Ghate</a></h4>
+
+                    <p>Read <a href="../../../../author/chintan/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/share?text=EDIST&amp;url=http://code-jedi.chintanghate.me/2014/11/26/edist/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://code-jedi.chintanghate.me/2014/11/26/edist/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://code-jedi.chintanghate.me/2014/11/26/edist/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+    </article>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+         <section class="copyright"><a href="http://code-jedi.chintanghate.me">Code Jedi</a> © 2014</section>
+         <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+    </footer>
+
+    <script src="../../../../public/jquery.js?v=1fe7f69c8e"></script>
+
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js?v=1fe7f69c8e"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js?v=1fe7f69c8e"></script>
+
+</body>

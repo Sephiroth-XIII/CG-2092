@@ -1,4 +1,763 @@
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Code Jedi</title><description>Code, algorithms and design.</description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Sun, 16 Nov 2014 15:06:00 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>HUBULLU</title><description>&lt;p&gt;After duelling in quake (a multiplayer game), Airborne and Pagfloyd decide do test themselves out in another game called Hubulullu. The rules of the game are as follows:&lt;/p&gt;
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Code Jedi</title><description>Code, algorithms and design.</description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Thu, 27 Nov 2014 19:49:20 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>ACODE</title><description>&lt;p&gt;Alice and Bob need to send secret messages to each other and are discussing ways to encode their messages:  &lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Alice: “Let’s just use a very simple code: We’ll assign ‘A’ the code word 1, ‘B’ will be 2, and so on down to ‘Z’ being assigned 26.”
+
+Bob: “That’s a stupid code, Alice. Suppose I send you the word ‘BEAN’ encoded as 25114. You could decode that in many different ways!”
+
+Alice: “Sure you could, but what words would you get? Other than ‘BEAN’, you’d get ‘BEAAD’, ‘YAAD’, ‘YAN’, ‘YKD’ and ‘BEKD’. I think you would be able to figure out the correct decoding. And why would you send me the word ‘BEAN’ anyway?”
+
+Bob: “OK, maybe that’s a bad example, but I bet you that if you got a string of length 5000 there would be tons of different decodings and with that many you would find at least two different ones that would make sense.”
+
+Alice: “How many different decodings?”
+
+Bob: “Jillions!”  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For some reason, Alice is still unconvinced by Bob’s argument, so she requires a program that will determine how many decodings there can be for a given string using her code.&lt;/p&gt;
+
+&lt;h6 id="input"&gt;Input&lt;/h6&gt;
+
+&lt;p&gt;Input will consist of multiple input sets. Each set will consist of a single line of at most 5000 digits representing a valid encryption (for example, no line will begin with a 0). There will be no spaces between the digits. An input line of ‘0’ will terminate the input and should not be processed.&lt;/p&gt;
+
+&lt;h6 id="output"&gt;Output&lt;/h6&gt;
+
+&lt;p&gt;For each input set, output the number of possible decodings for the input string. All answers will be within the range of a 64 bit signed integer.&lt;/p&gt;
+
+&lt;p&gt;Example&lt;/p&gt;
+
+&lt;p&gt;Input: &lt;br&gt;
+25114 &lt;br&gt;
+1111111111 &lt;br&gt;
+3333333333 &lt;br&gt;
+0&lt;/p&gt;
+
+&lt;p&gt;Output: &lt;br&gt;
+6 &lt;br&gt;
+89 &lt;br&gt;
+1&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h6 id="usingdynamicprogramming"&gt;Using Dynamic Programming:&lt;/h6&gt;
+
+&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;string&amp;gt;
+#include &amp;lt;vector&amp;gt;
+
+using namespace std;
+
+int main() {  
+    string s;
+    while ((cin &amp;gt;&amp;gt; s) &amp;amp;&amp;amp; s != "0") {
+        vector&amp;lt;int&amp;gt; ones(s.size(), 0),
+                    tens(s.size(), 0),
+                    ways(s.size(), 0);
+        for (int i = 0; i &amp;lt; s.size(); ++i) {
+            ones[i] = s[i] - '0';
+        }
+        for (int i = 1; i &amp;lt; s.size(); ++i) {
+            tens[i] = 10 * ones[i - 1] + ones[i];
+        }
+        ways[0] = 1;
+        if (s.size() &amp;gt; 1) {
+            ways[1] = (ones[1] != 0 ? 1 : 0);
+            if (tens[1] &amp;gt; 9 &amp;amp;&amp;amp; tens[1] &amp;lt; 27) {
+                ++ways[1];
+            }
+            for (int i = 2; i &amp;lt; s.size(); ++i) {
+                ways[i] = (ones[i] != 0 ? ways[i - 1] : 0);
+                if (tens[i] &amp;gt; 9 &amp;amp;&amp;amp; tens[i] &amp;lt; 27) {
+                    ways[i] += ways[i - 2];
+                }
+            }
+        }
+        cout &amp;lt;&amp;lt; ways.back() &amp;lt;&amp;lt; "\n";
+    }
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h6 id="using2variables"&gt;Using 2 variables:&lt;/h6&gt;
+
+&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;string&amp;gt;
+
+using namespace std;
+
+int main() {  
+    string s;
+    while ((cin &amp;gt;&amp;gt; s) &amp;amp;&amp;amp; s != "0") {
+        int good = 1,
+            bad = 0;
+        for (int i = 1; i &amp;lt; s.size(); ++i) {
+            int n = (10 * (s[i - 1] - '0') + (s[i] - '0'));
+            if (s[i] == '0') {
+                if (n &amp;gt;= 27) {
+                    good = 0;
+                    bad = 0;
+                    break;
+                }
+                bad = good;
+                good = 0; 
+            } else if (n &amp;lt; 27 &amp;amp;&amp;amp; n &amp;gt; 9) {
+                good += bad;
+                bad = good - bad;
+            } else {
+                good += bad;
+                bad = 0;
+            }
+        }
+        cout &amp;lt;&amp;lt; good + bad &amp;lt;&amp;lt; "\n";
+    }
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/27/acode/</link><guid isPermaLink="false">66e0fc84-f274-4962-8e98-51a5c0ee2e29</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Thu, 27 Nov 2014 07:31:59 GMT</pubDate></item><item><title>MARBLES</title><description>&lt;p&gt;Hänschen dreams he is in a shop with an infinite amount of marbles. He is allowed to select n marbles. There are marbles of k different colors. From each color there are also infinitely many marbles. Hänschen wants to have at least one marble of each color, but still there are a lot of possibilities for his selection. In his effort to make a decision he wakes up. Now he asks you how many possibilites for his selection he would have had. Assume that marbles of equal color can't be distinguished, and the order of the marbles is irrelevant.&lt;/p&gt;
+
+&lt;h6 id="input"&gt;Input&lt;/h6&gt;
+
+&lt;p&gt;The first line of input contains a number T &amp;lt;= 100 that indicates the number of test cases to follow. Each test case consists of one line containing n and k, where n is the number of marbles Hänschen selects and k is the number of different colors of the marbles. You can assume that 1&amp;lt;=k&amp;lt;=n&amp;lt;=1000000.&lt;/p&gt;
+
+&lt;h6 id="output"&gt;Output&lt;/h6&gt;
+
+&lt;p&gt;For each test case print the number of possibilities that Hänschen would have had. You can assume that this number fits into a signed 64 bit integer.&lt;/p&gt;
+
+&lt;p&gt;Example&lt;/p&gt;
+
+&lt;p&gt;Input: &lt;br&gt;
+2 &lt;br&gt;
+10 10 &lt;br&gt;
+30 7&lt;/p&gt;
+
+&lt;p&gt;Output: &lt;br&gt;
+1 &lt;br&gt;
+475020&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+
+using namespace std;
+
+unsigned long long gcd(unsigned long long a, unsigned long long b) {  
+    return (b == 0 ? a : gcd(b, a % b));
+}
+
+unsigned long long NCR(unsigned long long N, unsigned long long K) {  
+    if(K &amp;gt; N) {
+        return 0;
+    }
+    K = min(N - K, K);
+    unsigned long long p = 1;
+    for (unsigned long long i = 1; i &amp;lt;= K ; ++i) {
+        unsigned long long g = gcd(p, i);
+        p /= g;
+        p *= (N - i + 1) / (i / g);
+    }
+    return p;
+}
+
+int main() {  
+    int T;
+    cin &amp;gt;&amp;gt; T;
+    for (;T--;) {
+        unsigned long long N, K;
+        cin &amp;gt;&amp;gt; N &amp;gt;&amp;gt; K;
+        --N, --K;
+        cout &amp;lt;&amp;lt; NCR(N, K) &amp;lt;&amp;lt; "\n";
+    }
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/27/marbles/</link><guid isPermaLink="false">bea21dd8-92e3-4b40-a042-f2f4e9f409fd</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Thu, 27 Nov 2014 04:19:00 GMT</pubDate></item><item><title>BYTESM2</title><description>&lt;p&gt;One of the secret chambers in Hogwarts is full of philosopher’s stones. The floor of the chamber is covered by h × w square tiles, where there are h rows of tiles from front (first row) to back (last row) and w columns of tiles from left to right. Each tile has 1 to 100 stones on it. Harry has to grab as many philosopher’s stones as possible, subject to the following restrictions:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;He starts by choosing any tile in the first row, and collects the philosopher’s stones on that tile. Then, he moves to a tile in the next row, collects the philosopher’s stones on the tile, and so on until he reaches the last row.&lt;/li&gt;
+&lt;li&gt;When he moves from one tile to a tile in the next row, he can only move to the tile just below it or diagonally to the left or right.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Given the values of h and w, and the number of philosopher’s stones on each tile, write a program to compute the maximum possible number of philosopher’s stones Harry can grab in one single trip from the first row to the last row.&lt;/p&gt;
+
+&lt;h6 id="input"&gt;Input&lt;/h6&gt;
+
+&lt;p&gt;The first line consists of a single integer T, the number of test cases. In each of the test cases, the first line has two integers. The first integer h (1&amp;lt;=h&amp;lt;=100) is the number of rows of tiles on the floor. The second integer w (1&amp;lt;=w&amp;lt;=100) is the number of columns of tiles on the floor. Next, there are h lines of inputs. The ith line of these, specifies the number of philosopher’s stones in each tile of the ith row from the front. Each line has w integers, where each integer m (0&amp;lt;=m&amp;lt;=100) is the number of philosopher’s stones on that tile. The integers are separated by a space character.&lt;/p&gt;
+
+&lt;h6 id="output"&gt;Output&lt;/h6&gt;
+
+&lt;p&gt;The output should consist of T lines, (1&amp;lt;=T&amp;lt;=100), one for each test case. Each line consists of a single integer, which is the maximum possible number of philosopher’s stones Harry can grab, in one single trip from the first row to the last row for the corresponding test case.&lt;/p&gt;
+
+&lt;p&gt;Example&lt;/p&gt;
+
+&lt;p&gt;Input: &lt;br&gt;
+1 &lt;br&gt;
+6 5 &lt;br&gt;
+3 1 7 4 2 &lt;br&gt;
+2 1 3 1 1 &lt;br&gt;
+1 2 2 1 8 &lt;br&gt;
+2 2 1 5 3 &lt;br&gt;
+2 1 4 4 4 &lt;br&gt;
+5 2 7 5 1&lt;/p&gt;
+
+&lt;p&gt;Output: &lt;br&gt;
+32     &lt;/p&gt;
+
+&lt;p&gt;//7+1+8+5+4+7=32&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;vector&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+
+using namespace std;
+
+int main() {  
+    int T;
+    cin &amp;gt;&amp;gt; T;
+    for (;T--;) {
+        int h, w;
+        cin &amp;gt;&amp;gt; h &amp;gt;&amp;gt; w;
+        vector&amp;lt;vector&amp;lt;int&amp;gt; &amp;gt; grid(h, vector&amp;lt;int&amp;gt;(w));
+        for (int i = 0; i &amp;lt; h; ++i) {
+            for (int j = 0; j &amp;lt; w; ++j) {
+                cin &amp;gt;&amp;gt; grid[i][j];
+            }
+        }
+        for (int i = h - 2; i &amp;gt;= 0; --i) {
+            for (int j = 0; j &amp;lt; w; ++j) {
+                int maximum = 0;
+                if (j - 1 &amp;gt;= 0 &amp;amp;&amp;amp; grid[i + 1][j - 1] &amp;gt; maximum) {
+                    maximum = grid[i + 1][j - 1];
+                }
+                if (grid[i + 1][j] &amp;gt; maximum) {
+                    maximum = grid[i + 1][j];
+                }
+                if (j + 1 &amp;lt; w &amp;amp;&amp;amp; grid[i + 1][j + 1] &amp;gt; maximum) {
+                    maximum = grid[i + 1][j + 1];
+                }
+                grid[i][j] += maximum;
+            }
+        }
+        cout &amp;lt;&amp;lt; *max_element(grid[0].begin(), grid[0].end()) 
+             &amp;lt;&amp;lt; "\n";
+    }
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/27/bytesm2/</link><guid isPermaLink="false">4ee19633-c9f6-4361-996d-71226822d994</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Wed, 26 Nov 2014 20:01:46 GMT</pubDate></item><item><title>JAVAC</title><description>&lt;p&gt;Apologists of Java and C++ can argue for hours proving each other that their programming language is the best one. Java people will tell that their programs are clearer and less prone to errors, while C++ people will laugh at their inability to instantiate an array of generics or tell them that their programs are slow and have long source code.&lt;/p&gt;
+
+&lt;p&gt;Another issue that Java and C++ people could never agree on is identifier naming. In Java a multiword identifier is constructed in the following manner: the first word is written starting from the small letter, and the following ones are written starting from the capital letter, no separators are used. All other letters are small. Examples of a Java identifier are javaIdentifier, longAndMnemonicIdentifier, name, nEERC.&lt;/p&gt;
+
+&lt;p&gt;Unlike them, C++ people use only small letters in their identifiers. To separate words they use underscore character ‘&lt;em&gt;’. Examples of C++ identifiers are c&lt;/em&gt;identifier, long&lt;em&gt;and&lt;/em&gt;mnemonic&lt;em&gt;identifier, name (you see that when there is just one word Java and C++ people agree), n&lt;/em&gt;e&lt;em&gt;e&lt;/em&gt;r_c.&lt;/p&gt;
+
+&lt;p&gt;You are writing a translator that is intended to translate C++ programs to Java and vice versa. Of course, identifiers in the translated program must be formatted due to its language rules — otherwise people will never like your translator.&lt;/p&gt;
+
+&lt;p&gt;The first thing you would like to write is an identifier translation routine. Given an identifier, it would detect whether it is Java identifier or C++ identifier and translate it to another dialect. If it is neither, then your routine should report an error. Translation must preserve the order of words and must only change the case of letters and/or add/remove underscores.&lt;/p&gt;
+
+&lt;h6 id="input"&gt;Input&lt;/h6&gt;
+
+&lt;p&gt;The input file consists of several lines that contains an identifier. It consists of letters of the English alphabet and underscores. Its length does not exceed 100.&lt;/p&gt;
+
+&lt;h6 id="output"&gt;Output&lt;/h6&gt;
+
+&lt;p&gt;If the input identifier is Java identifier, output its C++ version. If it is C++ identifier, output its Java version. If it is none, output 'Error!' instead.&lt;/p&gt;
+
+&lt;p&gt;Example&lt;/p&gt;
+
+&lt;p&gt;Input: &lt;br&gt;
+long_and_mnemonic_identifier &lt;br&gt;
+anotherExample &lt;br&gt;
+i &lt;br&gt;
+bad_Style&lt;/p&gt;
+
+&lt;p&gt;Output: &lt;br&gt;
+longAndMnemonicIdentifier &lt;br&gt;
+another_example &lt;br&gt;
+i &lt;br&gt;
+Error!&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;string&amp;gt;
+#include &amp;lt;cctype&amp;gt;
+
+using namespace std;
+
+bool isJavaIdentifier(string s) {  
+    if (!islower(s[0])) {
+        return false;
+    }
+    for (int i = 0; i &amp;lt; s.size(); ++i) {
+        if (!isalpha(s[i])) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool isCIdentifier(string s) {  
+    if (!islower(s[0])) {
+        return false;
+    }
+    for (int i = 0; i &amp;lt; s.size(); ++i) {
+        if (!islower(s[i]) &amp;amp;&amp;amp; s[i] != '_') {
+            return false;
+        }
+        if (s[i] == '_' &amp;amp;&amp;amp; !islower(s[i+1])) {
+            return false;
+        }
+    }
+    return true;
+}
+
+int main() {  
+    string s;
+    while (cin &amp;gt;&amp;gt; s) {
+        bool java = isJavaIdentifier(s),
+             c = isCIdentifier(s);
+        if (!java &amp;amp;&amp;amp; !c) {
+            cout &amp;lt;&amp;lt; "Error!\n";
+        } else if (java) {
+            string o = "";
+            for (int i = 0; i &amp;lt; s.size(); ++i) {
+                if (isupper(s[i])) {
+                    o += '_';
+                }
+                o += tolower(s[i]);
+            }
+            cout &amp;lt;&amp;lt; o &amp;lt;&amp;lt; "\n";
+        } else if (c) {
+            string o = "";
+            for (int i = 0; i &amp;lt; s.size(); ++i) {
+                if (s[i] == '_') {
+                    ++i;
+                    o += toupper(s[i]);
+                } else {
+                    o += s[i];
+                }
+            }
+            cout &amp;lt;&amp;lt; o &amp;lt;&amp;lt; "\n";
+        }
+    }
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/27/javac/</link><guid isPermaLink="false">4077835d-1bca-4079-96f6-0e3e12e31991</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Wed, 26 Nov 2014 18:49:32 GMT</pubDate></item><item><title>NY10A</title><description>&lt;p&gt;Penney’s game is a simple game typically played by two players.  One version of the game calls for each player to choose a unique three-coin sequence such as HEADS TAILS HEADS (HTH).  A fair coin is tossed sequentially some number of times until one of the two sequences appears.  The player who chose the first sequence to appear wins the game.&lt;/p&gt;
+
+&lt;p&gt;For this problem, you will write a program that implements a variation on the Penney Game.  You willread a sequence of 40 coin tosses and determine how many times each three-coin sequence appears.  Obviously there are eight such three-coin sequences: TTT, TTH, THT, THH, HTT, HTH, HHT and HHH. Sequences may overlap.  For example, if all 40 coin tosses are heads, then the sequence HHH appears 38 times.&lt;/p&gt;
+
+&lt;h6 id="input"&gt;Input&lt;/h6&gt;
+
+&lt;p&gt;The first line of input contains a single integer P, (1 ≤ P ≤ 1000), which is the number of data sets that follow.  Each data set consists of 2 lines.  The first line contains the data set number N.  The second line contains the sequence of 40 coin tosses.  Each toss is represented as an upper case H or an upper case T, for heads or tails, respectively.  There will be no spaces on any input line.&lt;/p&gt;
+
+&lt;h6 id="output"&gt;Output&lt;/h6&gt;
+
+&lt;p&gt;For each data set there is one line of output.  It contains the data set number followed by a single space, followed by the number of occurrences of each three-coin sequence, in the order shown above, with a space between each one.  There should be a total of 9 space separated decimal integers on each output line.&lt;/p&gt;
+
+&lt;p&gt;Example&lt;/p&gt;
+
+&lt;p&gt;Input: &lt;br&gt;
+4 &lt;br&gt;
+1 &lt;br&gt;
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH &lt;br&gt;
+2 &lt;br&gt;
+TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT &lt;br&gt;
+3 &lt;br&gt;
+HHTTTHHTTTHTHHTHHTTHTTTHHHTHTTHTTHTTTHTH &lt;br&gt;
+4 &lt;br&gt;
+HTHTHHHTHHHTHTHHHHTTTHTTTTTHHTTTTHTHHHHT&lt;/p&gt;
+
+&lt;p&gt;Output: &lt;br&gt;
+1 0 0 0 0 0 0 0 38 &lt;br&gt;
+2 38 0 0 0 0 0 0 0 &lt;br&gt;
+3 4 7 6 4 7 4 5 1 &lt;br&gt;
+4 6 3 4 5 3 6 5 6&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;string&amp;gt;
+#include &amp;lt;vector&amp;gt;
+
+using namespace std;
+
+int main() {  
+    int T;
+    cin &amp;gt;&amp;gt; T;
+    for (;T--;) {
+        int n;
+        cin &amp;gt;&amp;gt; n;
+        string s;
+        cin &amp;gt;&amp;gt; s;
+        vector&amp;lt;int&amp;gt; counter(8, 0);
+        for (int i = 0; i &amp;lt; s.size() - 2; ++i) {
+            int index = 0;
+            index += (s[i] == 'H' ? 4 : 0);
+            index += (s[i + 1] == 'H' ? 2 : 0);
+            index += (s[i + 2] == 'H' ? 1 : 0);
+            ++counter[index];
+        }
+        cout &amp;lt;&amp;lt; n;
+        for (int i = 0; i &amp;lt; 8; ++i) {
+            cout &amp;lt;&amp;lt; " " &amp;lt;&amp;lt; counter[i];
+        }
+        cout &amp;lt;&amp;lt; "\n";
+    }   
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/26/ny10a/</link><guid isPermaLink="false">8ef0f847-ce46-4d07-8f04-a07ed3defad8</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Wed, 26 Nov 2014 15:24:13 GMT</pubDate></item><item><title>PT07Z</title><description>&lt;p&gt;You are given an unweighted, undirected tree. Write a program to output the length of the longest path (from one node to another) in that tree. The length of a path in this case is number of edges we traverse from source to destination.&lt;/p&gt;
+
+&lt;h6 id="input"&gt;Input&lt;/h6&gt;
+
+&lt;p&gt;The first line of the input file contains one integer N --- number of nodes in the tree (0 &amp;lt; N &amp;lt;= 10000). Next N-1 lines contain N-1 edges of that tree --- Each line contains a pair (u, v) means there is an edge between node u and node v (1 &amp;lt;= u,v &amp;lt;= N).&lt;/p&gt;
+
+&lt;h6 id="output"&gt;Output&lt;/h6&gt;
+
+&lt;p&gt;Print the length of the longest path on one line.&lt;/p&gt;
+
+&lt;p&gt;Example&lt;/p&gt;
+
+&lt;p&gt;Input: &lt;br&gt;
+3 &lt;br&gt;
+1 2 &lt;br&gt;
+2 3&lt;/p&gt;
+
+&lt;p&gt;Output: &lt;br&gt;
+2&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;vector&amp;gt;
+#include &amp;lt;queue&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+
+using namespace std;
+
+pair&amp;lt;int, int&amp;gt; longestPath(vector&amp;lt;vector&amp;lt;int&amp;gt; &amp;gt; adj, int source) {  
+    int nodes = adj.size();
+    deque&amp;lt;int&amp;gt; q;
+    vector&amp;lt;bool&amp;gt; visited(nodes, false);
+    vector&amp;lt;int&amp;gt; sourceDist(nodes, 0);
+    q.push_back(source);
+    visited[source] = true;
+    while (!q.empty()) {
+        int current = q.front();
+        q.pop_front();
+        for (int i = 0; i &amp;lt; adj[current].size(); ++i) {
+            if (!visited[adj[current][i]]) {
+                sourceDist[adj[current][i]] = 
+                    sourceDist[current] + 1;
+                q.push_back(adj[current][i]);
+                visited[adj[current][i]] = true;
+            }
+        }
+    }
+    int maxIndex = max_element(sourceDist.begin(), 
+                   sourceDist.end()) - sourceDist.begin();
+    return make_pair(sourceDist[maxIndex], maxIndex);
+}
+
+int main() {  
+    int nodes;
+    cin &amp;gt;&amp;gt; nodes;
+    vector&amp;lt;vector&amp;lt;int&amp;gt; &amp;gt; adj(nodes);
+    for (int i = 0; i &amp;lt; nodes - 1; ++i) {
+        int u, v;
+        cin &amp;gt;&amp;gt; u &amp;gt;&amp;gt; v;
+        --u, --v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+
+    int farthestNode = longestPath(adj, 0).second;
+    cout &amp;lt;&amp;lt; longestPath(adj, farthestNode).first &amp;lt;&amp;lt; "\n";
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/26/pt07z/</link><guid isPermaLink="false">c6880079-7f17-4a32-a815-26e12b3221bf</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Wed, 26 Nov 2014 14:49:23 GMT</pubDate></item><item><title>LASTDIG2</title><description>&lt;p&gt;Pappu was doing the work of his math class about three days but he is tired of make operations a lot and he should deliver his task tomorrow. His math’s teacher gives two numbers a and b. The problem consist in find the last digit of the potency of base a and index b. Help Pappu with his problem. You are given two integer numbers: the base a (number of digits d, such that 1&amp;lt;=d&amp;lt;=1000) and the index b (0 &amp;lt;= b &amp;lt;= 922*10^15). You have to find the last digit of a^b.&lt;/p&gt;
+
+&lt;h6 id="input"&gt;Input&lt;/h6&gt;
+
+&lt;p&gt;The first line of input contains an integer t, the number of test cases (t &amp;lt;= 30). t test cases follow. For each test case will appear a and b separated by space.&lt;/p&gt;
+
+&lt;h6 id="output"&gt;Output&lt;/h6&gt;
+
+&lt;p&gt;For each test case output an integer per line representing the result.&lt;/p&gt;
+
+&lt;p&gt;Example&lt;/p&gt;
+
+&lt;p&gt;Input: &lt;br&gt;
+3 &lt;br&gt;
+3 10 &lt;br&gt;
+6 2 &lt;br&gt;
+150 53&lt;/p&gt;
+
+&lt;p&gt;Output: &lt;br&gt;
+9 &lt;br&gt;
+6 &lt;br&gt;
+0&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;string&amp;gt;
+#include &amp;lt;vector&amp;gt;
+
+using namespace std;
+
+int lastDig(int n, unsigned long long b) {  
+    if (b == 0) {
+        return 1;
+    } else if (n == 0 || n == 1 || n == 5 || n == 6) {
+        return n;
+    }
+    vector&amp;lt;int&amp;gt; ld;
+    ld.push_back(n);
+    int count = 0;
+    do {
+        ++count;
+        ld.push_back((n*ld.back()) % 10);
+    } while (ld.back() != n);
+    int c = b % count - 1;
+    if (c &amp;lt; 0) {
+        c += count;
+    }
+    return ld[c];
+}
+
+int main() {  
+    int t;
+    cin &amp;gt;&amp;gt; t;
+    for (;t--;) {
+        string a;
+        unsigned long long b;
+        cin &amp;gt;&amp;gt; a &amp;gt;&amp;gt; b;
+        int n = a[a.size() - 1] - '0';
+        cout &amp;lt;&amp;lt; lastDig(n, b) &amp;lt;&amp;lt; "\n";
+    }
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/26/lastdig2/</link><guid isPermaLink="false">f1d858ed-de4c-40ce-92a8-89d52e328a35</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Wed, 26 Nov 2014 05:30:49 GMT</pubDate></item><item><title>EDIST</title><description>&lt;p&gt;You are given two strings, A and B. Answer, what is the smallest number of operations you need to &lt;br&gt;
+transform A to B?&lt;/p&gt;
+
+&lt;p&gt;Operations are:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Delete one letter from one of strings&lt;/li&gt;
+&lt;li&gt;Insert one letter into one of strings&lt;/li&gt;
+&lt;li&gt;Replace one of letters from one of strings with another letter &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h6 id="input"&gt;Input&lt;/h6&gt;
+
+&lt;p&gt;T - number of test cases&lt;/p&gt;
+
+&lt;p&gt;For each test case:&lt;/p&gt;
+
+&lt;p&gt;String A&lt;/p&gt;
+
+&lt;p&gt;String B&lt;/p&gt;
+
+&lt;p&gt;Both strings will contain only uppercase characters and they won't &lt;br&gt;
+be longer than 2000 characters. &lt;/p&gt;
+
+&lt;p&gt;There will be 10 test cases in data set.&lt;/p&gt;
+
+&lt;h6 id="output"&gt;Output&lt;/h6&gt;
+
+&lt;p&gt;For each test case, one line, minimum number of operations.&lt;/p&gt;
+
+&lt;p&gt;Example&lt;/p&gt;
+
+&lt;p&gt;Input: &lt;br&gt;
+1 &lt;br&gt;
+FOOD &lt;br&gt;
+MONEY &lt;/p&gt;
+
+&lt;p&gt;Output: &lt;br&gt;
+4&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;string&amp;gt;
+#include &amp;lt;vector&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+
+using namespace std;
+
+int LevenshteinDistance(string s, string t) {  
+    if (s == t) {
+        return 0;
+    } else if (s.size() == 0) {
+        return t.size();
+    } else if (t.size() == 0) {
+        return s.size();
+    }
+
+    vector&amp;lt;int&amp;gt; v0 = vector&amp;lt;int&amp;gt; (t.size() + 1),
+                v1 = vector&amp;lt;int&amp;gt; (t.size() + 1);
+
+    for (int i = 0; i &amp;lt; v0.size(); ++i) {
+        v0[i] = i;
+    }
+
+    for (int i = 0; i &amp;lt; s.size(); ++i) {
+        v1[0] = i + 1;
+        for (int j = 0; j &amp;lt; t.size(); ++j) {
+            int cost = (s[i] == t[j] ? 0 : 1);
+            v1[j + 1] = min(min(v1[j] + 1, v0[j + 1] + 1), 
+                        v0[j] + cost);
+        }
+        v0 = v1;
+    }
+    return v1[t.size()];
+}
+
+int main() {  
+    int T;
+    cin &amp;gt;&amp;gt; T;
+    for (;T--;) {
+        string a,b;
+        cin &amp;gt;&amp;gt; a &amp;gt;&amp;gt; b;
+        cout &amp;lt;&amp;lt; LevenshteinDistance(a, b) &amp;lt;&amp;lt; "\n";
+    }
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/26/edist/</link><guid isPermaLink="false">edcc9410-811a-4155-a85e-0b2331740f17</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Wed, 26 Nov 2014 03:46:18 GMT</pubDate></item><item><title>MAXLN</title><description>&lt;p&gt;In this problem you will be given a half-circle. The half-circle’s radius is r. You can take any point A on the half-circle and draw 2 lines from the point to the two sides of the diameter(AB and AC). Let the sum of square of one line’s length and the other line’s length is s.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://code-jedi.chintanghate.me/content/images/2014/11/sE2qJlnf5DUTr7awOFtMOwA-1.png" alt="Illustration"&gt;&lt;/p&gt;
+
+&lt;p&gt;Like in the figure s=AB^2+AC. And BC=2r.&lt;/p&gt;
+
+&lt;p&gt;Now given r you have to find the maximum value of s. That is you have to find point A such that AB^2+AC is maximum.&lt;/p&gt;
+
+&lt;h6 id="input"&gt;Input:&lt;/h6&gt;
+
+&lt;p&gt;First line of the test case will be the number of test case T(1&amp;lt;=T&amp;lt;=1000) . Then T lines follows. On each line you will find a integer number r(1&amp;lt;=r&amp;lt;=1000000); each representing the radius of the half-circle.&lt;/p&gt;
+
+&lt;h6 id="output"&gt;Output:&lt;/h6&gt;
+
+&lt;p&gt;For each input line, print a line containing “Case I: ”, where I is the test case number and the maximum value of s. Print 2 digit after decimal(Errors should be less then .01).&lt;/p&gt;
+
+&lt;p&gt;Example&lt;/p&gt;
+
+&lt;p&gt;Input: &lt;br&gt;
+1 &lt;br&gt;
+1&lt;/p&gt;
+
+&lt;p&gt;Output: &lt;br&gt;
+Case 1: 4.25&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;iomanip&amp;gt;
+
+using namespace std;
+
+int main() {  
+    int T;
+    cin &amp;gt;&amp;gt; T;
+    for (int t = 1; t &amp;lt;= T; ++t) {
+        double n;
+        cin &amp;gt;&amp;gt; n;
+        cout &amp;lt;&amp;lt; "Case " &amp;lt;&amp;lt; setprecision(2) &amp;lt;&amp;lt; fixed 
+             &amp;lt;&amp;lt; t &amp;lt;&amp;lt; ": " &amp;lt;&amp;lt; 4*n*n+0.25 &amp;lt;&amp;lt; "\n";
+    }
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/25/maxln/</link><guid isPermaLink="false">888df35d-fbc6-429a-935b-81c2182ab01b</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Tue, 25 Nov 2014 18:10:20 GMT</pubDate></item><item><title>ARITH2</title><description>&lt;p&gt;While browsing aimlessly, Peter stumbled upon an old riddle he used to solve on his calculator when he was still young. It was the kind of a riddle where you punch in a bunch of numbers and operators into a simple pocket calculator and then turn it upside down to get the answer:&lt;/p&gt;
+
+&lt;p&gt;These come in many different sizes but they are always exactly one foot long. Answer: 103 * 103 * 5.&lt;/p&gt;
+
+&lt;p&gt;What are made of ice to keep people warm? Answer: 50 * 40 * 250 + 791.&lt;/p&gt;
+
+&lt;p&gt;After a few minutes he found a large amount of such riddles and full of excitement he went to solve them. He turned his computer screen upside down, only to find out that he does not have a reasonable calculator program installed on his computer.&lt;/p&gt;
+
+&lt;h6 id="problem"&gt;Problem&lt;/h6&gt;
+
+&lt;p&gt;You are given multiple sequences of button presses of a simple pocket calculator that consist of digits and arithmetic operators. For each such sequence find the number it would produce on a pocket calculator's display.&lt;/p&gt;
+
+&lt;p&gt;Note that the pocket calculator evaluates the operators in the order in which they are given. (i.e., there is no operator precedence.) Assume that the display of the calculator is large enough to show the result, and that its memory is sufficient to store all intermediate results.&lt;/p&gt;
+
+&lt;h6 id="input"&gt;Input&lt;/h6&gt;
+
+&lt;p&gt;The first line of the input file contains an integer T specifying the number of test cases. Each test case is preceded by a blank line.&lt;/p&gt;
+
+&lt;p&gt;Each test case represents one sequence of button presses for a pocket calculator. The sequence consists of non-negative integers and arithmetic operators and ends with an equal sign. It may also contain spaces to improve readability.&lt;/p&gt;
+
+&lt;p&gt;The operator / represents integer division, rounded down. You may assume that no test case contains division by zero and that in all test cases all intermediate results are non-negative.&lt;/p&gt;
+
+&lt;p&gt;Tip: long long int in C/C++, long in Java or int64 in Pascal is enough for this problem.&lt;/p&gt;
+
+&lt;h6 id="output"&gt;Output&lt;/h6&gt;
+
+&lt;p&gt;For each sequence from the input file output the number that would be displayed on the calculator.&lt;/p&gt;
+
+&lt;p&gt;Example&lt;/p&gt;
+
+&lt;p&gt;Input: &lt;br&gt;
+4&lt;/p&gt;
+
+&lt;p&gt;1 + 1 * 2 =&lt;/p&gt;
+
+&lt;p&gt;29 / 5 =&lt;/p&gt;
+
+&lt;p&gt;103 * 103 * 5 =&lt;/p&gt;
+
+&lt;p&gt;50 * 40 * 250 + 791 =&lt;/p&gt;
+
+&lt;p&gt;Output: &lt;br&gt;
+4 &lt;br&gt;
+5 &lt;br&gt;
+53045 &lt;br&gt;
+500791 &lt;br&gt;
+Hint&lt;/p&gt;
+
+&lt;p&gt;The first test case shows that there is no operator precedence.&lt;/p&gt;
+
+&lt;p&gt;The second one shows that integer division always rounds down.&lt;/p&gt;
+
+&lt;p&gt;The last two outputs are the answers to the two riddles in the problem statement: "shoes" (53045 upside down), and "igloos"(500791 upside down).&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;sstream&amp;gt;
+#include &amp;lt;string&amp;gt;
+
+using namespace std;
+
+int main() {  
+    int  T;
+    cin &amp;gt;&amp;gt; T;
+
+    cin.ignore();
+
+    for (;T--;) {
+        string S;
+        cin.ignore();
+        getline(cin, S);
+        istringstream iss(S);
+        long long n = 0, N = 0;
+        char op = '+';
+        while(iss &amp;gt;&amp;gt; n) {
+            if (op == '+') {
+                N += n;
+            } else if (op == '-') {
+                N -= n;
+            } else if (op == '*') {
+                N *= n;
+            } else if (op == '/') {
+                N /= n;
+            }
+            if ((iss &amp;gt;&amp;gt; op) &amp;amp;&amp;amp; (op == '=')) {
+                cout &amp;lt;&amp;lt; N &amp;lt;&amp;lt; "\n";
+            }
+        }
+    }
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/21/arith2/</link><guid isPermaLink="false">f8e3d594-52f1-45d7-9346-ab747ba24411</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Fri, 21 Nov 2014 16:14:14 GMT</pubDate></item><item><title>HUBULLU</title><description>&lt;p&gt;After duelling in quake (a multiplayer game), Airborne and Pagfloyd decide do test themselves out in another game called Hubulullu. The rules of the game are as follows:&lt;/p&gt;
 
 &lt;p&gt;N wooden pieces (marked with numbers 1 to N) are placed in a transparent bottle. On his turn the first player takes out some piece (numbered x) and all the pieces numbered by divisors of x that are present in the transparent bottle. The second player picks another number and removes it and its divisors as well. Play continues in an alternating fashion until all pieces have been removed from the bottle. The player who removes the last piece from the bottle wins the game.&lt;/p&gt;
 
@@ -323,679 +1082,4 @@ int main() {
     }
     return 0;
 }
-&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/15/offside/</link><guid isPermaLink="false">bcad7e40-9e78-4b3e-8d5f-6ca8ec927d03</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Sat, 15 Nov 2014 14:13:43 GMT</pubDate></item><item><title>BISHOPS</title><description>&lt;p&gt;Yesterday was Sam's birthday. The most interesting gift was definitely the chessboard. Sam quickly learned the rules of chess and defeated his father, all his friends, his little sister, and now no one wants to play with him any more. &lt;/p&gt;
-
-&lt;p&gt;So he decided to play with another birthday gift – a Book of Math Problems for Young Mathematicians. He opened the book somewhere in the middle and read the following problem: "How many knights can be placed on a chessboard without threatening each other?" After a while he realized that this was trivial and moved on to the next problem: "How many bishops can be placed on a chessboard without threatening each other?". Sam is in trouble here. He is not able to solve this problem and needs your help.&lt;/p&gt;
-
-&lt;p&gt;Sam's chessboard has size N x N. A bishop can move to any distance in any of the four diagonal directions. A bishop threatens another bishop if it can move to the other bishop's position. Your task is to compute the maximum number of bishops that can be placed on a chessboard in such a way that no two bishops threaten each other. &lt;/p&gt;
-
-&lt;h6 id="input"&gt;Input&lt;/h6&gt;
-
-&lt;p&gt;The input file consists of several lines. The line number i contains a single number N representing the size of the i-th chessboard. [N &amp;lt;= 10^100]&lt;/p&gt;
-
-&lt;h6 id="output"&gt;Output&lt;/h6&gt;
-
-&lt;p&gt;The output file should contain the same number of lines as the input file. The i-th line should contain one number – the maximum number of bishops that can be placed on i-th chessboard without threatening each other.&lt;/p&gt;
-
-&lt;p&gt;Example&lt;/p&gt;
-
-&lt;p&gt;Input: &lt;br&gt;
-2 &lt;br&gt;
-3&lt;/p&gt;
-
-&lt;p&gt;Output: &lt;br&gt;
-2 &lt;br&gt;
-4&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
-#include &amp;lt;string&amp;gt;
-#include &amp;lt;vector&amp;gt;
-
-using namespace std;
-
-int mod(int a, int b) {  
-    return (a % b &amp;lt; 0 ? a % b + b : a % b);
-}
-
-void vectorMultiplication(vector&amp;lt;int&amp;gt; &amp;amp;N, int n) {  
-    int carry = 0;
-    for (int i = 0; i &amp;lt; N.size(); ++i) {
-        N[i] *= n;
-        N[i] += carry;
-        carry = N[i] / 10;
-        N[i] %= 10;
-    }
-    return;
-}
-
-void vectorSubstraction(vector&amp;lt;int&amp;gt; &amp;amp;N, int n) {  
-    N[0] -= n;
-    for (int i = 0; i &amp;lt; N.size() - 1; ++i) {
-        if (N[i] &amp;lt; 0) {
-            N[i] = mod(N[i], 10);
-            --N[i + 1];
-        }
-    }
-    return;
-}
-
-string bishops(string S) {  
-    vector&amp;lt;int&amp;gt; N(102,0);
-    for (int i = 0; i &amp;lt; S.size(); ++i) {
-        N[i] = S[S.size() - 1 - i] - '0';
-    }
-    vectorMultiplication(N, 2);
-    vectorSubstraction(N, 2);
-    string ans = "";
-    bool flag = false;
-    for (int i = 101; i &amp;gt;= 0; --i) {
-        if (!flag &amp;amp;&amp;amp; N[i] == 0){
-            continue;
-        } else {
-            flag = true;
-            ans += char(N[i] + '0');
-        }
-    }
-    return ans;
-}
-
-int main() {  
-    string S;
-    while(cin &amp;gt;&amp;gt; S) {
-        if (S == "0" || S == "1") {
-            cout &amp;lt;&amp;lt; S &amp;lt;&amp;lt; "\n";
-        } else {
-            cout &amp;lt;&amp;lt; bishops(S) &amp;lt;&amp;lt; "\n";
-        }
-    }
-    return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/15/bishops/</link><guid isPermaLink="false">e0cb9f41-0068-48ae-92af-ebbc85b5f02c</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Sat, 15 Nov 2014 13:13:23 GMT</pubDate></item><item><title>NGM</title><description>&lt;p&gt;Nikifor and Trofim play the following game: they write some integer smaller then 2000000000 and take turns one after another. Nikifor is the first to make a move. The turn is made by the following rule: from the written integer any non-zero digit is subtracted, and the new integer replaces the old one on the desk. For example for integer 40534, the next move can be: 40530, 40531 or 40529. The winner is the player who writes zero on the desk.&lt;/p&gt;
-
-&lt;p&gt;Write a program to decide who will win if both players do their best.&lt;/p&gt;
-
-&lt;h6 id="input"&gt;Input&lt;/h6&gt;
-
-&lt;p&gt;The input contains the integer from which the game is started.&lt;/p&gt;
-
-&lt;h6 id="output"&gt;Output&lt;/h6&gt;
-
-&lt;p&gt;In the first line you must write 1 if Nikifor wins and 2 otherwise. If Nikifor wins then in the second line you must output the move in the first turn which guarantees victory for him. If there are many such moves then output any of them.&lt;/p&gt;
-
-&lt;p&gt;Example&lt;/p&gt;
-
-&lt;p&gt;Input: &lt;br&gt;
-14&lt;/p&gt;
-
-&lt;p&gt;Output: &lt;br&gt;
-1 &lt;br&gt;
-4&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
-
-using namespace std;
-
-int main() {  
-    long long T;
-    cin &amp;gt;&amp;gt; T;
-    if (T % 10 == 0) {
-        cout &amp;lt;&amp;lt; "2\n";
-    } else {
-        cout &amp;lt;&amp;lt; "1\n" &amp;lt;&amp;lt; T % 10 &amp;lt;&amp;lt; "\n";
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/15/ngm/</link><guid isPermaLink="false">b6635f7b-a9b2-4298-9ac4-7404ac43be96</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Sat, 15 Nov 2014 12:29:56 GMT</pubDate></item><item><title>GIRLSNBS</title><description>&lt;p&gt;There are G girl students and B boy students in a class that is about to graduate. You &lt;br&gt;
-need to arrange them in a single row for the graduation. To give a better impression of &lt;br&gt;
-diversity, you want to avoid having too many girls or too many boys seating consecutively. &lt;br&gt;
-You decided to arrange the students in order to minimize the gender regularity. The &lt;br&gt;
-gender regularity of an arrangement is the maximum number of students of the same &lt;br&gt;
-gender (all girls or all boys) that appear consecutively. &lt;br&gt;
-Given G and B, calculate the minimum gender regularity among all possible arrange- &lt;br&gt;
-ments.&lt;/p&gt;
-
-&lt;h6 id="input"&gt;Input&lt;/h6&gt;
-
-&lt;p&gt;Each test case is described using a single line. The line contains two integers G and B &lt;br&gt;
-representing the number of girls and boys in the class, respectively (0 ≤ G, B ≤ 1000). &lt;br&gt;
-The end of input is indicated with a line containing the number −1 twice.&lt;/p&gt;
-
-&lt;h6 id="output"&gt;Output&lt;/h6&gt;
-
-&lt;p&gt;For each test case, output a single line with a single integer representing the minimum &lt;br&gt;
-gender regularity that an arrangement of G girls and B boys can have.&lt;/p&gt;
-
-&lt;p&gt;Example&lt;/p&gt;
-
-&lt;p&gt;Input: &lt;br&gt;
-10 10 &lt;br&gt;
-5 1 &lt;br&gt;
-0 1000 &lt;br&gt;
--1 -1&lt;/p&gt;
-
-&lt;p&gt;Output: &lt;br&gt;
-1 &lt;br&gt;
-3 &lt;br&gt;
-1000&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
-#include &amp;lt;algorithm&amp;gt;
-#include &amp;lt;cmath&amp;gt;
-
-using namespace std;
-
-int main() {  
-    int G, B;
-    while ((cin &amp;gt;&amp;gt; G &amp;gt;&amp;gt; B) &amp;amp;&amp;amp; G != -1 &amp;amp;&amp;amp; B != -1) {
-        if (G == 0 &amp;amp;&amp;amp; B == 0) {
-            cout &amp;lt;&amp;lt; "0\n";
-        } else {
-            double GinB = ceil(G / (B + 1.0)),
-                   BinG = ceil(B / (G + 1.0));
-            cout &amp;lt;&amp;lt; max(GinB, BinG) &amp;lt;&amp;lt; "\n";
-        }
-    }
-    return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/15/girlsnbs/</link><guid isPermaLink="false">63d53c0d-bd89-4771-a3f3-d7e532ef2179</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Sat, 15 Nov 2014 11:37:30 GMT</pubDate></item><item><title>AP2</title><description>&lt;p&gt;Arithmatic and geometric Progressions are 2 of the well known progressions in maths.&lt;/p&gt;
-
-&lt;p&gt;Arithmatic progression(AP) is a set in which the difference between 2 numbers in constant. for eg, 1,3,5,7,9 .... In this series the difference between 2 numbers is 2.&lt;/p&gt;
-
-&lt;p&gt;The task here is very simple indeed.&lt;/p&gt;
-
-&lt;p&gt;You will be given the 3rd term , 3rd last term and the sum of the series. You need print length of the series &amp;amp; the series.&lt;/p&gt;
-
-&lt;h6 id="input"&gt;Input&lt;/h6&gt;
-
-&lt;p&gt;First line will contain a number indicating the number of test cases.&lt;/p&gt;
-
-&lt;p&gt;Each of the following t lines will have 3 number '3term' ,'3Lastterm' and 'sum'&lt;/p&gt;
-
-&lt;p&gt;3term  - is the 3rd term in of the series and&lt;/p&gt;
-
-&lt;p&gt;3Lastterm  - is the 3rd term in of the series and&lt;/p&gt;
-
-&lt;p&gt;sum - is the sum of the series.&lt;/p&gt;
-
-&lt;h6 id="output"&gt;Output&lt;/h6&gt;
-
-&lt;p&gt;For each input of the test case, you need to print 2 lines.&lt;/p&gt;
-
-&lt;p&gt;fist line should have 1 value- number of terms in the series.&lt;/p&gt;
-
-&lt;p&gt;2nd line of the output should print the series numbers separated by single space.&lt;/p&gt;
-
-&lt;p&gt;Example&lt;/p&gt;
-
-&lt;p&gt;Input: &lt;br&gt;
-1 &lt;br&gt;
-3 8 55&lt;/p&gt;
-
-&lt;p&gt;Output: &lt;br&gt;
-10 &lt;br&gt;
-1 2 3 4 5 6 7 8 9 10&lt;/p&gt;
-
-&lt;p&gt;NOTE - In all the test cases all the series elements are positive integers. &lt;br&gt;
-The series will have at least 7 elements. &lt;br&gt;
-number of test cases &amp;lt;=100. &lt;br&gt;
-All the numbers will fit in 64 bits(long long in C)&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
-
-using namespace std;
-
-int main() {  
-    int T;
-    cin &amp;gt;&amp;gt; T;
-
-    for(;T--;) {
-        long long a3, an_2, Sn;
-        cin &amp;gt;&amp;gt; a3 &amp;gt;&amp;gt; an_2 &amp;gt;&amp;gt; Sn;
-
-        long long n = (2 * Sn) / (a3 + an_2),
-                  d = (an_2 - a3) / (n - 5),
-                  a = an_2 + 3 * d - n * d;
-
-        cout &amp;lt;&amp;lt; n &amp;lt;&amp;lt; "\n";
-        for (int i = 0; i &amp;lt; n; ++i) {
-            cout &amp;lt;&amp;lt; a + i * d &amp;lt;&amp;lt; " ";
-        }
-        cout &amp;lt;&amp;lt; "\n";
-    }
-    return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/15/ap2/</link><guid isPermaLink="false">33b28c2c-309d-4565-b80e-983dae151ffb</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Sat, 15 Nov 2014 11:17:04 GMT</pubDate></item><item><title>PT07Y</title><description>&lt;p&gt;You are given an unweighted, undirected graph. Write a program to check if it's a tree topology.&lt;/p&gt;
-
-&lt;h6 id="input"&gt;Input&lt;/h6&gt;
-
-&lt;p&gt;The first line of the input file contains two integers N and M --- number of nodes and number of edges in the graph (0 &amp;lt; N &amp;lt;= 10000, 0 &amp;lt;= M &amp;lt;= 20000). Next M lines contain M edges of that graph --- Each line contains a pair (u, v) means there is an edge between node u and node v (1 &amp;lt;= u,v &amp;lt;= N).&lt;/p&gt;
-
-&lt;h6 id="output"&gt;Output&lt;/h6&gt;
-
-&lt;p&gt;Print YES if the given graph is a tree, otherwise print NO.&lt;/p&gt;
-
-&lt;p&gt;Example&lt;/p&gt;
-
-&lt;p&gt;Input: &lt;br&gt;
-3 2 &lt;br&gt;
-1 2 &lt;br&gt;
-2 3&lt;/p&gt;
-
-&lt;p&gt;Output: &lt;br&gt;
-YES&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
-#include &amp;lt;vector&amp;gt;
-
-using namespace std;
-
-int root(int a, vector&amp;lt;int&amp;gt; &amp;amp;id) {  
-    while (a != id[a]) {
-        id[a] = id[id[a]];
-        a = id[a];
-    }
-    return a;
-}
-
-bool isConnected(int a, int b, vector&amp;lt;int&amp;gt; &amp;amp;id) {  
-    return (root(a, id) == root(b, id));
-}
-
-void Union(int a, int b, vector&amp;lt;int&amp;gt; &amp;amp;id, vector&amp;lt;int&amp;gt; &amp;amp;size) {  
-    int roota = root(a,id);
-    int rootb = root(b,id);
-    if (size[roota] &amp;lt; size[rootb]) {
-        id[roota] = rootb;
-        size[rootb] += size[roota];
-    } else {
-        id[rootb] = roota;
-        size[roota] += size[rootb];
-    }
-    return;
-}
-
-bool isATree(int N, vector&amp;lt;pair&amp;lt;int, int&amp;gt; &amp;gt; edges) {  
-    vector&amp;lt;int&amp;gt; id(N),
-                sz(N,1);
-    for (int i = 0; i &amp;lt; N; ++i) {
-        id[i] = i;
-    }
-    for (int i = 0; i &amp;lt; edges.size(); ++i) {
-        if (isConnected(edges[i].first, edges[i].second, id)) {
-            return false;
-        } else {
-            Union(edges[i].first, edges[i].second, id, sz);
-        }
-    }
-    return true;
-}
-
-int main() {  
-    int N, M;
-    cin &amp;gt;&amp;gt; N &amp;gt;&amp;gt; M;
-    vector&amp;lt;pair&amp;lt;int, int&amp;gt; &amp;gt; edges(M);
-    for (int i = 0; i &amp;lt; M; ++i) {
-        int a, b;
-        cin &amp;gt;&amp;gt; a &amp;gt;&amp;gt; b;
-        --a, --b;
-        edges[i] = make_pair(a,b);
-    }
-
-    if (isATree(N, edges)) {
-        cout &amp;lt;&amp;lt; "YES\n";
-    } else {
-        cout &amp;lt;&amp;lt; "NO\n";
-    }
-
-    return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/15/pt07y/</link><guid isPermaLink="false">9443e4d8-7ed7-4a59-b088-880dde6a4902</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Sat, 15 Nov 2014 10:31:16 GMT</pubDate></item><item><title>STPAR</title><description>&lt;p&gt;For sure, the love mobiles will roll again on this summer's street parade. Each year, the organisers decide on a fixed order for the decorated trucks. Experience taught them to keep free a side street to be able to bring the trucks into order. &lt;/p&gt;
-
-&lt;p&gt;The side street is so narrow that no two cars can pass each other. Thus, the love mobile that enters the side street last must necessarily leave the side street first. Because the trucks and the ravers move up closely, a truck cannot drive back and re-enter the side street or the approach street. &lt;/p&gt;
-
-&lt;p&gt;You are given the order in which the love mobiles arrive. Write a program that decides if the love mobiles can be brought into the order that the organisers want them to be.&lt;/p&gt;
-
-&lt;h6 id="input"&gt;Input&lt;/h6&gt;
-
-&lt;p&gt;There are several test cases. The first line of each test case contains a single number n, the number of love mobiles. The second line contains the numbers 1 to n in an arbitrary order. All the numbers are separated by single spaces. These numbers indicate the order in which the trucks arrive in the approach street. No more than 1000 love mobiles participate in the street parade. Input ends with number 0.&lt;/p&gt;
-
-&lt;h6 id="output"&gt;Output&lt;/h6&gt;
-
-&lt;p&gt;For each test case your program has to output a line containing a single word yes if the love mobiles can be re-ordered with the help of the side street, and a single word no in the opposite case.&lt;/p&gt;
-
-&lt;p&gt;Example&lt;/p&gt;
-
-&lt;p&gt;Input: &lt;br&gt;
-5 &lt;br&gt;
-5 1 2 4 3 &lt;br&gt;
-0&lt;/p&gt;
-
-&lt;p&gt;Output: &lt;br&gt;
-yes&lt;/p&gt;
-
-&lt;h6 id="illustration"&gt;Illustration&lt;/h6&gt;
-
-&lt;p&gt;The sample input reflects the following situation: &lt;br&gt;
-&lt;img src="http://code-jedi.chintanghate.me/content/images/2014/11/pomyk-parade1.gif" alt="Illustration0"&gt;
-The five trucks can be re-ordered in the following way: &lt;br&gt;
-&lt;img src="http://code-jedi.chintanghate.me/content/images/2014/11/pomyk-parade2.gif" alt="Illustration1"&gt;
-&lt;img src="http://code-jedi.chintanghate.me/content/images/2014/11/pomyk-parade3.gif" alt="Illustration2"&gt;
-&lt;img src="http://code-jedi.chintanghate.me/content/images/2014/11/pomyk-parade4.gif" alt="Illustration3"&gt;
-&lt;img src="http://code-jedi.chintanghate.me/content/images/2014/11/pomyk-parade5.gif" alt="Illustration4"&gt;
-&lt;img src="http://code-jedi.chintanghate.me/content/images/2014/11/pomyk-parade6.gif" alt="Illustration5"&gt;&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
-#include &amp;lt;stack&amp;gt;
-#include &amp;lt;deque&amp;gt;
-
-using namespace std;
-
-int main() {  
-    int T;
-    while ((cin &amp;gt;&amp;gt; T) &amp;amp;&amp;amp; T != 0) {
-        deque&amp;lt;int&amp;gt; Q;
-        for (int i = 0; i &amp;lt; T; ++i) {
-            int x;
-            cin &amp;gt;&amp;gt; x;
-            Q.push_back(x);
-        }
-
-        int vehicle = 1;
-        stack&amp;lt;int&amp;gt; S;
-        while (!Q.empty() || !S.empty()) {
-            if (!S.empty() &amp;amp;&amp;amp; S.top() == vehicle) {
-                S.pop();
-                ++vehicle;
-            } else if (!Q.empty() &amp;amp;&amp;amp; Q.front() == vehicle) {
-                Q.pop_front();
-                ++vehicle;
-            } else if (!Q.empty()) {
-                S.push(Q.front());
-                Q.pop_front();
-            } else if (!S.empty()) {
-                S.pop();
-            }
-        }
-        if (vehicle == T + 1) {
-            cout &amp;lt;&amp;lt; "yes\n";
-        } else {
-            cout &amp;lt;&amp;lt; "no\n";
-        }
-    }
-    return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/13/stpar/</link><guid isPermaLink="false">f7029305-37d1-472a-a96d-21655dfd9245</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Thu, 13 Nov 2014 17:52:08 GMT</pubDate></item><item><title>FENCE1</title><description>&lt;p&gt;There is a wall in your backyard. It is so long that you can’t see its endpoints. You want to build a fence of length L such that the area enclosed between the wall and the fence is maximized. The fence can be of arbitrary shape, but only its two endpoints may touch the wall.&lt;/p&gt;
-
-&lt;h6 id="input"&gt;Input&lt;/h6&gt;
-
-&lt;p&gt;The input consists of several test cases.&lt;/p&gt;
-
-&lt;p&gt;For every test case, there is only one integer L (1&amp;lt;=L&amp;lt;=100), indicating the length of the fence.&lt;/p&gt;
-
-&lt;p&gt;The input ends with L=0.&lt;/p&gt;
-
-&lt;h6 id="output"&gt;Output&lt;/h6&gt;
-
-&lt;p&gt;For each test case, output one line containing the largest area. Your answer should be rounded to 2 digits after the decimal point.&lt;/p&gt;
-
-&lt;p&gt;Example&lt;/p&gt;
-
-&lt;p&gt;Input: &lt;br&gt;
-1 &lt;br&gt;
-0&lt;/p&gt;
-
-&lt;p&gt;Output: &lt;br&gt;
-0.16&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
-#include &amp;lt;iomanip&amp;gt;
-
-using namespace std;
-
-int main() {  
-    double PI = 3.14159265358979323846;
-    double L;
-    while((cin &amp;gt;&amp;gt; L) &amp;amp;&amp;amp; L != 0) {
-        cout &amp;lt;&amp;lt; setprecision(2) &amp;lt;&amp;lt; fixed 
-             &amp;lt;&amp;lt; L*L/2.0/PI &amp;lt;&amp;lt; "\n";
-    }
-    return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/13/fence1/</link><guid isPermaLink="false">9af4f18a-8fef-4eb0-bb0b-a9b2e36f7b47</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Thu, 13 Nov 2014 17:42:29 GMT</pubDate></item><item><title>WILLITST</title><description>&lt;p&gt;When Bob was in library in University of Warsaw he saw on one of facades caption :"Will it ever stop?" and below some mysterious code:  &lt;/p&gt;
-
-&lt;pre&gt;&lt;code class="prettyprint"&gt;while n &amp;gt; 1  
-  if n mod 2 = 0 then
-    n:=n/2
-  else
-    n:=3*n+3
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Help him finding it out !&lt;/p&gt;
-
-&lt;h6 id="input"&gt;Input&lt;/h6&gt;
-
-&lt;p&gt;In first line one number n&amp;lt;=10^14.&lt;/p&gt;
-
-&lt;h6 id="output"&gt;Output&lt;/h6&gt;
-
-&lt;p&gt;Print "TAK" if program will stop, otherwise print "NIE"&lt;/p&gt;
-
-&lt;p&gt;Example&lt;/p&gt;
-
-&lt;p&gt;Input: &lt;br&gt;
-4&lt;/p&gt;
-
-&lt;p&gt;Output: &lt;br&gt;
-TAK&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
-
-using namespace std;
-
-int main() {  
-    unsigned long long N;
-    cin &amp;gt;&amp;gt; N;
-
-    unsigned long long i = 1;
-    while (i &amp;lt; N) {
-        i *= 2;
-    }
-    if (i == N) {
-        cout &amp;lt;&amp;lt; "TAK\n";
-    } else {
-        cout &amp;lt;&amp;lt; "NIE\n";
-    }
-
-    return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/07/willitst/</link><guid isPermaLink="false">8367d7e9-3ece-4651-bcae-8f74c68912d8</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Fri, 07 Nov 2014 17:55:15 GMT</pubDate></item><item><title>ARMY</title><description>&lt;p&gt;The next MechaGodzilla invasion is on its way to Earth. And once again, Earth will be the battleground for an epic war.&lt;/p&gt;
-
-&lt;p&gt;MechaGodzilla's army consists of many nasty alien monsters, such as Space Godzilla, King Gidorah, and MechaGodzilla herself.&lt;/p&gt;
-
-&lt;p&gt;To stop them and defend Earth, Godzilla and her friends are preparing for the battle.&lt;/p&gt;
-
-&lt;h6 id="problem"&gt;Problem&lt;/h6&gt;
-
-&lt;p&gt;Each army consists of many different monsters. Each monster has a strength that can be described by a positive integer. (The larger the value, the stronger the monster.)&lt;/p&gt;
-
-&lt;p&gt;The war will consist of a series of battles. In each battle, the weakest of all the monsters that are still alive is killed.&lt;/p&gt;
-
-&lt;p&gt;If there are several weakest monsters, but all of them in the same army, one of them is killed at random. If both armies have at least one of the weakest monsters, a random weakest monster of MechaGodzilla's army is killed.&lt;/p&gt;
-
-&lt;p&gt;The war is over if in one of the armies all monsters are dead. The dead army lost, the other one won.&lt;/p&gt;
-
-&lt;p&gt;You are given the strengths of all the monsters. Find out who wins the war.&lt;/p&gt;
-
-&lt;h6 id="input"&gt;Input&lt;/h6&gt;
-
-&lt;p&gt;The first line of the input file contains an integer T specifying the number of test cases. Each test case is preceded by a blank line.&lt;/p&gt;
-
-&lt;p&gt;Each test case starts with line containing two positive integers NG and NM – the number of monsters in Godzilla's and in MechaGodzilla's army. Two lines follow. The first one contains NG positive integers – the strengths of the monsters in Godzilla's army. Similarly, the second one contains NM positive integers – the strengths of the monsters in MechaGodzilla's army.&lt;/p&gt;
-
-&lt;h6 id="output"&gt;Output&lt;/h6&gt;
-
-&lt;p&gt;For each test case, output a single line with a string that describes the outcome of the battle.&lt;/p&gt;
-
-&lt;p&gt;If it is sure that Godzilla's army wins, output the string "Godzilla".&lt;/p&gt;
-
-&lt;p&gt;If it is sure that MechaGodzilla's army wins, output the string "MechaGodzilla".&lt;/p&gt;
-
-&lt;p&gt;Otherwise, output the string "uncertain".&lt;/p&gt;
-
-&lt;p&gt;Example&lt;/p&gt;
-
-&lt;p&gt;Input: &lt;br&gt;
-2&lt;/p&gt;
-
-&lt;p&gt;1 1 &lt;br&gt;
-1 &lt;br&gt;
-1&lt;/p&gt;
-
-&lt;p&gt;3 2 &lt;br&gt;
-1 3 2 &lt;br&gt;
-5 5&lt;/p&gt;
-
-&lt;p&gt;Output: &lt;br&gt;
-Godzilla &lt;br&gt;
-MechaGodzilla&lt;/p&gt;
-
-&lt;h6 id="hint"&gt;Hint&lt;/h6&gt;
-
-&lt;p&gt;In the first test case, there are only two monsters, and they are equally strong. In this situation, MechaGodzilla's monster is killed and the war ends.&lt;/p&gt;
-
-&lt;p&gt;In the second test case, the war will consist of three battles, and in each of them one of Godzilla's monsters dies.&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
-#include &amp;lt;vector&amp;gt;
-#include &amp;lt;algorithm&amp;gt;
-#include &amp;lt;deque&amp;gt;
-
-using namespace std;
-
-int main() {  
-    int T;
-    cin &amp;gt;&amp;gt; T;
-    for (;T--;) {
-        int NG, NM;
-        cin &amp;gt;&amp;gt; NG &amp;gt;&amp;gt; NM;
-
-        if (NG == 0 &amp;amp;&amp;amp; NM == 0) {
-            cout &amp;lt;&amp;lt; "uncertain\n";
-        } else {
-            vector&amp;lt;int&amp;gt; NGA(NG), NMA(NM);
-            for (int i = 0; i &amp;lt; NG; ++i) {
-                cin &amp;gt;&amp;gt; NGA[i];
-            }
-            sort(NGA.begin(), NGA.end());
-            for (int i = 0; i &amp;lt; NM; ++i) {
-                cin &amp;gt;&amp;gt; NMA[i];
-            }
-            sort(NMA.begin(), NMA.end());
-
-            deque&amp;lt;int&amp;gt; NGQ(NGA.begin(), NGA.end()), 
-                       NMQ(NMA.begin(), NMA.end());
-            while (!NGQ.empty() &amp;amp;&amp;amp; !NMQ.empty()) {
-                if (NGQ.front() &amp;gt;= NMQ.front()) {
-                    NMQ.pop_front();
-                } else {
-                    NGQ.pop_front();
-                }
-            }
-            if (NGQ.empty()) {
-                cout &amp;lt;&amp;lt; "MechaGodzilla\n";
-            } else {
-                cout &amp;lt;&amp;lt; "Godzilla\n";
-            }
-        }
-    }
-    return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/07/army/</link><guid isPermaLink="false">32331cd3-7c18-4fc6-b3b6-23ce3e45394d</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Fri, 07 Nov 2014 17:41:53 GMT</pubDate></item><item><title>STAMPS</title><description>&lt;p&gt;Everybody hates Raymond. He’s the largest stamp collector on planet earth and because of that he always makes fun of all the others at the stamp collector parties. Fortunately everybody loves Lucy, and she has a plan. She secretly asks her friends whether they could lend her some stamps, so that she can embarrass Raymond by showing an even larger collection than his. Raymond is so sure about his superiority that he always tells how many stamps he’ll show.And since Lucy knows how many she owns, she knows how many more she needs. She also knows how many friends would lend her some stamps and how many each would lend. But she’s like to borrow from as few friends as possible and if she needs too many then she’d rather not do it at all. Can you tell her the minimum number of friends she needs to borrow from?&lt;/p&gt;
-
-&lt;h6 id="input"&gt;Input&lt;/h6&gt;
-
-&lt;p&gt;The first line contains the number of scenarios. Each scenario describes one collectors party and its first line tells you how many stamps (from 1 to 1000000) Lucy needs to borrow and how many friends (from 1 to 1000) offer her some stamps. In a second line you’ll get the number of stamps (from 1 to 10000) each of her friends id offering.&lt;/p&gt;
-
-&lt;h6 id="output"&gt;Output&lt;/h6&gt;
-
-&lt;p&gt;The output for every scenario begins with a line containing “Scenario #i:”, where i is the number of the scenario starting at 1. Then print a single line with the minimum number of friends Lucy needs to borrow stamps from. If it’s impossible even if she borrows everything from everybody, write impossible. Terminate the output for the scenario with a blank line.&lt;/p&gt;
-
-&lt;p&gt;Example&lt;/p&gt;
-
-&lt;p&gt;Input: &lt;br&gt;
-3 &lt;br&gt;
-100 6 &lt;br&gt;
-13 17 42 9 23 57 &lt;br&gt;
-99 6 &lt;br&gt;
-13 17 42 9 23 57 &lt;br&gt;
-1000 3 &lt;br&gt;
-314 159 265&lt;/p&gt;
-
-&lt;p&gt;Output: &lt;br&gt;
-Scenario #1: &lt;br&gt;
-3&lt;/p&gt;
-
-&lt;p&gt;Scenario #2: &lt;br&gt;
-2&lt;/p&gt;
-
-&lt;p&gt;Scenario #3: &lt;br&gt;
-impossible&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
-#include &amp;lt;vector&amp;gt;
-#include &amp;lt;algorithm&amp;gt;
-
-using namespace std;
-
-bool compare (int a, int b) {  
-    return a &amp;gt; b;
-}
-
-int main() {  
-    int T;
-    cin &amp;gt;&amp;gt; T;
-    for (int t = 1; t &amp;lt;= T; ++t) {
-        int needed, friends;
-        cin &amp;gt;&amp;gt; needed &amp;gt;&amp;gt; friends;
-        vector&amp;lt;int&amp;gt; stamps(friends);
-        for (int i = 0; i &amp;lt; friends; ++i) {
-            cin &amp;gt;&amp;gt; stamps[i];
-        }
-        sort(stamps.begin(), stamps.end(), compare);
-        int count = 0, sum = 0;
-        for (int i = 0; i &amp;lt; friends; ++i) {
-            sum += stamps[i];
-            ++count;
-            if (sum &amp;gt;= needed) {
-                break;
-            }
-        }
-        cout &amp;lt;&amp;lt; "Scenario #" &amp;lt;&amp;lt; t &amp;lt;&amp;lt; ":\n";
-        if(sum &amp;gt;= needed) {
-            cout &amp;lt;&amp;lt; count &amp;lt;&amp;lt; "\n\n";
-        } else {
-            cout &amp;lt;&amp;lt; "impossible\n\n";
-        }
-    }
-    return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/07/stamps/</link><guid isPermaLink="false">59bd02c8-92bc-49d8-a36d-b5c7867409ff</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Fri, 07 Nov 2014 13:12:08 GMT</pubDate></item></channel></rss>
+&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/15/offside/</link><guid isPermaLink="false">bcad7e40-9e78-4b3e-8d5f-6ca8ec927d03</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Sat, 15 Nov 2014 14:13:43 GMT</pubDate></item></channel></rss>

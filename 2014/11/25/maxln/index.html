@@ -1,0 +1,173 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>MAXLN</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css?v=1fe7f69c8e">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+    <link href="../../../../assets/css/prettify.css?v=1fe7f69c8e" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="../../../../assets/js/prettify.js?v=1fe7f69c8e"></script>
+    <link rel="canonical" href="http://code-jedi.chintanghate.me/2014/11/25/maxln/">
+    
+    <meta property="og:site_name" content="Code Jedi">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="MAXLN">
+    <meta property="og:description" content="In this problem you will be given a half-circle. The half-circle’s radius is r. You can take any point A on the half-circle and draw 2 lines from the point to the two sides of the diameter(AB and...">
+    <meta property="og:url" content="http://code-jedi.chintanghate.me/2014/11/25/maxln/">
+    <meta property="article:published_time" content="2014-11-25T18:10:20.423Z">
+    <meta property="article:modified_time" content="2014-11-26T03:33:57.530Z">
+    <meta property="article:tag" content="SPOJ">
+    
+    <meta name="twitter:card" content="content">
+    <meta name="twitter:title" content="MAXLN">
+    <meta name="twitter:description" content="In this problem you will be given a half-circle. The half-circle’s radius is r. You can take any point A on the half-circle and draw 2 lines from the point to the two sides of the diameter(AB and...">
+    <meta name="twitter:url" content="http://code-jedi.chintanghate.me/2014/11/25/maxln/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Code Jedi",
+    "author": {
+        "@type": "Person",
+        "name": "Chintan Ghate",
+        "url": "http://code-jedi.chintanghate.me/author/chintan",
+        "sameAs": null
+    },
+    "headline": "MAXLN",
+    "url": "http://code-jedi.chintanghate.me/2014/11/25/maxln/",
+    "datePublished": "2014-11-25T18:10:20.423Z",
+    "dateModified": "2014-11-26T03:33:57.530Z",
+    "keywords": "SPOJ",
+    "description": "In this problem you will be given a half-circle. The half-circle’s radius is r. You can take any point A on the half-circle and draw 2 lines from the point to the two sides of the diameter(AB and"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Code Jedi" href="../../../../rss/index.html">
+</head>
+<body class="post-template tag-spoj" onload="prettyPrint()">
+
+    
+
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        <a class="back-button icon-arrow-left" href="http://code-jedi.chintanghate.me">Home</a>
+        <a class="subscribe-button icon-feed" href="http://code-jedi.chintanghate.me/rss/index.rss">Subscribe</a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+
+    <article class="post tag-spoj">
+
+        <header class="post-header">
+            <h1 class="post-title">MAXLN</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2014-11-25">25 November 2014</time>  on <a href="../../../../tag/spoj/">SPOJ</a>
+            </section>
+        </header>
+
+        <section class="post-content">
+            <p>In this problem you will be given a half-circle. The half-circle’s radius is r. You can take any point A on the half-circle and draw 2 lines from the point to the two sides of the diameter(AB and AC). Let the sum of square of one line’s length and the other line’s length is s.</p>
+
+<p><img src="../../../../content/images/2014/11/sE2qJlnf5DUTr7awOFtMOwA-1.png" alt="Illustration"></p>
+
+<p>Like in the figure s=AB^2+AC. And BC=2r.</p>
+
+<p>Now given r you have to find the maximum value of s. That is you have to find point A such that AB^2+AC is maximum.</p>
+
+<h6 id="input">Input:</h6>
+
+<p>First line of the test case will be the number of test case T(1&lt;=T&lt;=1000) . Then T lines follows. On each line you will find a integer number r(1&lt;=r&lt;=1000000); each representing the radius of the half-circle.</p>
+
+<h6 id="output">Output:</h6>
+
+<p>For each input line, print a line containing “Case I: ”, where I is the test case number and the maximum value of s. Print 2 digit after decimal(Errors should be less then .01).</p>
+
+<p>Example</p>
+
+<p>Input: <br>
+1 <br>
+1</p>
+
+<p>Output: <br>
+Case 1: 4.25</p>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;iomanip&gt;
+
+using namespace std;
+
+int main() {  
+    int T;
+    cin &gt;&gt; T;
+    for (int t = 1; t &lt;= T; ++t) {
+        double n;
+        cin &gt;&gt; n;
+        cout &lt;&lt; "Case " &lt;&lt; setprecision(2) &lt;&lt; fixed 
+             &lt;&lt; t &lt;&lt; ": " &lt;&lt; 4*n*n+0.25 &lt;&lt; "\n";
+    }
+    return 0;
+}
+</code></pre>
+        </section>
+
+        <footer class="post-footer">
+
+
+
+            <section class="author">
+                <h4><a href="../../../../author/chintan/">Chintan Ghate</a></h4>
+
+                    <p>Read <a href="../../../../author/chintan/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/share?text=MAXLN&amp;url=http://code-jedi.chintanghate.me/2014/11/25/maxln/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://code-jedi.chintanghate.me/2014/11/25/maxln/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://code-jedi.chintanghate.me/2014/11/25/maxln/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+    </article>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+         <section class="copyright"><a href="http://code-jedi.chintanghate.me">Code Jedi</a> © 2014</section>
+         <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+    </footer>
+
+    <script src="../../../../public/jquery.js?v=1fe7f69c8e"></script>
+
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js?v=1fe7f69c8e"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js?v=1fe7f69c8e"></script>
+
+</body>
