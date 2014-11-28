@@ -1,0 +1,216 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>HYPNOS</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css?v=2d3fe91acd">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+    <link href="../../../../assets/css/prettify.css?v=2d3fe91acd" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="../../../../assets/js/prettify.js?v=2d3fe91acd"></script>
+    <link rel="canonical" href="http://code-jedi.chintanghate.me/2014/11/28/hypnos/">
+    
+    <meta property="og:site_name" content="Code Jedi">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="HYPNOS">
+    <meta property="og:description" content="The process of “breaking” an integer is defined as summing the squares of its digits. For example, the result of breaking the integer 125 is (12 + 22 + 52) = 30. An integer N is happy if after “breaking” it repeatedly the...">
+    <meta property="og:url" content="http://code-jedi.chintanghate.me/2014/11/28/hypnos/">
+    <meta property="article:published_time" content="2014-11-28T13:09:53.227Z">
+    <meta property="article:modified_time" content="2014-11-28T13:09:53.226Z">
+    <meta property="article:tag" content="SPOJ">
+    
+    <meta name="twitter:card" content="content">
+    <meta name="twitter:title" content="HYPNOS">
+    <meta name="twitter:description" content="The process of “breaking” an integer is defined as summing the squares of its digits. For example, the result of breaking the integer 125 is (12 + 22 + 52) = 30. An integer N is happy if after “breaking” it repeatedly the...">
+    <meta name="twitter:url" content="http://code-jedi.chintanghate.me/2014/11/28/hypnos/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Code Jedi",
+    "author": {
+        "@type": "Person",
+        "name": "Chintan Ghate",
+        "url": "http://code-jedi.chintanghate.me/author/chintan",
+        "sameAs": null
+    },
+    "headline": "HYPNOS",
+    "url": "http://code-jedi.chintanghate.me/2014/11/28/hypnos/",
+    "datePublished": "2014-11-28T13:09:53.227Z",
+    "dateModified": "2014-11-28T13:09:53.226Z",
+    "keywords": "SPOJ",
+    "description": "The process of “breaking” an integer is defined as summing the squares of its digits. For example, the result of breaking the integer 125 is (12 + 22 + 52) = 30. An integer N is happy if after “breaking” it repeatedly the"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Code Jedi" href="../../../../rss/index.html">
+</head>
+<body class="post-template tag-spoj" onload="prettyPrint()">
+
+    
+
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        <a class="back-button icon-arrow-left" href="http://code-jedi.chintanghate.me">Home</a>
+        <a class="subscribe-button icon-feed" href="http://code-jedi.chintanghate.me/rss/index.rss">Subscribe</a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+
+    <article class="post tag-spoj">
+
+        <header class="post-header">
+            <h1 class="post-title">HYPNOS</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2014-11-28">28 November 2014</time>  on <a href="../../../../tag/spoj/">SPOJ</a>
+            </section>
+        </header>
+
+        <section class="post-content">
+            <p>The process of “breaking” an integer is defined as summing the squares of its digits. For example, the result of breaking the integer 125 is (12 + 22 + 52) = 30. An integer N is happy if after “breaking” it repeatedly the result reaches 1. If the result never reaches 1 no matter how many times the “breaking” is repeated, then N is not a happy number.</p>
+
+<h6 id="task">Task</h6>
+
+<p>Write a program that given an integer N, determines whether it is a happy number or not.</p>
+
+<h6 id="constraints">Constraints</h6>
+
+<p>2 ≤ N ≤ 2,147,483,647</p>
+
+<h6 id="input">Input</h6>
+
+<p>A single line containing a single integer N.</p>
+
+<h6 id="output">Output</h6>
+
+<p>A single line containing a single integer T which is the number of times the process had to be done to determine that N is happy, or -1 if N is not happy.</p>
+
+<p>Example</p>
+
+<p>Input: <br>
+19</p>
+
+<p>Output: <br>
+4</p>
+
+<p>1) 19   : 12 + 92 = 82 <br>
+2) 82   : 82 + 22 = 68 <br>
+3) 68   : 62 + 82 = 100 <br>
+4) 100 : 12 + 02 + 02 = 1</p>
+
+<p>The solution is 4 because we discovered that the integer 19 is happy after we repeated the process 4 <br>
+times.</p>
+
+<p>Example</p>
+
+<p>Input: <br>
+204</p>
+
+<p>Output: <br>
+-1</p>
+
+<p>204 –&gt; 20 –&gt; 4 –&gt; 16 –&gt; 37 –&gt; 58 –&gt; 89 –&gt; 145 –&gt; 42 –&gt; 20 –&gt; 4 –&gt; 16 –&gt; 37 –&gt; 58 –&gt; 89 –&gt; 145 ……..</p>
+
+<p>204 is not a happy number because after breaking it several times the results start repeating so we can deduce that if we continue breaking it, the result will never reach 1.</p>
+
+<p>Number of test cases is 32.</p>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;set&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+ll breakNumber(ll N) {  
+    ll res = 0;
+    while (N != 0) {
+        int n = N % 10;
+        res += (n * n);
+        N /= 10;
+    }
+    return res;
+}
+
+int main() {  
+    int N;
+    cin &gt;&gt; N;
+    set&lt;ll&gt; pows;
+    pows.insert(N);
+    ll count = 0;
+    while (N != 1) {
+        N = breakNumber(N);
+        if (pows.find(N) != pows.end()) {
+            count = -1;
+            break;
+        } else {
+            pows.insert(N);
+            ++count;
+        }
+    }
+    cout &lt;&lt; count &lt;&lt; "\n";
+    return 0;
+}
+</code></pre>
+        </section>
+
+        <footer class="post-footer">
+
+
+
+            <section class="author">
+                <h4><a href="../../../../author/chintan/">Chintan Ghate</a></h4>
+
+                    <p>Read <a href="../../../../author/chintan/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/share?text=HYPNOS&amp;url=http://code-jedi.chintanghate.me/2014/11/28/hypnos/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://code-jedi.chintanghate.me/2014/11/28/hypnos/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://code-jedi.chintanghate.me/2014/11/28/hypnos/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+    </article>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+         <section class="copyright"><a href="http://code-jedi.chintanghate.me">Code Jedi</a> © 2014</section>
+         <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+    </footer>
+
+    <script src="../../../../public/jquery.js?v=2d3fe91acd"></script>
+
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js?v=2d3fe91acd"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js?v=2d3fe91acd"></script>
+
+</body>

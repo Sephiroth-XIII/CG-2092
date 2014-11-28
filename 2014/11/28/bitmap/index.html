@@ -1,0 +1,214 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>BITMAP</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css?v=2d3fe91acd">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+    <link href="../../../../assets/css/prettify.css?v=2d3fe91acd" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="../../../../assets/js/prettify.js?v=2d3fe91acd"></script>
+    <link rel="canonical" href="http://code-jedi.chintanghate.me/2014/11/28/bitmap/">
+    
+    <meta property="og:site_name" content="Code Jedi">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="BITMAP">
+    <meta property="og:description" content="There is given a rectangular bitmap of size n*m. Each pixel of the bitmap is either white or black, but at least one is white. The pixel in i-th line and j-th column is called the pixel (i,j...">
+    <meta property="og:url" content="http://code-jedi.chintanghate.me/2014/11/28/bitmap/">
+    <meta property="article:published_time" content="2014-11-28T04:07:25.145Z">
+    <meta property="article:modified_time" content="2014-11-28T04:07:25.144Z">
+    <meta property="article:tag" content="SPOJ">
+    
+    <meta name="twitter:card" content="content">
+    <meta name="twitter:title" content="BITMAP">
+    <meta name="twitter:description" content="There is given a rectangular bitmap of size n*m. Each pixel of the bitmap is either white or black, but at least one is white. The pixel in i-th line and j-th column is called the pixel (i,j...">
+    <meta name="twitter:url" content="http://code-jedi.chintanghate.me/2014/11/28/bitmap/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Code Jedi",
+    "author": {
+        "@type": "Person",
+        "name": "Chintan Ghate",
+        "url": "http://code-jedi.chintanghate.me/author/chintan",
+        "sameAs": null
+    },
+    "headline": "BITMAP",
+    "url": "http://code-jedi.chintanghate.me/2014/11/28/bitmap/",
+    "datePublished": "2014-11-28T04:07:25.145Z",
+    "dateModified": "2014-11-28T04:07:25.144Z",
+    "keywords": "SPOJ",
+    "description": "There is given a rectangular bitmap of size n*m. Each pixel of the bitmap is either white or black, but at least one is white. The pixel in i-th line and j-th column is called the pixel (i,j"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Code Jedi" href="../../../../rss/index.html">
+</head>
+<body class="post-template tag-spoj" onload="prettyPrint()">
+
+    
+
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        <a class="back-button icon-arrow-left" href="http://code-jedi.chintanghate.me">Home</a>
+        <a class="subscribe-button icon-feed" href="http://code-jedi.chintanghate.me/rss/index.rss">Subscribe</a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+
+    <article class="post tag-spoj">
+
+        <header class="post-header">
+            <h1 class="post-title">BITMAP</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2014-11-28">28 November 2014</time>  on <a href="../../../../tag/spoj/">SPOJ</a>
+            </section>
+        </header>
+
+        <section class="post-content">
+            <p>There is given a rectangular bitmap of size n*m. Each pixel of the bitmap is either white or black, but at least one is white. The pixel in i-th line and j-th column is called the pixel (i,j). The distance between two pixels p1=(i1,j1) and p2=(i2,j2) is defined as:</p>
+
+<p>d(p1,p2)=|i1-i2|+|j1-j2|.</p>
+
+<h6 id="task">Task</h6>
+
+<p>Write a program which:</p>
+
+<ul>
+<li>reads the description of the bitmap from the standard input,</li>
+<li>for each pixel, computes the distance to the nearest white pixel,</li>
+<li>writes the results to the standard output.</li>
+</ul>
+
+<h6 id="input">Input</h6>
+
+<p>The number of test cases t is in the first line of input, then t test cases follow separated by an empty line. In the first line of each test case there is a pair of integer numbers n, m separated by a single space, 1&lt;=n &lt;=182, 1&lt;=m&lt;=182. In each of the following n lines of the test case exactly one zero-one word of length m, the description of one line of the bitmap, is written. On the j-th position in the line (i+1), 1 &lt;= i &lt;= n, 1 &lt;= j &lt;= m, is '1' if, and only if the pixel (i,j) is white.</p>
+
+<h6 id="output">Output</h6>
+
+<p>In the i-th line for each test case, 1&lt;=i&lt;=n, there should be written m integers f(i,1),...,f(i,m) separated by single spaces, where f(i,j) is the distance from the pixel (i,j) to the nearest white pixel.</p>
+
+<p>Example</p>
+
+<p>Input: <br>
+1 <br>
+3 4 <br>
+0001 <br>
+0011 <br>
+0110</p>
+
+<p>Output: <br>
+3 2 1 0 <br>
+2 1 0 0 <br>
+1 0 0 1</p>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+void bfs(vector&lt;vector&lt;int&gt; &gt; &amp;dist, int x, int y, int d) {  
+    int n = dist.size(),
+        m = dist[0].size();
+    if (x &gt;= 0 &amp;&amp; x &lt; n &amp;&amp; y &gt;= 0 &amp;&amp; y &lt; m &amp;&amp; dist[x][y] &gt; d) {
+        dist[x][y] = d;
+        bfs(dist, x + 1, y, d + 1);
+        bfs(dist, x - 1, y, d + 1);
+        bfs(dist, x, y + 1, d + 1);
+        bfs(dist, x, y - 1, d + 1);
+    }
+    return;
+}
+
+int main() {  
+    int T;
+    cin &gt;&gt; T;
+    for (;T--;) {
+        int n, m;
+        cin &gt;&gt; n &gt;&gt; m;
+        vector&lt;string&gt; grid(n);
+        vector&lt;vector&lt;int&gt; &gt; dist(n, vector&lt;int&gt; (m, 400));
+        for (int i = 0; i &lt; n; ++i) {
+            cin &gt;&gt; grid[i];
+        }
+        for (int i = 0; i &lt; n; ++i) {
+            for (int j = 0; j &lt; m; ++j) {
+                if (grid[i][j] == '1') {
+                    bfs(dist, i, j, 0);
+                }
+            }
+        }
+        for (int i = 0; i &lt; n; ++i) {
+            for (int j = 0; j &lt; m; ++j) {
+                cout &lt;&lt; dist[i][j] &lt;&lt; " ";
+            }
+            cout &lt;&lt; "\n";
+        }
+    }
+    return 0;
+}
+</code></pre>
+        </section>
+
+        <footer class="post-footer">
+
+
+
+            <section class="author">
+                <h4><a href="../../../../author/chintan/">Chintan Ghate</a></h4>
+
+                    <p>Read <a href="../../../../author/chintan/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/share?text=BITMAP&amp;url=http://code-jedi.chintanghate.me/2014/11/28/bitmap/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://code-jedi.chintanghate.me/2014/11/28/bitmap/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://code-jedi.chintanghate.me/2014/11/28/bitmap/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+    </article>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+         <section class="copyright"><a href="http://code-jedi.chintanghate.me">Code Jedi</a> © 2014</section>
+         <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+    </footer>
+
+    <script src="../../../../public/jquery.js?v=2d3fe91acd"></script>
+
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js?v=2d3fe91acd"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js?v=2d3fe91acd"></script>
+
+</body>

@@ -1,5 +1,334 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Chintan Ghate - Code Jedi]]></title><description><![CDATA[Code, algorithms and design.]]></description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Thu, 27 Nov 2014 19:49:20 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/author/chintan/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[ACODE]]></title><description><![CDATA[<p>Alice and Bob need to send secret messages to each other and are discussing ways to encode their messages:  </p>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Chintan Ghate - Code Jedi]]></title><description><![CDATA[Code, algorithms and design.]]></description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Fri, 28 Nov 2014 17:58:27 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/author/chintan/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[CRDS]]></title><description><![CDATA[<p>Maricruz have a lot of cards, she always uses her cards to build pyramids as shown in the following image:</p>
+
+<p><img src="http://code-jedi.chintanghate.me/content/images/2014/11/francky-cards.png" alt="Cards"></p>
+
+<p>A pyramid card of 3 levels. <br>
+She always wonder how many cards does she need to make a pyramid card of N levels. Your task is to answer that question.</p>
+
+<h6 id="input">Input</h6>
+
+<p>The first line of the input contains an integer 1&lt;= T &lt;= 1,000. Each of the following T lines will have an integer 1&lt;= N &lt;= 1,000,000.</p>
+
+<h6 id="output">Output</h6>
+
+<p>For each case, output a single line consisting of the number of cards needed to build a pyramid card of level N modulo 1,000,007.</p>
+
+<p>Example</p>
+
+<p>Input: <br>
+2 <br>
+3 <br>
+7</p>
+
+<p>Output: <br>
+15 <br>
+77</p>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+
+using namespace std;
+
+int main() {  
+    int T;
+    cin &gt;&gt; T;
+    for (;T--;) {
+        unsigned long long levels;
+        cin &gt;&gt; levels;
+        unsigned long long cards = 
+        (((levels * (levels + 1) / 2) * 3) - levels);
+        cout &lt;&lt; cards % 1000007 &lt;&lt; "\n";
+    }
+    return 0;
+}
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/28/crds/</link><guid isPermaLink="false">80d9e6f9-0109-4490-a9b5-32d931259a55</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Fri, 28 Nov 2014 17:25:46 GMT</pubDate></item><item><title><![CDATA[EGYPIZZA]]></title><description><![CDATA[<p>Abotrika is having a party because his team won the african cup so he is inviting his friends to eat some pizza. Unfortunately, Abotrika's friends can't eat an entire pizza but all of them know exactly how much pizza they can eat and insist on getting the exact amount of pizza but Abotrika eats one complete pizza and all of them wants his amount of pizza in one slice.</p>
+
+<p>Their requests break down to three different pizza slices-either one quarter or a half or three quarters of pizza. write a program that will help Abotrika to find out what is the minimal number of pizzas he has to order so that everyone gets exact amount of pizza they want.</p>
+
+<h6 id="input">Input</h6>
+
+<p>First line contains an integer N, 0&lt;=N&lt;=10000, number of friends. In each of next N lines there is amount of pizza that each of Abotrika's friends wants to eat,that is the fraction 1/4, 1/2 or 3/4.</p>
+
+<h6 id="output">Output</h6>
+
+<p>In the first and only line you should write the minimal number of pizzas Abotrika has order don't forget to order one complete pizza for Abotrika</p>
+
+<p>Example</p>
+
+<p>Input: <br>
+3 <br>
+1/2 <br>
+3/4 <br>
+3/4</p>
+
+<p>Output: <br>
+4</p>
+
+<p>Input: <br>
+5 <br>
+1/2 <br>
+3/4 <br>
+1/2 <br>
+1/4 <br>
+1/4</p>
+
+<p>Output: <br>
+4</p>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+using namespace std;
+
+int main() {  
+    int N;
+    cin &gt;&gt; N;
+    long long a = 1,
+              q = 0,
+              h = 0,
+              t = 0;
+    for (;N--;) {
+        string s;
+        cin &gt;&gt; s;
+        if (s == "1/2") {
+            ++h;
+        } else if (s == "3/4") {
+            ++t;
+        } else {
+            ++q;
+        }
+    }
+    a += h / 2;
+    a += (h % 2);
+    if (h % 2 == 1) {
+        q -= 2;
+    }
+    if (t &gt;= q) {
+        a += t;
+    } else {
+        a += t;
+        q -= t;
+        a += q/4;
+        a += (q % 4 &gt; 0 ? 1 : 0);
+    }
+    cout &lt;&lt; a &lt;&lt; "\n";
+    return 0;
+}
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/28/egypizza/</link><guid isPermaLink="false">848e8203-7cb7-4208-8e48-e6956466548d</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Fri, 28 Nov 2014 15:38:00 GMT</pubDate></item><item><title><![CDATA[OLOLOL]]></title><description><![CDATA[<p>Onotole has a lot of pyani. Each pyani has a number, writing on it. Pyanis with equal numbers are indistinguishable. Onotole knows everything, so, he knows that each pyani appeared twice, and only one pyani is unique. He wants to get вздръжни эффект, and he needs the unique pyani. Given the list of pyanis denote which one of them appeared once (it is guaranteed that other pyanis appeared twice).</p>
+
+<h6 id="input">Input</h6>
+
+<p>First line of input contains number of pyanis N&lt;=500 000. Next N lines contain a single positive integer 1 &lt;= Pi &lt;= 10^9.</p>
+
+<h6 id="output">Output</h6>
+
+<p>Output one positive integer on pyani, which appeared once.</p>
+
+<p>Example</p>
+
+<p>Input: <br>
+3 <br>
+1 <br>
+8 <br>
+1</p>
+
+<p>Output: <br>
+8</p>
+
+<p>Onotole has found not optimal AC algorithms, so all solutions will be rejudged. He is watching you.</p>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+
+using namespace std;
+
+int main() {  
+    int n;
+    scanf("%d",&amp;n);
+    long long x, res = 0;
+    for (;n--;) {
+        scanf("%lld",&amp;x);
+        res ^= x;
+    }
+    cout &lt;&lt; res &lt;&lt; "\n";
+    return 0;
+}
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/28/ololol/</link><guid isPermaLink="false">d8be6bbf-e8dd-4d91-b1b3-1098c55c5425</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Fri, 28 Nov 2014 13:18:27 GMT</pubDate></item><item><title><![CDATA[HYPNOS]]></title><description><![CDATA[<p>The process of “breaking” an integer is defined as summing the squares of its digits. For example, the result of breaking the integer 125 is (12 + 22 + 52) = 30. An integer N is happy if after “breaking” it repeatedly the result reaches 1. If the result never reaches 1 no matter how many times the “breaking” is repeated, then N is not a happy number.</p>
+
+<h6 id="task">Task</h6>
+
+<p>Write a program that given an integer N, determines whether it is a happy number or not.</p>
+
+<h6 id="constraints">Constraints</h6>
+
+<p>2 ≤ N ≤ 2,147,483,647</p>
+
+<h6 id="input">Input</h6>
+
+<p>A single line containing a single integer N.</p>
+
+<h6 id="output">Output</h6>
+
+<p>A single line containing a single integer T which is the number of times the process had to be done to determine that N is happy, or -1 if N is not happy.</p>
+
+<p>Example</p>
+
+<p>Input: <br>
+19</p>
+
+<p>Output: <br>
+4</p>
+
+<p>1) 19   : 12 + 92 = 82 <br>
+2) 82   : 82 + 22 = 68 <br>
+3) 68   : 62 + 82 = 100 <br>
+4) 100 : 12 + 02 + 02 = 1</p>
+
+<p>The solution is 4 because we discovered that the integer 19 is happy after we repeated the process 4 <br>
+times.</p>
+
+<p>Example</p>
+
+<p>Input: <br>
+204</p>
+
+<p>Output: <br>
+-1</p>
+
+<p>204 –> 20 –> 4 –> 16 –> 37 –> 58 –> 89 –> 145 –> 42 –> 20 –> 4 –> 16 –> 37 –> 58 –> 89 –> 145 ……..</p>
+
+<p>204 is not a happy number because after breaking it several times the results start repeating so we can deduce that if we continue breaking it, the result will never reach 1.</p>
+
+<p>Number of test cases is 32.</p>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;set&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+ll breakNumber(ll N) {  
+    ll res = 0;
+    while (N != 0) {
+        int n = N % 10;
+        res += (n * n);
+        N /= 10;
+    }
+    return res;
+}
+
+int main() {  
+    int N;
+    cin &gt;&gt; N;
+    set&lt;ll&gt; pows;
+    pows.insert(N);
+    ll count = 0;
+    while (N != 1) {
+        N = breakNumber(N);
+        if (pows.find(N) != pows.end()) {
+            count = -1;
+            break;
+        } else {
+            pows.insert(N);
+            ++count;
+        }
+    }
+    cout &lt;&lt; count &lt;&lt; "\n";
+    return 0;
+}
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/28/hypnos/</link><guid isPermaLink="false">cb4b527e-e33c-4e14-b403-967f3a1b9757</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Fri, 28 Nov 2014 13:09:53 GMT</pubDate></item><item><title><![CDATA[BITMAP]]></title><description><![CDATA[<p>There is given a rectangular bitmap of size n*m. Each pixel of the bitmap is either white or black, but at least one is white. The pixel in i-th line and j-th column is called the pixel (i,j). The distance between two pixels p1=(i1,j1) and p2=(i2,j2) is defined as:</p>
+
+<p>d(p1,p2)=|i1-i2|+|j1-j2|.</p>
+
+<h6 id="task">Task</h6>
+
+<p>Write a program which:</p>
+
+<ul>
+<li>reads the description of the bitmap from the standard input,</li>
+<li>for each pixel, computes the distance to the nearest white pixel,</li>
+<li>writes the results to the standard output.</li>
+</ul>
+
+<h6 id="input">Input</h6>
+
+<p>The number of test cases t is in the first line of input, then t test cases follow separated by an empty line. In the first line of each test case there is a pair of integer numbers n, m separated by a single space, 1&lt;=n &lt;=182, 1&lt;=m&lt;=182. In each of the following n lines of the test case exactly one zero-one word of length m, the description of one line of the bitmap, is written. On the j-th position in the line (i+1), 1 &lt;= i &lt;= n, 1 &lt;= j &lt;= m, is '1' if, and only if the pixel (i,j) is white.</p>
+
+<h6 id="output">Output</h6>
+
+<p>In the i-th line for each test case, 1&lt;=i&lt;=n, there should be written m integers f(i,1),...,f(i,m) separated by single spaces, where f(i,j) is the distance from the pixel (i,j) to the nearest white pixel.</p>
+
+<p>Example</p>
+
+<p>Input: <br>
+1 <br>
+3 4 <br>
+0001 <br>
+0011 <br>
+0110</p>
+
+<p>Output: <br>
+3 2 1 0 <br>
+2 1 0 0 <br>
+1 0 0 1</p>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+void bfs(vector&lt;vector&lt;int&gt; &gt; &amp;dist, int x, int y, int d) {  
+    int n = dist.size(),
+        m = dist[0].size();
+    if (x &gt;= 0 &amp;&amp; x &lt; n &amp;&amp; y &gt;= 0 &amp;&amp; y &lt; m &amp;&amp; dist[x][y] &gt; d) {
+        dist[x][y] = d;
+        bfs(dist, x + 1, y, d + 1);
+        bfs(dist, x - 1, y, d + 1);
+        bfs(dist, x, y + 1, d + 1);
+        bfs(dist, x, y - 1, d + 1);
+    }
+    return;
+}
+
+int main() {  
+    int T;
+    cin &gt;&gt; T;
+    for (;T--;) {
+        int n, m;
+        cin &gt;&gt; n &gt;&gt; m;
+        vector&lt;string&gt; grid(n);
+        vector&lt;vector&lt;int&gt; &gt; dist(n, vector&lt;int&gt; (m, 400));
+        for (int i = 0; i &lt; n; ++i) {
+            cin &gt;&gt; grid[i];
+        }
+        for (int i = 0; i &lt; n; ++i) {
+            for (int j = 0; j &lt; m; ++j) {
+                if (grid[i][j] == '1') {
+                    bfs(dist, i, j, 0);
+                }
+            }
+        }
+        for (int i = 0; i &lt; n; ++i) {
+            for (int j = 0; j &lt; m; ++j) {
+                cout &lt;&lt; dist[i][j] &lt;&lt; " ";
+            }
+            cout &lt;&lt; "\n";
+        }
+    }
+    return 0;
+}
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/28/bitmap/</link><guid isPermaLink="false">09df0738-8c1b-4b87-8029-6ae6968f1869</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Fri, 28 Nov 2014 04:07:25 GMT</pubDate></item><item><title><![CDATA[ACODE]]></title><description><![CDATA[<p>Alice and Bob need to send secret messages to each other and are discussing ways to encode their messages:  </p>
 
 <pre><code>Alice: “Let’s just use a very simple code: We’ll assign ‘A’ the code word 1, ‘B’ will be 2, and so on down to ‘Z’ being assigned 26.”
 
@@ -77,6 +406,8 @@ int main() {
     return 0;
 }
 </code></pre>
+
+<hr>
 
 <h6 id="using2variables">Using 2 variables:</h6>
 
@@ -758,329 +1089,4 @@ int main() {
     }
     return 0;
 }
-</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/21/arith2/</link><guid isPermaLink="false">f8e3d594-52f1-45d7-9346-ab747ba24411</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Fri, 21 Nov 2014 16:14:14 GMT</pubDate></item><item><title><![CDATA[HUBULLU]]></title><description><![CDATA[<p>After duelling in quake (a multiplayer game), Airborne and Pagfloyd decide do test themselves out in another game called Hubulullu. The rules of the game are as follows:</p>
-
-<p>N wooden pieces (marked with numbers 1 to N) are placed in a transparent bottle. On his turn the first player takes out some piece (numbered x) and all the pieces numbered by divisors of x that are present in the transparent bottle. The second player picks another number and removes it and its divisors as well. Play continues in an alternating fashion until all pieces have been removed from the bottle. The player who removes the last piece from the bottle wins the game.</p>
-
-<p>Both players play optimally. Given N (the number of wooden pieces in the transparent bottle initially) and the name of the player who starts the game, determine the winner.</p>
-
-<h6 id="input">Input</h6>
-
-<p>The first line of the input contains an integer t, the number of test cases. t test cases follow.</p>
-
-<p>Each test case consists of a single line containing two integers separated by a single space. The first integer is N (1 &lt;= N &lt;= 2000000000), indicating the number of pieces, and the second integer indicates the player who starts - "0" means Airborne starts the game and "1" means Pagfloyd starts the game (quotes for clarity).</p>
-
-<h6 id="output">Output</h6>
-
-<p>For each test case output one line containing either "Airborne wins." or "Pagfloyd wins."</p>
-
-<p>For each N, it's possible to determine a winner if both players play optimally.</p>
-
-<p>Example</p>
-
-<p>Input: <br>
-1 <br>
-1 0</p>
-
-<p>Output: <br>
-Airborne wins.</p>
-
-<hr>
-
-<pre><code class="prettyprint">#include &lt;iostream&gt;
-
-using namespace std;
-
-int main() {  
-    int T;
-    cin &gt;&gt; T;
-    for(;T--;) {
-        int N, P;
-        cin &gt;&gt; N &gt;&gt; P;
-        cout &lt;&lt; (P == 0 ? "Airborne wins." : 
-                "Pagfloyd wins.") &lt;&lt; "\n";
-    }
-    return 0;
-}
-</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/16/hubullu/</link><guid isPermaLink="false">7b7856a4-6b55-4114-afe8-74756a8fce3e</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Sun, 16 Nov 2014 13:57:13 GMT</pubDate></item><item><title><![CDATA[EASYPROB]]></title><description><![CDATA[<h6 id="input">Input</h6>
-
-<p>There's no input.</p>
-
-<h6 id="output">Output</h6>
-
-<p>Output some form of these numbers: 137, 1315, 73, 136, 255, 1384, 16385, one per line in the listed order.</p>
-
-<p>Example</p>
-
-<p>The first two lines of the CORRECT output file are:</p>
-
-<p>137=2(2(2)+2+2(0))+2(2+2(0))+2(0) <br>
-1315=2(2(2+2(0))+2)+2(2(2+2(0)))+2(2(2)+2(0))+2+2(0)</p>
-
-<p>The correct output file should contain 7 lines.</p>
-
-<hr>
-
-<h6 id="code">Code</h6>
-
-<pre><code class="prettyprint">#include &lt;iostream&gt;
-#include &lt;string&gt;
-#include &lt;bitset&gt;
-
-using namespace std;
-
-string expressInPowersOfTwo(unsigned long long n) {  
-    string final = "";
-    if(n == 2 || n == 0) {
-        return final + char('0' + n);
-    }
-    bitset&lt;64&gt; bitRep(n);
-    for (int i = 63; i &gt;= 0; --i) {
-        if (bitRep[i]) {
-            string ans = (i == 1 ? "2" : 
-                         "2(" + expressInPowersOfTwo(i) + ")");
-            final += (final == "" ? ans : "+" + ans);
-        }
-    }
-    return final;
-}
-
-int main() {  
-    unsigned long long n;
-    while((cin &gt;&gt; n) &amp;&amp; n != -1) {
-        cout &lt;&lt; n &lt;&lt; "=" &lt;&lt; expressInPowersOfTwo(n) &lt;&lt; "\n";
-    }
-    return 0;
-}
-</code></pre>
-
-<h6 id="solution">Solution</h6>
-
-<pre><code>137=2(2(2)+2+2(0))+2(2+2(0))+2(0)  
-1315=2(2(2+2(0))+2)+2(2(2+2(0)))+2(2(2)+2(0))+2+2(0)  
-73=2(2(2)+2)+2(2+2(0))+2(0)  
-136=2(2(2)+2+2(0))+2(2+2(0))  
-255=2(2(2)+2+2(0))+2(2(2)+2)+2(2(2)+2(0))+2(2(2))+2(2+2(0))+2(2)+2+2(0)  
-1384=2(2(2+2(0))+2)+2(2(2+2(0)))+2(2(2)+2)+2(2(2)+2(0))+2(2+2(0))  
-16385=2(2(2+2(0))+2(2)+2)+2(0)
-</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/16/easyprob/</link><guid isPermaLink="false">1a8dd66a-d626-4e46-ab34-f2226fda313e</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Sun, 16 Nov 2014 13:17:14 GMT</pubDate></item><item><title><![CDATA[BEENUMS]]></title><description><![CDATA[<p>A beehive is an enclosed structure in which some honey bee species live and raise their young. In this problem we consider a two-dimensional sketch of the beehives. Each beehive is composed of a certain number of cells, where each cell is a regular hexagon. Each cell may have some neighbors, which are other cells that share a side with that cell. A cell with exactly 6 neighbors is an internal cell, while a cell with fewer neighbors is an external one. Notice that an external cell can always be changed to internal by adding some neighbor cells.</p>
-
-<p>We are interested in a particular class of beehives. This class of valid beehives is defined recursively as follows: a) a single cell is a valid beehive; and b) given a valid beehive B, if we add the minimum number of cells such that each external cell of B becomes an internal cell, the result is a valid beehive.</p>
-
-<p>The number of cells in a valid beehive is called a beehive number. Given an integer N, you must decide whether it is a beehive number.</p>
-
-<h6 id="input">Input</h6>
-
-<p>Each test case is described using a single line. The line contains an integer N (1 ≤ N ≤ 10<sup>9</sup> ). The end of input is indicated with a line containing a single −1.</p>
-
-<h6 id="output">Output</h6>
-
-<p>For each test case, output a single line containing an uppercase “Y” if N is a beehive number, or an uppercase “N” otherwise.</p>
-
-<p>Example</p>
-
-<p>Input: <br>
-43 <br>
-1 <br>
-7 <br>
-19 <br>
-15 <br>
--1</p>
-
-<p>Output: <br>
-N <br>
-Y <br>
-Y <br>
-Y <br>
-N</p>
-
-<hr>
-
-<pre><code class="prettyprint">#include &lt;iostream&gt;
-#include &lt;cmath&gt;
-
-using namespace std;
-
-int main() {  
-    int N;
-    while ((cin &gt;&gt; N) &amp;&amp; N != -1) {
-        --N;
-        if (N % 6 != 0) {
-            cout &lt;&lt; "N\n";
-        } else {
-            N /= 3;
-            double x = (-1.0 + sqrt(1 + 4*N)) / 2.0;
-            if(ceil(x) == floor(x)) {
-                cout &lt;&lt; "Y\n";
-            } else {
-                cout &lt;&lt; "N\n";
-            }
-        }
-    }
-    return 0;
-}
-</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/16/beenums/</link><guid isPermaLink="false">da0aee15-e541-4347-adea-57756f9a67b2</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Sun, 16 Nov 2014 11:42:19 GMT</pubDate></item><item><title><![CDATA[INVCNT]]></title><description><![CDATA[<p>Let A[0...n - 1] be an array of n distinct positive integers. If i &lt; j and A[i] > A[j] then the pair (i, j) is called an inversion of A. Given n and an array A your task is to find the number of inversions of A.</p>
-
-<h6 id="input">Input</h6>
-
-<p>The first line contains t, the number of testcases followed by a blank space. Each of the t tests start with a number n (n &lt;= 200000). Then n + 1 lines follow. In the ith line a number A[i - 1] is given (A[i - 1] &lt;= 10^7). The (n + 1)th line is a blank space.</p>
-
-<h6 id="output">Output</h6>
-
-<p>For every test output one line giving the number of inversions of A.</p>
-
-<p>Example</p>
-
-<p>Input: <br>
-2</p>
-
-<p>3 <br>
-3 <br>
-1 <br>
-2</p>
-
-<p>5 <br>
-2 <br>
-3 <br>
-8 <br>
-6 <br>
-1</p>
-
-<p>Output: <br>
-2 <br>
-5</p>
-
-<hr>
-
-<pre><code class="prettyprint">#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;climits&gt;
-#include &lt;cmath&gt;
-
-using namespace std;
-
-unsigned long long counter;
-
-void merge(vector&lt;int&gt; &amp;A, int p, int q, int r) {  
-    int n1 = q - p + 1,
-        n2 = r - q;
-    vector&lt;int&gt; L(n1 + 1), R(n2 + 1);
-    for (int i = 0; i &lt; n1; ++i) {
-        L[i] = A[p + i];
-    }
-    for (int i = 0; i &lt; n2; ++i) {
-        R[i] = A[q + i + 1];
-    }
-    L[n1] = R[n2] = INT_MAX;
-    int i = 0,
-        j = 0;
-    for (int k = p; k &lt;= r; ++k) {
-        if (L[i] &lt;= R[j] &amp;&amp; L[i] != INT_MAX) {
-            A[k] = L[i++];
-        } else {
-            A[k] = R[j++];
-            counter += n1 - i;
-        }
-    }
-    return;
-}
-
-void mergeSort(vector&lt;int&gt; &amp;A, int p, int r) {  
-    if (p &lt; r) {
-        int q = (p + r) / 2;
-        mergeSort(A, p, q);
-        mergeSort(A, q + 1, r);
-        merge(A, p, q, r);
-    }
-}
-
-int main() {  
-    int T;
-    cin &gt;&gt; T;
-    for (;T--;) {
-        int N;
-        cin &gt;&gt; N;
-        vector&lt;int&gt; A(N);
-        for (int i = 0; i &lt; N; ++i) {
-            cin &gt;&gt; A[i];
-        }
-        counter = 0;
-        mergeSort(A, 0, N - 1);
-        cout &lt;&lt; counter &lt;&lt; "\n";
-    }
-    return 0;
-}
-</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/16/invcnt/</link><guid isPermaLink="false">77cfe6b0-2afd-410a-a9ee-4290b2d7bc20</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Sun, 16 Nov 2014 10:45:16 GMT</pubDate></item><item><title><![CDATA[OFFSIDE]]></title><description><![CDATA[<p>Hemisphere Network is the largest television network in Tumbolia, a small country located east of South America (or south of East America). The most popular sport in Tumbolia, unsurprisingly, is soccer; many games are broadcast every week in Tumbolia.</p>
-
-<p>Hemisphere Network receives many requests to replay dubious plays; usually, these happen when a player is deemed to be offside by the referee. An attacking player is offside if he is nearer to his opponents’ goal line than the second last opponent. A player is not offside if</p>
-
-<ul>
-<li>he is level with the second last opponent or</li>
-<li>he is level with the last two opponents.</li>
-</ul>
-
-<p>Through the use of computer graphics technology, Hemisphere Network can take an image of the field and determine the distances of the players to the defending team’s goal line, but they still need a program that, given these distances, decides whether a player is offside.</p>
-
-<h6 id="input">Input</h6>
-
-<p>The input file contains several test cases. The first line of each test case contains two integers A and D separated by a single space indicating, respectively, the number of attacking and defending players involved in the play (2 &lt;= A,D &lt;= 11). The next line contains A integers Bi separated by single spaces, indicating the distances of the attacking players to the goal line (1 &lt;= Bi &lt;= 10<sup>4</sup>). The next line contains D integers Cj separated by single spaces, indicating the distances of the defending players to the goal line (1 &lt;= Cj &lt;= 10<sup>4</sup>). The end of input is indicated by A = D = 0.</p>
-
-<h6 id="output">Output</h6>
-
-<p>For each test case in the input print a line containing a single character: “Y” (uppercase) if there is an attacking player offside, and “N” (uppercase) otherwise.</p>
-
-<p>Example</p>
-
-<p>Input: <br>
-2 3 <br>
-500 700 <br>
-700 500 500 <br>
-2 2 <br>
-200 400 <br>
-200 1000 <br>
-3 4 <br>
-530 510 490 <br>
-480 470 50 310 <br>
-0 0</p>
-
-<p>Output: <br>
-N <br>
-Y <br>
-N</p>
-
-<hr>
-
-<pre><code class="prettyprint">#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;algorithm&gt;
-
-using namespace std;
-
-int main() {  
-    int A, D;
-    while ((cin &gt;&gt; A &gt;&gt; D) &amp;&amp; A != 0 &amp;&amp; D != 0) {
-        vector&lt;int&gt; attackers(A),
-                    defenders(D);
-        for (int i = 0; i &lt; A; ++i) {
-            cin &gt;&gt; attackers[i];
-        }
-        for (int i = 0; i &lt; D; ++i) {
-            cin &gt;&gt; defenders[i];
-        }
-        sort(defenders.begin(), defenders.end());
-        bool flag = false;
-        for (int i = 0; i &lt; A; ++i) {
-            if (attackers[i] &lt; defenders[1]) {
-                flag = true;
-                break;
-            }
-        }
-        if (flag) {
-            cout &lt;&lt; "Y\n";
-        } else {
-            cout &lt;&lt; "N\n";
-        }
-    }
-    return 0;
-}
-</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/15/offside/</link><guid isPermaLink="false">bcad7e40-9e78-4b3e-8d5f-6ca8ec927d03</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Sat, 15 Nov 2014 14:13:43 GMT</pubDate></item></channel></rss>
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/21/arith2/</link><guid isPermaLink="false">f8e3d594-52f1-45d7-9346-ab747ba24411</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Fri, 21 Nov 2014 16:14:14 GMT</pubDate></item></channel></rss>

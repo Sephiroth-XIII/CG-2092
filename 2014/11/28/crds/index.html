@@ -3,7 +3,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>ONP</title>
+    <title>CRDS</title>
     <meta name="description" content="">
 
     <meta name="HandheldFriendly" content="True">
@@ -15,21 +15,21 @@
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
     <link href="../../../../assets/css/prettify.css?v=2d3fe91acd" type="text/css" rel="stylesheet">
 	<script type="text/javascript" src="../../../../assets/js/prettify.js?v=2d3fe91acd"></script>
-    <link rel="canonical" href="http://code-jedi.chintanghate.me/2014/11/04/onp/">
+    <link rel="canonical" href="http://code-jedi.chintanghate.me/2014/11/28/crds/">
     
     <meta property="og:site_name" content="Code Jedi">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="ONP">
-    <meta property="og:description" content="Transform the algebraic expression with brackets into RPN form (Reverse Polish Notation). Two-argument operators: +, -, , /, ^ (priority from the lowest to the highest), brackets ( ). Operands: only letters: a,b,...,z. Assume that there is only one RPN form (no expressions like...">
-    <meta property="og:url" content="http://code-jedi.chintanghate.me/2014/11/04/onp/">
-    <meta property="article:published_time" content="2014-11-04T13:31:00.000Z">
-    <meta property="article:modified_time" content="2014-11-27T14:40:33.212Z">
+    <meta property="og:title" content="CRDS">
+    <meta property="og:description" content="Maricruz have a lot of cards, she always uses her cards to build pyramids as shown in the following image: A pyramid card of 3 levels.  She always wonder how many cards does she need to make a pyramid card...">
+    <meta property="og:url" content="http://code-jedi.chintanghate.me/2014/11/28/crds/">
+    <meta property="article:published_time" content="2014-11-28T17:25:46.846Z">
+    <meta property="article:modified_time" content="2014-11-28T17:26:33.397Z">
     <meta property="article:tag" content="SPOJ">
     
     <meta name="twitter:card" content="content">
-    <meta name="twitter:title" content="ONP">
-    <meta name="twitter:description" content="Transform the algebraic expression with brackets into RPN form (Reverse Polish Notation). Two-argument operators: +, -, , /, ^ (priority from the lowest to the highest), brackets ( ). Operands: only letters: a,b,...,z. Assume that there is only one RPN form (no expressions like...">
-    <meta name="twitter:url" content="http://code-jedi.chintanghate.me/2014/11/04/onp/">
+    <meta name="twitter:title" content="CRDS">
+    <meta name="twitter:description" content="Maricruz have a lot of cards, she always uses her cards to build pyramids as shown in the following image: A pyramid card of 3 levels.  She always wonder how many cards does she need to make a pyramid card...">
+    <meta name="twitter:url" content="http://code-jedi.chintanghate.me/2014/11/28/crds/">
     
     <script type="application/ld+json">
 {
@@ -42,12 +42,12 @@
         "url": "http://code-jedi.chintanghate.me/author/chintan",
         "sameAs": null
     },
-    "headline": "ONP",
-    "url": "http://code-jedi.chintanghate.me/2014/11/04/onp/",
-    "datePublished": "2014-11-04T13:31:00.000Z",
-    "dateModified": "2014-11-27T14:40:33.212Z",
+    "headline": "CRDS",
+    "url": "http://code-jedi.chintanghate.me/2014/11/28/crds/",
+    "datePublished": "2014-11-28T17:25:46.846Z",
+    "dateModified": "2014-11-28T17:26:33.397Z",
     "keywords": "SPOJ",
-    "description": "Transform the algebraic expression with brackets into RPN form (Reverse Polish Notation). Two-argument operators: +, -, , /, ^ (priority from the lowest to the highest), brackets ( ). Operands: only letters: a,b,...,z. Assume that there is only one RPN form (no expressions like"
+    "description": "Maricruz have a lot of cards, she always uses her cards to build pyramids as shown in the following image: A pyramid card of 3 levels.  She always wonder how many cards does she need to make a pyramid card"
 }
     </script>
 
@@ -71,66 +71,54 @@
     <article class="post tag-spoj">
 
         <header class="post-header">
-            <h1 class="post-title">ONP</h1>
+            <h1 class="post-title">CRDS</h1>
             <section class="post-meta">
-                <time class="post-date" datetime="2014-11-04">04 November 2014</time>  on <a href="../../../../tag/spoj/">SPOJ</a>
+                <time class="post-date" datetime="2014-11-28">28 November 2014</time>  on <a href="../../../../tag/spoj/">SPOJ</a>
             </section>
         </header>
 
         <section class="post-content">
-            <p>Transform the algebraic expression with brackets into RPN form (Reverse Polish Notation). Two-argument operators: +, -, <em>, /, ^ (priority from the lowest to the highest), brackets ( ). Operands: only letters: a,b,...,z. Assume that there is only one RPN form (no expressions like a</em>b*c).</p>
+            <p>Maricruz have a lot of cards, she always uses her cards to build pyramids as shown in the following image:</p>
+
+<p><img src="../../../../content/images/2014/11/francky-cards.png" alt="Cards"></p>
+
+<p>A pyramid card of 3 levels. <br>
+She always wonder how many cards does she need to make a pyramid card of N levels. Your task is to answer that question.</p>
 
 <h6 id="input">Input</h6>
 
-<p>t [the number of expressions &lt;= 100] <br>
-expression [length &lt;= 400] <br>
-[other expressions]
-Text grouped in [ ] does not appear in the input file.</p>
+<p>The first line of the input contains an integer 1&lt;= T &lt;= 1,000. Each of the following T lines will have an integer 1&lt;= N &lt;= 1,000,000.</p>
 
 <h6 id="output">Output</h6>
 
-<p>The expressions in RPN form, one per line.</p>
+<p>For each case, output a single line consisting of the number of cards needed to build a pyramid card of level N modulo 1,000,007.</p>
 
 <p>Example</p>
 
 <p>Input: <br>
+2 <br>
 3 <br>
-(a+(b<em>c))
-((a+b)</em>(z+x))
-((a+t)*((b+(a+c))^(c+d)))</p>
+7</p>
 
 <p>Output: <br>
-abc<em>+ <br>
-ab+zx+</em> <br>
-at+bac++cd+^*</p>
+15 <br>
+77</p>
 
 <hr>
 
 <pre><code class="prettyprint">#include &lt;iostream&gt;
-#include &lt;stack&gt;
-#include &lt;string&gt;
 
 using namespace std;
 
 int main() {  
     int T;
     cin &gt;&gt; T;
-
-    for(;T--;) {
-        string e;
-        cin &gt;&gt; e;
-        stack&lt;char&gt; op; 
-        for (int i = 0; i &lt; e.size(); ++i) {
-            if (e[i] &gt;= 'a' &amp;&amp; e[i] &lt;= 'z') {
-                cout &lt;&lt; e[i];
-            } else if (e[i] !='(' &amp;&amp; e[i] != ')') {
-                op.push(e[i]);
-            } else if (e[i] == ')') {
-                cout &lt;&lt; op.top();
-                op.pop();
-            }
-        }
-        cout &lt;&lt; "\n";
+    for (;T--;) {
+        unsigned long long levels;
+        cin &gt;&gt; levels;
+        unsigned long long cards = 
+        (((levels * (levels + 1) / 2) * 3) - levels);
+        cout &lt;&lt; cards % 1000007 &lt;&lt; "\n";
     }
     return 0;
 }
@@ -154,13 +142,13 @@ int main() {
 
             <section class="share">
                 <h4>Share this post</h4>
-                <a class="icon-twitter" href="https://twitter.com/share?text=ONP&amp;url=http://code-jedi.chintanghate.me/2014/11/04/onp/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <a class="icon-twitter" href="https://twitter.com/share?text=CRDS&amp;url=http://code-jedi.chintanghate.me/2014/11/28/crds/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
                     <span class="hidden">Twitter</span>
                 </a>
-                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://code-jedi.chintanghate.me/2014/11/04/onp/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://code-jedi.chintanghate.me/2014/11/28/crds/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
                     <span class="hidden">Facebook</span>
                 </a>
-                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://code-jedi.chintanghate.me/2014/11/04/onp/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://code-jedi.chintanghate.me/2014/11/28/crds/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
                     <span class="hidden">Google+</span>
                 </a>
             </section>
