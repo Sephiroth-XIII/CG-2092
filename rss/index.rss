@@ -1,4 +1,674 @@
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Code Jedi</title><description>Code, algorithms and design.</description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Sun, 30 Nov 2014 10:57:03 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>Poetry</title><description>&lt;p&gt;Used In:    SRM 170 &lt;br&gt;
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Code Jedi</title><description>Code, algorithms and design.</description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Sun, 30 Nov 2014 20:35:37 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>PaperFold</title><description>&lt;p&gt;Used In:    SRM 162 &lt;br&gt;
+Used As:    Division I Level One , Division II Level Two&lt;/p&gt;
+
+&lt;h6 id="problemstatement"&gt;Problem Statement&lt;/h6&gt;
+
+&lt;p&gt;You have a piece of paper that you need to fold to fit into a box with a given width and length. Each time you fold the paper, you can fold it in half across either its width or length, but you can only fold the paper 8 times (after 8 times, the paper is too dense to fold again).&lt;/p&gt;
+
+&lt;p&gt;You will be given a int[] paper, which contains the width and length of the paper in inches, and a int[] box, which contains the width and length of the box in inches. In both cases, the first element is the width and the second element is the length. Your method should return the fewest number of folds which would allow you to fit the paper into the box. You can rotate the paper 90 degrees if it will fit with fewer folds, but the paper must lie completely flat inside the box. If the paper cannot be fit into the box with 8 folds or fewer, return -1.&lt;/p&gt;
+
+&lt;h6 id="definition"&gt;Definition&lt;/h6&gt;
+
+&lt;p&gt;Class:    PaperFold &lt;br&gt;
+Method:    numFolds &lt;br&gt;
+Parameters:    int[], int[] &lt;br&gt;
+Returns:    int &lt;br&gt;
+Method signature:    int numFolds(int[] paper, int[] box) &lt;br&gt;
+(be sure your method is public)&lt;/p&gt;
+
+&lt;h6 id="notes"&gt;Notes&lt;/h6&gt;
+
+&lt;ul&gt;
+&lt;li&gt;After the paper is folded, it is possible that it has fractional dimensions.&lt;/li&gt;
+&lt;li&gt;The paper will fit into the box even if one or both of the dimensions are exactly the same as the corresponding box dimensions.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h6 id="constraints"&gt;Constraints&lt;/h6&gt;
+
+&lt;ul&gt;
+&lt;li&gt;paper will contain exactly two elements.&lt;/li&gt;
+&lt;li&gt;box will contain exactly two elements.&lt;/li&gt;
+&lt;li&gt;Each element of paper and box will be between 1 and 10000, inclusive.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h6 id="examples"&gt;Examples&lt;/h6&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;{8, 11} &lt;br&gt;
+{6, 10}
+Returns: 1 &lt;br&gt;
+By folding the paper so that the length is reduced from 11 to 5.5 inches, it will fit inside the box if you rotate it 90 degrees.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;{11, 17} &lt;br&gt;
+{6, 4}
+Returns: 4 &lt;br&gt;
+There are two ways to fold the paper so that it fits within the box.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;First, you could fold the width in half to get 5.5 inches, and then fold the length in half three times to get 2.125 inches.&lt;/p&gt;
+
+&lt;p&gt;Second, you could fold the width in half twice to get 2.25 inches, and then fold the length in half twice to get 4.25 inches. In this case, you must also rotate 90 degrees to fit the paper in.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;{11, 17} &lt;br&gt;
+{5, 4}
+Returns: 4 &lt;br&gt;
+Now, you must use the second method to get it to fit: Fold the width and length each twice, and rotate 90 degrees. If you try fitting without rotating, it would take 5 folds.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;{1000,1000} &lt;br&gt;
+{62,63}
+Returns: -1 &lt;br&gt;
+Folding in each direction 4 times, you can get the paper down to 62.5 x 62.5. However, this will not fit into the box because neither dimension fits in 62.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;{100,30} &lt;br&gt;
+{60,110}
+Returns: 0&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;{1895, 6416} &lt;br&gt;
+{401, 1000}
+Returns: 5&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr&gt;
+
+&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;vector&amp;gt;
+#include &amp;lt;cmath&amp;gt;
+
+using namespace std;
+
+class PaperFold {
+
+    private:
+        bool fits(double pl, double pw, double bl, double bw) {
+            if (pl &amp;lt;= bl &amp;amp;&amp;amp; pw &amp;lt;= bw) {
+                return true;
+            } else if (pl &amp;lt;= bw &amp;amp;&amp;amp; pw &amp;lt;= bl) {
+                return true;
+            } 
+            return false;
+        }
+
+    public:
+        int numFolds(vector&amp;lt;int&amp;gt; paper, vector&amp;lt;int&amp;gt; box) {
+            vector&amp;lt;pair&amp;lt;double, double&amp;gt; &amp;gt; pos(512);
+            pos[0] = make_pair(0, 0);
+            pos[1] = make_pair(paper[0]*1.0, paper[1]*1.0);
+            for (int i = 1; i &amp;lt;= 255; ++i) {
+                pos[i * 2] = make_pair(pos[i].first / 2.0, 
+                             pos[i].second);
+                pos[i * 2 + 1] = make_pair(pos[i].first, 
+                                 pos[i].second / 2.0);
+            }
+            int ans = -1;
+            for (int i = 1; i &amp;lt;= 511; ++i) {
+                if (fits(pos[i].first, pos[i].second, 
+                    box[0]*1.0, box[1]*1.0)) {
+                    ans = floor(log(i)/ log(2));
+                    break;
+                }
+            }
+            return ans;
+        }
+};
+&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/12/01/paperfold/</link><guid isPermaLink="false">f52e3fcd-2fd8-4b9d-956c-f288879bf1f8</guid><category>TopCoder</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Sun, 30 Nov 2014 20:30:05 GMT</pubDate></item><item><title>WordForm</title><description>&lt;p&gt;Used In:    SRM 173 &lt;br&gt;
+Used As:    Division I Level One , Division II Level Two&lt;/p&gt;
+
+&lt;h6 id="problemstatement"&gt;Problem Statement&lt;/h6&gt;
+
+&lt;p&gt;In English, the letters A, E, I, O and U are the vowels. Y is also considered to be a vowel if it's not preceded by another vowel and is not the first letter in a word (the fact that a vowel is defined to some extent in terms of itself does not make it ambiguous). If a letter is not a vowel then it is a consonant. So in "TOY" the consonants are T and Y, and in "SYZYGY" they are S, Z and G.&lt;/p&gt;
+
+&lt;p&gt;A sequence of vowels will be denoted by uppercase letter 'V' and a sequence of consonants will be denoted by uppercase letter 'C'. A word can then be described as an alternating sequence of 'C' and 'V'. For instance, the word "WHEREABOUTS" has the sequence CVCVCVC, and the words "YORK" and "TOY" both have the sequence CVC. It's not permissible to have two or more consecutive 'V' or 'C' in the sequence.&lt;/p&gt;
+
+&lt;p&gt;Create a class WordForm containing the method getSequence which takes a String word and returns a String containing the word's sequence as described above. The word may contain both uppercase and lowercase letters, but your method should be case insensitive (see example 2).&lt;/p&gt;
+
+&lt;h6 id="definition"&gt;Definition&lt;/h6&gt;
+
+&lt;p&gt;Class:    WordForm &lt;br&gt;
+Method:    getSequence &lt;br&gt;
+Parameters:    String &lt;br&gt;
+Returns:    String &lt;br&gt;
+Method signature:    String getSequence(String word) &lt;br&gt;
+(be sure your method is public)&lt;/p&gt;
+
+&lt;h6 id="notes"&gt;Notes&lt;/h6&gt;
+
+&lt;ul&gt;
+&lt;li&gt;word may not be an English word, or a word in any language at all, but you should still use the rules defined above. See example 3.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h6 id="constraints"&gt;Constraints&lt;/h6&gt;
+
+&lt;ul&gt;
+&lt;li&gt;word will contain between 1 and 50 characters, inclusive.&lt;/li&gt;
+&lt;li&gt;word will only contain the characters 'A'-'Z' and 'a'-'z', both inclusive.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h6 id="examples"&gt;Examples&lt;/h6&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;"WHEREABOUTS" &lt;br&gt;
+Returns: "CVCVCVC" &lt;br&gt;
+Here we have consonant-consonant-vowel-consonant-vowel-vowel-consonant-vowel-vowel-consonant-consonant. Putting together consecutive consonants and vowels gives us CVCVCVC.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;"yoghurt" &lt;br&gt;
+Returns: "CVCVC"&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;"YipPy" &lt;br&gt;
+Returns: "CVCV" &lt;br&gt;
+Mixing lowercase and uppercase does not affect the result.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;"AyYyEYye" &lt;br&gt;
+Returns: "VCVCVCV" &lt;br&gt;
+Even though this isn't an English word, we use the rules defined in the statement to find the consonant-vowel pattern.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;"yC" &lt;br&gt;
+Returns: "C"&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr&gt;
+
+&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;string&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+
+using namespace std;
+
+class WordForm {  
+    private:
+        bool isVowel(string s, int i, bool lastCharWasVowel) {
+            if (s[i] == 'a' || s[i] == 'e' || s[i] == 'i' || s[i] == 'o' || s[i] == 'u') {
+                return true;
+            } else if (s[i] == 'y' &amp;amp;&amp;amp; i != 0 &amp;amp;&amp;amp; !lastCharWasVowel) {
+                return true;
+            }
+            return false;
+        }
+    public:
+        string getSequence(string word) {
+            transform(word.begin(), word.end(), word.begin(), ::tolower);
+            string seq = "";
+            bool lastCharWasVowel = false;
+            for (int i = 0; i &amp;lt; word.size(); ++i) {
+                if (isVowel(word, i , lastCharWasVowel)) {
+                    seq += 'V';
+                    lastCharWasVowel = true;
+                } else {
+                    seq += 'C';
+                    lastCharWasVowel = false;
+                }
+            }
+            string finalSeq = "";
+            for (int i = 0; i &amp;lt; seq.size(); ++i) {
+                if (i == 0 || seq[i] != seq[i - 1]) {
+                    finalSeq += seq[i];
+                }
+            }
+            return finalSeq;
+        }
+};
+&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/30/wordform/</link><guid isPermaLink="false">456b88d7-a6dd-4ef9-b518-1651953291c5</guid><category>TopCoder</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Sun, 30 Nov 2014 18:10:25 GMT</pubDate></item><item><title>TallPeople</title><description>&lt;p&gt;Used In:    SRM 208 &lt;br&gt;
+Used As:    Division I Level One&lt;/p&gt;
+
+&lt;h6 id="problemstatement"&gt;Problem Statement&lt;/h6&gt;
+
+&lt;p&gt;A group of people stand before you arranged in rows and columns. Looking from above, they form an R by C rectangle of people. You will be given a String[] people containing the height of each person. Elements of people correspond to rows in the rectangle. Each element contains a space-delimited list of integers representing the heights of the people in that row. Your job is to return 2 specific heights in a int[]. The first is computed by finding the shortest person in each row, and then finding the tallest person among them (the "tallest-of-the-shortest"). The second is computed by finding the tallest person in each column, and then finding the shortest person among them (the "shortest-of-the-tallest").&lt;/p&gt;
+
+&lt;h6 id="definition"&gt;Definition&lt;/h6&gt;
+
+&lt;p&gt;Class:    TallPeople &lt;br&gt;
+Method:    getPeople &lt;br&gt;
+Parameters:    String[] &lt;br&gt;
+Returns:    int[] &lt;br&gt;
+Method signature:    int[] getPeople(String[] people) &lt;br&gt;
+(be sure your method is public)&lt;/p&gt;
+
+&lt;h6 id="constraints"&gt;Constraints&lt;/h6&gt;
+
+&lt;ul&gt;
+&lt;li&gt;people will contain between 2 and 50 elements inclusive.&lt;/li&gt;
+&lt;li&gt;Each element of people will contain between 3 and 50 characters inclusive.&lt;/li&gt;
+&lt;li&gt;Each element of people will be a single space-delimited list of positive integers such that: &lt;/li&gt;
+&lt;li&gt;Each positive integer is between 1 and 1000 inclusive with no extra leading zeros.&lt;/li&gt;
+&lt;li&gt;Each element contains the same number of integers.&lt;/li&gt;
+&lt;li&gt;Each element contains at least 2 positive integers.&lt;/li&gt;
+&lt;li&gt;Each element does not contain leading or trailing whitespace.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h6 id="examples"&gt;Examples&lt;/h6&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;{"9 2 3", &lt;br&gt;
+"4 8 7"}
+Returns: { 4,  7 } &lt;br&gt;
+The heights 2 and 4 are the shortest from the rows, so 4 is the taller of the two. The heights 9, 8, and 7 are the tallest from the columns, so 7 is the shortest of the 3.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;{"1 2", &lt;br&gt;
+"4 5",
+"3 6"}
+Returns: { 4,  4 }&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;{"1 1", &lt;br&gt;
+"1 1"}
+Returns: { 1,  1 }&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr&gt;
+
+&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;string&amp;gt;
+#include &amp;lt;vector&amp;gt;
+#include &amp;lt;sstream&amp;gt;
+
+using namespace std;
+
+class TallPeople {  
+    public:
+        vector&amp;lt;int&amp;gt; getPeople(vector&amp;lt;string&amp;gt; people) {
+            vector&amp;lt;vector&amp;lt;int&amp;gt; &amp;gt; grid(people.size());
+            for (int i = 0; i &amp;lt; people.size(); ++i) {
+                istringstream iss(people[i]);
+                int n;
+                while (iss &amp;gt;&amp;gt; n) {
+                    grid[i].push_back(n);
+                }
+            }
+            int tos = 0;
+            for (int i = 0; i &amp;lt; grid.size(); ++i) {
+                int shortInRow = grid[i][0];
+                for (int j = 1; j &amp;lt; grid[i].size(); ++j) {
+                    if (grid[i][j] &amp;lt; shortInRow) {
+                        shortInRow = grid[i][j];
+                    }
+                }
+                if (shortInRow &amp;gt; tos) {
+                    tos = shortInRow;
+                }
+            }
+            int sot = 10000;
+            for (int i = 0; i &amp;lt; grid[0].size(); ++i) {
+                int tallestInColumn = grid[0][i];
+                for (int j = 1; j &amp;lt; grid.size(); ++j) {
+                    if (grid[j][i] &amp;gt; tallestInColumn) {
+                        tallestInColumn = grid[j][i];
+                    }
+                }
+                if (tallestInColumn &amp;lt; sot) {
+                    sot = tallestInColumn;
+                }
+            }
+            vector&amp;lt;int&amp;gt; ans(2);
+            ans[0] = tos, ans[1] = sot;
+            return ans;
+        }
+};
+&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/30/tallpeople/</link><guid isPermaLink="false">e0b8eb11-f510-4350-ac79-bf6a0f38b70c</guid><category>TopCoder</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Sun, 30 Nov 2014 17:26:21 GMT</pubDate></item><item><title>CCipher</title><description>&lt;p&gt;Used In:    SRM 147 &lt;br&gt;
+Used As:    Division II Level One&lt;/p&gt;
+
+&lt;h6 id="problemstatement"&gt;Problem Statement&lt;/h6&gt;
+
+&lt;p&gt;Julius Caesar used a system of cryptography, now known as Caesar Cipher, which shifted each letter 2 places further through the alphabet (e.g. 'A' shifts to 'C', 'R' shifts to 'T', etc.). At the end of the alphabet we wrap around, that is 'Y' shifts to 'A'.&lt;/p&gt;
+
+&lt;p&gt;We can, of course, try shifting by any number. Given an encoded text and a number of places to shift, decode it.&lt;/p&gt;
+
+&lt;p&gt;For example, "TOPCODER" shifted by 2 places will be encoded as "VQREQFGT". In other words, if given (quotes for clarity) "VQREQFGT" and 2 as input, you will return "TOPCODER". See example 0 below.&lt;/p&gt;
+
+&lt;h6 id="definition"&gt;Definition&lt;/h6&gt;
+
+&lt;p&gt;Class:    CCipher &lt;br&gt;
+Method:    decode &lt;br&gt;
+Parameters:    String, int &lt;br&gt;
+Returns:    String &lt;br&gt;
+Method signature:    String decode(String cipherText, int shift) &lt;br&gt;
+(be sure your method is public)&lt;/p&gt;
+
+&lt;h6 id="constraints"&gt;Constraints&lt;/h6&gt;
+
+&lt;ul&gt;
+&lt;li&gt;cipherText has between 0 to 50 characters inclusive&lt;/li&gt;
+&lt;li&gt;each character of cipherText is an uppercase letter 'A'-'Z'&lt;/li&gt;
+&lt;li&gt;shift is between 0 and 25 inclusive&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h6 id="examples"&gt;Examples&lt;/h6&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;"VQREQFGT" &lt;br&gt;
+2 &lt;br&gt;
+Returns: "TOPCODER"&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;"ABCDEFGHIJKLMNOPQRSTUVWXYZ" &lt;br&gt;
+10 &lt;br&gt;
+Returns: "QRSTUVWXYZABCDEFGHIJKLMNOP"&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;"TOPCODER" &lt;br&gt;
+0 &lt;br&gt;
+Returns: "TOPCODER"&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;"ZWBGLZ" &lt;br&gt;
+25 &lt;br&gt;
+Returns: "AXCHMA"&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;"DBNPCBQ" &lt;br&gt;
+1 &lt;br&gt;
+Returns: "CAMOBAP"&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;"LIPPSASVPH" &lt;br&gt;
+4 &lt;br&gt;
+Returns: "HELLOWORLD"&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr&gt;
+
+&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;string&amp;gt;
+
+using namespace std;
+
+class CCipher {  
+    private:
+        int mod(int n, int m) {
+            return n % m &amp;lt; 0 ? n % m + m : n % m;
+        }
+    public:
+        string  decode(string cipherText, int shift) {
+            string original = "";
+            for (int i = 0; i &amp;lt; cipherText.size(); ++i) {
+                original += 'A' + mod(cipherText[i] - 'A' - shift, 26);
+            }
+            return original;
+        }
+};
+&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/30/ccipher/</link><guid isPermaLink="false">8e0f378a-be43-4ab5-b543-a8ee2bebda7a</guid><category>TopCoder</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Sun, 30 Nov 2014 15:33:19 GMT</pubDate></item><item><title>Quipu</title><description>&lt;p&gt;Used In:    SRM 155 &lt;br&gt;
+Used As:    Division II Level One&lt;/p&gt;
+
+&lt;h6 id="problemstatement"&gt;Problem Statement&lt;/h6&gt;
+
+&lt;p&gt;The Incas used a sophisticated system of record keeping consisting of bundles of knotted cords. Such a bundle of cords is called a quipu. Each individual cord represents a single number. Surprisingly, the Incas used a base-10 positional system, just like we do today. Each digit of a number is represented by a cluster of adjacent knots, with spaces between neighboring clusters. The digit is determined by the number of knots in the cluster. For example, the number 243 would be represented by a cord with knots tied in the following pattern&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt; -XX-XXXX-XXX-
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;where each uppercase 'X' represents a knot and each '-' represents an unknotted segment of cord (all quotes for clarity only).&lt;/p&gt;
+
+&lt;p&gt;Unlike many ancient civilizations, the Incas were aware of the concept of zero, and used it in their quipus. A zero is represented by a cluster containing no knots. For example, the number 204003 would be represented by a cord with knots tied in the following pattern&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt; -XX--XXXX---XXX-
+    ^^    ^^^
+    ^^    ^^^
+    ^^    two zeros between these three segments
+    ^^
+    one zero between these two segments
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Notice how adjacent dashes signal the presence of a zero. &lt;br&gt;
+Your task is to translate a single quipu cord into an integer. The cord will be given as a String knots containing only the characters 'X' and '-'. There will be a single '-' between each cluster of 'X's, as well as a leading '-' and a trailing '-'. The first cluster will not be empty.&lt;/p&gt;
+
+&lt;h6 id="definition"&gt;Definition&lt;/h6&gt;
+
+&lt;p&gt;Class:    Quipu &lt;br&gt;
+Method:    readKnots &lt;br&gt;
+Parameters:    String &lt;br&gt;
+Returns:    int &lt;br&gt;
+Method signature:    int readKnots(String knots) &lt;br&gt;
+(be sure your method is public)&lt;/p&gt;
+
+&lt;h6 id="constraints"&gt;Constraints&lt;/h6&gt;
+
+&lt;ul&gt;
+&lt;li&gt;knots contains between 3 and 50 characters, inclusive.&lt;/li&gt;
+&lt;li&gt;knots contains only the characters 'X' and '-'. Note that 'X' is uppercase.&lt;/li&gt;
+&lt;li&gt;The first and last characters of knots are '-'s. The second character is 'X'.&lt;/li&gt;
+&lt;li&gt;knots does not contain 10 consecutive 'X's.&lt;/li&gt;
+&lt;li&gt;knots will represent a number between 1 and 1000000, inclusive.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h6 id="examples"&gt;Examples&lt;/h6&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;"-XX-XXXX-XXX-" &lt;br&gt;
+Returns: 243 &lt;br&gt;
+The first example above.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;"-XX--XXXX---XXX-" &lt;br&gt;
+Returns: 204003 &lt;br&gt;
+The second example above.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;"-X-" &lt;br&gt;
+Returns: 1&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;"-X-------" &lt;br&gt;
+Returns: 1000000&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;"-XXXXXXXXX--XXXXXXXXX-XXXXXXXXX-XXXXXXX-XXXXXXXXX-" &lt;br&gt;
+Returns: 909979&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr&gt;
+
+&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;string&amp;gt;
+
+using namespace std;
+
+class Quipu {  
+    public:
+        int readKnots(string knots) {
+            int countX = 0,
+                num = 0;
+            for (int i = 0; i &amp;lt; knots.size(); ++i) {
+                if (knots[i] == 'X') {
+                    ++countX;
+                } else {
+                    num *= 10;
+                    num += countX;
+                    countX = 0;
+                }
+            }
+            return num;
+        }
+};
+&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/30/quipu/</link><guid isPermaLink="false">d7e628c2-a900-435b-93fb-56a47ef9a54b</guid><category>TopCoder</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Sun, 30 Nov 2014 15:08:32 GMT</pubDate></item><item><title>PassingGrade</title><description>&lt;p&gt;Used In:    SRM 185 &lt;br&gt;
+Used As:    Division II Level One&lt;/p&gt;
+
+&lt;h6 id="problemstatement"&gt;Problem Statement&lt;/h6&gt;
+
+&lt;p&gt;You are studying for the final exam in a tough course, and want to know how many points you need to score on the final to pass the course. You know how many points you earned on each assignment (pointsEarned), how many points were possible on each assignment (pointsPossible), and how many points are possible on the final exam (finalExam). You need to earn a minimum of 65% of the total possible points to pass the course. Assume your score on the final exam will be an integral number of points between 0 and finalExam, inclusive. Return the number of points you need to score on the final to pass the course, or -1 if it is impossible for you to pass the course.&lt;/p&gt;
+
+&lt;h6 id="definition"&gt;Definition&lt;/h6&gt;
+
+&lt;p&gt;Class:    PassingGrade &lt;br&gt;
+Method:    pointsNeeded &lt;br&gt;
+Parameters:    int[], int[], int &lt;br&gt;
+Returns:    int &lt;br&gt;
+Method signature:    int pointsNeeded(int[] pointsEarned, int[] pointsPossible, int finalExam) &lt;br&gt;
+(be sure your method is public)&lt;/p&gt;
+
+&lt;h6 id="constraints"&gt;Constraints&lt;/h6&gt;
+
+&lt;ul&gt;
+&lt;li&gt;pointsEarned contains between 1 and 20 elements, inclusive.&lt;/li&gt;
+&lt;li&gt;pointsPossible contains the same number of elements as pointsEarned.&lt;/li&gt;
+&lt;li&gt;Each element of pointsPossible is between 1 and 1000, inclusive.&lt;/li&gt;
+&lt;li&gt;Element i of pointsEarned is between 0 and element i of pointsPossible, inclusive.&lt;/li&gt;
+&lt;li&gt;finalExam is between 1 and 3000, inclusive.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h6 id="examples"&gt;Examples&lt;/h6&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;{55,77,82,60} &lt;br&gt;
+{100,100,100,100}
+300 &lt;br&gt;
+Returns: 181 &lt;br&gt;
+If you score 181 points on the final, then you will finish the course with exactly 65% of the possible points.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;{ 1, 2, 3, 4 } &lt;br&gt;
+{ 2, 3, 4, 5 }
+7 &lt;br&gt;
+Returns: 4 &lt;br&gt;
+If you score 4 points on the final, then you pass with 66.7% of the total possible points, but if you score 3 points on the final, then you fail with 61.9% of the possible points.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;{ 1, 2, 2, 1 } &lt;br&gt;
+{ 9, 9, 9, 9 }
+9 &lt;br&gt;
+Returns: -1 &lt;br&gt;
+Even if you score 9 points on the final, you still fail with 33.3% of the possible points.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;{ 7, 8, 7, 6 } &lt;br&gt;
+{ 8, 8, 8, 8 }
+9 &lt;br&gt;
+Returns: 0 &lt;br&gt;
+You will pass even if you score 0 points on the final.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;{ 17, 23, 50, 200, 19, 56, 83, 91, 77, 9, 0 } &lt;br&gt;
+{ 20, 30, 50, 250, 20, 70, 100, 100, 100, 10, 10 }
+400 &lt;br&gt;
+Returns: 129&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;{600,600,600,600,600,600,600,600,600,600, &lt;br&gt;
+600,600,600,600,600,600,600,600,600,600}
+{1000,1000,1000,1000,1000,1000,1000,1000,
+1000,1000,1000,1000,1000,1000,1000,1000,
+1000,1000,1000,901}
+3000 &lt;br&gt;
+Returns: 2886&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr&gt;
+
+&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;vector&amp;gt;
+#include &amp;lt;numeric&amp;gt;
+#include &amp;lt;cmath&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+
+using namespace std;
+
+class PassingGrade {  
+    public:
+        int pointsNeeded (vector&amp;lt;int&amp;gt; pointsEarned, vector&amp;lt;int&amp;gt; pointsPossible, int finalExam) {
+            int totalEarned = accumulate(pointsEarned.begin(), 
+                              pointsEarned.end(), 0);
+            int totalPossible = accumulate(pointsPossible.begin(), 
+                                pointsPossible.end(), finalExam);
+            int required = ceil(totalPossible * 0.65);
+            if (required - totalEarned &amp;gt; finalExam) {
+                return -1;
+            } 
+            return max(0, required - totalEarned);
+        }
+};
+&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/30/passinggrade/</link><guid isPermaLink="false">ccc63d54-9c8e-4f89-9b6b-6ffc0c500bf9</guid><category>TopCoder</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Sun, 30 Nov 2014 14:35:38 GMT</pubDate></item><item><title>NoOrderOfOperations</title><description>&lt;p&gt;Used In:    SRM 200 &lt;br&gt;
+Used As:    Division II Level One&lt;/p&gt;
+
+&lt;h6 id="problemstatement"&gt;Problem Statement&lt;/h6&gt;
+
+&lt;p&gt;When evaluating a mathematical expression, there is the possibility of ambiguity. If you wanted to know the result of "3 + 5 * 7", you might first evaluate the (3+5) and get 56, or first evaluate the (5*7) and get 38. This ambiguity can be resolved by using the order of operations: first do multiplication and division (from left to right), and then after all those are done, do addition and subtraction (again from left to right). Here, the correct result would be the 38.&lt;/p&gt;
+
+&lt;p&gt;While this is unambiguous, it certainly is somewhat annoying. You think it would be easier if people did all math from left to right, all the time, and want to make a simple expression evaluator to do so.&lt;/p&gt;
+
+&lt;p&gt;The expression will be given to you as a String expr. It will consist of one digit numbers (0 through 9) alternating with operators (+, -, or *), with no spaces between them. Thus, expr would follow the format Digit Operator Digit Operator .... Digit. For example, the expression given above would be given as "3+5*7".&lt;/p&gt;
+
+&lt;p&gt;Your method should return an int representing the value of the expression when evaluated from left to right.&lt;/p&gt;
+
+&lt;h6 id="definition"&gt;Definition&lt;/h6&gt;
+
+&lt;p&gt;Class:    NoOrderOfOperations &lt;br&gt;
+Method:    evaluate &lt;br&gt;
+Parameters:    String &lt;br&gt;
+Returns:    int &lt;br&gt;
+Method signature:    int evaluate(String expr) &lt;br&gt;
+(be sure your method is public)&lt;/p&gt;
+
+&lt;h6 id="constraints"&gt;Constraints&lt;/h6&gt;
+
+&lt;ul&gt;
+&lt;li&gt;expr will be between 1 and 17 characters in length, inclusive.&lt;/li&gt;
+&lt;li&gt;expr will contain an odd number of characters.&lt;/li&gt;
+&lt;li&gt;expr will follow the format Digit Operator Digit Operator ... Digit, where each Digit is a single character from '0' to '9', and each Operator is either +, -, or *.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h6 id="examples"&gt;Examples&lt;/h6&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;"3+5*7" &lt;br&gt;
+Returns: 56 &lt;br&gt;
+First we add 3 + 5 to get 8. Then, we multiply 8 by 7 to get 56.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;"4-8*9*1" &lt;br&gt;
+Returns: -36 &lt;br&gt;
+Results can be negative.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;"0" &lt;br&gt;
+Returns: 0&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;"1*2*3*4*5*6*7*8*9" &lt;br&gt;
+Returns: 362880&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr&gt;
+
+&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;string&amp;gt;
+
+using namespace std;
+
+class NoOrderOfOperations {  
+    public:
+        int evaluate(string expr) {
+            char op = '+';
+            int ans = 0;
+            for (int i = 0; i &amp;lt; expr.size(); ++i) {
+                if (expr[i] &amp;gt;= '0' &amp;amp;&amp;amp; expr[i] &amp;lt;= '9') {
+                    if (op == '+') {
+                        ans += (expr[i] - '0');
+                    } else if (op == '-') {
+                        ans -= (expr[i] - '0');
+                    } else if (op == '*') {
+                        ans *= (expr[i] - '0');
+                    } else if (op == '/') {
+                        ans /= (expr[i] - '0');
+                    }
+                } else {
+                    op = expr[i];
+                }
+            }
+            return ans;
+        }
+};
+&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/30/noorderofoperations/</link><guid isPermaLink="false">f24d48f1-a658-4d19-b7ee-0754106d783e</guid><category>TopCoder</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Sun, 30 Nov 2014 11:38:04 GMT</pubDate></item><item><title>Yahtzee</title><description>&lt;p&gt;Used In:    SRM 146 &lt;br&gt;
+Used As:    Division II Level One&lt;/p&gt;
+
+&lt;h6 id="problemstatement"&gt;Problem Statement&lt;/h6&gt;
+
+&lt;p&gt;This task is about the scoring in the first phase of the die-game Yahtzee, where five dice are used. The score is determined by the values on the upward die faces after a roll. The player gets to choose a value, and all dice that show the chosen value are considered active. The score is simply the sum of values on active dice.&lt;/p&gt;
+
+&lt;p&gt;Say, for instance, that a player ends up with the die faces showing 2, 2, 3, 5 and 4. Choosing the value two makes the dice showing 2 active and yields a score of 2 + 2 = 4, while choosing 5 makes the one die showing 5 active, yielding a score of 5.&lt;/p&gt;
+
+&lt;p&gt;Your method will take as input an int[] toss, where each element represents the upward face of a die, and return the maximum possible score with these values.&lt;/p&gt;
+
+&lt;h6 id="definition"&gt;Definition&lt;/h6&gt;
+
+&lt;p&gt;Class:    YahtzeeScore &lt;br&gt;
+Method:    maxPoints &lt;br&gt;
+Parameters:    int[] &lt;br&gt;
+Returns:    int &lt;br&gt;
+Method signature:    int maxPoints(int[] toss) &lt;br&gt;
+(be sure your method is public)&lt;/p&gt;
+
+&lt;h6 id="constraints"&gt;Constraints&lt;/h6&gt;
+
+&lt;ul&gt;
+&lt;li&gt;toss will contain exactly 5 elements.&lt;/li&gt;
+&lt;li&gt;Each element of toss will be between 1 and 6, inclusive.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h6 id="examples"&gt;Examples&lt;/h6&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;{ 2, 2, 3, 5, 4 } &lt;br&gt;
+Returns: 5 &lt;br&gt;
+The example from the text.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;{ 6, 4, 1, 1, 3 } &lt;br&gt;
+Returns: 6 &lt;br&gt;
+Selecting 1 as active yields 1 + 1 = 2, selecting 3 yields 3, selecting 4 yields 4 and selecting 6 yields 6, which is the maximum number of points.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;{ 5, 3, 5, 3, 3 } &lt;br&gt;
+Returns: 10&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr&gt;
+
+&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;vector&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+
+using namespace std;
+
+class YahtzeeScore {  
+    public:
+        int maxPoints(vector&amp;lt;int&amp;gt; toss) {
+            vector&amp;lt;int&amp;gt; sum(7, 0);
+            for (int i = 0; i &amp;lt; 5; ++i) {
+                sum[toss[i]] += toss[i];
+            }
+            return *max_element(sum.begin(), sum.end());
+        }   
+};
+&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/30/yahtzee/</link><guid isPermaLink="false">8d1b1abb-1fbf-4698-a399-c75134b67896</guid><category>TopCoder</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Sun, 30 Nov 2014 11:15:17 GMT</pubDate></item><item><title>Poetry</title><description>&lt;p&gt;Used In:    SRM 170 &lt;br&gt;
 Used As:    Division II Level Three&lt;/p&gt;
 
 &lt;h6 id="problemstatement"&gt;Problem Statement&lt;/h6&gt;
@@ -792,633 +1462,4 @@ int main() {
     }
     return 0;
 }
-&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/28/crds/</link><guid isPermaLink="false">80d9e6f9-0109-4490-a9b5-32d931259a55</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Fri, 28 Nov 2014 17:25:46 GMT</pubDate></item><item><title>EGYPIZZA</title><description>&lt;p&gt;Abotrika is having a party because his team won the african cup so he is inviting his friends to eat some pizza. Unfortunately, Abotrika's friends can't eat an entire pizza but all of them know exactly how much pizza they can eat and insist on getting the exact amount of pizza but Abotrika eats one complete pizza and all of them wants his amount of pizza in one slice.&lt;/p&gt;
-
-&lt;p&gt;Their requests break down to three different pizza slices-either one quarter or a half or three quarters of pizza. write a program that will help Abotrika to find out what is the minimal number of pizzas he has to order so that everyone gets exact amount of pizza they want.&lt;/p&gt;
-
-&lt;h6 id="input"&gt;Input&lt;/h6&gt;
-
-&lt;p&gt;First line contains an integer N, 0&amp;lt;=N&amp;lt;=10000, number of friends. In each of next N lines there is amount of pizza that each of Abotrika's friends wants to eat,that is the fraction 1/4, 1/2 or 3/4.&lt;/p&gt;
-
-&lt;h6 id="output"&gt;Output&lt;/h6&gt;
-
-&lt;p&gt;In the first and only line you should write the minimal number of pizzas Abotrika has order don't forget to order one complete pizza for Abotrika&lt;/p&gt;
-
-&lt;p&gt;Example&lt;/p&gt;
-
-&lt;p&gt;Input: &lt;br&gt;
-3 &lt;br&gt;
-1/2 &lt;br&gt;
-3/4 &lt;br&gt;
-3/4&lt;/p&gt;
-
-&lt;p&gt;Output: &lt;br&gt;
-4&lt;/p&gt;
-
-&lt;p&gt;Input: &lt;br&gt;
-5 &lt;br&gt;
-1/2 &lt;br&gt;
-3/4 &lt;br&gt;
-1/2 &lt;br&gt;
-1/4 &lt;br&gt;
-1/4&lt;/p&gt;
-
-&lt;p&gt;Output: &lt;br&gt;
-4&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
-#include &amp;lt;string&amp;gt;
-
-using namespace std;
-
-int main() {  
-    int N;
-    cin &amp;gt;&amp;gt; N;
-    long long a = 1,
-              q = 0,
-              h = 0,
-              t = 0;
-    for (;N--;) {
-        string s;
-        cin &amp;gt;&amp;gt; s;
-        if (s == "1/2") {
-            ++h;
-        } else if (s == "3/4") {
-            ++t;
-        } else {
-            ++q;
-        }
-    }
-    a += h / 2;
-    a += (h % 2);
-    if (h % 2 == 1) {
-        q -= 2;
-    }
-    if (t &amp;gt;= q) {
-        a += t;
-    } else {
-        a += t;
-        q -= t;
-        a += q/4;
-        a += (q % 4 &amp;gt; 0 ? 1 : 0);
-    }
-    cout &amp;lt;&amp;lt; a &amp;lt;&amp;lt; "\n";
-    return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/28/egypizza/</link><guid isPermaLink="false">848e8203-7cb7-4208-8e48-e6956466548d</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Fri, 28 Nov 2014 15:38:00 GMT</pubDate></item><item><title>OLOLOL</title><description>&lt;p&gt;Onotole has a lot of pyani. Each pyani has a number, writing on it. Pyanis with equal numbers are indistinguishable. Onotole knows everything, so, he knows that each pyani appeared twice, and only one pyani is unique. He wants to get вздръжни эффект, and he needs the unique pyani. Given the list of pyanis denote which one of them appeared once (it is guaranteed that other pyanis appeared twice).&lt;/p&gt;
-
-&lt;h6 id="input"&gt;Input&lt;/h6&gt;
-
-&lt;p&gt;First line of input contains number of pyanis N&amp;lt;=500 000. Next N lines contain a single positive integer 1 &amp;lt;= Pi &amp;lt;= 10^9.&lt;/p&gt;
-
-&lt;h6 id="output"&gt;Output&lt;/h6&gt;
-
-&lt;p&gt;Output one positive integer on pyani, which appeared once.&lt;/p&gt;
-
-&lt;p&gt;Example&lt;/p&gt;
-
-&lt;p&gt;Input: &lt;br&gt;
-3 &lt;br&gt;
-1 &lt;br&gt;
-8 &lt;br&gt;
-1&lt;/p&gt;
-
-&lt;p&gt;Output: &lt;br&gt;
-8&lt;/p&gt;
-
-&lt;p&gt;Onotole has found not optimal AC algorithms, so all solutions will be rejudged. He is watching you.&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
-
-using namespace std;
-
-int main() {  
-    int n;
-    scanf("%d",&amp;amp;n);
-    long long x, res = 0;
-    for (;n--;) {
-        scanf("%lld",&amp;amp;x);
-        res ^= x;
-    }
-    cout &amp;lt;&amp;lt; res &amp;lt;&amp;lt; "\n";
-    return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/28/ololol/</link><guid isPermaLink="false">d8be6bbf-e8dd-4d91-b1b3-1098c55c5425</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Fri, 28 Nov 2014 13:18:27 GMT</pubDate></item><item><title>HYPNOS</title><description>&lt;p&gt;The process of “breaking” an integer is defined as summing the squares of its digits. For example, the result of breaking the integer 125 is (12 + 22 + 52) = 30. An integer N is happy if after “breaking” it repeatedly the result reaches 1. If the result never reaches 1 no matter how many times the “breaking” is repeated, then N is not a happy number.&lt;/p&gt;
-
-&lt;h6 id="task"&gt;Task&lt;/h6&gt;
-
-&lt;p&gt;Write a program that given an integer N, determines whether it is a happy number or not.&lt;/p&gt;
-
-&lt;h6 id="constraints"&gt;Constraints&lt;/h6&gt;
-
-&lt;p&gt;2 ≤ N ≤ 2,147,483,647&lt;/p&gt;
-
-&lt;h6 id="input"&gt;Input&lt;/h6&gt;
-
-&lt;p&gt;A single line containing a single integer N.&lt;/p&gt;
-
-&lt;h6 id="output"&gt;Output&lt;/h6&gt;
-
-&lt;p&gt;A single line containing a single integer T which is the number of times the process had to be done to determine that N is happy, or -1 if N is not happy.&lt;/p&gt;
-
-&lt;p&gt;Example&lt;/p&gt;
-
-&lt;p&gt;Input: &lt;br&gt;
-19&lt;/p&gt;
-
-&lt;p&gt;Output: &lt;br&gt;
-4&lt;/p&gt;
-
-&lt;p&gt;1) 19   : 12 + 92 = 82 &lt;br&gt;
-2) 82   : 82 + 22 = 68 &lt;br&gt;
-3) 68   : 62 + 82 = 100 &lt;br&gt;
-4) 100 : 12 + 02 + 02 = 1&lt;/p&gt;
-
-&lt;p&gt;The solution is 4 because we discovered that the integer 19 is happy after we repeated the process 4 &lt;br&gt;
-times.&lt;/p&gt;
-
-&lt;p&gt;Example&lt;/p&gt;
-
-&lt;p&gt;Input: &lt;br&gt;
-204&lt;/p&gt;
-
-&lt;p&gt;Output: &lt;br&gt;
--1&lt;/p&gt;
-
-&lt;p&gt;204 –&gt; 20 –&gt; 4 –&gt; 16 –&gt; 37 –&gt; 58 –&gt; 89 –&gt; 145 –&gt; 42 –&gt; 20 –&gt; 4 –&gt; 16 –&gt; 37 –&gt; 58 –&gt; 89 –&gt; 145 ……..&lt;/p&gt;
-
-&lt;p&gt;204 is not a happy number because after breaking it several times the results start repeating so we can deduce that if we continue breaking it, the result will never reach 1.&lt;/p&gt;
-
-&lt;p&gt;Number of test cases is 32.&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
-#include &amp;lt;set&amp;gt;
-
-using namespace std;
-
-typedef long long ll;
-
-ll breakNumber(ll N) {  
-    ll res = 0;
-    while (N != 0) {
-        int n = N % 10;
-        res += (n * n);
-        N /= 10;
-    }
-    return res;
-}
-
-int main() {  
-    int N;
-    cin &amp;gt;&amp;gt; N;
-    set&amp;lt;ll&amp;gt; pows;
-    pows.insert(N);
-    ll count = 0;
-    while (N != 1) {
-        N = breakNumber(N);
-        if (pows.find(N) != pows.end()) {
-            count = -1;
-            break;
-        } else {
-            pows.insert(N);
-            ++count;
-        }
-    }
-    cout &amp;lt;&amp;lt; count &amp;lt;&amp;lt; "\n";
-    return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/28/hypnos/</link><guid isPermaLink="false">cb4b527e-e33c-4e14-b403-967f3a1b9757</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Fri, 28 Nov 2014 13:09:53 GMT</pubDate></item><item><title>BITMAP</title><description>&lt;p&gt;There is given a rectangular bitmap of size n*m. Each pixel of the bitmap is either white or black, but at least one is white. The pixel in i-th line and j-th column is called the pixel (i,j). The distance between two pixels p1=(i1,j1) and p2=(i2,j2) is defined as:&lt;/p&gt;
-
-&lt;p&gt;d(p1,p2)=|i1-i2|+|j1-j2|.&lt;/p&gt;
-
-&lt;h6 id="task"&gt;Task&lt;/h6&gt;
-
-&lt;p&gt;Write a program which:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;reads the description of the bitmap from the standard input,&lt;/li&gt;
-&lt;li&gt;for each pixel, computes the distance to the nearest white pixel,&lt;/li&gt;
-&lt;li&gt;writes the results to the standard output.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h6 id="input"&gt;Input&lt;/h6&gt;
-
-&lt;p&gt;The number of test cases t is in the first line of input, then t test cases follow separated by an empty line. In the first line of each test case there is a pair of integer numbers n, m separated by a single space, 1&amp;lt;=n &amp;lt;=182, 1&amp;lt;=m&amp;lt;=182. In each of the following n lines of the test case exactly one zero-one word of length m, the description of one line of the bitmap, is written. On the j-th position in the line (i+1), 1 &amp;lt;= i &amp;lt;= n, 1 &amp;lt;= j &amp;lt;= m, is '1' if, and only if the pixel (i,j) is white.&lt;/p&gt;
-
-&lt;h6 id="output"&gt;Output&lt;/h6&gt;
-
-&lt;p&gt;In the i-th line for each test case, 1&amp;lt;=i&amp;lt;=n, there should be written m integers f(i,1),...,f(i,m) separated by single spaces, where f(i,j) is the distance from the pixel (i,j) to the nearest white pixel.&lt;/p&gt;
-
-&lt;p&gt;Example&lt;/p&gt;
-
-&lt;p&gt;Input: &lt;br&gt;
-1 &lt;br&gt;
-3 4 &lt;br&gt;
-0001 &lt;br&gt;
-0011 &lt;br&gt;
-0110&lt;/p&gt;
-
-&lt;p&gt;Output: &lt;br&gt;
-3 2 1 0 &lt;br&gt;
-2 1 0 0 &lt;br&gt;
-1 0 0 1&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
-#include &amp;lt;string&amp;gt;
-#include &amp;lt;vector&amp;gt;
-
-using namespace std;
-
-void bfs(vector&amp;lt;vector&amp;lt;int&amp;gt; &amp;gt; &amp;amp;dist, int x, int y, int d) {  
-    int n = dist.size(),
-        m = dist[0].size();
-    if (x &amp;gt;= 0 &amp;amp;&amp;amp; x &amp;lt; n &amp;amp;&amp;amp; y &amp;gt;= 0 &amp;amp;&amp;amp; y &amp;lt; m &amp;amp;&amp;amp; dist[x][y] &amp;gt; d) {
-        dist[x][y] = d;
-        bfs(dist, x + 1, y, d + 1);
-        bfs(dist, x - 1, y, d + 1);
-        bfs(dist, x, y + 1, d + 1);
-        bfs(dist, x, y - 1, d + 1);
-    }
-    return;
-}
-
-int main() {  
-    int T;
-    cin &amp;gt;&amp;gt; T;
-    for (;T--;) {
-        int n, m;
-        cin &amp;gt;&amp;gt; n &amp;gt;&amp;gt; m;
-        vector&amp;lt;string&amp;gt; grid(n);
-        vector&amp;lt;vector&amp;lt;int&amp;gt; &amp;gt; dist(n, vector&amp;lt;int&amp;gt; (m, 400));
-        for (int i = 0; i &amp;lt; n; ++i) {
-            cin &amp;gt;&amp;gt; grid[i];
-        }
-        for (int i = 0; i &amp;lt; n; ++i) {
-            for (int j = 0; j &amp;lt; m; ++j) {
-                if (grid[i][j] == '1') {
-                    bfs(dist, i, j, 0);
-                }
-            }
-        }
-        for (int i = 0; i &amp;lt; n; ++i) {
-            for (int j = 0; j &amp;lt; m; ++j) {
-                cout &amp;lt;&amp;lt; dist[i][j] &amp;lt;&amp;lt; " ";
-            }
-            cout &amp;lt;&amp;lt; "\n";
-        }
-    }
-    return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/28/bitmap/</link><guid isPermaLink="false">09df0738-8c1b-4b87-8029-6ae6968f1869</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Fri, 28 Nov 2014 04:07:25 GMT</pubDate></item><item><title>ACODE</title><description>&lt;p&gt;Alice and Bob need to send secret messages to each other and are discussing ways to encode their messages:  &lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Alice: “Let’s just use a very simple code: We’ll assign ‘A’ the code word 1, ‘B’ will be 2, and so on down to ‘Z’ being assigned 26.”
-
-Bob: “That’s a stupid code, Alice. Suppose I send you the word ‘BEAN’ encoded as 25114. You could decode that in many different ways!”
-
-Alice: “Sure you could, but what words would you get? Other than ‘BEAN’, you’d get ‘BEAAD’, ‘YAAD’, ‘YAN’, ‘YKD’ and ‘BEKD’. I think you would be able to figure out the correct decoding. And why would you send me the word ‘BEAN’ anyway?”
-
-Bob: “OK, maybe that’s a bad example, but I bet you that if you got a string of length 5000 there would be tons of different decodings and with that many you would find at least two different ones that would make sense.”
-
-Alice: “How many different decodings?”
-
-Bob: “Jillions!”  
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;For some reason, Alice is still unconvinced by Bob’s argument, so she requires a program that will determine how many decodings there can be for a given string using her code.&lt;/p&gt;
-
-&lt;h6 id="input"&gt;Input&lt;/h6&gt;
-
-&lt;p&gt;Input will consist of multiple input sets. Each set will consist of a single line of at most 5000 digits representing a valid encryption (for example, no line will begin with a 0). There will be no spaces between the digits. An input line of ‘0’ will terminate the input and should not be processed.&lt;/p&gt;
-
-&lt;h6 id="output"&gt;Output&lt;/h6&gt;
-
-&lt;p&gt;For each input set, output the number of possible decodings for the input string. All answers will be within the range of a 64 bit signed integer.&lt;/p&gt;
-
-&lt;p&gt;Example&lt;/p&gt;
-
-&lt;p&gt;Input: &lt;br&gt;
-25114 &lt;br&gt;
-1111111111 &lt;br&gt;
-3333333333 &lt;br&gt;
-0&lt;/p&gt;
-
-&lt;p&gt;Output: &lt;br&gt;
-6 &lt;br&gt;
-89 &lt;br&gt;
-1&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;h6 id="usingdynamicprogramming"&gt;Using Dynamic Programming:&lt;/h6&gt;
-
-&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
-#include &amp;lt;string&amp;gt;
-#include &amp;lt;vector&amp;gt;
-
-using namespace std;
-
-int main() {  
-    string s;
-    while ((cin &amp;gt;&amp;gt; s) &amp;amp;&amp;amp; s != "0") {
-        vector&amp;lt;int&amp;gt; ones(s.size(), 0),
-                    tens(s.size(), 0),
-                    ways(s.size(), 0);
-        for (int i = 0; i &amp;lt; s.size(); ++i) {
-            ones[i] = s[i] - '0';
-        }
-        for (int i = 1; i &amp;lt; s.size(); ++i) {
-            tens[i] = 10 * ones[i - 1] + ones[i];
-        }
-        ways[0] = 1;
-        if (s.size() &amp;gt; 1) {
-            ways[1] = (ones[1] != 0 ? 1 : 0);
-            if (tens[1] &amp;gt; 9 &amp;amp;&amp;amp; tens[1] &amp;lt; 27) {
-                ++ways[1];
-            }
-            for (int i = 2; i &amp;lt; s.size(); ++i) {
-                ways[i] = (ones[i] != 0 ? ways[i - 1] : 0);
-                if (tens[i] &amp;gt; 9 &amp;amp;&amp;amp; tens[i] &amp;lt; 27) {
-                    ways[i] += ways[i - 2];
-                }
-            }
-        }
-        cout &amp;lt;&amp;lt; ways.back() &amp;lt;&amp;lt; "\n";
-    }
-    return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;hr&gt;
-
-&lt;h6 id="using2variables"&gt;Using 2 variables:&lt;/h6&gt;
-
-&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
-#include &amp;lt;string&amp;gt;
-
-using namespace std;
-
-int main() {  
-    string s;
-    while ((cin &amp;gt;&amp;gt; s) &amp;amp;&amp;amp; s != "0") {
-        int good = 1,
-            bad = 0;
-        for (int i = 1; i &amp;lt; s.size(); ++i) {
-            int n = (10 * (s[i - 1] - '0') + (s[i] - '0'));
-            if (s[i] == '0') {
-                if (n &amp;gt;= 27) {
-                    good = 0;
-                    bad = 0;
-                    break;
-                }
-                bad = good;
-                good = 0; 
-            } else if (n &amp;lt; 27 &amp;amp;&amp;amp; n &amp;gt; 9) {
-                good += bad;
-                bad = good - bad;
-            } else {
-                good += bad;
-                bad = 0;
-            }
-        }
-        cout &amp;lt;&amp;lt; good + bad &amp;lt;&amp;lt; "\n";
-    }
-    return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/27/acode/</link><guid isPermaLink="false">66e0fc84-f274-4962-8e98-51a5c0ee2e29</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Thu, 27 Nov 2014 07:31:59 GMT</pubDate></item><item><title>MARBLES</title><description>&lt;p&gt;Hänschen dreams he is in a shop with an infinite amount of marbles. He is allowed to select n marbles. There are marbles of k different colors. From each color there are also infinitely many marbles. Hänschen wants to have at least one marble of each color, but still there are a lot of possibilities for his selection. In his effort to make a decision he wakes up. Now he asks you how many possibilites for his selection he would have had. Assume that marbles of equal color can't be distinguished, and the order of the marbles is irrelevant.&lt;/p&gt;
-
-&lt;h6 id="input"&gt;Input&lt;/h6&gt;
-
-&lt;p&gt;The first line of input contains a number T &amp;lt;= 100 that indicates the number of test cases to follow. Each test case consists of one line containing n and k, where n is the number of marbles Hänschen selects and k is the number of different colors of the marbles. You can assume that 1&amp;lt;=k&amp;lt;=n&amp;lt;=1000000.&lt;/p&gt;
-
-&lt;h6 id="output"&gt;Output&lt;/h6&gt;
-
-&lt;p&gt;For each test case print the number of possibilities that Hänschen would have had. You can assume that this number fits into a signed 64 bit integer.&lt;/p&gt;
-
-&lt;p&gt;Example&lt;/p&gt;
-
-&lt;p&gt;Input: &lt;br&gt;
-2 &lt;br&gt;
-10 10 &lt;br&gt;
-30 7&lt;/p&gt;
-
-&lt;p&gt;Output: &lt;br&gt;
-1 &lt;br&gt;
-475020&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
-#include &amp;lt;algorithm&amp;gt;
-
-using namespace std;
-
-unsigned long long gcd(unsigned long long a, unsigned long long b) {  
-    return (b == 0 ? a : gcd(b, a % b));
-}
-
-unsigned long long NCR(unsigned long long N, unsigned long long K) {  
-    if(K &amp;gt; N) {
-        return 0;
-    }
-    K = min(N - K, K);
-    unsigned long long p = 1;
-    for (unsigned long long i = 1; i &amp;lt;= K ; ++i) {
-        unsigned long long g = gcd(p, i);
-        p /= g;
-        p *= (N - i + 1) / (i / g);
-    }
-    return p;
-}
-
-int main() {  
-    int T;
-    cin &amp;gt;&amp;gt; T;
-    for (;T--;) {
-        unsigned long long N, K;
-        cin &amp;gt;&amp;gt; N &amp;gt;&amp;gt; K;
-        --N, --K;
-        cout &amp;lt;&amp;lt; NCR(N, K) &amp;lt;&amp;lt; "\n";
-    }
-    return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/27/marbles/</link><guid isPermaLink="false">bea21dd8-92e3-4b40-a042-f2f4e9f409fd</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Thu, 27 Nov 2014 04:19:00 GMT</pubDate></item><item><title>BYTESM2</title><description>&lt;p&gt;One of the secret chambers in Hogwarts is full of philosopher’s stones. The floor of the chamber is covered by h × w square tiles, where there are h rows of tiles from front (first row) to back (last row) and w columns of tiles from left to right. Each tile has 1 to 100 stones on it. Harry has to grab as many philosopher’s stones as possible, subject to the following restrictions:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;He starts by choosing any tile in the first row, and collects the philosopher’s stones on that tile. Then, he moves to a tile in the next row, collects the philosopher’s stones on the tile, and so on until he reaches the last row.&lt;/li&gt;
-&lt;li&gt;When he moves from one tile to a tile in the next row, he can only move to the tile just below it or diagonally to the left or right.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Given the values of h and w, and the number of philosopher’s stones on each tile, write a program to compute the maximum possible number of philosopher’s stones Harry can grab in one single trip from the first row to the last row.&lt;/p&gt;
-
-&lt;h6 id="input"&gt;Input&lt;/h6&gt;
-
-&lt;p&gt;The first line consists of a single integer T, the number of test cases. In each of the test cases, the first line has two integers. The first integer h (1&amp;lt;=h&amp;lt;=100) is the number of rows of tiles on the floor. The second integer w (1&amp;lt;=w&amp;lt;=100) is the number of columns of tiles on the floor. Next, there are h lines of inputs. The ith line of these, specifies the number of philosopher’s stones in each tile of the ith row from the front. Each line has w integers, where each integer m (0&amp;lt;=m&amp;lt;=100) is the number of philosopher’s stones on that tile. The integers are separated by a space character.&lt;/p&gt;
-
-&lt;h6 id="output"&gt;Output&lt;/h6&gt;
-
-&lt;p&gt;The output should consist of T lines, (1&amp;lt;=T&amp;lt;=100), one for each test case. Each line consists of a single integer, which is the maximum possible number of philosopher’s stones Harry can grab, in one single trip from the first row to the last row for the corresponding test case.&lt;/p&gt;
-
-&lt;p&gt;Example&lt;/p&gt;
-
-&lt;p&gt;Input: &lt;br&gt;
-1 &lt;br&gt;
-6 5 &lt;br&gt;
-3 1 7 4 2 &lt;br&gt;
-2 1 3 1 1 &lt;br&gt;
-1 2 2 1 8 &lt;br&gt;
-2 2 1 5 3 &lt;br&gt;
-2 1 4 4 4 &lt;br&gt;
-5 2 7 5 1&lt;/p&gt;
-
-&lt;p&gt;Output: &lt;br&gt;
-32     &lt;/p&gt;
-
-&lt;p&gt;//7+1+8+5+4+7=32&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
-#include &amp;lt;vector&amp;gt;
-#include &amp;lt;algorithm&amp;gt;
-
-using namespace std;
-
-int main() {  
-    int T;
-    cin &amp;gt;&amp;gt; T;
-    for (;T--;) {
-        int h, w;
-        cin &amp;gt;&amp;gt; h &amp;gt;&amp;gt; w;
-        vector&amp;lt;vector&amp;lt;int&amp;gt; &amp;gt; grid(h, vector&amp;lt;int&amp;gt;(w));
-        for (int i = 0; i &amp;lt; h; ++i) {
-            for (int j = 0; j &amp;lt; w; ++j) {
-                cin &amp;gt;&amp;gt; grid[i][j];
-            }
-        }
-        for (int i = h - 2; i &amp;gt;= 0; --i) {
-            for (int j = 0; j &amp;lt; w; ++j) {
-                int maximum = 0;
-                if (j - 1 &amp;gt;= 0 &amp;amp;&amp;amp; grid[i + 1][j - 1] &amp;gt; maximum) {
-                    maximum = grid[i + 1][j - 1];
-                }
-                if (grid[i + 1][j] &amp;gt; maximum) {
-                    maximum = grid[i + 1][j];
-                }
-                if (j + 1 &amp;lt; w &amp;amp;&amp;amp; grid[i + 1][j + 1] &amp;gt; maximum) {
-                    maximum = grid[i + 1][j + 1];
-                }
-                grid[i][j] += maximum;
-            }
-        }
-        cout &amp;lt;&amp;lt; *max_element(grid[0].begin(), grid[0].end()) 
-             &amp;lt;&amp;lt; "\n";
-    }
-    return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/27/bytesm2/</link><guid isPermaLink="false">4ee19633-c9f6-4361-996d-71226822d994</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Wed, 26 Nov 2014 20:01:46 GMT</pubDate></item><item><title>JAVAC</title><description>&lt;p&gt;Apologists of Java and C++ can argue for hours proving each other that their programming language is the best one. Java people will tell that their programs are clearer and less prone to errors, while C++ people will laugh at their inability to instantiate an array of generics or tell them that their programs are slow and have long source code.&lt;/p&gt;
-
-&lt;p&gt;Another issue that Java and C++ people could never agree on is identifier naming. In Java a multiword identifier is constructed in the following manner: the first word is written starting from the small letter, and the following ones are written starting from the capital letter, no separators are used. All other letters are small. Examples of a Java identifier are javaIdentifier, longAndMnemonicIdentifier, name, nEERC.&lt;/p&gt;
-
-&lt;p&gt;Unlike them, C++ people use only small letters in their identifiers. To separate words they use underscore character ‘&lt;em&gt;’. Examples of C++ identifiers are c&lt;/em&gt;identifier, long&lt;em&gt;and&lt;/em&gt;mnemonic&lt;em&gt;identifier, name (you see that when there is just one word Java and C++ people agree), n&lt;/em&gt;e&lt;em&gt;e&lt;/em&gt;r_c.&lt;/p&gt;
-
-&lt;p&gt;You are writing a translator that is intended to translate C++ programs to Java and vice versa. Of course, identifiers in the translated program must be formatted due to its language rules — otherwise people will never like your translator.&lt;/p&gt;
-
-&lt;p&gt;The first thing you would like to write is an identifier translation routine. Given an identifier, it would detect whether it is Java identifier or C++ identifier and translate it to another dialect. If it is neither, then your routine should report an error. Translation must preserve the order of words and must only change the case of letters and/or add/remove underscores.&lt;/p&gt;
-
-&lt;h6 id="input"&gt;Input&lt;/h6&gt;
-
-&lt;p&gt;The input file consists of several lines that contains an identifier. It consists of letters of the English alphabet and underscores. Its length does not exceed 100.&lt;/p&gt;
-
-&lt;h6 id="output"&gt;Output&lt;/h6&gt;
-
-&lt;p&gt;If the input identifier is Java identifier, output its C++ version. If it is C++ identifier, output its Java version. If it is none, output 'Error!' instead.&lt;/p&gt;
-
-&lt;p&gt;Example&lt;/p&gt;
-
-&lt;p&gt;Input: &lt;br&gt;
-long_and_mnemonic_identifier &lt;br&gt;
-anotherExample &lt;br&gt;
-i &lt;br&gt;
-bad_Style&lt;/p&gt;
-
-&lt;p&gt;Output: &lt;br&gt;
-longAndMnemonicIdentifier &lt;br&gt;
-another_example &lt;br&gt;
-i &lt;br&gt;
-Error!&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
-#include &amp;lt;string&amp;gt;
-#include &amp;lt;cctype&amp;gt;
-
-using namespace std;
-
-bool isJavaIdentifier(string s) {  
-    if (!islower(s[0])) {
-        return false;
-    }
-    for (int i = 0; i &amp;lt; s.size(); ++i) {
-        if (!isalpha(s[i])) {
-            return false;
-        }
-    }
-    return true;
-}
-
-bool isCIdentifier(string s) {  
-    if (!islower(s[0])) {
-        return false;
-    }
-    for (int i = 0; i &amp;lt; s.size(); ++i) {
-        if (!islower(s[i]) &amp;amp;&amp;amp; s[i] != '_') {
-            return false;
-        }
-        if (s[i] == '_' &amp;amp;&amp;amp; !islower(s[i+1])) {
-            return false;
-        }
-    }
-    return true;
-}
-
-int main() {  
-    string s;
-    while (cin &amp;gt;&amp;gt; s) {
-        bool java = isJavaIdentifier(s),
-             c = isCIdentifier(s);
-        if (!java &amp;amp;&amp;amp; !c) {
-            cout &amp;lt;&amp;lt; "Error!\n";
-        } else if (java) {
-            string o = "";
-            for (int i = 0; i &amp;lt; s.size(); ++i) {
-                if (isupper(s[i])) {
-                    o += '_';
-                }
-                o += tolower(s[i]);
-            }
-            cout &amp;lt;&amp;lt; o &amp;lt;&amp;lt; "\n";
-        } else if (c) {
-            string o = "";
-            for (int i = 0; i &amp;lt; s.size(); ++i) {
-                if (s[i] == '_') {
-                    ++i;
-                    o += toupper(s[i]);
-                } else {
-                    o += s[i];
-                }
-            }
-            cout &amp;lt;&amp;lt; o &amp;lt;&amp;lt; "\n";
-        }
-    }
-    return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/27/javac/</link><guid isPermaLink="false">4077835d-1bca-4079-96f6-0e3e12e31991</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Wed, 26 Nov 2014 18:49:32 GMT</pubDate></item></channel></rss>
+&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/28/crds/</link><guid isPermaLink="false">80d9e6f9-0109-4490-a9b5-32d931259a55</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Fri, 28 Nov 2014 17:25:46 GMT</pubDate></item></channel></rss>

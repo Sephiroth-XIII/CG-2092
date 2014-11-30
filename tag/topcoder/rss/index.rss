@@ -1,5 +1,675 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[TopCoder - Code Jedi]]></title><description><![CDATA[Code, algorithms and design.]]></description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Sun, 30 Nov 2014 10:57:03 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/tag/topcoder/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Poetry]]></title><description><![CDATA[<p>Used In:    SRM 170 <br>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[TopCoder - Code Jedi]]></title><description><![CDATA[Code, algorithms and design.]]></description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Sun, 30 Nov 2014 20:35:37 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/tag/topcoder/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[PaperFold]]></title><description><![CDATA[<p>Used In:    SRM 162 <br>
+Used As:    Division I Level One , Division II Level Two</p>
+
+<h6 id="problemstatement">Problem Statement</h6>
+
+<p>You have a piece of paper that you need to fold to fit into a box with a given width and length. Each time you fold the paper, you can fold it in half across either its width or length, but you can only fold the paper 8 times (after 8 times, the paper is too dense to fold again).</p>
+
+<p>You will be given a int[] paper, which contains the width and length of the paper in inches, and a int[] box, which contains the width and length of the box in inches. In both cases, the first element is the width and the second element is the length. Your method should return the fewest number of folds which would allow you to fit the paper into the box. You can rotate the paper 90 degrees if it will fit with fewer folds, but the paper must lie completely flat inside the box. If the paper cannot be fit into the box with 8 folds or fewer, return -1.</p>
+
+<h6 id="definition">Definition</h6>
+
+<p>Class:    PaperFold <br>
+Method:    numFolds <br>
+Parameters:    int[], int[] <br>
+Returns:    int <br>
+Method signature:    int numFolds(int[] paper, int[] box) <br>
+(be sure your method is public)</p>
+
+<h6 id="notes">Notes</h6>
+
+<ul>
+<li>After the paper is folded, it is possible that it has fractional dimensions.</li>
+<li>The paper will fit into the box even if one or both of the dimensions are exactly the same as the corresponding box dimensions.</li>
+</ul>
+
+<h6 id="constraints">Constraints</h6>
+
+<ul>
+<li>paper will contain exactly two elements.</li>
+<li>box will contain exactly two elements.</li>
+<li>Each element of paper and box will be between 1 and 10000, inclusive.</li>
+</ul>
+
+<h6 id="examples">Examples</h6>
+
+<ol>
+<li><p>{8, 11} <br>
+{6, 10}
+Returns: 1 <br>
+By folding the paper so that the length is reduced from 11 to 5.5 inches, it will fit inside the box if you rotate it 90 degrees.</p></li>
+<li><p>{11, 17} <br>
+{6, 4}
+Returns: 4 <br>
+There are two ways to fold the paper so that it fits within the box.</p></li>
+</ol>
+
+<p>First, you could fold the width in half to get 5.5 inches, and then fold the length in half three times to get 2.125 inches.</p>
+
+<p>Second, you could fold the width in half twice to get 2.25 inches, and then fold the length in half twice to get 4.25 inches. In this case, you must also rotate 90 degrees to fit the paper in.</p>
+
+<ol>
+<li><p>{11, 17} <br>
+{5, 4}
+Returns: 4 <br>
+Now, you must use the second method to get it to fit: Fold the width and length each twice, and rotate 90 degrees. If you try fitting without rotating, it would take 5 folds.</p></li>
+<li><p>{1000,1000} <br>
+{62,63}
+Returns: -1 <br>
+Folding in each direction 4 times, you can get the paper down to 62.5 x 62.5. However, this will not fit into the box because neither dimension fits in 62.</p></li>
+<li><p>{100,30} <br>
+{60,110}
+Returns: 0</p></li>
+<li><p>{1895, 6416} <br>
+{401, 1000}
+Returns: 5</p></li>
+</ol>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;cmath&gt;
+
+using namespace std;
+
+class PaperFold {
+
+    private:
+        bool fits(double pl, double pw, double bl, double bw) {
+            if (pl &lt;= bl &amp;&amp; pw &lt;= bw) {
+                return true;
+            } else if (pl &lt;= bw &amp;&amp; pw &lt;= bl) {
+                return true;
+            } 
+            return false;
+        }
+
+    public:
+        int numFolds(vector&lt;int&gt; paper, vector&lt;int&gt; box) {
+            vector&lt;pair&lt;double, double&gt; &gt; pos(512);
+            pos[0] = make_pair(0, 0);
+            pos[1] = make_pair(paper[0]*1.0, paper[1]*1.0);
+            for (int i = 1; i &lt;= 255; ++i) {
+                pos[i * 2] = make_pair(pos[i].first / 2.0, 
+                             pos[i].second);
+                pos[i * 2 + 1] = make_pair(pos[i].first, 
+                                 pos[i].second / 2.0);
+            }
+            int ans = -1;
+            for (int i = 1; i &lt;= 511; ++i) {
+                if (fits(pos[i].first, pos[i].second, 
+                    box[0]*1.0, box[1]*1.0)) {
+                    ans = floor(log(i)/ log(2));
+                    break;
+                }
+            }
+            return ans;
+        }
+};
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/12/01/paperfold/</link><guid isPermaLink="false">f52e3fcd-2fd8-4b9d-956c-f288879bf1f8</guid><category><![CDATA[TopCoder]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Sun, 30 Nov 2014 20:30:05 GMT</pubDate></item><item><title><![CDATA[WordForm]]></title><description><![CDATA[<p>Used In:    SRM 173 <br>
+Used As:    Division I Level One , Division II Level Two</p>
+
+<h6 id="problemstatement">Problem Statement</h6>
+
+<p>In English, the letters A, E, I, O and U are the vowels. Y is also considered to be a vowel if it's not preceded by another vowel and is not the first letter in a word (the fact that a vowel is defined to some extent in terms of itself does not make it ambiguous). If a letter is not a vowel then it is a consonant. So in "TOY" the consonants are T and Y, and in "SYZYGY" they are S, Z and G.</p>
+
+<p>A sequence of vowels will be denoted by uppercase letter 'V' and a sequence of consonants will be denoted by uppercase letter 'C'. A word can then be described as an alternating sequence of 'C' and 'V'. For instance, the word "WHEREABOUTS" has the sequence CVCVCVC, and the words "YORK" and "TOY" both have the sequence CVC. It's not permissible to have two or more consecutive 'V' or 'C' in the sequence.</p>
+
+<p>Create a class WordForm containing the method getSequence which takes a String word and returns a String containing the word's sequence as described above. The word may contain both uppercase and lowercase letters, but your method should be case insensitive (see example 2).</p>
+
+<h6 id="definition">Definition</h6>
+
+<p>Class:    WordForm <br>
+Method:    getSequence <br>
+Parameters:    String <br>
+Returns:    String <br>
+Method signature:    String getSequence(String word) <br>
+(be sure your method is public)</p>
+
+<h6 id="notes">Notes</h6>
+
+<ul>
+<li>word may not be an English word, or a word in any language at all, but you should still use the rules defined above. See example 3.</li>
+</ul>
+
+<h6 id="constraints">Constraints</h6>
+
+<ul>
+<li>word will contain between 1 and 50 characters, inclusive.</li>
+<li>word will only contain the characters 'A'-'Z' and 'a'-'z', both inclusive.</li>
+</ul>
+
+<h6 id="examples">Examples</h6>
+
+<ol>
+<li><p>"WHEREABOUTS" <br>
+Returns: "CVCVCVC" <br>
+Here we have consonant-consonant-vowel-consonant-vowel-vowel-consonant-vowel-vowel-consonant-consonant. Putting together consecutive consonants and vowels gives us CVCVCVC.</p></li>
+<li><p>"yoghurt" <br>
+Returns: "CVCVC"</p></li>
+<li><p>"YipPy" <br>
+Returns: "CVCV" <br>
+Mixing lowercase and uppercase does not affect the result.</p></li>
+<li><p>"AyYyEYye" <br>
+Returns: "VCVCVCV" <br>
+Even though this isn't an English word, we use the rules defined in the statement to find the consonant-vowel pattern.</p></li>
+<li><p>"yC" <br>
+Returns: "C"</p></li>
+</ol>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;algorithm&gt;
+
+using namespace std;
+
+class WordForm {  
+    private:
+        bool isVowel(string s, int i, bool lastCharWasVowel) {
+            if (s[i] == 'a' || s[i] == 'e' || s[i] == 'i' || s[i] == 'o' || s[i] == 'u') {
+                return true;
+            } else if (s[i] == 'y' &amp;&amp; i != 0 &amp;&amp; !lastCharWasVowel) {
+                return true;
+            }
+            return false;
+        }
+    public:
+        string getSequence(string word) {
+            transform(word.begin(), word.end(), word.begin(), ::tolower);
+            string seq = "";
+            bool lastCharWasVowel = false;
+            for (int i = 0; i &lt; word.size(); ++i) {
+                if (isVowel(word, i , lastCharWasVowel)) {
+                    seq += 'V';
+                    lastCharWasVowel = true;
+                } else {
+                    seq += 'C';
+                    lastCharWasVowel = false;
+                }
+            }
+            string finalSeq = "";
+            for (int i = 0; i &lt; seq.size(); ++i) {
+                if (i == 0 || seq[i] != seq[i - 1]) {
+                    finalSeq += seq[i];
+                }
+            }
+            return finalSeq;
+        }
+};
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/30/wordform/</link><guid isPermaLink="false">456b88d7-a6dd-4ef9-b518-1651953291c5</guid><category><![CDATA[TopCoder]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Sun, 30 Nov 2014 18:10:25 GMT</pubDate></item><item><title><![CDATA[TallPeople]]></title><description><![CDATA[<p>Used In:    SRM 208 <br>
+Used As:    Division I Level One</p>
+
+<h6 id="problemstatement">Problem Statement</h6>
+
+<p>A group of people stand before you arranged in rows and columns. Looking from above, they form an R by C rectangle of people. You will be given a String[] people containing the height of each person. Elements of people correspond to rows in the rectangle. Each element contains a space-delimited list of integers representing the heights of the people in that row. Your job is to return 2 specific heights in a int[]. The first is computed by finding the shortest person in each row, and then finding the tallest person among them (the "tallest-of-the-shortest"). The second is computed by finding the tallest person in each column, and then finding the shortest person among them (the "shortest-of-the-tallest").</p>
+
+<h6 id="definition">Definition</h6>
+
+<p>Class:    TallPeople <br>
+Method:    getPeople <br>
+Parameters:    String[] <br>
+Returns:    int[] <br>
+Method signature:    int[] getPeople(String[] people) <br>
+(be sure your method is public)</p>
+
+<h6 id="constraints">Constraints</h6>
+
+<ul>
+<li>people will contain between 2 and 50 elements inclusive.</li>
+<li>Each element of people will contain between 3 and 50 characters inclusive.</li>
+<li>Each element of people will be a single space-delimited list of positive integers such that: </li>
+<li>Each positive integer is between 1 and 1000 inclusive with no extra leading zeros.</li>
+<li>Each element contains the same number of integers.</li>
+<li>Each element contains at least 2 positive integers.</li>
+<li>Each element does not contain leading or trailing whitespace.</li>
+</ul>
+
+<h6 id="examples">Examples</h6>
+
+<ol>
+<li><p>{"9 2 3", <br>
+"4 8 7"}
+Returns: { 4,  7 } <br>
+The heights 2 and 4 are the shortest from the rows, so 4 is the taller of the two. The heights 9, 8, and 7 are the tallest from the columns, so 7 is the shortest of the 3.</p></li>
+<li><p>{"1 2", <br>
+"4 5",
+"3 6"}
+Returns: { 4,  4 }</p></li>
+<li><p>{"1 1", <br>
+"1 1"}
+Returns: { 1,  1 }</p></li>
+</ol>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+#include &lt;sstream&gt;
+
+using namespace std;
+
+class TallPeople {  
+    public:
+        vector&lt;int&gt; getPeople(vector&lt;string&gt; people) {
+            vector&lt;vector&lt;int&gt; &gt; grid(people.size());
+            for (int i = 0; i &lt; people.size(); ++i) {
+                istringstream iss(people[i]);
+                int n;
+                while (iss &gt;&gt; n) {
+                    grid[i].push_back(n);
+                }
+            }
+            int tos = 0;
+            for (int i = 0; i &lt; grid.size(); ++i) {
+                int shortInRow = grid[i][0];
+                for (int j = 1; j &lt; grid[i].size(); ++j) {
+                    if (grid[i][j] &lt; shortInRow) {
+                        shortInRow = grid[i][j];
+                    }
+                }
+                if (shortInRow &gt; tos) {
+                    tos = shortInRow;
+                }
+            }
+            int sot = 10000;
+            for (int i = 0; i &lt; grid[0].size(); ++i) {
+                int tallestInColumn = grid[0][i];
+                for (int j = 1; j &lt; grid.size(); ++j) {
+                    if (grid[j][i] &gt; tallestInColumn) {
+                        tallestInColumn = grid[j][i];
+                    }
+                }
+                if (tallestInColumn &lt; sot) {
+                    sot = tallestInColumn;
+                }
+            }
+            vector&lt;int&gt; ans(2);
+            ans[0] = tos, ans[1] = sot;
+            return ans;
+        }
+};
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/30/tallpeople/</link><guid isPermaLink="false">e0b8eb11-f510-4350-ac79-bf6a0f38b70c</guid><category><![CDATA[TopCoder]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Sun, 30 Nov 2014 17:26:21 GMT</pubDate></item><item><title><![CDATA[CCipher]]></title><description><![CDATA[<p>Used In:    SRM 147 <br>
+Used As:    Division II Level One</p>
+
+<h6 id="problemstatement">Problem Statement</h6>
+
+<p>Julius Caesar used a system of cryptography, now known as Caesar Cipher, which shifted each letter 2 places further through the alphabet (e.g. 'A' shifts to 'C', 'R' shifts to 'T', etc.). At the end of the alphabet we wrap around, that is 'Y' shifts to 'A'.</p>
+
+<p>We can, of course, try shifting by any number. Given an encoded text and a number of places to shift, decode it.</p>
+
+<p>For example, "TOPCODER" shifted by 2 places will be encoded as "VQREQFGT". In other words, if given (quotes for clarity) "VQREQFGT" and 2 as input, you will return "TOPCODER". See example 0 below.</p>
+
+<h6 id="definition">Definition</h6>
+
+<p>Class:    CCipher <br>
+Method:    decode <br>
+Parameters:    String, int <br>
+Returns:    String <br>
+Method signature:    String decode(String cipherText, int shift) <br>
+(be sure your method is public)</p>
+
+<h6 id="constraints">Constraints</h6>
+
+<ul>
+<li>cipherText has between 0 to 50 characters inclusive</li>
+<li>each character of cipherText is an uppercase letter 'A'-'Z'</li>
+<li>shift is between 0 and 25 inclusive</li>
+</ul>
+
+<h6 id="examples">Examples</h6>
+
+<ol>
+<li><p>"VQREQFGT" <br>
+2 <br>
+Returns: "TOPCODER"</p></li>
+<li><p>"ABCDEFGHIJKLMNOPQRSTUVWXYZ" <br>
+10 <br>
+Returns: "QRSTUVWXYZABCDEFGHIJKLMNOP"</p></li>
+<li><p>"TOPCODER" <br>
+0 <br>
+Returns: "TOPCODER"</p></li>
+<li><p>"ZWBGLZ" <br>
+25 <br>
+Returns: "AXCHMA"</p></li>
+<li><p>"DBNPCBQ" <br>
+1 <br>
+Returns: "CAMOBAP"</p></li>
+<li><p>"LIPPSASVPH" <br>
+4 <br>
+Returns: "HELLOWORLD"</p></li>
+</ol>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+using namespace std;
+
+class CCipher {  
+    private:
+        int mod(int n, int m) {
+            return n % m &lt; 0 ? n % m + m : n % m;
+        }
+    public:
+        string  decode(string cipherText, int shift) {
+            string original = "";
+            for (int i = 0; i &lt; cipherText.size(); ++i) {
+                original += 'A' + mod(cipherText[i] - 'A' - shift, 26);
+            }
+            return original;
+        }
+};
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/30/ccipher/</link><guid isPermaLink="false">8e0f378a-be43-4ab5-b543-a8ee2bebda7a</guid><category><![CDATA[TopCoder]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Sun, 30 Nov 2014 15:33:19 GMT</pubDate></item><item><title><![CDATA[Quipu]]></title><description><![CDATA[<p>Used In:    SRM 155 <br>
+Used As:    Division II Level One</p>
+
+<h6 id="problemstatement">Problem Statement</h6>
+
+<p>The Incas used a sophisticated system of record keeping consisting of bundles of knotted cords. Such a bundle of cords is called a quipu. Each individual cord represents a single number. Surprisingly, the Incas used a base-10 positional system, just like we do today. Each digit of a number is represented by a cluster of adjacent knots, with spaces between neighboring clusters. The digit is determined by the number of knots in the cluster. For example, the number 243 would be represented by a cord with knots tied in the following pattern</p>
+
+<pre><code> -XX-XXXX-XXX-
+</code></pre>
+
+<p>where each uppercase 'X' represents a knot and each '-' represents an unknotted segment of cord (all quotes for clarity only).</p>
+
+<p>Unlike many ancient civilizations, the Incas were aware of the concept of zero, and used it in their quipus. A zero is represented by a cluster containing no knots. For example, the number 204003 would be represented by a cord with knots tied in the following pattern</p>
+
+<pre><code> -XX--XXXX---XXX-
+    ^^    ^^^
+    ^^    ^^^
+    ^^    two zeros between these three segments
+    ^^
+    one zero between these two segments
+</code></pre>
+
+<p>Notice how adjacent dashes signal the presence of a zero. <br>
+Your task is to translate a single quipu cord into an integer. The cord will be given as a String knots containing only the characters 'X' and '-'. There will be a single '-' between each cluster of 'X's, as well as a leading '-' and a trailing '-'. The first cluster will not be empty.</p>
+
+<h6 id="definition">Definition</h6>
+
+<p>Class:    Quipu <br>
+Method:    readKnots <br>
+Parameters:    String <br>
+Returns:    int <br>
+Method signature:    int readKnots(String knots) <br>
+(be sure your method is public)</p>
+
+<h6 id="constraints">Constraints</h6>
+
+<ul>
+<li>knots contains between 3 and 50 characters, inclusive.</li>
+<li>knots contains only the characters 'X' and '-'. Note that 'X' is uppercase.</li>
+<li>The first and last characters of knots are '-'s. The second character is 'X'.</li>
+<li>knots does not contain 10 consecutive 'X's.</li>
+<li>knots will represent a number between 1 and 1000000, inclusive.</li>
+</ul>
+
+<h6 id="examples">Examples</h6>
+
+<ol>
+<li><p>"-XX-XXXX-XXX-" <br>
+Returns: 243 <br>
+The first example above.</p></li>
+<li><p>"-XX--XXXX---XXX-" <br>
+Returns: 204003 <br>
+The second example above.</p></li>
+<li><p>"-X-" <br>
+Returns: 1</p></li>
+<li><p>"-X-------" <br>
+Returns: 1000000</p></li>
+<li><p>"-XXXXXXXXX--XXXXXXXXX-XXXXXXXXX-XXXXXXX-XXXXXXXXX-" <br>
+Returns: 909979</p></li>
+</ol>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+using namespace std;
+
+class Quipu {  
+    public:
+        int readKnots(string knots) {
+            int countX = 0,
+                num = 0;
+            for (int i = 0; i &lt; knots.size(); ++i) {
+                if (knots[i] == 'X') {
+                    ++countX;
+                } else {
+                    num *= 10;
+                    num += countX;
+                    countX = 0;
+                }
+            }
+            return num;
+        }
+};
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/30/quipu/</link><guid isPermaLink="false">d7e628c2-a900-435b-93fb-56a47ef9a54b</guid><category><![CDATA[TopCoder]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Sun, 30 Nov 2014 15:08:32 GMT</pubDate></item><item><title><![CDATA[PassingGrade]]></title><description><![CDATA[<p>Used In:    SRM 185 <br>
+Used As:    Division II Level One</p>
+
+<h6 id="problemstatement">Problem Statement</h6>
+
+<p>You are studying for the final exam in a tough course, and want to know how many points you need to score on the final to pass the course. You know how many points you earned on each assignment (pointsEarned), how many points were possible on each assignment (pointsPossible), and how many points are possible on the final exam (finalExam). You need to earn a minimum of 65% of the total possible points to pass the course. Assume your score on the final exam will be an integral number of points between 0 and finalExam, inclusive. Return the number of points you need to score on the final to pass the course, or -1 if it is impossible for you to pass the course.</p>
+
+<h6 id="definition">Definition</h6>
+
+<p>Class:    PassingGrade <br>
+Method:    pointsNeeded <br>
+Parameters:    int[], int[], int <br>
+Returns:    int <br>
+Method signature:    int pointsNeeded(int[] pointsEarned, int[] pointsPossible, int finalExam) <br>
+(be sure your method is public)</p>
+
+<h6 id="constraints">Constraints</h6>
+
+<ul>
+<li>pointsEarned contains between 1 and 20 elements, inclusive.</li>
+<li>pointsPossible contains the same number of elements as pointsEarned.</li>
+<li>Each element of pointsPossible is between 1 and 1000, inclusive.</li>
+<li>Element i of pointsEarned is between 0 and element i of pointsPossible, inclusive.</li>
+<li>finalExam is between 1 and 3000, inclusive.</li>
+</ul>
+
+<h6 id="examples">Examples</h6>
+
+<ol>
+<li><p>{55,77,82,60} <br>
+{100,100,100,100}
+300 <br>
+Returns: 181 <br>
+If you score 181 points on the final, then you will finish the course with exactly 65% of the possible points.</p></li>
+<li><p>{ 1, 2, 3, 4 } <br>
+{ 2, 3, 4, 5 }
+7 <br>
+Returns: 4 <br>
+If you score 4 points on the final, then you pass with 66.7% of the total possible points, but if you score 3 points on the final, then you fail with 61.9% of the possible points.</p></li>
+<li><p>{ 1, 2, 2, 1 } <br>
+{ 9, 9, 9, 9 }
+9 <br>
+Returns: -1 <br>
+Even if you score 9 points on the final, you still fail with 33.3% of the possible points.</p></li>
+<li><p>{ 7, 8, 7, 6 } <br>
+{ 8, 8, 8, 8 }
+9 <br>
+Returns: 0 <br>
+You will pass even if you score 0 points on the final.</p></li>
+<li><p>{ 17, 23, 50, 200, 19, 56, 83, 91, 77, 9, 0 } <br>
+{ 20, 30, 50, 250, 20, 70, 100, 100, 100, 10, 10 }
+400 <br>
+Returns: 129</p></li>
+<li><p>{600,600,600,600,600,600,600,600,600,600, <br>
+600,600,600,600,600,600,600,600,600,600}
+{1000,1000,1000,1000,1000,1000,1000,1000,
+1000,1000,1000,1000,1000,1000,1000,1000,
+1000,1000,1000,901}
+3000 <br>
+Returns: 2886</p></li>
+</ol>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;numeric&gt;
+#include &lt;cmath&gt;
+#include &lt;algorithm&gt;
+
+using namespace std;
+
+class PassingGrade {  
+    public:
+        int pointsNeeded (vector&lt;int&gt; pointsEarned, vector&lt;int&gt; pointsPossible, int finalExam) {
+            int totalEarned = accumulate(pointsEarned.begin(), 
+                              pointsEarned.end(), 0);
+            int totalPossible = accumulate(pointsPossible.begin(), 
+                                pointsPossible.end(), finalExam);
+            int required = ceil(totalPossible * 0.65);
+            if (required - totalEarned &gt; finalExam) {
+                return -1;
+            } 
+            return max(0, required - totalEarned);
+        }
+};
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/30/passinggrade/</link><guid isPermaLink="false">ccc63d54-9c8e-4f89-9b6b-6ffc0c500bf9</guid><category><![CDATA[TopCoder]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Sun, 30 Nov 2014 14:35:38 GMT</pubDate></item><item><title><![CDATA[NoOrderOfOperations]]></title><description><![CDATA[<p>Used In:    SRM 200 <br>
+Used As:    Division II Level One</p>
+
+<h6 id="problemstatement">Problem Statement</h6>
+
+<p>When evaluating a mathematical expression, there is the possibility of ambiguity. If you wanted to know the result of "3 + 5 * 7", you might first evaluate the (3+5) and get 56, or first evaluate the (5*7) and get 38. This ambiguity can be resolved by using the order of operations: first do multiplication and division (from left to right), and then after all those are done, do addition and subtraction (again from left to right). Here, the correct result would be the 38.</p>
+
+<p>While this is unambiguous, it certainly is somewhat annoying. You think it would be easier if people did all math from left to right, all the time, and want to make a simple expression evaluator to do so.</p>
+
+<p>The expression will be given to you as a String expr. It will consist of one digit numbers (0 through 9) alternating with operators (+, -, or *), with no spaces between them. Thus, expr would follow the format Digit Operator Digit Operator .... Digit. For example, the expression given above would be given as "3+5*7".</p>
+
+<p>Your method should return an int representing the value of the expression when evaluated from left to right.</p>
+
+<h6 id="definition">Definition</h6>
+
+<p>Class:    NoOrderOfOperations <br>
+Method:    evaluate <br>
+Parameters:    String <br>
+Returns:    int <br>
+Method signature:    int evaluate(String expr) <br>
+(be sure your method is public)</p>
+
+<h6 id="constraints">Constraints</h6>
+
+<ul>
+<li>expr will be between 1 and 17 characters in length, inclusive.</li>
+<li>expr will contain an odd number of characters.</li>
+<li>expr will follow the format Digit Operator Digit Operator ... Digit, where each Digit is a single character from '0' to '9', and each Operator is either +, -, or *.</li>
+</ul>
+
+<h6 id="examples">Examples</h6>
+
+<ol>
+<li><p>"3+5*7" <br>
+Returns: 56 <br>
+First we add 3 + 5 to get 8. Then, we multiply 8 by 7 to get 56.</p></li>
+<li><p>"4-8*9*1" <br>
+Returns: -36 <br>
+Results can be negative.</p></li>
+<li><p>"0" <br>
+Returns: 0</p></li>
+<li><p>"1*2*3*4*5*6*7*8*9" <br>
+Returns: 362880</p></li>
+</ol>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+using namespace std;
+
+class NoOrderOfOperations {  
+    public:
+        int evaluate(string expr) {
+            char op = '+';
+            int ans = 0;
+            for (int i = 0; i &lt; expr.size(); ++i) {
+                if (expr[i] &gt;= '0' &amp;&amp; expr[i] &lt;= '9') {
+                    if (op == '+') {
+                        ans += (expr[i] - '0');
+                    } else if (op == '-') {
+                        ans -= (expr[i] - '0');
+                    } else if (op == '*') {
+                        ans *= (expr[i] - '0');
+                    } else if (op == '/') {
+                        ans /= (expr[i] - '0');
+                    }
+                } else {
+                    op = expr[i];
+                }
+            }
+            return ans;
+        }
+};
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/30/noorderofoperations/</link><guid isPermaLink="false">f24d48f1-a658-4d19-b7ee-0754106d783e</guid><category><![CDATA[TopCoder]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Sun, 30 Nov 2014 11:38:04 GMT</pubDate></item><item><title><![CDATA[Yahtzee]]></title><description><![CDATA[<p>Used In:    SRM 146 <br>
+Used As:    Division II Level One</p>
+
+<h6 id="problemstatement">Problem Statement</h6>
+
+<p>This task is about the scoring in the first phase of the die-game Yahtzee, where five dice are used. The score is determined by the values on the upward die faces after a roll. The player gets to choose a value, and all dice that show the chosen value are considered active. The score is simply the sum of values on active dice.</p>
+
+<p>Say, for instance, that a player ends up with the die faces showing 2, 2, 3, 5 and 4. Choosing the value two makes the dice showing 2 active and yields a score of 2 + 2 = 4, while choosing 5 makes the one die showing 5 active, yielding a score of 5.</p>
+
+<p>Your method will take as input an int[] toss, where each element represents the upward face of a die, and return the maximum possible score with these values.</p>
+
+<h6 id="definition">Definition</h6>
+
+<p>Class:    YahtzeeScore <br>
+Method:    maxPoints <br>
+Parameters:    int[] <br>
+Returns:    int <br>
+Method signature:    int maxPoints(int[] toss) <br>
+(be sure your method is public)</p>
+
+<h6 id="constraints">Constraints</h6>
+
+<ul>
+<li>toss will contain exactly 5 elements.</li>
+<li>Each element of toss will be between 1 and 6, inclusive.</li>
+</ul>
+
+<h6 id="examples">Examples</h6>
+
+<ol>
+<li><p>{ 2, 2, 3, 5, 4 } <br>
+Returns: 5 <br>
+The example from the text.</p></li>
+<li><p>{ 6, 4, 1, 1, 3 } <br>
+Returns: 6 <br>
+Selecting 1 as active yields 1 + 1 = 2, selecting 3 yields 3, selecting 4 yields 4 and selecting 6 yields 6, which is the maximum number of points.</p></li>
+<li><p>{ 5, 3, 5, 3, 3 } <br>
+Returns: 10</p></li>
+</ol>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+
+using namespace std;
+
+class YahtzeeScore {  
+    public:
+        int maxPoints(vector&lt;int&gt; toss) {
+            vector&lt;int&gt; sum(7, 0);
+            for (int i = 0; i &lt; 5; ++i) {
+                sum[toss[i]] += toss[i];
+            }
+            return *max_element(sum.begin(), sum.end());
+        }   
+};
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/30/yahtzee/</link><guid isPermaLink="false">8d1b1abb-1fbf-4698-a399-c75134b67896</guid><category><![CDATA[TopCoder]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Sun, 30 Nov 2014 11:15:17 GMT</pubDate></item><item><title><![CDATA[Poetry]]></title><description><![CDATA[<p>Used In:    SRM 170 <br>
 Used As:    Division II Level Three</p>
 
 <h6 id="problemstatement">Problem Statement</h6>

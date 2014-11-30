@@ -1,0 +1,202 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>CCipher</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css?v=34441e7626">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+    <link href="../../../../assets/css/prettify.css?v=34441e7626" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="../../../../assets/js/prettify.js?v=34441e7626"></script>
+    <link rel="canonical" href="http://code-jedi.chintanghate.me/2014/11/30/ccipher/">
+    
+    <meta property="og:site_name" content="Code Jedi">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="CCipher">
+    <meta property="og:description" content="Used In:    SRM 147  Used As:    Division II Level One Problem Statement Julius Caesar used a system of cryptography, now known as Caesar Cipher, which shifted each letter 2 places further through the alphabet (e.g. 'A' shifts to 'C'...">
+    <meta property="og:url" content="http://code-jedi.chintanghate.me/2014/11/30/ccipher/">
+    <meta property="article:published_time" content="2014-11-30T15:33:19.231Z">
+    <meta property="article:modified_time" content="2014-11-30T15:33:19.230Z">
+    <meta property="article:tag" content="TopCoder">
+    
+    <meta name="twitter:card" content="content">
+    <meta name="twitter:title" content="CCipher">
+    <meta name="twitter:description" content="Used In:    SRM 147  Used As:    Division II Level One Problem Statement Julius Caesar used a system of cryptography, now known as Caesar Cipher, which shifted each letter 2 places further through the alphabet (e.g. 'A' shifts to 'C'...">
+    <meta name="twitter:url" content="http://code-jedi.chintanghate.me/2014/11/30/ccipher/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Code Jedi",
+    "author": {
+        "@type": "Person",
+        "name": "Chintan Ghate",
+        "url": "http://code-jedi.chintanghate.me/author/chintan",
+        "sameAs": null
+    },
+    "headline": "CCipher",
+    "url": "http://code-jedi.chintanghate.me/2014/11/30/ccipher/",
+    "datePublished": "2014-11-30T15:33:19.231Z",
+    "dateModified": "2014-11-30T15:33:19.230Z",
+    "keywords": "TopCoder",
+    "description": "Used In:    SRM 147  Used As:    Division II Level One Problem Statement Julius Caesar used a system of cryptography, now known as Caesar Cipher, which shifted each letter 2 places further through the alphabet (e.g. 'A' shifts to 'C'"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Code Jedi" href="../../../../rss/index.html">
+</head>
+<body class="post-template tag-topcoder" onload="prettyPrint()">
+
+    
+
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        <a class="back-button icon-arrow-left" href="http://code-jedi.chintanghate.me">Home</a>
+        <a class="subscribe-button icon-feed" href="http://code-jedi.chintanghate.me/rss/index.rss">Subscribe</a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+
+    <article class="post tag-topcoder">
+
+        <header class="post-header">
+            <h1 class="post-title">CCipher</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2014-11-30">30 November 2014</time>  on <a href="../../../../tag/topcoder/">TopCoder</a>
+            </section>
+        </header>
+
+        <section class="post-content">
+            <p>Used In:    SRM 147 <br>
+Used As:    Division II Level One</p>
+
+<h6 id="problemstatement">Problem Statement</h6>
+
+<p>Julius Caesar used a system of cryptography, now known as Caesar Cipher, which shifted each letter 2 places further through the alphabet (e.g. 'A' shifts to 'C', 'R' shifts to 'T', etc.). At the end of the alphabet we wrap around, that is 'Y' shifts to 'A'.</p>
+
+<p>We can, of course, try shifting by any number. Given an encoded text and a number of places to shift, decode it.</p>
+
+<p>For example, "TOPCODER" shifted by 2 places will be encoded as "VQREQFGT". In other words, if given (quotes for clarity) "VQREQFGT" and 2 as input, you will return "TOPCODER". See example 0 below.</p>
+
+<h6 id="definition">Definition</h6>
+
+<p>Class:    CCipher <br>
+Method:    decode <br>
+Parameters:    String, int <br>
+Returns:    String <br>
+Method signature:    String decode(String cipherText, int shift) <br>
+(be sure your method is public)</p>
+
+<h6 id="constraints">Constraints</h6>
+
+<ul>
+<li>cipherText has between 0 to 50 characters inclusive</li>
+<li>each character of cipherText is an uppercase letter 'A'-'Z'</li>
+<li>shift is between 0 and 25 inclusive</li>
+</ul>
+
+<h6 id="examples">Examples</h6>
+
+<ol>
+<li><p>"VQREQFGT" <br>
+2 <br>
+Returns: "TOPCODER"</p></li>
+<li><p>"ABCDEFGHIJKLMNOPQRSTUVWXYZ" <br>
+10 <br>
+Returns: "QRSTUVWXYZABCDEFGHIJKLMNOP"</p></li>
+<li><p>"TOPCODER" <br>
+0 <br>
+Returns: "TOPCODER"</p></li>
+<li><p>"ZWBGLZ" <br>
+25 <br>
+Returns: "AXCHMA"</p></li>
+<li><p>"DBNPCBQ" <br>
+1 <br>
+Returns: "CAMOBAP"</p></li>
+<li><p>"LIPPSASVPH" <br>
+4 <br>
+Returns: "HELLOWORLD"</p></li>
+</ol>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+using namespace std;
+
+class CCipher {  
+    private:
+        int mod(int n, int m) {
+            return n % m &lt; 0 ? n % m + m : n % m;
+        }
+    public:
+        string  decode(string cipherText, int shift) {
+            string original = "";
+            for (int i = 0; i &lt; cipherText.size(); ++i) {
+                original += 'A' + mod(cipherText[i] - 'A' - shift, 26);
+            }
+            return original;
+        }
+};
+</code></pre>
+        </section>
+
+        <footer class="post-footer">
+
+
+
+            <section class="author">
+                <h4><a href="../../../../author/chintan/">Chintan Ghate</a></h4>
+
+                    <p>Read <a href="../../../../author/chintan/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/share?text=CCipher&amp;url=http://code-jedi.chintanghate.me/2014/11/30/ccipher/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://code-jedi.chintanghate.me/2014/11/30/ccipher/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://code-jedi.chintanghate.me/2014/11/30/ccipher/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+    </article>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+         <section class="copyright"><a href="http://code-jedi.chintanghate.me">Code Jedi</a> © 2014</section>
+         <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+    </footer>
+
+    <script src="../../../../public/jquery.js?v=34441e7626"></script>
+
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js?v=34441e7626"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js?v=34441e7626"></script>
+
+</body>

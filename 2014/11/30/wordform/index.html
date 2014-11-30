@@ -1,0 +1,222 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>WordForm</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css?v=34441e7626">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+    <link href="../../../../assets/css/prettify.css?v=34441e7626" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="../../../../assets/js/prettify.js?v=34441e7626"></script>
+    <link rel="canonical" href="http://code-jedi.chintanghate.me/2014/11/30/wordform/">
+    
+    <meta property="og:site_name" content="Code Jedi">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="WordForm">
+    <meta property="og:description" content="Used In:    SRM 173  Used As:    Division I Level One , Division II Level Two Problem Statement In English, the letters A, E, I, O and U are the vowels. Y is also considered to be a vowel if it's not...">
+    <meta property="og:url" content="http://code-jedi.chintanghate.me/2014/11/30/wordform/">
+    <meta property="article:published_time" content="2014-11-30T18:10:25.480Z">
+    <meta property="article:modified_time" content="2014-11-30T18:10:25.479Z">
+    <meta property="article:tag" content="TopCoder">
+    
+    <meta name="twitter:card" content="content">
+    <meta name="twitter:title" content="WordForm">
+    <meta name="twitter:description" content="Used In:    SRM 173  Used As:    Division I Level One , Division II Level Two Problem Statement In English, the letters A, E, I, O and U are the vowels. Y is also considered to be a vowel if it's not...">
+    <meta name="twitter:url" content="http://code-jedi.chintanghate.me/2014/11/30/wordform/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Code Jedi",
+    "author": {
+        "@type": "Person",
+        "name": "Chintan Ghate",
+        "url": "http://code-jedi.chintanghate.me/author/chintan",
+        "sameAs": null
+    },
+    "headline": "WordForm",
+    "url": "http://code-jedi.chintanghate.me/2014/11/30/wordform/",
+    "datePublished": "2014-11-30T18:10:25.480Z",
+    "dateModified": "2014-11-30T18:10:25.479Z",
+    "keywords": "TopCoder",
+    "description": "Used In:    SRM 173  Used As:    Division I Level One , Division II Level Two Problem Statement In English, the letters A, E, I, O and U are the vowels. Y is also considered to be a vowel if it's not"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Code Jedi" href="../../../../rss/index.html">
+</head>
+<body class="post-template tag-topcoder" onload="prettyPrint()">
+
+    
+
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        <a class="back-button icon-arrow-left" href="http://code-jedi.chintanghate.me">Home</a>
+        <a class="subscribe-button icon-feed" href="http://code-jedi.chintanghate.me/rss/index.rss">Subscribe</a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+
+    <article class="post tag-topcoder">
+
+        <header class="post-header">
+            <h1 class="post-title">WordForm</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2014-11-30">30 November 2014</time>  on <a href="../../../../tag/topcoder/">TopCoder</a>
+            </section>
+        </header>
+
+        <section class="post-content">
+            <p>Used In:    SRM 173 <br>
+Used As:    Division I Level One , Division II Level Two</p>
+
+<h6 id="problemstatement">Problem Statement</h6>
+
+<p>In English, the letters A, E, I, O and U are the vowels. Y is also considered to be a vowel if it's not preceded by another vowel and is not the first letter in a word (the fact that a vowel is defined to some extent in terms of itself does not make it ambiguous). If a letter is not a vowel then it is a consonant. So in "TOY" the consonants are T and Y, and in "SYZYGY" they are S, Z and G.</p>
+
+<p>A sequence of vowels will be denoted by uppercase letter 'V' and a sequence of consonants will be denoted by uppercase letter 'C'. A word can then be described as an alternating sequence of 'C' and 'V'. For instance, the word "WHEREABOUTS" has the sequence CVCVCVC, and the words "YORK" and "TOY" both have the sequence CVC. It's not permissible to have two or more consecutive 'V' or 'C' in the sequence.</p>
+
+<p>Create a class WordForm containing the method getSequence which takes a String word and returns a String containing the word's sequence as described above. The word may contain both uppercase and lowercase letters, but your method should be case insensitive (see example 2).</p>
+
+<h6 id="definition">Definition</h6>
+
+<p>Class:    WordForm <br>
+Method:    getSequence <br>
+Parameters:    String <br>
+Returns:    String <br>
+Method signature:    String getSequence(String word) <br>
+(be sure your method is public)</p>
+
+<h6 id="notes">Notes</h6>
+
+<ul>
+<li>word may not be an English word, or a word in any language at all, but you should still use the rules defined above. See example 3.</li>
+</ul>
+
+<h6 id="constraints">Constraints</h6>
+
+<ul>
+<li>word will contain between 1 and 50 characters, inclusive.</li>
+<li>word will only contain the characters 'A'-'Z' and 'a'-'z', both inclusive.</li>
+</ul>
+
+<h6 id="examples">Examples</h6>
+
+<ol>
+<li><p>"WHEREABOUTS" <br>
+Returns: "CVCVCVC" <br>
+Here we have consonant-consonant-vowel-consonant-vowel-vowel-consonant-vowel-vowel-consonant-consonant. Putting together consecutive consonants and vowels gives us CVCVCVC.</p></li>
+<li><p>"yoghurt" <br>
+Returns: "CVCVC"</p></li>
+<li><p>"YipPy" <br>
+Returns: "CVCV" <br>
+Mixing lowercase and uppercase does not affect the result.</p></li>
+<li><p>"AyYyEYye" <br>
+Returns: "VCVCVCV" <br>
+Even though this isn't an English word, we use the rules defined in the statement to find the consonant-vowel pattern.</p></li>
+<li><p>"yC" <br>
+Returns: "C"</p></li>
+</ol>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;algorithm&gt;
+
+using namespace std;
+
+class WordForm {  
+    private:
+        bool isVowel(string s, int i, bool lastCharWasVowel) {
+            if (s[i] == 'a' || s[i] == 'e' || s[i] == 'i' || s[i] == 'o' || s[i] == 'u') {
+                return true;
+            } else if (s[i] == 'y' &amp;&amp; i != 0 &amp;&amp; !lastCharWasVowel) {
+                return true;
+            }
+            return false;
+        }
+    public:
+        string getSequence(string word) {
+            transform(word.begin(), word.end(), word.begin(), ::tolower);
+            string seq = "";
+            bool lastCharWasVowel = false;
+            for (int i = 0; i &lt; word.size(); ++i) {
+                if (isVowel(word, i , lastCharWasVowel)) {
+                    seq += 'V';
+                    lastCharWasVowel = true;
+                } else {
+                    seq += 'C';
+                    lastCharWasVowel = false;
+                }
+            }
+            string finalSeq = "";
+            for (int i = 0; i &lt; seq.size(); ++i) {
+                if (i == 0 || seq[i] != seq[i - 1]) {
+                    finalSeq += seq[i];
+                }
+            }
+            return finalSeq;
+        }
+};
+</code></pre>
+        </section>
+
+        <footer class="post-footer">
+
+
+
+            <section class="author">
+                <h4><a href="../../../../author/chintan/">Chintan Ghate</a></h4>
+
+                    <p>Read <a href="../../../../author/chintan/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/share?text=WordForm&amp;url=http://code-jedi.chintanghate.me/2014/11/30/wordform/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://code-jedi.chintanghate.me/2014/11/30/wordform/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://code-jedi.chintanghate.me/2014/11/30/wordform/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+    </article>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+         <section class="copyright"><a href="http://code-jedi.chintanghate.me">Code Jedi</a> © 2014</section>
+         <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+    </footer>
+
+    <script src="../../../../public/jquery.js?v=34441e7626"></script>
+
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js?v=34441e7626"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js?v=34441e7626"></script>
+
+</body>
