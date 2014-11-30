@@ -1,0 +1,201 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>PIGBANK</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css?v=34441e7626">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+    <link href="../../../../assets/css/prettify.css?v=34441e7626" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="../../../../assets/js/prettify.js?v=34441e7626"></script>
+    <link rel="canonical" href="http://code-jedi.chintanghate.me/2014/11/29/pigbank/">
+    
+    <meta property="og:site_name" content="Code Jedi">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="PIGBANK">
+    <meta property="og:description" content="Before ACM can do anything, a budget must be prepared and the necessary financial support obtained. The main income for this action comes from Irreversibly Bound Money (IBM). The idea behind is simple. Whenever some ACM member has any small...">
+    <meta property="og:url" content="http://code-jedi.chintanghate.me/2014/11/29/pigbank/">
+    <meta property="article:published_time" content="2014-11-29T13:08:54.404Z">
+    <meta property="article:modified_time" content="2014-11-29T13:08:54.402Z">
+    <meta property="article:tag" content="SPOJ">
+    
+    <meta name="twitter:card" content="content">
+    <meta name="twitter:title" content="PIGBANK">
+    <meta name="twitter:description" content="Before ACM can do anything, a budget must be prepared and the necessary financial support obtained. The main income for this action comes from Irreversibly Bound Money (IBM). The idea behind is simple. Whenever some ACM member has any small...">
+    <meta name="twitter:url" content="http://code-jedi.chintanghate.me/2014/11/29/pigbank/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Code Jedi",
+    "author": {
+        "@type": "Person",
+        "name": "Chintan Ghate",
+        "url": "http://code-jedi.chintanghate.me/author/chintan",
+        "sameAs": null
+    },
+    "headline": "PIGBANK",
+    "url": "http://code-jedi.chintanghate.me/2014/11/29/pigbank/",
+    "datePublished": "2014-11-29T13:08:54.404Z",
+    "dateModified": "2014-11-29T13:08:54.402Z",
+    "keywords": "SPOJ",
+    "description": "Before ACM can do anything, a budget must be prepared and the necessary financial support obtained. The main income for this action comes from Irreversibly Bound Money (IBM). The idea behind is simple. Whenever some ACM member has any small"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Code Jedi" href="../../../../rss/index.html">
+</head>
+<body class="post-template tag-spoj" onload="prettyPrint()">
+
+    
+
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        <a class="back-button icon-arrow-left" href="http://code-jedi.chintanghate.me">Home</a>
+        <a class="subscribe-button icon-feed" href="http://code-jedi.chintanghate.me/rss/index.rss">Subscribe</a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+
+    <article class="post tag-spoj">
+
+        <header class="post-header">
+            <h1 class="post-title">PIGBANK</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2014-11-29">29 November 2014</time>  on <a href="../../../../tag/spoj/">SPOJ</a>
+            </section>
+        </header>
+
+        <section class="post-content">
+            <p>Before ACM can do anything, a budget must be prepared and the necessary financial support obtained. The main income for this action comes from Irreversibly Bound Money (IBM). The idea behind is simple. Whenever some ACM member has any small money, he takes all the coins and throws them into a piggy-bank. You know that this process is irreversible, the coins cannot be removed without breaking the pig. After a sufficiently long time, there should be enough cash in the piggy-bank to pay everything that needs to be paid.</p>
+
+<p>But there is a big problem with piggy-banks. It is not possible to determine how much money is inside. So we might break the pig into pieces only to find out that there is not enough money. Clearly, we want to avoid this unpleasant situation. The only possibility is to weigh the piggy-bank and try to guess how many coins are inside. Assume that we are able to determine the weight of the pig exactly and that we know the weights of all coins of a given currency. Then there is some minimum amount of money in the piggy-bank that we can guarantee. Your task is to find out this worst case and determine the minimum amount of cash inside the piggy-bank. We need your help. No more prematurely broken pigs!</p>
+
+<h6 id="input">Input</h6>
+
+<p>The input consists of T test cases. The number of them (T) is given on the first line of the input file. Each test case begins with a line containing two integers E and F. They indicate the weight of an empty pig and of the pig filled with coins. Both weights are given in grams. No pig will weigh more than 10 kg, that means 1 &lt;= E &lt;= F &lt;= 10000. On the second line of each test case, there is an integer number N (1 &lt;= N &lt;= 500) that gives the number of various coins used in the given currency. Following this are exactly N lines, each specifying one coin type. These lines contain two integers each, Pand W (1 &lt;= P &lt;= 50000, 1 &lt;= W &lt;=10000). P is the value of the coin in monetary units, W is it's weight in grams.</p>
+
+<h6 id="output">Output</h6>
+
+<p>Print exactly one line of output for each test case. The line must contain the sentence "The minimum amount of money in the piggy-bank is X." where X is the minimum amount of money that can be achieved using coins with the given total weight. If the weight cannot be reached exactly, print a line "This is impossible.".</p>
+
+<p>Example</p>
+
+<p>Input: <br>
+3 <br>
+10 110 <br>
+2 <br>
+1 1 <br>
+30 50 <br>
+10 110 <br>
+2 <br>
+1 1 <br>
+50 30 <br>
+1 6 <br>
+2 <br>
+10 3 <br>
+20 4</p>
+
+<p>Output: <br>
+The minimum amount of money in the piggy-bank is 60. <br>
+The minimum amount of money in the piggy-bank is 100. <br>
+This is impossible.</p>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+int main() {  
+    int T;
+    cin &gt;&gt; T;
+    for (;T--;) {
+        int E,F;
+        cin &gt;&gt; E &gt;&gt; F;
+        F -= E;
+        vector&lt;int&gt; dp(F + 1, 100000000);
+        int N;
+        cin &gt;&gt; N;
+        for (int i = 0; i &lt; N; ++i) {
+            int p, w;
+            cin &gt;&gt; p &gt;&gt; w;
+            if (dp[w] &gt; p) {
+                dp[w] = p;
+                for (int j = 1; j &lt;= F - w; ++j) {
+                    if(dp[j + w] &gt; dp[j] + dp[w]) {
+                        dp[j + w] = dp[j] + dp[w];
+                    }
+                }
+            }
+        }
+        if(dp[F] &lt; 100000000) {
+            cout &lt;&lt; "The minimum amount of money in the piggy-bank is " &lt;&lt; dp[F] &lt;&lt; ".\n";
+        } else {
+            cout &lt;&lt; "This is impossible.\n";
+        }
+    }
+    return 0;
+}
+</code></pre>
+        </section>
+
+        <footer class="post-footer">
+
+
+
+            <section class="author">
+                <h4><a href="../../../../author/chintan/">Chintan Ghate</a></h4>
+
+                    <p>Read <a href="../../../../author/chintan/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/share?text=PIGBANK&amp;url=http://code-jedi.chintanghate.me/2014/11/29/pigbank/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://code-jedi.chintanghate.me/2014/11/29/pigbank/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://code-jedi.chintanghate.me/2014/11/29/pigbank/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+    </article>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+         <section class="copyright"><a href="http://code-jedi.chintanghate.me">Code Jedi</a> © 2014</section>
+         <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+    </footer>
+
+    <script src="../../../../public/jquery.js?v=34441e7626"></script>
+
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js?v=34441e7626"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js?v=34441e7626"></script>
+
+</body>

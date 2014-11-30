@@ -1,5 +1,175 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[SPOJ - Code Jedi]]></title><description><![CDATA[Code, algorithms and design.]]></description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Fri, 28 Nov 2014 17:58:27 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/tag/spoj/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[CRDS]]></title><description><![CDATA[<p>Maricruz have a lot of cards, she always uses her cards to build pyramids as shown in the following image:</p>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[SPOJ - Code Jedi]]></title><description><![CDATA[Code, algorithms and design.]]></description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Sun, 30 Nov 2014 10:57:03 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/tag/spoj/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[PIGBANK]]></title><description><![CDATA[<p>Before ACM can do anything, a budget must be prepared and the necessary financial support obtained. The main income for this action comes from Irreversibly Bound Money (IBM). The idea behind is simple. Whenever some ACM member has any small money, he takes all the coins and throws them into a piggy-bank. You know that this process is irreversible, the coins cannot be removed without breaking the pig. After a sufficiently long time, there should be enough cash in the piggy-bank to pay everything that needs to be paid.</p>
+
+<p>But there is a big problem with piggy-banks. It is not possible to determine how much money is inside. So we might break the pig into pieces only to find out that there is not enough money. Clearly, we want to avoid this unpleasant situation. The only possibility is to weigh the piggy-bank and try to guess how many coins are inside. Assume that we are able to determine the weight of the pig exactly and that we know the weights of all coins of a given currency. Then there is some minimum amount of money in the piggy-bank that we can guarantee. Your task is to find out this worst case and determine the minimum amount of cash inside the piggy-bank. We need your help. No more prematurely broken pigs!</p>
+
+<h6 id="input">Input</h6>
+
+<p>The input consists of T test cases. The number of them (T) is given on the first line of the input file. Each test case begins with a line containing two integers E and F. They indicate the weight of an empty pig and of the pig filled with coins. Both weights are given in grams. No pig will weigh more than 10 kg, that means 1 &lt;= E &lt;= F &lt;= 10000. On the second line of each test case, there is an integer number N (1 &lt;= N &lt;= 500) that gives the number of various coins used in the given currency. Following this are exactly N lines, each specifying one coin type. These lines contain two integers each, Pand W (1 &lt;= P &lt;= 50000, 1 &lt;= W &lt;=10000). P is the value of the coin in monetary units, W is it's weight in grams.</p>
+
+<h6 id="output">Output</h6>
+
+<p>Print exactly one line of output for each test case. The line must contain the sentence "The minimum amount of money in the piggy-bank is X." where X is the minimum amount of money that can be achieved using coins with the given total weight. If the weight cannot be reached exactly, print a line "This is impossible.".</p>
+
+<p>Example</p>
+
+<p>Input: <br>
+3 <br>
+10 110 <br>
+2 <br>
+1 1 <br>
+30 50 <br>
+10 110 <br>
+2 <br>
+1 1 <br>
+50 30 <br>
+1 6 <br>
+2 <br>
+10 3 <br>
+20 4</p>
+
+<p>Output: <br>
+The minimum amount of money in the piggy-bank is 60. <br>
+The minimum amount of money in the piggy-bank is 100. <br>
+This is impossible.</p>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+int main() {  
+    int T;
+    cin &gt;&gt; T;
+    for (;T--;) {
+        int E,F;
+        cin &gt;&gt; E &gt;&gt; F;
+        F -= E;
+        vector&lt;int&gt; dp(F + 1, 100000000);
+        int N;
+        cin &gt;&gt; N;
+        for (int i = 0; i &lt; N; ++i) {
+            int p, w;
+            cin &gt;&gt; p &gt;&gt; w;
+            if (dp[w] &gt; p) {
+                dp[w] = p;
+                for (int j = 1; j &lt;= F - w; ++j) {
+                    if(dp[j + w] &gt; dp[j] + dp[w]) {
+                        dp[j + w] = dp[j] + dp[w];
+                    }
+                }
+            }
+        }
+        if(dp[F] &lt; 100000000) {
+            cout &lt;&lt; "The minimum amount of money in the piggy-bank is " &lt;&lt; dp[F] &lt;&lt; ".\n";
+        } else {
+            cout &lt;&lt; "This is impossible.\n";
+        }
+    }
+    return 0;
+}
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/29/pigbank/</link><guid isPermaLink="false">44f5c2a6-ccfd-484d-b43f-343a3c927f1e</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Sat, 29 Nov 2014 13:08:54 GMT</pubDate></item><item><title><![CDATA[PARTY]]></title><description><![CDATA[<p>You just received another bill which you cannot pay because you lack the money. Unfortunately, this is not the first time to happen, and now you decide to investigate the cause of your constant monetary shortness. The reason is quite obvious: the lion's share of your money routinely disappears at the entrance of party localities. </p>
+
+<p>You make up your mind to solve the problem where it arises, namely at the parties themselves. You introduce a limit for your party budget and try to have the most possible fun with regard to this limit. </p>
+
+<p>You inquire beforehand about the entrance fee to each party and estimate how much fun you might have there. The list is readily compiled, but how do you actually pick the parties that give you the most fun and do not exceed your budget? </p>
+
+<p>Write a program which finds this optimal set of parties that offer the most fun. Keep in mind that your budget need not necessarily be reached exactly. Achieve the highest possible fun level, and do not spend more money than is absolutely necessary.</p>
+
+<h6 id="input">Input</h6>
+
+<p>The first line of the input specifies your party budget and the number n of parties. </p>
+
+<p>The following n lines contain two numbers each. The first number indicates the entrance fee of each party. Parties cost between 5 and 25 francs. The second number indicates the amount of fun of each party, given as an integer number ranging from 0 to 10. </p>
+
+<p>The budget will not exceed 500 and there will be at most 100 parties. All numbers are separated by a single space. </p>
+
+<p>There are many test cases. Input ends with 0 0.</p>
+
+<h6 id="output">Output</h6>
+
+<p>For each test case your program must output the sum of the entrance fees and the sum of all fun values of an optimal solution. Both numbers must be separated by a single space.</p>
+
+<p>Example</p>
+
+<p>Input: <br>
+50 10 <br>
+12 3 <br>
+15 8 <br>
+16 9 <br>
+16 6 <br>
+10 2 <br>
+21 9 <br>
+18 4 <br>
+12 4 <br>
+17 8 <br>
+18 9 </p>
+
+<p>50 10 <br>
+13 8 <br>
+19 10 <br>
+16 8 <br>
+12 9 <br>
+10 2 <br>
+12 8 <br>
+13 5 <br>
+15 5 <br>
+11 7 <br>
+16 2</p>
+
+<p>0 0</p>
+
+<p>Output: <br>
+49 26 <br>
+48 32</p>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+pair&lt;int, int&gt; knapSack(int b, vector&lt;int&gt; budget, vector&lt;int&gt; fun) {  
+    int n = budget.size();
+    vector&lt;vector&lt;int&gt; &gt; k(n + 1, vector&lt;int&gt; (b + 1));
+    for (int i = 0; i &lt;= n; ++i) {
+        for (int j = 0; j &lt;= b; ++j) {
+            if (i == 0 || j == 0) {
+                k[i][j] = 0;
+            } else if ((budget[i - 1] &lt;= j) &amp;&amp; (fun[i - 1] + k[i - 1][j - budget[i - 1]]) &gt; k[i - 1][j]) {
+                k[i][j] = fun[i - 1] + k[i - 1][j - budget[i - 1]];
+            } else {
+                k[i][j] = k[i - 1][j];
+            }
+        }
+    }
+    int ans = 0;
+    for (int i = 0; i &lt;= b; ++i) {
+        if (k[n][i] == k[n][b]) {
+            ans = i;
+            break;
+        }
+    }
+    return make_pair(ans, k[n][b]);
+}
+
+int main() {  
+    int b, p;
+    while ((cin &gt;&gt; b &gt;&gt; p) &amp;&amp; !(b == 0 &amp;&amp; p == 0)) {
+        vector&lt;int&gt; budget(p),
+                    fun(p);
+        for (int i = 0; i &lt; p; ++i) {
+            cin &gt;&gt; budget[i] &gt;&gt; fun[i];
+        }
+        pair&lt;int, int&gt; ans = knapSack(b, budget, fun);
+        cout &lt;&lt; ans.first &lt;&lt; " " &lt;&lt; ans.second &lt;&lt; "\n";
+    } 
+    return 0;
+}
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/29/party/</link><guid isPermaLink="false">1efbd2f9-8f70-4162-bc1e-79717acbe02e</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Sat, 29 Nov 2014 11:37:15 GMT</pubDate></item><item><title><![CDATA[CRDS]]></title><description><![CDATA[<p>Maricruz have a lot of cards, she always uses her cards to build pyramids as shown in the following image:</p>
 
 <p><img src="http://code-jedi.chintanghate.me/content/images/2014/11/francky-cards.png" alt="Cards"></p>
 
@@ -954,139 +1124,4 @@ int main() {
     }
     return 0;
 }
-</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/26/edist/</link><guid isPermaLink="false">edcc9410-811a-4155-a85e-0b2331740f17</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Wed, 26 Nov 2014 03:46:18 GMT</pubDate></item><item><title><![CDATA[MAXLN]]></title><description><![CDATA[<p>In this problem you will be given a half-circle. The half-circle’s radius is r. You can take any point A on the half-circle and draw 2 lines from the point to the two sides of the diameter(AB and AC). Let the sum of square of one line’s length and the other line’s length is s.</p>
-
-<p><img src="http://code-jedi.chintanghate.me/content/images/2014/11/sE2qJlnf5DUTr7awOFtMOwA-1.png" alt="Illustration"></p>
-
-<p>Like in the figure s=AB^2+AC. And BC=2r.</p>
-
-<p>Now given r you have to find the maximum value of s. That is you have to find point A such that AB^2+AC is maximum.</p>
-
-<h6 id="input">Input:</h6>
-
-<p>First line of the test case will be the number of test case T(1&lt;=T&lt;=1000) . Then T lines follows. On each line you will find a integer number r(1&lt;=r&lt;=1000000); each representing the radius of the half-circle.</p>
-
-<h6 id="output">Output:</h6>
-
-<p>For each input line, print a line containing “Case I: ”, where I is the test case number and the maximum value of s. Print 2 digit after decimal(Errors should be less then .01).</p>
-
-<p>Example</p>
-
-<p>Input: <br>
-1 <br>
-1</p>
-
-<p>Output: <br>
-Case 1: 4.25</p>
-
-<hr>
-
-<pre><code class="prettyprint">#include &lt;iostream&gt;
-#include &lt;iomanip&gt;
-
-using namespace std;
-
-int main() {  
-    int T;
-    cin &gt;&gt; T;
-    for (int t = 1; t &lt;= T; ++t) {
-        double n;
-        cin &gt;&gt; n;
-        cout &lt;&lt; "Case " &lt;&lt; setprecision(2) &lt;&lt; fixed 
-             &lt;&lt; t &lt;&lt; ": " &lt;&lt; 4*n*n+0.25 &lt;&lt; "\n";
-    }
-    return 0;
-}
-</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/25/maxln/</link><guid isPermaLink="false">888df35d-fbc6-429a-935b-81c2182ab01b</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Tue, 25 Nov 2014 18:10:20 GMT</pubDate></item><item><title><![CDATA[ARITH2]]></title><description><![CDATA[<p>While browsing aimlessly, Peter stumbled upon an old riddle he used to solve on his calculator when he was still young. It was the kind of a riddle where you punch in a bunch of numbers and operators into a simple pocket calculator and then turn it upside down to get the answer:</p>
-
-<p>These come in many different sizes but they are always exactly one foot long. Answer: 103 * 103 * 5.</p>
-
-<p>What are made of ice to keep people warm? Answer: 50 * 40 * 250 + 791.</p>
-
-<p>After a few minutes he found a large amount of such riddles and full of excitement he went to solve them. He turned his computer screen upside down, only to find out that he does not have a reasonable calculator program installed on his computer.</p>
-
-<h6 id="problem">Problem</h6>
-
-<p>You are given multiple sequences of button presses of a simple pocket calculator that consist of digits and arithmetic operators. For each such sequence find the number it would produce on a pocket calculator's display.</p>
-
-<p>Note that the pocket calculator evaluates the operators in the order in which they are given. (i.e., there is no operator precedence.) Assume that the display of the calculator is large enough to show the result, and that its memory is sufficient to store all intermediate results.</p>
-
-<h6 id="input">Input</h6>
-
-<p>The first line of the input file contains an integer T specifying the number of test cases. Each test case is preceded by a blank line.</p>
-
-<p>Each test case represents one sequence of button presses for a pocket calculator. The sequence consists of non-negative integers and arithmetic operators and ends with an equal sign. It may also contain spaces to improve readability.</p>
-
-<p>The operator / represents integer division, rounded down. You may assume that no test case contains division by zero and that in all test cases all intermediate results are non-negative.</p>
-
-<p>Tip: long long int in C/C++, long in Java or int64 in Pascal is enough for this problem.</p>
-
-<h6 id="output">Output</h6>
-
-<p>For each sequence from the input file output the number that would be displayed on the calculator.</p>
-
-<p>Example</p>
-
-<p>Input: <br>
-4</p>
-
-<p>1 + 1 * 2 =</p>
-
-<p>29 / 5 =</p>
-
-<p>103 * 103 * 5 =</p>
-
-<p>50 * 40 * 250 + 791 =</p>
-
-<p>Output: <br>
-4 <br>
-5 <br>
-53045 <br>
-500791 <br>
-Hint</p>
-
-<p>The first test case shows that there is no operator precedence.</p>
-
-<p>The second one shows that integer division always rounds down.</p>
-
-<p>The last two outputs are the answers to the two riddles in the problem statement: "shoes" (53045 upside down), and "igloos"(500791 upside down).</p>
-
-<hr>
-
-<pre><code class="prettyprint">#include &lt;iostream&gt;
-#include &lt;sstream&gt;
-#include &lt;string&gt;
-
-using namespace std;
-
-int main() {  
-    int  T;
-    cin &gt;&gt; T;
-
-    cin.ignore();
-
-    for (;T--;) {
-        string S;
-        cin.ignore();
-        getline(cin, S);
-        istringstream iss(S);
-        long long n = 0, N = 0;
-        char op = '+';
-        while(iss &gt;&gt; n) {
-            if (op == '+') {
-                N += n;
-            } else if (op == '-') {
-                N -= n;
-            } else if (op == '*') {
-                N *= n;
-            } else if (op == '/') {
-                N /= n;
-            }
-            if ((iss &gt;&gt; op) &amp;&amp; (op == '=')) {
-                cout &lt;&lt; N &lt;&lt; "\n";
-            }
-        }
-    }
-    return 0;
-}
-</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/21/arith2/</link><guid isPermaLink="false">f8e3d594-52f1-45d7-9346-ab747ba24411</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Fri, 21 Nov 2014 16:14:14 GMT</pubDate></item></channel></rss>
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/26/edist/</link><guid isPermaLink="false">edcc9410-811a-4155-a85e-0b2331740f17</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Wed, 26 Nov 2014 03:46:18 GMT</pubDate></item></channel></rss>

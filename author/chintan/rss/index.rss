@@ -1,5 +1,755 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Chintan Ghate - Code Jedi]]></title><description><![CDATA[Code, algorithms and design.]]></description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Fri, 28 Nov 2014 17:58:27 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/author/chintan/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[CRDS]]></title><description><![CDATA[<p>Maricruz have a lot of cards, she always uses her cards to build pyramids as shown in the following image:</p>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Chintan Ghate - Code Jedi]]></title><description><![CDATA[Code, algorithms and design.]]></description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Sun, 30 Nov 2014 10:57:03 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/author/chintan/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Poetry]]></title><description><![CDATA[<p>Used In:    SRM 170 <br>
+Used As:    Division II Level Three</p>
+
+<h6 id="problemstatement">Problem Statement</h6>
+
+<p>Given a poem, determine its rhyme scheme.</p>
+
+<p>To simplify things, because English is such a fickle language, there are some constraints:</p>
+
+<p>A legal word is a sequence of lower or uppercase letters, containing at least one vowel, where a vowel is 'a', 'e', 'i', 'o', or 'u'. Also, 'y' is considered a vowel if it is not at the start or end of a word. Words are delimited by spaces.</p>
+
+<p>Two words are considered rhyming if they have the same ending pattern (defined below). This comparison is case-insensitive (see Example 1.)</p>
+
+<p>An ending pattern is a substring of a word such that:</p>
+
+<p>The word ends with that substring, <br>
+The substring contains exactly one contiguous string of vowels, <br>
+The first letter of the substring is a vowel, and <br>
+The substring must either be the whole string, or the letter immediately preceding the start of the substring must be a nonvowel. <br>
+For example, the ending pattern of "bought" is "ought", the ending pattern of "spying" would be "ying", and the ending pattern of "all" would be "all". (Note that "spy" has no vowels, and thus is not a legal word.)</p>
+
+<p>Two lines rhyme if their corresponding last words rhyme, and a line is empty if it contains no words.</p>
+
+<p>The procedure for determinining rhyme scheme is as follows: The first non-empty line in the poem should be labeled with the lowercase letter 'a'. Every line that rhymes with that line should also be labeled with that letter. The next unlabeled non-empty line should be labeled with the letter 'b', and any rhyming lines should also be labeled in this manner. When you run out of lowercase letters, continue by using the uppercase letters 'A' to 'Z'. Empty lines should be labeled with ' ' (the space character).</p>
+
+<p>The 0th character of the returned String should be the rhyme scheme label of the 0th line, the 1st character should be the label of the 1st line, and so on. This means that the returned String will have the same number of characters as there are elements in poem. Thus, given a String[] poem, then your method should return a String detailing the rhyme scheme.</p>
+
+<h6 id="definition">Definition</h6>
+
+<p>Class:    Poetry <br>
+Method:    rhymeScheme <br>
+Parameters:    String[] <br>
+Returns:    String <br>
+Method signature:    String rhymeScheme(String[] poem) <br>
+(be sure your method is public)</p>
+
+<h6 id="notes">Notes</h6>
+
+<ul>
+<li>If there is a blank line in the poem, there must be a corresponding space in the output. A blank line is one with no words. (See Example 1.)</li>
+</ul>
+
+<h6 id="constraints">Constraints</h6>
+
+<ul>
+<li>poem will have between 1 and 50 elements, inclusive.</li>
+<li>each element of poem will contain between 0 and 50 characters, inclusive.</li>
+<li>the only allowable characters in poem will be upper and lowercase characters ('a'-'z' and 'A'-'Z') and the space character (' ').</li>
+<li>there will be only legal words in poem</li>
+</ul>
+
+<h6 id="examples">Examples</h6>
+
+<ol>
+<li><p>{"I hope this problem", <br>
+"is a whole lot better than",
+"this stupid haiku"}
+Returns: "abc" <br>
+Doesn't even conceivably rhyme.</p></li>
+<li><p>{"     ", <br>
+"Measure your height",
+"AND WEIGHT      ",
+"said the doctor",
+"",
+"And make sure to take your pills",
+"   to   cure   your    ills",
+"Every",
+"DAY"}
+Returns: " aab ccde" <br>
+Even though "height" and "weight" don't actually rhyme in English, they do by the rules laid out above.</p></li>
+<li><p>{"One bright day in the middle of the night", <br>
+"Two dead boys got up to fight",
+"Back to back they faced each other",
+"Drew their swords and shot each other",
+"",
+"A deaf policeman heard the noise",
+"And came to arrest the two dead boys",
+"And if you dont believe this lie is true",
+"Ask the blind man he saw it too"}
+Returns: "aabb cdef"</p></li>
+<li><p>{"", <br>
+"",
+"",
+""}
+Returns: "    " <br>
+Four lines from the mind of a blank poet.</p></li>
+<li><p>{"This poem has uppercase letters", <br>
+"In its rhyme scheme",
+"Alpha", "Blaster", "Cat", "Desert", "Elephant", "Frog", "Gulch", 
+"Horse", "Ireland", "Jam", "Krispy Kreme", "Loofah", "Moo", "Narf",
+"Old", "Pink", "Quash", "Rainbow", "Star", "Tour", "Uvula", "Very",
+"Will", "Xmas", "Young", "Zed", "deception", "comic", "grout",
+"oval", "cable", "rob", "steal", "steel", "weak"}
+Returns: "abcdefghibjkblmnopqrstcuvwxyzABCbDEFG"</p></li>
+<li><p>{" ", <br>
+"     ",
+"This poem",
+"         ",
+" ",
+" ",
+"",
+"Has lots of blank lines",
+" ",
+"      ",
+"                                            ",
+"         ",
+" ",
+"              ",
+"                                                  ",
+"  in      it           "}
+Returns: "  a    b       c"</p></li>
+<li><p>{"too bad   your", <br>
+"     solution went   sour"}
+Returns: "aa"</p></li>
+</ol>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+#include &lt;sstream&gt;
+#include &lt;map&gt;
+#include &lt;algorithm&gt;
+
+using namespace std;
+
+class Poetry {  
+    private:
+        bool isVowel(string s, int i) {
+            if (s[i] == 'a' || s[i] == 'e' || s[i] == 'i' || s[i] == 'o' || s[i] == 'u') {
+                return true;
+            } else if (s[i] == 'y' &amp;&amp; i != 0 &amp;&amp; i != s.size() - 1) {
+                return true;
+            }
+            return false;
+        }
+        string endPattern(string s) {
+            string ep = "";
+            bool flag = true;
+            for (int i = s.size() - 1; i &gt;= 0; --i) {
+                bool v = isVowel(s, i); 
+                if (v) {
+                    flag = false;
+                }
+                if (v || flag) {
+                    ep = s[i] + ep;
+                } else {
+                    break;
+                }
+            }
+            return ep;
+        }
+        bool isEmptyString(string s) {
+            for (int i = 0; i &lt; s.size(); ++i) {
+                if (s[i] != ' ') {
+                    return false;
+                }
+            }
+            return true;
+        }
+        string lastWord(string s) {
+            istringstream iss(s);
+            string lw;
+            while (iss &gt;&gt; lw);
+            return lw;
+        }
+    public:
+        string rhymeScheme(vector&lt;string&gt; poem) {
+            vector&lt;char&gt; rhymingSeq;
+            for (char i = 'a'; i &lt;= 'z'; ++i) {
+                rhymingSeq.push_back(i);
+            }
+            for (char i = 'A'; i &lt;= 'Z'; ++i) {
+                rhymingSeq.push_back(i);
+            }
+            map&lt;string, char&gt; pattern;
+            string scheme = "";
+            int seq = 0;
+            for (int i = 0; i &lt; poem.size(); ++i) {
+                transform(poem[i].begin(), poem[i].end(), poem[i].begin(), ::tolower);
+                if (!isEmptyString(poem[i])) {
+                    string ep = endPattern(lastWord(poem[i]));
+                    if (pattern.find(ep) == pattern.end()) {
+                        pattern[ep] = rhymingSeq[seq++];
+                    }
+                    scheme += pattern[ep];
+                } else {
+                    scheme += " ";
+                }
+            }
+            return scheme;
+        }
+};
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/30/poetry/</link><guid isPermaLink="false">7b987ce1-2551-4210-9070-76a824bb2ab6</guid><category><![CDATA[TopCoder]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Sun, 30 Nov 2014 10:25:31 GMT</pubDate></item><item><title><![CDATA[MatchMaking]]></title><description><![CDATA[<p>Used In:    SRM 203 <br>
+Used As:    Division I Level One , Division II Level Two</p>
+
+<h6 id="problemstatement">Problem Statement</h6>
+
+<p>You are developing the matchmaking component of an online dating site. Prospective members must fill out a questionnaire consisting of binary questions such as Do you prefer to vacation (a) in the mountains or (b) at the seaside? and Would you rather travel (a) by plane or (b) by train?</p>
+
+<p>You are to match up men with women by maximizing the number of answers each couple has in common. A man and a woman have an answer in common whenever they give the same answer to the same question. Conflicts can easily arise due to numerical ties, but you will be able to resolve all such conflicts using the following procedure. Note that there will be equal numbers of men and women, with names being unique in each sex.</p>
+
+<p>Take the woman whose name comes earliest in lexicographic order, and consider the men with whom she has the greatest number of answers in common. Among these men, pick the one whose name comes earliest in lexicographic order. You have found the woman's best match. Remove this couple from the dating pool, and repeat the matching procedure until there are no more singles left.</p>
+
+<p>You are given a String[], namesWomen, containing the names of single women, and another String[], answersWomen, containing their answers. The kth element of answersWomen lists the answers of the woman whose name is the kth element of namesWomen. If there are n questions in the questionnaire, then every element of answersWomen consists of n characters, each of which is either 'a' or 'b'. The answers are always given in the fixed questionnaire order. You are similarly given the String[]s namesMen and answersMen for the single men. Lastly, you are given a String, queryWoman, containing the name of a woman. Return the name of the man to whom she is matched after you have formed all couples according to the above rules.</p>
+
+<h6 id="definition">Definition</h6>
+
+<p>Class:    MatchMaking <br>
+Method:    makeMatch <br>
+Parameters:    String[], String[], String[], String[], String <br>
+Returns:    String <br>
+Method signature:    String makeMatch(String[] namesWomen, String[] answersWomen, String[] namesMen, String[] answersMen, String queryWoman) <br>
+(be sure your method is public)</p>
+
+<h6 id="notes">Notes</h6>
+
+<ul>
+<li>Lexicographic order is like dictionary order, with the difference that case matters. All uppercase letters take precedence over all lowercase letters. Thus, "boolean" comes before "boot"; "boo" comes before "boolean"; "Boot" comes before "boo"; "Zoo" comes before "boo".</li>
+</ul>
+
+<h6 id="constraints">Constraints</h6>
+
+<ul>
+<li>namesWomen contains between 1 and 50 elements, inclusive</li>
+<li>if namesWomen consists of n elements, then answersWomen, namesMen, and answersMen consist of n elements each</li>
+<li>each element of namesWomen and each element of namesMen is between 1 and 50 characters long, inclusive</li>
+<li>the only characters that may appear in namesMen and namesWomen are 'a' to 'z' and 'A' to 'Z'</li>
+<li>no two elements of namesWomen are alike</li>
+<li>no two elements of namesMen are alike</li>
+<li>the first element of answersWomen is between 1 and 50 characters long, inclusive</li>
+<li>if the first element of answersWomen consists of m characters, then each element of answersWomen and of answersMen is m characters long</li>
+<li>the only characters that may appear in answersWomen and answersMen are 'a' and 'b'</li>
+<li>queryWoman is one of the Strings in namesWomen</li>
+</ul>
+
+<p>Examples</p>
+
+<ol>
+<li><p>{"Constance", "Bertha", "Alice"} <br>
+{"aaba", "baab", "aaaa"}
+{"Chip", "Biff", "Abe"}
+{"bbaa", "baaa", "aaab"}
+"Bertha"
+Returns: "Biff" <br>
+Alice has two answers in common with Chip and three answers in common with both Abe and Biff; Abe gets lexicographic preference. Bertha also has two answers in common with Chip and three answers in common with both Abe and Biff. Since Abe has already been matched to Alice, Bertha lands Biff.</p></li>
+<li><p>{"Constance", "Bertha", "Alice"} <br>
+{"aaba", "baab", "aaaa"}
+{"Chip", "Biff", "Abe"}
+{"bbaa", "baaa", "aaab"}
+"Constance"
+Returns: "Chip" <br>
+We are dealing with the same names and answers as before. Constance is the last to go. Although she has two answers in common with Abe and Biff, they are both taken. She ends up with Chip, with whom she has only one answer in common.</p></li>
+<li><p>{"Constance", "Alice", "Bertha", "Delilah", "Emily"} <br>
+{"baabaa", "ababab", "aaabbb", "bababa", "baabba"}
+{"Ed", "Duff", "Chip", "Abe", "Biff"}
+{"aabaab", "babbab", "bbbaaa", "abbbba", "abaaba"}
+"Constance"
+Returns: "Duff"</p></li>
+<li><p>{"Constance", "Alice", "Bertha", "Delilah", "Emily"} <br>
+{"baabaa", "ababab", "aaabbb", "bababa", "baabba"}
+{"Ed", "Duff", "Chip", "Abe", "Biff"}
+{"aabaab", "babbab", "bbbaaa", "abbbba", "abaaba"}
+"Delilah"
+Returns: "Chip"</p></li>
+<li><p>{"Constance", "Alice", "Bertha", "Delilah", "Emily"} <br>
+{"baabaa", "ababab", "aaabbb", "bababa", "baabba"}
+{"Ed", "Duff", "Chip", "Abe", "Biff"}
+{"aabaab", "babbab", "bbbaaa", "abbbba", "abaaba"}
+"Emily"
+Returns: "Ed"</p></li>
+<li><p>{"anne", "Zoe"} <br>
+{"a", "a"}
+{"bob", "chuck"}
+{"a", "a"}
+"Zoe"
+Returns: "bob"</p></li>
+<li><p>{"F", "M", "S", "h", "q", "g", "r", "N", "U", "x", "H", "P", <br>
+"o", "E", "R", "z", "L", "m", "e", "u", "K", "A", "w", "Q",
+"O", "v", "j", "a", "t", "p", "C", "G", "k", "c", "V", "B",
+"D", "s", "n", "i", "f", "T", "I", "l", "d", "J", "y", "b"}
+{"abaabbbb", "bbaabbbb", "aaabaaab", "aabbaaaa", "baabbaab",
+"aaababba", "bbabbbbb", "bbbabbba", "aaabbbba", "aabbbaaa",
+"abbabaaa", "babbabbb", "aaaaabba", "aaaabbaa", "abbbabaa",
+"babababa", "abbaaaaa", "bbababba", "baaaaaba", "baaaaabb",
+"bbbbabba", "ababbaaa", "abbbabab", "baabbbaa", "bbbaabbb",
+"aababbab", "ababbabb", "abbaabba", "baabbabb", "aaabaaab",
+"aabbbaba", "aabaaabb", "abababba", "aabbaaaa", "aabbabaa",
+"bababaaa", "aabaaaab", "bbbbaabb", "baaababb", "abaabbab",
+"aabbbaaa", "baabbaba", "bbabbbaa", "aabbbbaa", "abbbaaab",
+"abababbb", "ababaaba", "bababaaa"}
+{"f", "C", "v", "g", "Q", "z", "n", "c", "B", "o", "M", "F",
+"u", "x", "I", "T", "K", "L", "E", "U", "w", "A", "d", "t",
+"e", "R", "D", "s", "p", "q", "m", "r", "H", "j", "J", "V",
+"l", "a", "k", "h", "G", "y", "i", "P", "O", "N", "b", "S"}
+{"bbbaabab", "bbabaabb", "ababbbbb", "bbbababb", "baababaa",
+"bbaaabab", "abbabbaa", "bbbabbbb", "aabbabab", "abbababa",
+"aababbbb", "bababaab", "aaababbb", "baabbaba", "abaaaaab",
+"bbaababa", "babaabab", "abbabbba", "ababbbab", "baabbbab",
+"babbaaab", "abbbbaba", "bbabbbba", "baaabaab", "ababbabb",
+"abbbaabb", "bbbbaabb", "bbbaaabb", "baabbaba", "bbabaaab",
+"aabbbaab", "abbbbabb", "bbaaaaba", "bbbababa", "abbaabba",
+"bababbbb", "aabaaabb", "babbabab", "baaaabaa", "ababbaba",
+"aaabaabb", "bbaaabaa", "baaaaabb", "bbaabaab", "bbababab",
+"aabaaaab", "aaaaabab", "aabbaaba"}
+"U"
+Returns: "x"</p></li>
+<li><p>{"q", "M", "w", "y", "p", "N", "s", "r", "a", "H", "o", "n", <br>
+"F", "m", "l", "b", "D", "j", "C", "u", "f", "I", "g", "L",
+"i", "x", "A", "G", "O", "k", "h", "d", "c", "E", "B", "v",
+"J", "z", "K", "e", "t"}
+{"aabbaaabb", "baabababb", "bbaababba", "bbbaaaaaa", "abaaaabaa",
+"bababbbab", "abbaabbaa", "aabababbb", "bababaaaa", "abbababaa",
+"aabbbbbba", "bbabbabab", "babaabbba", "babbabbbb", "baaabbbbb",
+"baaabaaaa", "aaabbaaab", "abbaabbbb", "abbabbbab", "bbaaaabba",
+"babbaaabb", "aabbabbab", "baaababba", "ababaabab", "bbbaabbab",
+"aaaabbabb", "babaaaaaa", "abbbbaaab", "aabaaabba", "bbbaaaaba",
+"bbbbbbaab", "aabbaaabb", "aabaabbab", "aababaaba", "bbabbbbab",
+"abbabaaab", "babaaabbb", "bababbaaa", "aabbaabaa", "baaabbabb",
+"bbbbbbbbb"}
+{"m", "k", "n", "q", "L", "E", "M", "l", "w", "x", "g", "e",
+"i", "z", "F", "r", "a", "h", "f", "D", "J", "K", "j", "v",
+"A", "t", "N", "y", "s", "c", "o", "p", "d", "b", "B", "G",
+"O", "I", "u", "C", "H"}
+{"bbaaabbba", "bbaaaaaab", "abaaababb", "baaaabbbb", "abbbababa",
+"baaaaaaaa", "aabbbbbab", "aaaaabbba", "baabababb", "babaaabab",
+"baaababaa", "bbbbaabba", "bbaabbabb", "bbaaababb", "abbabbaba",
+"aababaaab", "abbbbbbaa", "aabbaabaa", "bbbaabbba", "abbabbaba",
+"aaabbbaaa", "bbaabaaaa", "aabababbb", "abbbbabab", "baaabbbba",
+"bababbbba", "aababbaab", "bbaabbaab", "bbbaaabbb", "babbbbabb",
+"ababababb", "babaaabab", "bbaaaaaba", "aaaaabaaa", "abbaaabbb",
+"bbbbababb", "baabababb", "bbaabaaaa", "aaababbbb", "abbbbbbba",
+"bbaabbaaa"}
+"o"
+Returns: "C"</p></li>
+</ol>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+#include &lt;map&gt;
+
+using namespace std;
+
+class MatchMaking {  
+    private:
+        int mathches(string a, string b) {
+            int match = 0;
+            for (int i = 0; i &lt; a.size(); ++i) {
+                if (a[i] == b[i]) {
+                    ++match;
+                }
+            }
+            return match;
+        }
+
+    public:
+        string makeMatch(vector&lt;string&gt; namesWomen, vector&lt;string&gt; answerWomen, vector&lt;string&gt; namesMen, vector&lt;string&gt; answerMen, string queryWoman) {
+            int n = namesMen.size();
+            string theChosenOne = "";
+            map&lt;string, string&gt; women, men;
+            vector&lt;bool&gt; taken(n, false);
+            for (int i = 0; i &lt; n; ++i) {
+                women[namesWomen[i]] = answerWomen[i];
+                men[namesMen[i]] = answerMen[i];
+            }
+            for (map&lt;string, string&gt; :: iterator i = women.begin(); 
+                i != women.end(); ++i) {
+                int compatibility = -1;
+                int index = 0,
+                    jn = 0;
+                for (map&lt;string, string&gt; :: iterator j = 
+                    men.begin(); j != men.end(); ++j, ++jn) {
+                    if (!taken[jn]) {
+                        int match = mathches(i-&gt;second, j-&gt;second);
+                        if (match &gt; compatibility) {
+                            compatibility = match;
+                            index = jn;
+                            theChosenOne = j-&gt;first;
+                        }
+                    }
+                }
+                taken[index] = true;
+                if (i-&gt;first == queryWoman) {
+                    break;
+                }
+            }
+            return theChosenOne;
+        }
+};
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/30/matchmaking/</link><guid isPermaLink="false">42d8c9c0-ad89-4714-8b3f-6c6396e3864a</guid><category><![CDATA[TopCoder]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Sun, 30 Nov 2014 07:37:33 GMT</pubDate></item><item><title><![CDATA[BettingMoney]]></title><description><![CDATA[<p>Used In:    SRM 191 <br>
+Used As:    Division II Level One</p>
+
+<h6 id="problemstatement">Problem Statement</h6>
+
+<p>You run a gambling business in which people place bets on the margin of victory in a football game. At the end of the day, the company would like to know what the day's net gain has been.</p>
+
+<p>Just as in any other betting system, people place certain amounts as their bets and if they guess correctly, they get their money back plus a pre-specified percentage of their bet; otherwise they lose the money they bet. </p>
+
+<p>You are given a int[], amounts, the ith element of which is the number of dollars people have placed on a victory margin of i (i = 0 refers to the first element). You are also given a int[], centsPerDollar, the ith element of which is the number of cents the company has to pay for every dollar the people bet on a victory margin of i, if the final outcome is a victory margin of i. Finally, you are given an int, finalResult, which is the final margin of victory. You have to determine what the net gain for the day was and return the amount in cents.</p>
+
+<p>For example, if amounts were {10,20,30}, it would mean that people placed $10 on a draw outcome, $20 on a victory margin of 1 and $30 on a victory margin of 2, and if centsPerDollar were {20,30,40}, it would mean the people would win 20 cents per dollar bet if the match were a draw, 30 cents per dollar if the victory margin were 1 and 40 cents per dollar if the victory margin were 2. </p>
+
+<p>Suppose the final result is a victory margin of 1 (i.e., finalResult = 1). Then the people who guessed the outcome as a margin of 0 or 2 were wrong and the company receives the amounts they bet, $10+$30. However, the people who guessed that the outcome would be a margin of 1 were correct, and they receive money from the company according to the amount they bet (20 dollars) and the pre-set payoff percentage (30 cents per dollar) . This amounts to 20*30 = 600 cents. Hence, the day's net gain is 40 dollars - 600 cents = 3400 cents. You should return 3400.</p>
+
+<h6 id="definition">Definition</h6>
+
+<p>Class:    BettingMoney <br>
+Method:    moneyMade <br>
+Parameters:    int[], int[], int <br>
+Returns:    int <br>
+Method signature:    int moneyMade(int[] amounts, int[] centsPerDollar, int finalResult) <br>
+(be sure your method is public)</p>
+
+<h6 id="notes">Notes</h6>
+
+<ul>
+<li>Keep in mind that it is not relevant which team wins. Only the margin of victory matters.</li>
+<li>A victory margin of 0 and a draw are the same thing.</li>
+<li>There are 100 cents in a dollar.</li>
+<li>If the company has to pay more than it receives, the day's net gain will be negative.</li>
+</ul>
+
+<h6 id="constraints">Constraints</h6>
+
+<ul>
+<li>amounts will contain between 1 and 50 elements, inclusive.</li>
+<li>centsPerDollar will contain the same number of elements as amounts.</li>
+<li>finalResult will be between 0 and n-1, inclusive, where n is the number of elements in amounts.</li>
+<li>Each element of amounts will be between 0 and 5000, inclusive.</li>
+<li>Each element of centsPerDollar will be between 0 and 5000, inclusive.</li>
+</ul>
+
+<h6 id="examples">Examples</h6>
+
+<ol>
+<li><p>{10,20,30} <br>
+{20,30,40}
+1 <br>
+Returns: 3400 <br>
+The case explained in the problem statement above.</p></li>
+<li><p>{200,300,100} <br>
+{10,10,10}
+2 <br>
+Returns: 49000 <br>
+The company gains 200+300 = 500 dollars from the people who bet on margins of 0 and 1. The company loses 100*10 = 1000 cents to the people who bet on a victory margin of 2. Hence, the net gain is 49000 cents.</p></li>
+<li><p>{100,100,100,100} <br>
+{5,5,5,5}
+0 <br>
+Returns: 29500</p></li>
+<li><p>{5000,5000} <br>
+{100,2}
+0 <br>
+Returns: 0</p></li>
+<li><p>{100} <br>
+{10}
+0 <br>
+Returns: -1000 <br>
+The company doesn't gain anything! It has to pay the people who bet on the only outcome possible. It pays 100*10 cents. Hence, the net gain is -1000. (Negative indicates loss.)</p></li>
+</ol>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+class BettingMoney {  
+    public:
+        int moneyMade(vector&lt;int&gt; amounts, vector&lt;int&gt; centsPerDollar, int finalResult) {
+            int profit = 0;
+            for (int i = 0; i &lt; amounts.size(); ++i) {
+                if (i == finalResult) {
+                    profit -= (amounts[i] * centsPerDollar[i]);
+                } else {
+                    profit += (amounts[i] * 100);
+                }
+            }
+            return profit;
+        }
+};
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/30/bettingname/</link><guid isPermaLink="false">99b30a41-e004-409d-a143-0e90ec6c8f90</guid><category><![CDATA[TopCoder]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Sun, 30 Nov 2014 05:18:42 GMT</pubDate></item><item><title><![CDATA[UserName]]></title><description><![CDATA[<p>Used In:    SRM 203 <br>
+Used As:    Division II Level One</p>
+
+<h6 id="problemstatement">Problem Statement</h6>
+
+<p>You are implementing the member registration system of an online dating site. When a new member signs up, it is possible that she initially chooses the same username as an existing member. The system must then inform the new member of the conflict and suggest a variant of the chosen name with a number attached to the end.</p>
+
+<p>If an existing member is named "FunkyMonkey", for example, and a new member wants the same username, the simplest suggestion the system can make is "FunkyMonkey1". If there is already a member by that name, the system must suggest "FunkyMonkey2", unless that variant is also taken. If all names from "FunkyMonkey1" through "FunkyMonkey9" are taken as well as the original "FunkyMonkey", the system moves on to consider "FunkyMonkey10", and so on. The goal is to use the smallest possible number in the variant. Note that each username consists of letters (the characters from 'a' to 'z' and from 'A' to 'Z') and numerals ('0' to '9').</p>
+
+<p>You are given a String[], existingNames, containing all usernames that have already been registered in the system. You are also given a single String, newName, containing the username that a new member wants to use. In the event of a conflict, this member will accept the suggestion offered by your system in accordance with the principles above. Return a String containing the username finally assigned to the new member.</p>
+
+<h6 id="definition">Definition</h6>
+
+<p>Class:    UserName <br>
+Method:    newMember <br>
+Parameters:    String[], String <br>
+Returns:    String <br>
+Method signature:    String newMember(String[] existingNames, String newName) <br>
+(be sure your method is public)</p>
+
+<h6 id="notes">Notes</h6>
+
+<ul>
+<li>The constraints rule out names that end in a number with a leading zero, such as "grokster006" and "bart0".</li>
+</ul>
+
+<h6 id="constraints">Constraints</h6>
+
+<ul>
+<li>existingNames contains between 1 and 50 elements, inclusive</li>
+<li>each element of existingNames is between 1 and 50 characters long, inclusive</li>
+<li>the only characters permitted in elements of existingNames are 'a' to 'z', 'A' to 'Z', and '0' to '9'</li>
+<li>no element of existingNames ends in a number that has a leading zero</li>
+<li>newName is between 1 and 50 characters long, inclusive</li>
+<li>the only characters permitted in newName are 'a' to 'z' and 'A' to 'Z'</li>
+</ul>
+
+<h6 id="examples">Examples</h6>
+
+<ol>
+<li><p>{"MasterOfDisaster", "DingBat", "Orpheus", "WolfMan", "MrKnowItAll"} <br>
+"TygerTyger"
+Returns: "TygerTyger" <br>
+"TygerTyger" is available.</p></li>
+<li><p>{"MasterOfDisaster", "TygerTyger1", "DingBat", "Orpheus", <br>
+"TygerTyger", "WolfMan", "MrKnowItAll"}
+"TygerTyger"
+Returns: "TygerTyger2" <br>
+"TygerTyger" and "TygerTyger1" are taken.</p></li>
+<li><p>{"TygerTyger2000", "TygerTyger1", "MasterDisaster", "DingBat", <br>
+"Orpheus", "WolfMan", "MrKnowItAll"}
+"TygerTyger"
+Returns: "TygerTyger" <br>
+There are higher-numbered variants of "TygerTyger", but the base name is available.</p></li>
+<li><p>{"grokster2", "BrownEyedBoy", "Yoop", "BlueEyedGirl", <br>
+"grokster", "Elemental", "NightShade", "Grokster1"}
+"grokster"
+Returns: "grokster1" <br>
+Note that "Grokster1" is not the same as "grokster1".</p></li>
+<li><p>{"Bart4", "Bart5", "Bart6", "Bart7", "Bart8", "Bart9", "Bart10", <br>
+"Lisa", "Marge", "Homer", "Bart", "Bart1", "Bart2", "Bart3",
+"Bart11", "Bart12"}
+"Bart"
+Returns: "Bart13"</p></li>
+</ol>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+#include &lt;sstream&gt;
+
+using namespace std;
+
+class UserName {  
+    private:
+        string intToString(int n) {
+            ostringstream oss;
+            oss &lt;&lt; n;
+            return oss.str();
+        }
+    public:
+        string newMember(vector&lt;string&gt; existingNames, string newName) {
+            if (find(existingNames.begin(), existingNames.end(), 
+               newName) == existingNames.end()) {
+                return newName;
+            }
+            int i = 1;
+            while (find(existingNames.begin(), existingNames.end(), 
+            newName + intToString(i++)) != existingNames.end());
+            return newName + intToString(--i);
+        }   
+};
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/30/username/</link><guid isPermaLink="false">be1ed185-8877-42a7-9d89-8f80236c99b0</guid><category><![CDATA[TopCoder]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Sun, 30 Nov 2014 04:18:37 GMT</pubDate></item><item><title><![CDATA[PIGBANK]]></title><description><![CDATA[<p>Before ACM can do anything, a budget must be prepared and the necessary financial support obtained. The main income for this action comes from Irreversibly Bound Money (IBM). The idea behind is simple. Whenever some ACM member has any small money, he takes all the coins and throws them into a piggy-bank. You know that this process is irreversible, the coins cannot be removed without breaking the pig. After a sufficiently long time, there should be enough cash in the piggy-bank to pay everything that needs to be paid.</p>
+
+<p>But there is a big problem with piggy-banks. It is not possible to determine how much money is inside. So we might break the pig into pieces only to find out that there is not enough money. Clearly, we want to avoid this unpleasant situation. The only possibility is to weigh the piggy-bank and try to guess how many coins are inside. Assume that we are able to determine the weight of the pig exactly and that we know the weights of all coins of a given currency. Then there is some minimum amount of money in the piggy-bank that we can guarantee. Your task is to find out this worst case and determine the minimum amount of cash inside the piggy-bank. We need your help. No more prematurely broken pigs!</p>
+
+<h6 id="input">Input</h6>
+
+<p>The input consists of T test cases. The number of them (T) is given on the first line of the input file. Each test case begins with a line containing two integers E and F. They indicate the weight of an empty pig and of the pig filled with coins. Both weights are given in grams. No pig will weigh more than 10 kg, that means 1 &lt;= E &lt;= F &lt;= 10000. On the second line of each test case, there is an integer number N (1 &lt;= N &lt;= 500) that gives the number of various coins used in the given currency. Following this are exactly N lines, each specifying one coin type. These lines contain two integers each, Pand W (1 &lt;= P &lt;= 50000, 1 &lt;= W &lt;=10000). P is the value of the coin in monetary units, W is it's weight in grams.</p>
+
+<h6 id="output">Output</h6>
+
+<p>Print exactly one line of output for each test case. The line must contain the sentence "The minimum amount of money in the piggy-bank is X." where X is the minimum amount of money that can be achieved using coins with the given total weight. If the weight cannot be reached exactly, print a line "This is impossible.".</p>
+
+<p>Example</p>
+
+<p>Input: <br>
+3 <br>
+10 110 <br>
+2 <br>
+1 1 <br>
+30 50 <br>
+10 110 <br>
+2 <br>
+1 1 <br>
+50 30 <br>
+1 6 <br>
+2 <br>
+10 3 <br>
+20 4</p>
+
+<p>Output: <br>
+The minimum amount of money in the piggy-bank is 60. <br>
+The minimum amount of money in the piggy-bank is 100. <br>
+This is impossible.</p>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+int main() {  
+    int T;
+    cin &gt;&gt; T;
+    for (;T--;) {
+        int E,F;
+        cin &gt;&gt; E &gt;&gt; F;
+        F -= E;
+        vector&lt;int&gt; dp(F + 1, 100000000);
+        int N;
+        cin &gt;&gt; N;
+        for (int i = 0; i &lt; N; ++i) {
+            int p, w;
+            cin &gt;&gt; p &gt;&gt; w;
+            if (dp[w] &gt; p) {
+                dp[w] = p;
+                for (int j = 1; j &lt;= F - w; ++j) {
+                    if(dp[j + w] &gt; dp[j] + dp[w]) {
+                        dp[j + w] = dp[j] + dp[w];
+                    }
+                }
+            }
+        }
+        if(dp[F] &lt; 100000000) {
+            cout &lt;&lt; "The minimum amount of money in the piggy-bank is " &lt;&lt; dp[F] &lt;&lt; ".\n";
+        } else {
+            cout &lt;&lt; "This is impossible.\n";
+        }
+    }
+    return 0;
+}
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/29/pigbank/</link><guid isPermaLink="false">44f5c2a6-ccfd-484d-b43f-343a3c927f1e</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Sat, 29 Nov 2014 13:08:54 GMT</pubDate></item><item><title><![CDATA[PARTY]]></title><description><![CDATA[<p>You just received another bill which you cannot pay because you lack the money. Unfortunately, this is not the first time to happen, and now you decide to investigate the cause of your constant monetary shortness. The reason is quite obvious: the lion's share of your money routinely disappears at the entrance of party localities. </p>
+
+<p>You make up your mind to solve the problem where it arises, namely at the parties themselves. You introduce a limit for your party budget and try to have the most possible fun with regard to this limit. </p>
+
+<p>You inquire beforehand about the entrance fee to each party and estimate how much fun you might have there. The list is readily compiled, but how do you actually pick the parties that give you the most fun and do not exceed your budget? </p>
+
+<p>Write a program which finds this optimal set of parties that offer the most fun. Keep in mind that your budget need not necessarily be reached exactly. Achieve the highest possible fun level, and do not spend more money than is absolutely necessary.</p>
+
+<h6 id="input">Input</h6>
+
+<p>The first line of the input specifies your party budget and the number n of parties. </p>
+
+<p>The following n lines contain two numbers each. The first number indicates the entrance fee of each party. Parties cost between 5 and 25 francs. The second number indicates the amount of fun of each party, given as an integer number ranging from 0 to 10. </p>
+
+<p>The budget will not exceed 500 and there will be at most 100 parties. All numbers are separated by a single space. </p>
+
+<p>There are many test cases. Input ends with 0 0.</p>
+
+<h6 id="output">Output</h6>
+
+<p>For each test case your program must output the sum of the entrance fees and the sum of all fun values of an optimal solution. Both numbers must be separated by a single space.</p>
+
+<p>Example</p>
+
+<p>Input: <br>
+50 10 <br>
+12 3 <br>
+15 8 <br>
+16 9 <br>
+16 6 <br>
+10 2 <br>
+21 9 <br>
+18 4 <br>
+12 4 <br>
+17 8 <br>
+18 9 </p>
+
+<p>50 10 <br>
+13 8 <br>
+19 10 <br>
+16 8 <br>
+12 9 <br>
+10 2 <br>
+12 8 <br>
+13 5 <br>
+15 5 <br>
+11 7 <br>
+16 2</p>
+
+<p>0 0</p>
+
+<p>Output: <br>
+49 26 <br>
+48 32</p>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+pair&lt;int, int&gt; knapSack(int b, vector&lt;int&gt; budget, vector&lt;int&gt; fun) {  
+    int n = budget.size();
+    vector&lt;vector&lt;int&gt; &gt; k(n + 1, vector&lt;int&gt; (b + 1));
+    for (int i = 0; i &lt;= n; ++i) {
+        for (int j = 0; j &lt;= b; ++j) {
+            if (i == 0 || j == 0) {
+                k[i][j] = 0;
+            } else if ((budget[i - 1] &lt;= j) &amp;&amp; (fun[i - 1] + k[i - 1][j - budget[i - 1]]) &gt; k[i - 1][j]) {
+                k[i][j] = fun[i - 1] + k[i - 1][j - budget[i - 1]];
+            } else {
+                k[i][j] = k[i - 1][j];
+            }
+        }
+    }
+    int ans = 0;
+    for (int i = 0; i &lt;= b; ++i) {
+        if (k[n][i] == k[n][b]) {
+            ans = i;
+            break;
+        }
+    }
+    return make_pair(ans, k[n][b]);
+}
+
+int main() {  
+    int b, p;
+    while ((cin &gt;&gt; b &gt;&gt; p) &amp;&amp; !(b == 0 &amp;&amp; p == 0)) {
+        vector&lt;int&gt; budget(p),
+                    fun(p);
+        for (int i = 0; i &lt; p; ++i) {
+            cin &gt;&gt; budget[i] &gt;&gt; fun[i];
+        }
+        pair&lt;int, int&gt; ans = knapSack(b, budget, fun);
+        cout &lt;&lt; ans.first &lt;&lt; " " &lt;&lt; ans.second &lt;&lt; "\n";
+    } 
+    return 0;
+}
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/29/party/</link><guid isPermaLink="false">1efbd2f9-8f70-4162-bc1e-79717acbe02e</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Sat, 29 Nov 2014 11:37:15 GMT</pubDate></item><item><title><![CDATA[CRDS]]></title><description><![CDATA[<p>Maricruz have a lot of cards, she always uses her cards to build pyramids as shown in the following image:</p>
 
 <p><img src="http://code-jedi.chintanghate.me/content/images/2014/11/francky-cards.png" alt="Cards"></p>
 
@@ -672,421 +1422,4 @@ int main() {
     }
     return 0;
 }
-</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/27/javac/</link><guid isPermaLink="false">4077835d-1bca-4079-96f6-0e3e12e31991</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Wed, 26 Nov 2014 18:49:32 GMT</pubDate></item><item><title><![CDATA[NY10A]]></title><description><![CDATA[<p>Penney’s game is a simple game typically played by two players.  One version of the game calls for each player to choose a unique three-coin sequence such as HEADS TAILS HEADS (HTH).  A fair coin is tossed sequentially some number of times until one of the two sequences appears.  The player who chose the first sequence to appear wins the game.</p>
-
-<p>For this problem, you will write a program that implements a variation on the Penney Game.  You willread a sequence of 40 coin tosses and determine how many times each three-coin sequence appears.  Obviously there are eight such three-coin sequences: TTT, TTH, THT, THH, HTT, HTH, HHT and HHH. Sequences may overlap.  For example, if all 40 coin tosses are heads, then the sequence HHH appears 38 times.</p>
-
-<h6 id="input">Input</h6>
-
-<p>The first line of input contains a single integer P, (1 ≤ P ≤ 1000), which is the number of data sets that follow.  Each data set consists of 2 lines.  The first line contains the data set number N.  The second line contains the sequence of 40 coin tosses.  Each toss is represented as an upper case H or an upper case T, for heads or tails, respectively.  There will be no spaces on any input line.</p>
-
-<h6 id="output">Output</h6>
-
-<p>For each data set there is one line of output.  It contains the data set number followed by a single space, followed by the number of occurrences of each three-coin sequence, in the order shown above, with a space between each one.  There should be a total of 9 space separated decimal integers on each output line.</p>
-
-<p>Example</p>
-
-<p>Input: <br>
-4 <br>
-1 <br>
-HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH <br>
-2 <br>
-TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT <br>
-3 <br>
-HHTTTHHTTTHTHHTHHTTHTTTHHHTHTTHTTHTTTHTH <br>
-4 <br>
-HTHTHHHTHHHTHTHHHHTTTHTTTTTHHTTTTHTHHHHT</p>
-
-<p>Output: <br>
-1 0 0 0 0 0 0 0 38 <br>
-2 38 0 0 0 0 0 0 0 <br>
-3 4 7 6 4 7 4 5 1 <br>
-4 6 3 4 5 3 6 5 6</p>
-
-<hr>
-
-<pre><code class="prettyprint">#include &lt;iostream&gt;
-#include &lt;string&gt;
-#include &lt;vector&gt;
-
-using namespace std;
-
-int main() {  
-    int T;
-    cin &gt;&gt; T;
-    for (;T--;) {
-        int n;
-        cin &gt;&gt; n;
-        string s;
-        cin &gt;&gt; s;
-        vector&lt;int&gt; counter(8, 0);
-        for (int i = 0; i &lt; s.size() - 2; ++i) {
-            int index = 0;
-            index += (s[i] == 'H' ? 4 : 0);
-            index += (s[i + 1] == 'H' ? 2 : 0);
-            index += (s[i + 2] == 'H' ? 1 : 0);
-            ++counter[index];
-        }
-        cout &lt;&lt; n;
-        for (int i = 0; i &lt; 8; ++i) {
-            cout &lt;&lt; " " &lt;&lt; counter[i];
-        }
-        cout &lt;&lt; "\n";
-    }   
-    return 0;
-}
-</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/26/ny10a/</link><guid isPermaLink="false">8ef0f847-ce46-4d07-8f04-a07ed3defad8</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Wed, 26 Nov 2014 15:24:13 GMT</pubDate></item><item><title><![CDATA[PT07Z]]></title><description><![CDATA[<p>You are given an unweighted, undirected tree. Write a program to output the length of the longest path (from one node to another) in that tree. The length of a path in this case is number of edges we traverse from source to destination.</p>
-
-<h6 id="input">Input</h6>
-
-<p>The first line of the input file contains one integer N --- number of nodes in the tree (0 &lt; N &lt;= 10000). Next N-1 lines contain N-1 edges of that tree --- Each line contains a pair (u, v) means there is an edge between node u and node v (1 &lt;= u,v &lt;= N).</p>
-
-<h6 id="output">Output</h6>
-
-<p>Print the length of the longest path on one line.</p>
-
-<p>Example</p>
-
-<p>Input: <br>
-3 <br>
-1 2 <br>
-2 3</p>
-
-<p>Output: <br>
-2</p>
-
-<hr>
-
-<pre><code class="prettyprint">#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;queue&gt;
-#include &lt;algorithm&gt;
-
-using namespace std;
-
-pair&lt;int, int&gt; longestPath(vector&lt;vector&lt;int&gt; &gt; adj, int source) {  
-    int nodes = adj.size();
-    deque&lt;int&gt; q;
-    vector&lt;bool&gt; visited(nodes, false);
-    vector&lt;int&gt; sourceDist(nodes, 0);
-    q.push_back(source);
-    visited[source] = true;
-    while (!q.empty()) {
-        int current = q.front();
-        q.pop_front();
-        for (int i = 0; i &lt; adj[current].size(); ++i) {
-            if (!visited[adj[current][i]]) {
-                sourceDist[adj[current][i]] = 
-                    sourceDist[current] + 1;
-                q.push_back(adj[current][i]);
-                visited[adj[current][i]] = true;
-            }
-        }
-    }
-    int maxIndex = max_element(sourceDist.begin(), 
-                   sourceDist.end()) - sourceDist.begin();
-    return make_pair(sourceDist[maxIndex], maxIndex);
-}
-
-int main() {  
-    int nodes;
-    cin &gt;&gt; nodes;
-    vector&lt;vector&lt;int&gt; &gt; adj(nodes);
-    for (int i = 0; i &lt; nodes - 1; ++i) {
-        int u, v;
-        cin &gt;&gt; u &gt;&gt; v;
-        --u, --v;
-        adj[u].push_back(v);
-        adj[v].push_back(u);
-    }
-
-    int farthestNode = longestPath(adj, 0).second;
-    cout &lt;&lt; longestPath(adj, farthestNode).first &lt;&lt; "\n";
-    return 0;
-}
-</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/26/pt07z/</link><guid isPermaLink="false">c6880079-7f17-4a32-a815-26e12b3221bf</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Wed, 26 Nov 2014 14:49:23 GMT</pubDate></item><item><title><![CDATA[LASTDIG2]]></title><description><![CDATA[<p>Pappu was doing the work of his math class about three days but he is tired of make operations a lot and he should deliver his task tomorrow. His math’s teacher gives two numbers a and b. The problem consist in find the last digit of the potency of base a and index b. Help Pappu with his problem. You are given two integer numbers: the base a (number of digits d, such that 1&lt;=d&lt;=1000) and the index b (0 &lt;= b &lt;= 922*10^15). You have to find the last digit of a^b.</p>
-
-<h6 id="input">Input</h6>
-
-<p>The first line of input contains an integer t, the number of test cases (t &lt;= 30). t test cases follow. For each test case will appear a and b separated by space.</p>
-
-<h6 id="output">Output</h6>
-
-<p>For each test case output an integer per line representing the result.</p>
-
-<p>Example</p>
-
-<p>Input: <br>
-3 <br>
-3 10 <br>
-6 2 <br>
-150 53</p>
-
-<p>Output: <br>
-9 <br>
-6 <br>
-0</p>
-
-<hr>
-
-<pre><code class="prettyprint">#include &lt;iostream&gt;
-#include &lt;string&gt;
-#include &lt;vector&gt;
-
-using namespace std;
-
-int lastDig(int n, unsigned long long b) {  
-    if (b == 0) {
-        return 1;
-    } else if (n == 0 || n == 1 || n == 5 || n == 6) {
-        return n;
-    }
-    vector&lt;int&gt; ld;
-    ld.push_back(n);
-    int count = 0;
-    do {
-        ++count;
-        ld.push_back((n*ld.back()) % 10);
-    } while (ld.back() != n);
-    int c = b % count - 1;
-    if (c &lt; 0) {
-        c += count;
-    }
-    return ld[c];
-}
-
-int main() {  
-    int t;
-    cin &gt;&gt; t;
-    for (;t--;) {
-        string a;
-        unsigned long long b;
-        cin &gt;&gt; a &gt;&gt; b;
-        int n = a[a.size() - 1] - '0';
-        cout &lt;&lt; lastDig(n, b) &lt;&lt; "\n";
-    }
-    return 0;
-}
-</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/26/lastdig2/</link><guid isPermaLink="false">f1d858ed-de4c-40ce-92a8-89d52e328a35</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Wed, 26 Nov 2014 05:30:49 GMT</pubDate></item><item><title><![CDATA[EDIST]]></title><description><![CDATA[<p>You are given two strings, A and B. Answer, what is the smallest number of operations you need to <br>
-transform A to B?</p>
-
-<p>Operations are:</p>
-
-<ol>
-<li>Delete one letter from one of strings</li>
-<li>Insert one letter into one of strings</li>
-<li>Replace one of letters from one of strings with another letter </li>
-</ol>
-
-<h6 id="input">Input</h6>
-
-<p>T - number of test cases</p>
-
-<p>For each test case:</p>
-
-<p>String A</p>
-
-<p>String B</p>
-
-<p>Both strings will contain only uppercase characters and they won't <br>
-be longer than 2000 characters. </p>
-
-<p>There will be 10 test cases in data set.</p>
-
-<h6 id="output">Output</h6>
-
-<p>For each test case, one line, minimum number of operations.</p>
-
-<p>Example</p>
-
-<p>Input: <br>
-1 <br>
-FOOD <br>
-MONEY </p>
-
-<p>Output: <br>
-4</p>
-
-<hr>
-
-<pre><code class="prettyprint">#include &lt;iostream&gt;
-#include &lt;string&gt;
-#include &lt;vector&gt;
-#include &lt;algorithm&gt;
-
-using namespace std;
-
-int LevenshteinDistance(string s, string t) {  
-    if (s == t) {
-        return 0;
-    } else if (s.size() == 0) {
-        return t.size();
-    } else if (t.size() == 0) {
-        return s.size();
-    }
-
-    vector&lt;int&gt; v0 = vector&lt;int&gt; (t.size() + 1),
-                v1 = vector&lt;int&gt; (t.size() + 1);
-
-    for (int i = 0; i &lt; v0.size(); ++i) {
-        v0[i] = i;
-    }
-
-    for (int i = 0; i &lt; s.size(); ++i) {
-        v1[0] = i + 1;
-        for (int j = 0; j &lt; t.size(); ++j) {
-            int cost = (s[i] == t[j] ? 0 : 1);
-            v1[j + 1] = min(min(v1[j] + 1, v0[j + 1] + 1), 
-                        v0[j] + cost);
-        }
-        v0 = v1;
-    }
-    return v1[t.size()];
-}
-
-int main() {  
-    int T;
-    cin &gt;&gt; T;
-    for (;T--;) {
-        string a,b;
-        cin &gt;&gt; a &gt;&gt; b;
-        cout &lt;&lt; LevenshteinDistance(a, b) &lt;&lt; "\n";
-    }
-    return 0;
-}
-</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/26/edist/</link><guid isPermaLink="false">edcc9410-811a-4155-a85e-0b2331740f17</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Wed, 26 Nov 2014 03:46:18 GMT</pubDate></item><item><title><![CDATA[MAXLN]]></title><description><![CDATA[<p>In this problem you will be given a half-circle. The half-circle’s radius is r. You can take any point A on the half-circle and draw 2 lines from the point to the two sides of the diameter(AB and AC). Let the sum of square of one line’s length and the other line’s length is s.</p>
-
-<p><img src="http://code-jedi.chintanghate.me/content/images/2014/11/sE2qJlnf5DUTr7awOFtMOwA-1.png" alt="Illustration"></p>
-
-<p>Like in the figure s=AB^2+AC. And BC=2r.</p>
-
-<p>Now given r you have to find the maximum value of s. That is you have to find point A such that AB^2+AC is maximum.</p>
-
-<h6 id="input">Input:</h6>
-
-<p>First line of the test case will be the number of test case T(1&lt;=T&lt;=1000) . Then T lines follows. On each line you will find a integer number r(1&lt;=r&lt;=1000000); each representing the radius of the half-circle.</p>
-
-<h6 id="output">Output:</h6>
-
-<p>For each input line, print a line containing “Case I: ”, where I is the test case number and the maximum value of s. Print 2 digit after decimal(Errors should be less then .01).</p>
-
-<p>Example</p>
-
-<p>Input: <br>
-1 <br>
-1</p>
-
-<p>Output: <br>
-Case 1: 4.25</p>
-
-<hr>
-
-<pre><code class="prettyprint">#include &lt;iostream&gt;
-#include &lt;iomanip&gt;
-
-using namespace std;
-
-int main() {  
-    int T;
-    cin &gt;&gt; T;
-    for (int t = 1; t &lt;= T; ++t) {
-        double n;
-        cin &gt;&gt; n;
-        cout &lt;&lt; "Case " &lt;&lt; setprecision(2) &lt;&lt; fixed 
-             &lt;&lt; t &lt;&lt; ": " &lt;&lt; 4*n*n+0.25 &lt;&lt; "\n";
-    }
-    return 0;
-}
-</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/25/maxln/</link><guid isPermaLink="false">888df35d-fbc6-429a-935b-81c2182ab01b</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Tue, 25 Nov 2014 18:10:20 GMT</pubDate></item><item><title><![CDATA[ARITH2]]></title><description><![CDATA[<p>While browsing aimlessly, Peter stumbled upon an old riddle he used to solve on his calculator when he was still young. It was the kind of a riddle where you punch in a bunch of numbers and operators into a simple pocket calculator and then turn it upside down to get the answer:</p>
-
-<p>These come in many different sizes but they are always exactly one foot long. Answer: 103 * 103 * 5.</p>
-
-<p>What are made of ice to keep people warm? Answer: 50 * 40 * 250 + 791.</p>
-
-<p>After a few minutes he found a large amount of such riddles and full of excitement he went to solve them. He turned his computer screen upside down, only to find out that he does not have a reasonable calculator program installed on his computer.</p>
-
-<h6 id="problem">Problem</h6>
-
-<p>You are given multiple sequences of button presses of a simple pocket calculator that consist of digits and arithmetic operators. For each such sequence find the number it would produce on a pocket calculator's display.</p>
-
-<p>Note that the pocket calculator evaluates the operators in the order in which they are given. (i.e., there is no operator precedence.) Assume that the display of the calculator is large enough to show the result, and that its memory is sufficient to store all intermediate results.</p>
-
-<h6 id="input">Input</h6>
-
-<p>The first line of the input file contains an integer T specifying the number of test cases. Each test case is preceded by a blank line.</p>
-
-<p>Each test case represents one sequence of button presses for a pocket calculator. The sequence consists of non-negative integers and arithmetic operators and ends with an equal sign. It may also contain spaces to improve readability.</p>
-
-<p>The operator / represents integer division, rounded down. You may assume that no test case contains division by zero and that in all test cases all intermediate results are non-negative.</p>
-
-<p>Tip: long long int in C/C++, long in Java or int64 in Pascal is enough for this problem.</p>
-
-<h6 id="output">Output</h6>
-
-<p>For each sequence from the input file output the number that would be displayed on the calculator.</p>
-
-<p>Example</p>
-
-<p>Input: <br>
-4</p>
-
-<p>1 + 1 * 2 =</p>
-
-<p>29 / 5 =</p>
-
-<p>103 * 103 * 5 =</p>
-
-<p>50 * 40 * 250 + 791 =</p>
-
-<p>Output: <br>
-4 <br>
-5 <br>
-53045 <br>
-500791 <br>
-Hint</p>
-
-<p>The first test case shows that there is no operator precedence.</p>
-
-<p>The second one shows that integer division always rounds down.</p>
-
-<p>The last two outputs are the answers to the two riddles in the problem statement: "shoes" (53045 upside down), and "igloos"(500791 upside down).</p>
-
-<hr>
-
-<pre><code class="prettyprint">#include &lt;iostream&gt;
-#include &lt;sstream&gt;
-#include &lt;string&gt;
-
-using namespace std;
-
-int main() {  
-    int  T;
-    cin &gt;&gt; T;
-
-    cin.ignore();
-
-    for (;T--;) {
-        string S;
-        cin.ignore();
-        getline(cin, S);
-        istringstream iss(S);
-        long long n = 0, N = 0;
-        char op = '+';
-        while(iss &gt;&gt; n) {
-            if (op == '+') {
-                N += n;
-            } else if (op == '-') {
-                N -= n;
-            } else if (op == '*') {
-                N *= n;
-            } else if (op == '/') {
-                N /= n;
-            }
-            if ((iss &gt;&gt; op) &amp;&amp; (op == '=')) {
-                cout &lt;&lt; N &lt;&lt; "\n";
-            }
-        }
-    }
-    return 0;
-}
-</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/21/arith2/</link><guid isPermaLink="false">f8e3d594-52f1-45d7-9346-ab747ba24411</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Fri, 21 Nov 2014 16:14:14 GMT</pubDate></item></channel></rss>
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/27/javac/</link><guid isPermaLink="false">4077835d-1bca-4079-96f6-0e3e12e31991</guid><category><![CDATA[SPOJ]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Wed, 26 Nov 2014 18:49:32 GMT</pubDate></item></channel></rss>

@@ -1,0 +1,329 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>MatchMaking</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css?v=34441e7626">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+    <link href="../../../../assets/css/prettify.css?v=34441e7626" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="../../../../assets/js/prettify.js?v=34441e7626"></script>
+    <link rel="canonical" href="http://code-jedi.chintanghate.me/2014/11/30/matchmaking/">
+    
+    <meta property="og:site_name" content="Code Jedi">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="MatchMaking">
+    <meta property="og:description" content="Used In:    SRM 203  Used As:    Division I Level One , Division II Level Two Problem Statement You are developing the matchmaking component of an online dating site. Prospective members must fill out a questionnaire consisting of binary questions such as...">
+    <meta property="og:url" content="http://code-jedi.chintanghate.me/2014/11/30/matchmaking/">
+    <meta property="article:published_time" content="2014-11-30T07:37:33.833Z">
+    <meta property="article:modified_time" content="2014-11-30T07:38:54.835Z">
+    <meta property="article:tag" content="TopCoder">
+    
+    <meta name="twitter:card" content="content">
+    <meta name="twitter:title" content="MatchMaking">
+    <meta name="twitter:description" content="Used In:    SRM 203  Used As:    Division I Level One , Division II Level Two Problem Statement You are developing the matchmaking component of an online dating site. Prospective members must fill out a questionnaire consisting of binary questions such as...">
+    <meta name="twitter:url" content="http://code-jedi.chintanghate.me/2014/11/30/matchmaking/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Code Jedi",
+    "author": {
+        "@type": "Person",
+        "name": "Chintan Ghate",
+        "url": "http://code-jedi.chintanghate.me/author/chintan",
+        "sameAs": null
+    },
+    "headline": "MatchMaking",
+    "url": "http://code-jedi.chintanghate.me/2014/11/30/matchmaking/",
+    "datePublished": "2014-11-30T07:37:33.833Z",
+    "dateModified": "2014-11-30T07:38:54.835Z",
+    "keywords": "TopCoder",
+    "description": "Used In:    SRM 203  Used As:    Division I Level One , Division II Level Two Problem Statement You are developing the matchmaking component of an online dating site. Prospective members must fill out a questionnaire consisting of binary questions such as"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Code Jedi" href="../../../../rss/index.html">
+</head>
+<body class="post-template tag-topcoder" onload="prettyPrint()">
+
+    
+
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        <a class="back-button icon-arrow-left" href="http://code-jedi.chintanghate.me">Home</a>
+        <a class="subscribe-button icon-feed" href="http://code-jedi.chintanghate.me/rss/index.rss">Subscribe</a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+
+    <article class="post tag-topcoder">
+
+        <header class="post-header">
+            <h1 class="post-title">MatchMaking</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2014-11-30">30 November 2014</time>  on <a href="../../../../tag/topcoder/">TopCoder</a>
+            </section>
+        </header>
+
+        <section class="post-content">
+            <p>Used In:    SRM 203 <br>
+Used As:    Division I Level One , Division II Level Two</p>
+
+<h6 id="problemstatement">Problem Statement</h6>
+
+<p>You are developing the matchmaking component of an online dating site. Prospective members must fill out a questionnaire consisting of binary questions such as Do you prefer to vacation (a) in the mountains or (b) at the seaside? and Would you rather travel (a) by plane or (b) by train?</p>
+
+<p>You are to match up men with women by maximizing the number of answers each couple has in common. A man and a woman have an answer in common whenever they give the same answer to the same question. Conflicts can easily arise due to numerical ties, but you will be able to resolve all such conflicts using the following procedure. Note that there will be equal numbers of men and women, with names being unique in each sex.</p>
+
+<p>Take the woman whose name comes earliest in lexicographic order, and consider the men with whom she has the greatest number of answers in common. Among these men, pick the one whose name comes earliest in lexicographic order. You have found the woman's best match. Remove this couple from the dating pool, and repeat the matching procedure until there are no more singles left.</p>
+
+<p>You are given a String[], namesWomen, containing the names of single women, and another String[], answersWomen, containing their answers. The kth element of answersWomen lists the answers of the woman whose name is the kth element of namesWomen. If there are n questions in the questionnaire, then every element of answersWomen consists of n characters, each of which is either 'a' or 'b'. The answers are always given in the fixed questionnaire order. You are similarly given the String[]s namesMen and answersMen for the single men. Lastly, you are given a String, queryWoman, containing the name of a woman. Return the name of the man to whom she is matched after you have formed all couples according to the above rules.</p>
+
+<h6 id="definition">Definition</h6>
+
+<p>Class:    MatchMaking <br>
+Method:    makeMatch <br>
+Parameters:    String[], String[], String[], String[], String <br>
+Returns:    String <br>
+Method signature:    String makeMatch(String[] namesWomen, String[] answersWomen, String[] namesMen, String[] answersMen, String queryWoman) <br>
+(be sure your method is public)</p>
+
+<h6 id="notes">Notes</h6>
+
+<ul>
+<li>Lexicographic order is like dictionary order, with the difference that case matters. All uppercase letters take precedence over all lowercase letters. Thus, "boolean" comes before "boot"; "boo" comes before "boolean"; "Boot" comes before "boo"; "Zoo" comes before "boo".</li>
+</ul>
+
+<h6 id="constraints">Constraints</h6>
+
+<ul>
+<li>namesWomen contains between 1 and 50 elements, inclusive</li>
+<li>if namesWomen consists of n elements, then answersWomen, namesMen, and answersMen consist of n elements each</li>
+<li>each element of namesWomen and each element of namesMen is between 1 and 50 characters long, inclusive</li>
+<li>the only characters that may appear in namesMen and namesWomen are 'a' to 'z' and 'A' to 'Z'</li>
+<li>no two elements of namesWomen are alike</li>
+<li>no two elements of namesMen are alike</li>
+<li>the first element of answersWomen is between 1 and 50 characters long, inclusive</li>
+<li>if the first element of answersWomen consists of m characters, then each element of answersWomen and of answersMen is m characters long</li>
+<li>the only characters that may appear in answersWomen and answersMen are 'a' and 'b'</li>
+<li>queryWoman is one of the Strings in namesWomen</li>
+</ul>
+
+<p>Examples</p>
+
+<ol>
+<li><p>{"Constance", "Bertha", "Alice"} <br>
+{"aaba", "baab", "aaaa"}
+{"Chip", "Biff", "Abe"}
+{"bbaa", "baaa", "aaab"}
+"Bertha"
+Returns: "Biff" <br>
+Alice has two answers in common with Chip and three answers in common with both Abe and Biff; Abe gets lexicographic preference. Bertha also has two answers in common with Chip and three answers in common with both Abe and Biff. Since Abe has already been matched to Alice, Bertha lands Biff.</p></li>
+<li><p>{"Constance", "Bertha", "Alice"} <br>
+{"aaba", "baab", "aaaa"}
+{"Chip", "Biff", "Abe"}
+{"bbaa", "baaa", "aaab"}
+"Constance"
+Returns: "Chip" <br>
+We are dealing with the same names and answers as before. Constance is the last to go. Although she has two answers in common with Abe and Biff, they are both taken. She ends up with Chip, with whom she has only one answer in common.</p></li>
+<li><p>{"Constance", "Alice", "Bertha", "Delilah", "Emily"} <br>
+{"baabaa", "ababab", "aaabbb", "bababa", "baabba"}
+{"Ed", "Duff", "Chip", "Abe", "Biff"}
+{"aabaab", "babbab", "bbbaaa", "abbbba", "abaaba"}
+"Constance"
+Returns: "Duff"</p></li>
+<li><p>{"Constance", "Alice", "Bertha", "Delilah", "Emily"} <br>
+{"baabaa", "ababab", "aaabbb", "bababa", "baabba"}
+{"Ed", "Duff", "Chip", "Abe", "Biff"}
+{"aabaab", "babbab", "bbbaaa", "abbbba", "abaaba"}
+"Delilah"
+Returns: "Chip"</p></li>
+<li><p>{"Constance", "Alice", "Bertha", "Delilah", "Emily"} <br>
+{"baabaa", "ababab", "aaabbb", "bababa", "baabba"}
+{"Ed", "Duff", "Chip", "Abe", "Biff"}
+{"aabaab", "babbab", "bbbaaa", "abbbba", "abaaba"}
+"Emily"
+Returns: "Ed"</p></li>
+<li><p>{"anne", "Zoe"} <br>
+{"a", "a"}
+{"bob", "chuck"}
+{"a", "a"}
+"Zoe"
+Returns: "bob"</p></li>
+<li><p>{"F", "M", "S", "h", "q", "g", "r", "N", "U", "x", "H", "P", <br>
+"o", "E", "R", "z", "L", "m", "e", "u", "K", "A", "w", "Q",
+"O", "v", "j", "a", "t", "p", "C", "G", "k", "c", "V", "B",
+"D", "s", "n", "i", "f", "T", "I", "l", "d", "J", "y", "b"}
+{"abaabbbb", "bbaabbbb", "aaabaaab", "aabbaaaa", "baabbaab",
+"aaababba", "bbabbbbb", "bbbabbba", "aaabbbba", "aabbbaaa",
+"abbabaaa", "babbabbb", "aaaaabba", "aaaabbaa", "abbbabaa",
+"babababa", "abbaaaaa", "bbababba", "baaaaaba", "baaaaabb",
+"bbbbabba", "ababbaaa", "abbbabab", "baabbbaa", "bbbaabbb",
+"aababbab", "ababbabb", "abbaabba", "baabbabb", "aaabaaab",
+"aabbbaba", "aabaaabb", "abababba", "aabbaaaa", "aabbabaa",
+"bababaaa", "aabaaaab", "bbbbaabb", "baaababb", "abaabbab",
+"aabbbaaa", "baabbaba", "bbabbbaa", "aabbbbaa", "abbbaaab",
+"abababbb", "ababaaba", "bababaaa"}
+{"f", "C", "v", "g", "Q", "z", "n", "c", "B", "o", "M", "F",
+"u", "x", "I", "T", "K", "L", "E", "U", "w", "A", "d", "t",
+"e", "R", "D", "s", "p", "q", "m", "r", "H", "j", "J", "V",
+"l", "a", "k", "h", "G", "y", "i", "P", "O", "N", "b", "S"}
+{"bbbaabab", "bbabaabb", "ababbbbb", "bbbababb", "baababaa",
+"bbaaabab", "abbabbaa", "bbbabbbb", "aabbabab", "abbababa",
+"aababbbb", "bababaab", "aaababbb", "baabbaba", "abaaaaab",
+"bbaababa", "babaabab", "abbabbba", "ababbbab", "baabbbab",
+"babbaaab", "abbbbaba", "bbabbbba", "baaabaab", "ababbabb",
+"abbbaabb", "bbbbaabb", "bbbaaabb", "baabbaba", "bbabaaab",
+"aabbbaab", "abbbbabb", "bbaaaaba", "bbbababa", "abbaabba",
+"bababbbb", "aabaaabb", "babbabab", "baaaabaa", "ababbaba",
+"aaabaabb", "bbaaabaa", "baaaaabb", "bbaabaab", "bbababab",
+"aabaaaab", "aaaaabab", "aabbaaba"}
+"U"
+Returns: "x"</p></li>
+<li><p>{"q", "M", "w", "y", "p", "N", "s", "r", "a", "H", "o", "n", <br>
+"F", "m", "l", "b", "D", "j", "C", "u", "f", "I", "g", "L",
+"i", "x", "A", "G", "O", "k", "h", "d", "c", "E", "B", "v",
+"J", "z", "K", "e", "t"}
+{"aabbaaabb", "baabababb", "bbaababba", "bbbaaaaaa", "abaaaabaa",
+"bababbbab", "abbaabbaa", "aabababbb", "bababaaaa", "abbababaa",
+"aabbbbbba", "bbabbabab", "babaabbba", "babbabbbb", "baaabbbbb",
+"baaabaaaa", "aaabbaaab", "abbaabbbb", "abbabbbab", "bbaaaabba",
+"babbaaabb", "aabbabbab", "baaababba", "ababaabab", "bbbaabbab",
+"aaaabbabb", "babaaaaaa", "abbbbaaab", "aabaaabba", "bbbaaaaba",
+"bbbbbbaab", "aabbaaabb", "aabaabbab", "aababaaba", "bbabbbbab",
+"abbabaaab", "babaaabbb", "bababbaaa", "aabbaabaa", "baaabbabb",
+"bbbbbbbbb"}
+{"m", "k", "n", "q", "L", "E", "M", "l", "w", "x", "g", "e",
+"i", "z", "F", "r", "a", "h", "f", "D", "J", "K", "j", "v",
+"A", "t", "N", "y", "s", "c", "o", "p", "d", "b", "B", "G",
+"O", "I", "u", "C", "H"}
+{"bbaaabbba", "bbaaaaaab", "abaaababb", "baaaabbbb", "abbbababa",
+"baaaaaaaa", "aabbbbbab", "aaaaabbba", "baabababb", "babaaabab",
+"baaababaa", "bbbbaabba", "bbaabbabb", "bbaaababb", "abbabbaba",
+"aababaaab", "abbbbbbaa", "aabbaabaa", "bbbaabbba", "abbabbaba",
+"aaabbbaaa", "bbaabaaaa", "aabababbb", "abbbbabab", "baaabbbba",
+"bababbbba", "aababbaab", "bbaabbaab", "bbbaaabbb", "babbbbabb",
+"ababababb", "babaaabab", "bbaaaaaba", "aaaaabaaa", "abbaaabbb",
+"bbbbababb", "baabababb", "bbaabaaaa", "aaababbbb", "abbbbbbba",
+"bbaabbaaa"}
+"o"
+Returns: "C"</p></li>
+</ol>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+#include &lt;map&gt;
+
+using namespace std;
+
+class MatchMaking {  
+    private:
+        int mathches(string a, string b) {
+            int match = 0;
+            for (int i = 0; i &lt; a.size(); ++i) {
+                if (a[i] == b[i]) {
+                    ++match;
+                }
+            }
+            return match;
+        }
+
+    public:
+        string makeMatch(vector&lt;string&gt; namesWomen, vector&lt;string&gt; answerWomen, vector&lt;string&gt; namesMen, vector&lt;string&gt; answerMen, string queryWoman) {
+            int n = namesMen.size();
+            string theChosenOne = "";
+            map&lt;string, string&gt; women, men;
+            vector&lt;bool&gt; taken(n, false);
+            for (int i = 0; i &lt; n; ++i) {
+                women[namesWomen[i]] = answerWomen[i];
+                men[namesMen[i]] = answerMen[i];
+            }
+            for (map&lt;string, string&gt; :: iterator i = women.begin(); 
+                i != women.end(); ++i) {
+                int compatibility = -1;
+                int index = 0,
+                    jn = 0;
+                for (map&lt;string, string&gt; :: iterator j = 
+                    men.begin(); j != men.end(); ++j, ++jn) {
+                    if (!taken[jn]) {
+                        int match = mathches(i-&gt;second, j-&gt;second);
+                        if (match &gt; compatibility) {
+                            compatibility = match;
+                            index = jn;
+                            theChosenOne = j-&gt;first;
+                        }
+                    }
+                }
+                taken[index] = true;
+                if (i-&gt;first == queryWoman) {
+                    break;
+                }
+            }
+            return theChosenOne;
+        }
+};
+</code></pre>
+        </section>
+
+        <footer class="post-footer">
+
+
+
+            <section class="author">
+                <h4><a href="../../../../author/chintan/">Chintan Ghate</a></h4>
+
+                    <p>Read <a href="../../../../author/chintan/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/share?text=MatchMaking&amp;url=http://code-jedi.chintanghate.me/2014/11/30/matchmaking/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://code-jedi.chintanghate.me/2014/11/30/matchmaking/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://code-jedi.chintanghate.me/2014/11/30/matchmaking/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+    </article>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+         <section class="copyright"><a href="http://code-jedi.chintanghate.me">Code Jedi</a> © 2014</section>
+         <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+    </footer>
+
+    <script src="../../../../public/jquery.js?v=34441e7626"></script>
+
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js?v=34441e7626"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js?v=34441e7626"></script>
+
+</body>

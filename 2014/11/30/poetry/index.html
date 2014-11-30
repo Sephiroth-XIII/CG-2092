@@ -1,0 +1,324 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Poetry</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css?v=34441e7626">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+    <link href="../../../../assets/css/prettify.css?v=34441e7626" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="../../../../assets/js/prettify.js?v=34441e7626"></script>
+    <link rel="canonical" href="http://code-jedi.chintanghate.me/2014/11/30/poetry/">
+    
+    <meta property="og:site_name" content="Code Jedi">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Poetry">
+    <meta property="og:description" content="Used In:    SRM 170  Used As:    Division II Level Three Problem Statement Given a poem, determine its rhyme scheme. To simplify things, because English is such a fickle language, there are some constraints: A legal word is a sequence of...">
+    <meta property="og:url" content="http://code-jedi.chintanghate.me/2014/11/30/poetry/">
+    <meta property="article:published_time" content="2014-11-30T10:25:31.350Z">
+    <meta property="article:modified_time" content="2014-11-30T10:25:31.349Z">
+    <meta property="article:tag" content="TopCoder">
+    
+    <meta name="twitter:card" content="content">
+    <meta name="twitter:title" content="Poetry">
+    <meta name="twitter:description" content="Used In:    SRM 170  Used As:    Division II Level Three Problem Statement Given a poem, determine its rhyme scheme. To simplify things, because English is such a fickle language, there are some constraints: A legal word is a sequence of...">
+    <meta name="twitter:url" content="http://code-jedi.chintanghate.me/2014/11/30/poetry/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Code Jedi",
+    "author": {
+        "@type": "Person",
+        "name": "Chintan Ghate",
+        "url": "http://code-jedi.chintanghate.me/author/chintan",
+        "sameAs": null
+    },
+    "headline": "Poetry",
+    "url": "http://code-jedi.chintanghate.me/2014/11/30/poetry/",
+    "datePublished": "2014-11-30T10:25:31.350Z",
+    "dateModified": "2014-11-30T10:25:31.349Z",
+    "keywords": "TopCoder",
+    "description": "Used In:    SRM 170  Used As:    Division II Level Three Problem Statement Given a poem, determine its rhyme scheme. To simplify things, because English is such a fickle language, there are some constraints: A legal word is a sequence of"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Code Jedi" href="../../../../rss/index.html">
+</head>
+<body class="post-template tag-topcoder" onload="prettyPrint()">
+
+    
+
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        <a class="back-button icon-arrow-left" href="http://code-jedi.chintanghate.me">Home</a>
+        <a class="subscribe-button icon-feed" href="http://code-jedi.chintanghate.me/rss/index.rss">Subscribe</a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+
+    <article class="post tag-topcoder">
+
+        <header class="post-header">
+            <h1 class="post-title">Poetry</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2014-11-30">30 November 2014</time>  on <a href="../../../../tag/topcoder/">TopCoder</a>
+            </section>
+        </header>
+
+        <section class="post-content">
+            <p>Used In:    SRM 170 <br>
+Used As:    Division II Level Three</p>
+
+<h6 id="problemstatement">Problem Statement</h6>
+
+<p>Given a poem, determine its rhyme scheme.</p>
+
+<p>To simplify things, because English is such a fickle language, there are some constraints:</p>
+
+<p>A legal word is a sequence of lower or uppercase letters, containing at least one vowel, where a vowel is 'a', 'e', 'i', 'o', or 'u'. Also, 'y' is considered a vowel if it is not at the start or end of a word. Words are delimited by spaces.</p>
+
+<p>Two words are considered rhyming if they have the same ending pattern (defined below). This comparison is case-insensitive (see Example 1.)</p>
+
+<p>An ending pattern is a substring of a word such that:</p>
+
+<p>The word ends with that substring, <br>
+The substring contains exactly one contiguous string of vowels, <br>
+The first letter of the substring is a vowel, and <br>
+The substring must either be the whole string, or the letter immediately preceding the start of the substring must be a nonvowel. <br>
+For example, the ending pattern of "bought" is "ought", the ending pattern of "spying" would be "ying", and the ending pattern of "all" would be "all". (Note that "spy" has no vowels, and thus is not a legal word.)</p>
+
+<p>Two lines rhyme if their corresponding last words rhyme, and a line is empty if it contains no words.</p>
+
+<p>The procedure for determinining rhyme scheme is as follows: The first non-empty line in the poem should be labeled with the lowercase letter 'a'. Every line that rhymes with that line should also be labeled with that letter. The next unlabeled non-empty line should be labeled with the letter 'b', and any rhyming lines should also be labeled in this manner. When you run out of lowercase letters, continue by using the uppercase letters 'A' to 'Z'. Empty lines should be labeled with ' ' (the space character).</p>
+
+<p>The 0th character of the returned String should be the rhyme scheme label of the 0th line, the 1st character should be the label of the 1st line, and so on. This means that the returned String will have the same number of characters as there are elements in poem. Thus, given a String[] poem, then your method should return a String detailing the rhyme scheme.</p>
+
+<h6 id="definition">Definition</h6>
+
+<p>Class:    Poetry <br>
+Method:    rhymeScheme <br>
+Parameters:    String[] <br>
+Returns:    String <br>
+Method signature:    String rhymeScheme(String[] poem) <br>
+(be sure your method is public)</p>
+
+<h6 id="notes">Notes</h6>
+
+<ul>
+<li>If there is a blank line in the poem, there must be a corresponding space in the output. A blank line is one with no words. (See Example 1.)</li>
+</ul>
+
+<h6 id="constraints">Constraints</h6>
+
+<ul>
+<li>poem will have between 1 and 50 elements, inclusive.</li>
+<li>each element of poem will contain between 0 and 50 characters, inclusive.</li>
+<li>the only allowable characters in poem will be upper and lowercase characters ('a'-'z' and 'A'-'Z') and the space character (' ').</li>
+<li>there will be only legal words in poem</li>
+</ul>
+
+<h6 id="examples">Examples</h6>
+
+<ol>
+<li><p>{"I hope this problem", <br>
+"is a whole lot better than",
+"this stupid haiku"}
+Returns: "abc" <br>
+Doesn't even conceivably rhyme.</p></li>
+<li><p>{"     ", <br>
+"Measure your height",
+"AND WEIGHT      ",
+"said the doctor",
+"",
+"And make sure to take your pills",
+"   to   cure   your    ills",
+"Every",
+"DAY"}
+Returns: " aab ccde" <br>
+Even though "height" and "weight" don't actually rhyme in English, they do by the rules laid out above.</p></li>
+<li><p>{"One bright day in the middle of the night", <br>
+"Two dead boys got up to fight",
+"Back to back they faced each other",
+"Drew their swords and shot each other",
+"",
+"A deaf policeman heard the noise",
+"And came to arrest the two dead boys",
+"And if you dont believe this lie is true",
+"Ask the blind man he saw it too"}
+Returns: "aabb cdef"</p></li>
+<li><p>{"", <br>
+"",
+"",
+""}
+Returns: "    " <br>
+Four lines from the mind of a blank poet.</p></li>
+<li><p>{"This poem has uppercase letters", <br>
+"In its rhyme scheme",
+"Alpha", "Blaster", "Cat", "Desert", "Elephant", "Frog", "Gulch", 
+"Horse", "Ireland", "Jam", "Krispy Kreme", "Loofah", "Moo", "Narf",
+"Old", "Pink", "Quash", "Rainbow", "Star", "Tour", "Uvula", "Very",
+"Will", "Xmas", "Young", "Zed", "deception", "comic", "grout",
+"oval", "cable", "rob", "steal", "steel", "weak"}
+Returns: "abcdefghibjkblmnopqrstcuvwxyzABCbDEFG"</p></li>
+<li><p>{" ", <br>
+"     ",
+"This poem",
+"         ",
+" ",
+" ",
+"",
+"Has lots of blank lines",
+" ",
+"      ",
+"                                            ",
+"         ",
+" ",
+"              ",
+"                                                  ",
+"  in      it           "}
+Returns: "  a    b       c"</p></li>
+<li><p>{"too bad   your", <br>
+"     solution went   sour"}
+Returns: "aa"</p></li>
+</ol>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+#include &lt;sstream&gt;
+#include &lt;map&gt;
+#include &lt;algorithm&gt;
+
+using namespace std;
+
+class Poetry {  
+    private:
+        bool isVowel(string s, int i) {
+            if (s[i] == 'a' || s[i] == 'e' || s[i] == 'i' || s[i] == 'o' || s[i] == 'u') {
+                return true;
+            } else if (s[i] == 'y' &amp;&amp; i != 0 &amp;&amp; i != s.size() - 1) {
+                return true;
+            }
+            return false;
+        }
+        string endPattern(string s) {
+            string ep = "";
+            bool flag = true;
+            for (int i = s.size() - 1; i &gt;= 0; --i) {
+                bool v = isVowel(s, i); 
+                if (v) {
+                    flag = false;
+                }
+                if (v || flag) {
+                    ep = s[i] + ep;
+                } else {
+                    break;
+                }
+            }
+            return ep;
+        }
+        bool isEmptyString(string s) {
+            for (int i = 0; i &lt; s.size(); ++i) {
+                if (s[i] != ' ') {
+                    return false;
+                }
+            }
+            return true;
+        }
+        string lastWord(string s) {
+            istringstream iss(s);
+            string lw;
+            while (iss &gt;&gt; lw);
+            return lw;
+        }
+    public:
+        string rhymeScheme(vector&lt;string&gt; poem) {
+            vector&lt;char&gt; rhymingSeq;
+            for (char i = 'a'; i &lt;= 'z'; ++i) {
+                rhymingSeq.push_back(i);
+            }
+            for (char i = 'A'; i &lt;= 'Z'; ++i) {
+                rhymingSeq.push_back(i);
+            }
+            map&lt;string, char&gt; pattern;
+            string scheme = "";
+            int seq = 0;
+            for (int i = 0; i &lt; poem.size(); ++i) {
+                transform(poem[i].begin(), poem[i].end(), poem[i].begin(), ::tolower);
+                if (!isEmptyString(poem[i])) {
+                    string ep = endPattern(lastWord(poem[i]));
+                    if (pattern.find(ep) == pattern.end()) {
+                        pattern[ep] = rhymingSeq[seq++];
+                    }
+                    scheme += pattern[ep];
+                } else {
+                    scheme += " ";
+                }
+            }
+            return scheme;
+        }
+};
+</code></pre>
+        </section>
+
+        <footer class="post-footer">
+
+
+
+            <section class="author">
+                <h4><a href="../../../../author/chintan/">Chintan Ghate</a></h4>
+
+                    <p>Read <a href="../../../../author/chintan/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/share?text=Poetry&amp;url=http://code-jedi.chintanghate.me/2014/11/30/poetry/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://code-jedi.chintanghate.me/2014/11/30/poetry/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://code-jedi.chintanghate.me/2014/11/30/poetry/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+    </article>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+         <section class="copyright"><a href="http://code-jedi.chintanghate.me">Code Jedi</a> © 2014</section>
+         <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+    </footer>
+
+    <script src="../../../../public/jquery.js?v=34441e7626"></script>
+
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js?v=34441e7626"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js?v=34441e7626"></script>
+
+</body>
