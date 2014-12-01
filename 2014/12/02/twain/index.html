@@ -1,0 +1,375 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Twain</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css?v=1a781cf09c">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+    <link href="../../../../assets/css/prettify.css?v=1a781cf09c" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="../../../../assets/js/prettify.js?v=1a781cf09c"></script>
+    <link rel="canonical" href="http://code-jedi.chintanghate.me/2014/12/02/twain/">
+    
+    <meta property="og:site_name" content="Code Jedi">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Twain">
+    <meta property="og:description" content="Used In:    SRM 169  Used As:    Division II Level Two Problem Statement Spelling in the English language doesn't make sense. Congress has enacted a plan for orthographical reform (loosely based on Mark Twain's plan for the improvement of English spelling...">
+    <meta property="og:url" content="http://code-jedi.chintanghate.me/2014/12/02/twain/">
+    <meta property="article:published_time" content="2014-12-01T19:52:01.811Z">
+    <meta property="article:modified_time" content="2014-12-01T19:52:01.808Z">
+    <meta property="article:tag" content="TopCoder">
+    
+    <meta name="twitter:card" content="content">
+    <meta name="twitter:title" content="Twain">
+    <meta name="twitter:description" content="Used In:    SRM 169  Used As:    Division II Level Two Problem Statement Spelling in the English language doesn't make sense. Congress has enacted a plan for orthographical reform (loosely based on Mark Twain's plan for the improvement of English spelling...">
+    <meta name="twitter:url" content="http://code-jedi.chintanghate.me/2014/12/02/twain/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Code Jedi",
+    "author": {
+        "@type": "Person",
+        "name": "Chintan Ghate",
+        "url": "http://code-jedi.chintanghate.me/author/chintan",
+        "sameAs": null
+    },
+    "headline": "Twain",
+    "url": "http://code-jedi.chintanghate.me/2014/12/02/twain/",
+    "datePublished": "2014-12-01T19:52:01.811Z",
+    "dateModified": "2014-12-01T19:52:01.808Z",
+    "keywords": "TopCoder",
+    "description": "Used In:    SRM 169  Used As:    Division II Level Two Problem Statement Spelling in the English language doesn't make sense. Congress has enacted a plan for orthographical reform (loosely based on Mark Twain's plan for the improvement of English spelling"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Code Jedi" href="../../../../rss/index.html">
+</head>
+<body class="post-template tag-topcoder" onload="prettyPrint()">
+
+    
+
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        <a class="back-button icon-arrow-left" href="http://code-jedi.chintanghate.me">Home</a>
+        <a class="subscribe-button icon-feed" href="http://code-jedi.chintanghate.me/rss/index.rss">Subscribe</a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+
+    <article class="post tag-topcoder">
+
+        <header class="post-header">
+            <h1 class="post-title">Twain</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2014-12-02">02 December 2014</time>  on <a href="../../../../tag/topcoder/">TopCoder</a>
+            </section>
+        </header>
+
+        <section class="post-content">
+            <p>Used In:    SRM 169 <br>
+Used As:    Division II Level Two</p>
+
+<h6 id="problemstatement">Problem Statement</h6>
+
+<p>Spelling in the English language doesn't make sense. Congress has enacted a plan for orthographical reform (loosely based on Mark Twain's plan for the improvement of English spelling) which will change the spelling of words in the English language gradually over the next 7 years. The plan is as follows:</p>
+
+<h6 id="year1">Year 1:</h6>
+
+<ul>
+<li>If a word starts with "x", replace the "x" with a "z".</li>
+<li>Change all remaining "x"s to "ks"s.</li>
+</ul>
+
+<h6 id="year2">Year 2:</h6>
+
+<ul>
+<li>Change all "y"s to "i"s.</li>
+</ul>
+
+<h6 id="year3">Year 3:</h6>
+
+<ul>
+<li>If a "c" is directly followed by an "e" or "i", change the "c" to an "s".</li>
+</ul>
+
+<h6 id="year4">Year 4:</h6>
+
+<ul>
+<li>If a "c" is directly followed by a "k", remove the "c". Keep applying this rule as necessary (Example: "cck" becomes "k".)</li>
+</ul>
+
+<h6 id="year5">Year 5:</h6>
+
+<ul>
+<li>If a word starts with "sch", change the "sch" to a "sk".</li>
+<li>If a "ch" is directly followed by an "r", change the "ch" to a "k".</li>
+<li>After applying the above rules, change all "c"s that are not directly followed by an "h", to a "k". (This includes all "c"s that are the last letter of a word.)</li>
+</ul>
+
+<h6 id="year6">Year 6:</h6>
+
+<ul>
+<li>If a word starts with "kn" change the "kn" to an "n".</li>
+</ul>
+
+<h6 id="year7">Year 7:</h6>
+
+<ul>
+<li>Change all double consonants of the same letter to a single consonant. A consonant is any letter that is not one of "a, e, i, o, u." (Example: "apple" becomes "aple"). Keep applying this rule as necessary (Example: "zzz" becomes "z".)</li>
+</ul>
+
+<p>The plan requires that rules for each year are followed in the order they are presented, and changes for each year occur after all the changes from previous years.</p>
+
+<p>Write a class Twain, which contains a method getNewSpelling. getNewSpelling takes as parameters an int year representing the number of years that have passed since the plan to improve the English language began, and a String phrase representing the English phrase to convert. For the purposes of the plan, a word is a sequence of lowercase letters ('a'-'z') bounded by spaces or the start/end of phrase. The method returns a String representing the converted phrase.</p>
+
+<h6 id="definition">Definition</h6>
+
+<p>Class:    Twain <br>
+Method:    getNewSpelling <br>
+Parameters:    int, String <br>
+Returns:    String <br>
+Method signature:    String getNewSpelling(int year, String phrase) <br>
+(be sure your method is public)</p>
+
+<h6 id="constraints">Constraints</h6>
+
+<ul>
+<li>year will be between 0 and 7, inclusive</li>
+<li>phrase will be between 0 and 50 characters, inclusive</li>
+<li>phrase will contain only lowercase letters ('a'-'z') and spaces (' ').</li>
+<li>phrase will not contain three or more of the same consonant in a row</li>
+</ul>
+
+<h6 id="examples">Examples</h6>
+
+<ol>
+<li><p>1 <br>
+"i fixed the chrome xerox by the cyclical church"
+Returns: "i fiksed the chrome zeroks by the cyclical church" <br>
+In year 1, the first "x" in "xerox" is changed to a "z". Then, the "x"s in "fixed" and "zerox" are changed to "ks"s.</p></li>
+<li><p>2 <br>
+"i fixed the chrome xerox by the cyclical church"
+Returns: "i fiksed the chrome zeroks bi the ciclical church" <br>
+In year 2, the "y"s in "by" and "cyclical" are changed to "i"s.</p></li>
+<li><p>0 <br>
+"this is unchanged"
+Returns: "this is unchanged" <br>
+Since the year is 0, no changes occur.</p></li>
+<li><p>7 <br>
+"sch kn x xschrx cknnchc cyck xxceci"
+Returns: "sk n z zskrks nchk sik zksesi" <br>
+In year 1, the phrase becomes "sch kn z zschrks cknnchc cyck zksceci" due to rules concerning the letter "x". In year 2, all "y"s are changed to "i"s yielding "sch kn z zschrks cknnchc cick zksceci". In year 3, "ce" and "ci" are changed to "se" and "si" yielding "sch kn z zschrks cknnchc sick zkssesi". In year 4, "ck" is changed to "k" and the phrase becomes "sch kn z zschrks knnchc sik zkssesi". In year 5, words that begin with "sch" are made to begin with "sk", "chr" is changed to "kr", and all "c"s not followed by an "h" are changed to "k" yielding "sk kn z zskrks knnchk sik zkssesi". In year 6, words that start with "kn" now start with "n" and the phrase becomes "sk n z zskrks nnchk sik zkssesi". Finally, in year 7, double consonants are removed yielding the final result.</p></li>
+<li><p>7 <br>
+"  concoction   convalescence   cyclical   cello   "
+Returns: "  konkoktion   konvalesense   siklikal   selo   " <br>
+Beware of extra spaces.</p></li>
+<li><p>7 <br>
+""
+Returns: "" <br>
+Don't forget the empty case.</p></li>
+<li><p>7 <br>
+"cck xzz aaaaa"
+Returns: "k z aaaaa"</p></li>
+</ol>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+using namespace std;
+
+class Twain {  
+    private:
+        string year1(string s) {
+            string o = "";
+            for (int i = 0; i &lt; s.size(); ++i) {
+                if ((i == 0 || s[i - 1] == ' ' ) &amp;&amp; s[i] == 'x') {
+                    o += "z";
+                } else if (s[i] == 'x') {
+                    o += "ks";
+                } else {
+                    o += s[i];
+                }
+            }
+            return o;
+        }
+        string year2(string s) {
+            string o = "";
+            for (int i = 0; i &lt; s.size(); ++i) {
+                if (s[i] == 'y') {
+                    o += 'i';
+                } else {
+                    o += s[i];
+                }
+            }
+            return o;
+        }
+        string year3(string s) {
+            string o = "";
+            for (int i = 0; i &lt; s.size(); ++i) {
+                if (s[i] == 'c' &amp;&amp; i != s.size() - 1 &amp;&amp; (s[i + 1] == 'e' || s[i + 1] == 'i')) {
+                    o += 's';
+                } else {
+                    o += s[i];
+                }
+            }
+            return o;
+        }
+        string year4(string s) {
+            string o = "";
+            for (int i = s.size() - 1; i &gt;= 0; --i) {
+                if (o.size() &gt; 0 &amp;&amp; o[0] == 'k' &amp;&amp; s[i] == 'c') {
+                    continue;
+                } else {
+                    o = s[i] + o;
+                }
+            }
+            return o;
+        }
+        string year5(string s) {
+            string o = "";
+
+            for (int i = 0; i &lt; s.size(); ++i) {
+                if ((i == 0 || s[i - 1] == ' ') &amp;&amp; i &lt;= s.size() - 3 &amp;&amp; s[i] == 's' &amp;&amp; s[i + 1] == 'c' &amp;&amp; s[i + 2] == 'h') {
+                    o += "sk";
+                    i += 2;
+                } else {
+                    o += s[i];
+                }
+            }
+
+            string o1 = "";
+            for (int i = 0; i &lt; o.size(); ++i) {
+                if (i &lt;= o.size() - 3 &amp;&amp; o[i] == 'c' &amp;&amp; o[i + 1] == 'h' &amp;&amp; o[i + 2] == 'r') {
+                    o1 += "kr";
+                    i += 2;
+                } else {
+                    o1 += o[i];
+                }
+            }
+            for (int i = 0; i &lt; o1.size(); ++i) {
+                if ((i != o1.size() - 1 &amp;&amp; o1[i] == 'c' &amp;&amp; o1[i + 1] != 'h') || (i == o1.size() - 1 &amp;&amp; o1[i] == 'c')) {
+                    o1[i] = 'k';
+                }
+            }
+            return o1;
+        }
+        string year6(string s) {
+            string o = "";
+            for (int i = 0; i &lt; s.size(); ++i) {
+                if ((i == 0 || s[i - 1] == ' ') &amp;&amp;  i &lt;= s.size() - 2 &amp;&amp; s[i] == 'k' &amp;&amp; s[i + 1] == 'n') {
+                    o += "n";
+                    i += 1;
+                } else {
+                    o += s[i];
+                }
+            }
+            return o;
+        }
+        string year7(string s) {
+            string o = "";
+            o += s[0];
+            for (int i = 1; i &lt; s.size(); ++i) {
+                if (s[i] != 'a' &amp;&amp; s[i] != 'e' &amp;&amp; s[i] != 'i' &amp;&amp; s[i] != 'o' &amp;&amp; s[i] != 'u' &amp;&amp; s[i] != ' ' &amp;&amp; s[i] == s[i - 1]) {
+                    continue;
+                } else {
+                    o += s[i];
+                }
+            }
+            return o;
+        }
+    public:
+        string getNewSpelling(int year, string phrase) {
+            if (phrase == "") {
+                return phrase;
+            }
+            if (year == 0) {
+                return phrase;
+            }
+            if (year &gt;= 1) {
+                phrase = year1(phrase);
+            }
+            if (year &gt;= 2) {
+                phrase = year2(phrase);
+            }
+            if (year &gt;= 3) {
+                phrase = year3(phrase);
+            }
+            if (year &gt;= 4) {
+                phrase = year4(phrase);
+            }
+            if (year &gt;= 5) {
+                phrase = year5(phrase);
+            }
+            if (year &gt;= 6) {
+                phrase = year6(phrase);
+            }
+            if (year &gt;= 7) {
+                phrase = year7(phrase);
+            }
+            return phrase;
+        }
+};
+</code></pre>
+        </section>
+
+        <footer class="post-footer">
+
+
+
+            <section class="author">
+                <h4><a href="../../../../author/chintan/">Chintan Ghate</a></h4>
+
+                    <p>Read <a href="../../../../author/chintan/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/share?text=Twain&amp;url=http://code-jedi.chintanghate.me/2014/12/02/twain/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://code-jedi.chintanghate.me/2014/12/02/twain/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://code-jedi.chintanghate.me/2014/12/02/twain/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+    </article>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+         <section class="copyright"><a href="http://code-jedi.chintanghate.me">Code Jedi</a> © 2014</section>
+         <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+    </footer>
+
+    <script src="../../../../public/jquery.js?v=1a781cf09c"></script>
+
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js?v=1a781cf09c"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js?v=1a781cf09c"></script>
+
+</body>

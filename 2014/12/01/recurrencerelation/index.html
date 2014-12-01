@@ -1,0 +1,237 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>RecurrenceRelation</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css?v=1a781cf09c">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+    <link href="../../../../assets/css/prettify.css?v=1a781cf09c" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="../../../../assets/js/prettify.js?v=1a781cf09c"></script>
+    <link rel="canonical" href="http://code-jedi.chintanghate.me/2014/12/01/recurrencerelation/">
+    
+    <meta property="og:site_name" content="Code Jedi">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="RecurrenceRelation">
+    <meta property="og:description" content="Used In:    SRM 170  Used As:    Division I Level One , Division II Level Two Problem Statement Consider a sequence {x0, x1, x2, ...}. A relation that defines some term xn in terms of previous terms is called a recurrence relation. A...">
+    <meta property="og:url" content="http://code-jedi.chintanghate.me/2014/12/01/recurrencerelation/">
+    <meta property="article:published_time" content="2014-12-01T06:08:07.438Z">
+    <meta property="article:modified_time" content="2014-12-01T06:08:07.437Z">
+    <meta property="article:tag" content="TopCoder">
+    
+    <meta name="twitter:card" content="content">
+    <meta name="twitter:title" content="RecurrenceRelation">
+    <meta name="twitter:description" content="Used In:    SRM 170  Used As:    Division I Level One , Division II Level Two Problem Statement Consider a sequence {x0, x1, x2, ...}. A relation that defines some term xn in terms of previous terms is called a recurrence relation. A...">
+    <meta name="twitter:url" content="http://code-jedi.chintanghate.me/2014/12/01/recurrencerelation/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Code Jedi",
+    "author": {
+        "@type": "Person",
+        "name": "Chintan Ghate",
+        "url": "http://code-jedi.chintanghate.me/author/chintan",
+        "sameAs": null
+    },
+    "headline": "RecurrenceRelation",
+    "url": "http://code-jedi.chintanghate.me/2014/12/01/recurrencerelation/",
+    "datePublished": "2014-12-01T06:08:07.438Z",
+    "dateModified": "2014-12-01T06:08:07.437Z",
+    "keywords": "TopCoder",
+    "description": "Used In:    SRM 170  Used As:    Division I Level One , Division II Level Two Problem Statement Consider a sequence {x0, x1, x2, ...}. A relation that defines some term xn in terms of previous terms is called a recurrence relation. A"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Code Jedi" href="../../../../rss/index.html">
+</head>
+<body class="post-template tag-topcoder" onload="prettyPrint()">
+
+    
+
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        <a class="back-button icon-arrow-left" href="http://code-jedi.chintanghate.me">Home</a>
+        <a class="subscribe-button icon-feed" href="http://code-jedi.chintanghate.me/rss/index.rss">Subscribe</a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+
+    <article class="post tag-topcoder">
+
+        <header class="post-header">
+            <h1 class="post-title">RecurrenceRelation</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2014-12-01">01 December 2014</time>  on <a href="../../../../tag/topcoder/">TopCoder</a>
+            </section>
+        </header>
+
+        <section class="post-content">
+            <p>Used In:    SRM 170 <br>
+Used As:    Division I Level One , Division II Level Two</p>
+
+<h6 id="problemstatement">Problem Statement</h6>
+
+<p>Consider a sequence {x0, x1, x2, ...}. A relation that defines some term xn in terms of previous terms is called a recurrence relation. A linear recurrence relation is one where the recurrence is of the form xn = ck-1xn-1 + ck-2xn-2 + ... + c0xn-k, where all the ci are real-valued constants, k is the length of the recurrence relation, and n is an arbitrary positive integer which is greater than or equal to k.</p>
+
+<p>You will be given a int[] coefficients, indicating, in order, c0, c1, ..., ck-1. You will also be given a int[] initial, giving the values of x0, x1, ..., xk-1, and an int N. Your method should return xN modulo 10.</p>
+
+<p>Note that the value of X modulo 10 equals the last digit of X if X is non-negative. However, if X is negative, this is not true; instead, X modulo 10 equals ((10 - ((-X) modulo 10)) modulo 10). For example, (-16) modulo 10 = ((10 - (16 modulo 10)) modulo 10) = (10 - 6) modulo 10 = 4.</p>
+
+<p>More specifically, if coefficients is of size k, then the recurrence relation will be</p>
+
+<p>xn = coefficients[k - 1] * xn-1 + coefficients[k - 2] * xn-2 + ... + coefficients[0] * xn-k. <br>
+For example, if coefficients = {2,1}, initial = {9,7}, and N = 6, then our recurrence relation is xn = xn-1 + 2 * xn-2 and we have x0 = 9 and x1 = 7. Then x2 = x1 + 2 * x0 = 7 + 2 * 9 = 25, and similarly, x3 = 39, x4 = 89, x5 = 167, and x6 = 345, so your method would return (345 modulo 10) = 5.</p>
+
+<h6 id="definition">Definition</h6>
+
+<p>Class:    RecurrenceRelation <br>
+Method:    moduloTen <br>
+Parameters:    int[], int[], int <br>
+Returns:    int <br>
+Method signature:    int moduloTen(int[] coefficients, int[] initial, int N) <br>
+(be sure your method is public)</p>
+
+<h6 id="notes">Notes</h6>
+
+<ul>
+<li>(a + b) modulo x = ( (a modulo x) + (b modulo x) ) modulo x for any values of a, b, and x.</li>
+</ul>
+
+<h6 id="constraints">Constraints</h6>
+
+<ul>
+<li>coefficients will have between 1 and 10 elements, inclusive.</li>
+<li>initial will have the same number of elements as coefficients.</li>
+<li>Each element of coefficients will be between -1000 and 1000, inclusive.</li>
+<li>Each element of initial will be between -1000 and 1000, inclusive.</li>
+<li>N will be between 0 and 100000, inclusive.</li>
+</ul>
+
+<h6 id="examples">Examples</h6>
+
+<ol>
+<li><p>{2,1} <br>
+{9,7}
+6 <br>
+Returns: 5 <br>
+As described in the problem statement.</p></li>
+<li><p>{1,1} <br>
+{0,1}
+9 <br>
+Returns: 4 <br>
+This is the famous Fibonacci sequence, which goes 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, ...</p></li>
+<li><p>{2} <br>
+{1}
+20 <br>
+Returns: 6 <br>
+This sequence is 1, 2, 4, 8, 16, ...</p></li>
+<li><p>{2} <br>
+{1}
+64 <br>
+Returns: 6 <br>
+Watch out for overflow.</p></li>
+<li><p>{25,143} <br>
+{0,0}
+100000 <br>
+Returns: 0 <br>
+This sequence will always be zero.</p></li>
+<li><p>{9,8,7,6,5,4,3,2,1,0} <br>
+{1,2,3,4,5,6,7,8,9,10}
+654 <br>
+Returns: 5</p></li>
+<li><p>{901,492,100} <br>
+{-6,-15,-39}
+0 <br>
+Returns: 4 <br>
+Watch out for negative numbers.</p></li>
+</ol>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+class RecurrenceRelation {  
+    private:
+        int mod(int a, int b) {
+            return a % b &lt; 0 ? a % b + b : a % b;
+        }
+    public:
+        int moduloTen(vector&lt;int&gt; coefficients, vector&lt;int&gt; initial, int N) {
+            vector&lt;int&gt; ans(N + 1, 0);
+            for (int i = 0; i &lt;= N; ++i) {
+                if (i &lt; initial.size()) {
+                    ans[i] = mod(initial[i], 10);
+                } else {
+                    for (int j = 0, k = coefficients.size(); j &lt; coefficients.size(); ++j, --k) {
+                        ans[i] = mod(ans[i] + (ans[i - k] * coefficients[j]), 10);
+                    }
+                }
+            }
+            return ans[N];
+        }
+};
+</code></pre>
+        </section>
+
+        <footer class="post-footer">
+
+
+
+            <section class="author">
+                <h4><a href="../../../../author/chintan/">Chintan Ghate</a></h4>
+
+                    <p>Read <a href="../../../../author/chintan/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/share?text=RecurrenceRelation&amp;url=http://code-jedi.chintanghate.me/2014/12/01/recurrencerelation/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://code-jedi.chintanghate.me/2014/12/01/recurrencerelation/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://code-jedi.chintanghate.me/2014/12/01/recurrencerelation/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+    </article>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+         <section class="copyright"><a href="http://code-jedi.chintanghate.me">Code Jedi</a> © 2014</section>
+         <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+    </footer>
+
+    <script src="../../../../public/jquery.js?v=1a781cf09c"></script>
+
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js?v=1a781cf09c"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js?v=1a781cf09c"></script>
+
+</body>

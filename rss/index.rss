@@ -1,4 +1,446 @@
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Code Jedi</title><description>Code, algorithms and design.</description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Sun, 30 Nov 2014 20:35:37 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>PaperFold</title><description>&lt;p&gt;Used In:    SRM 162 &lt;br&gt;
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Code Jedi</title><description>Code, algorithms and design.</description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Mon, 01 Dec 2014 19:56:39 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>Twain</title><description>&lt;p&gt;Used In:    SRM 169 &lt;br&gt;
+Used As:    Division II Level Two&lt;/p&gt;
+
+&lt;h6 id="problemstatement"&gt;Problem Statement&lt;/h6&gt;
+
+&lt;p&gt;Spelling in the English language doesn't make sense. Congress has enacted a plan for orthographical reform (loosely based on Mark Twain's plan for the improvement of English spelling) which will change the spelling of words in the English language gradually over the next 7 years. The plan is as follows:&lt;/p&gt;
+
+&lt;h6 id="year1"&gt;Year 1:&lt;/h6&gt;
+
+&lt;ul&gt;
+&lt;li&gt;If a word starts with "x", replace the "x" with a "z".&lt;/li&gt;
+&lt;li&gt;Change all remaining "x"s to "ks"s.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h6 id="year2"&gt;Year 2:&lt;/h6&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Change all "y"s to "i"s.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h6 id="year3"&gt;Year 3:&lt;/h6&gt;
+
+&lt;ul&gt;
+&lt;li&gt;If a "c" is directly followed by an "e" or "i", change the "c" to an "s".&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h6 id="year4"&gt;Year 4:&lt;/h6&gt;
+
+&lt;ul&gt;
+&lt;li&gt;If a "c" is directly followed by a "k", remove the "c". Keep applying this rule as necessary (Example: "cck" becomes "k".)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h6 id="year5"&gt;Year 5:&lt;/h6&gt;
+
+&lt;ul&gt;
+&lt;li&gt;If a word starts with "sch", change the "sch" to a "sk".&lt;/li&gt;
+&lt;li&gt;If a "ch" is directly followed by an "r", change the "ch" to a "k".&lt;/li&gt;
+&lt;li&gt;After applying the above rules, change all "c"s that are not directly followed by an "h", to a "k". (This includes all "c"s that are the last letter of a word.)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h6 id="year6"&gt;Year 6:&lt;/h6&gt;
+
+&lt;ul&gt;
+&lt;li&gt;If a word starts with "kn" change the "kn" to an "n".&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h6 id="year7"&gt;Year 7:&lt;/h6&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Change all double consonants of the same letter to a single consonant. A consonant is any letter that is not one of "a, e, i, o, u." (Example: "apple" becomes "aple"). Keep applying this rule as necessary (Example: "zzz" becomes "z".)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The plan requires that rules for each year are followed in the order they are presented, and changes for each year occur after all the changes from previous years.&lt;/p&gt;
+
+&lt;p&gt;Write a class Twain, which contains a method getNewSpelling. getNewSpelling takes as parameters an int year representing the number of years that have passed since the plan to improve the English language began, and a String phrase representing the English phrase to convert. For the purposes of the plan, a word is a sequence of lowercase letters ('a'-'z') bounded by spaces or the start/end of phrase. The method returns a String representing the converted phrase.&lt;/p&gt;
+
+&lt;h6 id="definition"&gt;Definition&lt;/h6&gt;
+
+&lt;p&gt;Class:    Twain &lt;br&gt;
+Method:    getNewSpelling &lt;br&gt;
+Parameters:    int, String &lt;br&gt;
+Returns:    String &lt;br&gt;
+Method signature:    String getNewSpelling(int year, String phrase) &lt;br&gt;
+(be sure your method is public)&lt;/p&gt;
+
+&lt;h6 id="constraints"&gt;Constraints&lt;/h6&gt;
+
+&lt;ul&gt;
+&lt;li&gt;year will be between 0 and 7, inclusive&lt;/li&gt;
+&lt;li&gt;phrase will be between 0 and 50 characters, inclusive&lt;/li&gt;
+&lt;li&gt;phrase will contain only lowercase letters ('a'-'z') and spaces (' ').&lt;/li&gt;
+&lt;li&gt;phrase will not contain three or more of the same consonant in a row&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h6 id="examples"&gt;Examples&lt;/h6&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;1 &lt;br&gt;
+"i fixed the chrome xerox by the cyclical church"
+Returns: "i fiksed the chrome zeroks by the cyclical church" &lt;br&gt;
+In year 1, the first "x" in "xerox" is changed to a "z". Then, the "x"s in "fixed" and "zerox" are changed to "ks"s.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;2 &lt;br&gt;
+"i fixed the chrome xerox by the cyclical church"
+Returns: "i fiksed the chrome zeroks bi the ciclical church" &lt;br&gt;
+In year 2, the "y"s in "by" and "cyclical" are changed to "i"s.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;0 &lt;br&gt;
+"this is unchanged"
+Returns: "this is unchanged" &lt;br&gt;
+Since the year is 0, no changes occur.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;7 &lt;br&gt;
+"sch kn x xschrx cknnchc cyck xxceci"
+Returns: "sk n z zskrks nchk sik zksesi" &lt;br&gt;
+In year 1, the phrase becomes "sch kn z zschrks cknnchc cyck zksceci" due to rules concerning the letter "x". In year 2, all "y"s are changed to "i"s yielding "sch kn z zschrks cknnchc cick zksceci". In year 3, "ce" and "ci" are changed to "se" and "si" yielding "sch kn z zschrks cknnchc sick zkssesi". In year 4, "ck" is changed to "k" and the phrase becomes "sch kn z zschrks knnchc sik zkssesi". In year 5, words that begin with "sch" are made to begin with "sk", "chr" is changed to "kr", and all "c"s not followed by an "h" are changed to "k" yielding "sk kn z zskrks knnchk sik zkssesi". In year 6, words that start with "kn" now start with "n" and the phrase becomes "sk n z zskrks nnchk sik zkssesi". Finally, in year 7, double consonants are removed yielding the final result.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;7 &lt;br&gt;
+"  concoction   convalescence   cyclical   cello   "
+Returns: "  konkoktion   konvalesense   siklikal   selo   " &lt;br&gt;
+Beware of extra spaces.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;7 &lt;br&gt;
+""
+Returns: "" &lt;br&gt;
+Don't forget the empty case.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;7 &lt;br&gt;
+"cck xzz aaaaa"
+Returns: "k z aaaaa"&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr&gt;
+
+&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;string&amp;gt;
+
+using namespace std;
+
+class Twain {  
+    private:
+        string year1(string s) {
+            string o = "";
+            for (int i = 0; i &amp;lt; s.size(); ++i) {
+                if ((i == 0 || s[i - 1] == ' ' ) &amp;amp;&amp;amp; s[i] == 'x') {
+                    o += "z";
+                } else if (s[i] == 'x') {
+                    o += "ks";
+                } else {
+                    o += s[i];
+                }
+            }
+            return o;
+        }
+        string year2(string s) {
+            string o = "";
+            for (int i = 0; i &amp;lt; s.size(); ++i) {
+                if (s[i] == 'y') {
+                    o += 'i';
+                } else {
+                    o += s[i];
+                }
+            }
+            return o;
+        }
+        string year3(string s) {
+            string o = "";
+            for (int i = 0; i &amp;lt; s.size(); ++i) {
+                if (s[i] == 'c' &amp;amp;&amp;amp; i != s.size() - 1 &amp;amp;&amp;amp; (s[i + 1] == 'e' || s[i + 1] == 'i')) {
+                    o += 's';
+                } else {
+                    o += s[i];
+                }
+            }
+            return o;
+        }
+        string year4(string s) {
+            string o = "";
+            for (int i = s.size() - 1; i &amp;gt;= 0; --i) {
+                if (o.size() &amp;gt; 0 &amp;amp;&amp;amp; o[0] == 'k' &amp;amp;&amp;amp; s[i] == 'c') {
+                    continue;
+                } else {
+                    o = s[i] + o;
+                }
+            }
+            return o;
+        }
+        string year5(string s) {
+            string o = "";
+
+            for (int i = 0; i &amp;lt; s.size(); ++i) {
+                if ((i == 0 || s[i - 1] == ' ') &amp;amp;&amp;amp; i &amp;lt;= s.size() - 3 &amp;amp;&amp;amp; s[i] == 's' &amp;amp;&amp;amp; s[i + 1] == 'c' &amp;amp;&amp;amp; s[i + 2] == 'h') {
+                    o += "sk";
+                    i += 2;
+                } else {
+                    o += s[i];
+                }
+            }
+
+            string o1 = "";
+            for (int i = 0; i &amp;lt; o.size(); ++i) {
+                if (i &amp;lt;= o.size() - 3 &amp;amp;&amp;amp; o[i] == 'c' &amp;amp;&amp;amp; o[i + 1] == 'h' &amp;amp;&amp;amp; o[i + 2] == 'r') {
+                    o1 += "kr";
+                    i += 2;
+                } else {
+                    o1 += o[i];
+                }
+            }
+            for (int i = 0; i &amp;lt; o1.size(); ++i) {
+                if ((i != o1.size() - 1 &amp;amp;&amp;amp; o1[i] == 'c' &amp;amp;&amp;amp; o1[i + 1] != 'h') || (i == o1.size() - 1 &amp;amp;&amp;amp; o1[i] == 'c')) {
+                    o1[i] = 'k';
+                }
+            }
+            return o1;
+        }
+        string year6(string s) {
+            string o = "";
+            for (int i = 0; i &amp;lt; s.size(); ++i) {
+                if ((i == 0 || s[i - 1] == ' ') &amp;amp;&amp;amp;  i &amp;lt;= s.size() - 2 &amp;amp;&amp;amp; s[i] == 'k' &amp;amp;&amp;amp; s[i + 1] == 'n') {
+                    o += "n";
+                    i += 1;
+                } else {
+                    o += s[i];
+                }
+            }
+            return o;
+        }
+        string year7(string s) {
+            string o = "";
+            o += s[0];
+            for (int i = 1; i &amp;lt; s.size(); ++i) {
+                if (s[i] != 'a' &amp;amp;&amp;amp; s[i] != 'e' &amp;amp;&amp;amp; s[i] != 'i' &amp;amp;&amp;amp; s[i] != 'o' &amp;amp;&amp;amp; s[i] != 'u' &amp;amp;&amp;amp; s[i] != ' ' &amp;amp;&amp;amp; s[i] == s[i - 1]) {
+                    continue;
+                } else {
+                    o += s[i];
+                }
+            }
+            return o;
+        }
+    public:
+        string getNewSpelling(int year, string phrase) {
+            if (phrase == "") {
+                return phrase;
+            }
+            if (year == 0) {
+                return phrase;
+            }
+            if (year &amp;gt;= 1) {
+                phrase = year1(phrase);
+            }
+            if (year &amp;gt;= 2) {
+                phrase = year2(phrase);
+            }
+            if (year &amp;gt;= 3) {
+                phrase = year3(phrase);
+            }
+            if (year &amp;gt;= 4) {
+                phrase = year4(phrase);
+            }
+            if (year &amp;gt;= 5) {
+                phrase = year5(phrase);
+            }
+            if (year &amp;gt;= 6) {
+                phrase = year6(phrase);
+            }
+            if (year &amp;gt;= 7) {
+                phrase = year7(phrase);
+            }
+            return phrase;
+        }
+};
+&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/12/02/twain/</link><guid isPermaLink="false">d68a33ab-cfce-48eb-a690-a3a92f7f59be</guid><category>TopCoder</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Mon, 01 Dec 2014 19:52:01 GMT</pubDate></item><item><title>RecurrenceRelation</title><description>&lt;p&gt;Used In:    SRM 170 &lt;br&gt;
+Used As:    Division I Level One , Division II Level Two&lt;/p&gt;
+
+&lt;h6 id="problemstatement"&gt;Problem Statement&lt;/h6&gt;
+
+&lt;p&gt;Consider a sequence {x0, x1, x2, ...}. A relation that defines some term xn in terms of previous terms is called a recurrence relation. A linear recurrence relation is one where the recurrence is of the form xn = ck-1xn-1 + ck-2xn-2 + ... + c0xn-k, where all the ci are real-valued constants, k is the length of the recurrence relation, and n is an arbitrary positive integer which is greater than or equal to k.&lt;/p&gt;
+
+&lt;p&gt;You will be given a int[] coefficients, indicating, in order, c0, c1, ..., ck-1. You will also be given a int[] initial, giving the values of x0, x1, ..., xk-1, and an int N. Your method should return xN modulo 10.&lt;/p&gt;
+
+&lt;p&gt;Note that the value of X modulo 10 equals the last digit of X if X is non-negative. However, if X is negative, this is not true; instead, X modulo 10 equals ((10 - ((-X) modulo 10)) modulo 10). For example, (-16) modulo 10 = ((10 - (16 modulo 10)) modulo 10) = (10 - 6) modulo 10 = 4.&lt;/p&gt;
+
+&lt;p&gt;More specifically, if coefficients is of size k, then the recurrence relation will be&lt;/p&gt;
+
+&lt;p&gt;xn = coefficients[k - 1] * xn-1 + coefficients[k - 2] * xn-2 + ... + coefficients[0] * xn-k. &lt;br&gt;
+For example, if coefficients = {2,1}, initial = {9,7}, and N = 6, then our recurrence relation is xn = xn-1 + 2 * xn-2 and we have x0 = 9 and x1 = 7. Then x2 = x1 + 2 * x0 = 7 + 2 * 9 = 25, and similarly, x3 = 39, x4 = 89, x5 = 167, and x6 = 345, so your method would return (345 modulo 10) = 5.&lt;/p&gt;
+
+&lt;h6 id="definition"&gt;Definition&lt;/h6&gt;
+
+&lt;p&gt;Class:    RecurrenceRelation &lt;br&gt;
+Method:    moduloTen &lt;br&gt;
+Parameters:    int[], int[], int &lt;br&gt;
+Returns:    int &lt;br&gt;
+Method signature:    int moduloTen(int[] coefficients, int[] initial, int N) &lt;br&gt;
+(be sure your method is public)&lt;/p&gt;
+
+&lt;h6 id="notes"&gt;Notes&lt;/h6&gt;
+
+&lt;ul&gt;
+&lt;li&gt;(a + b) modulo x = ( (a modulo x) + (b modulo x) ) modulo x for any values of a, b, and x.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h6 id="constraints"&gt;Constraints&lt;/h6&gt;
+
+&lt;ul&gt;
+&lt;li&gt;coefficients will have between 1 and 10 elements, inclusive.&lt;/li&gt;
+&lt;li&gt;initial will have the same number of elements as coefficients.&lt;/li&gt;
+&lt;li&gt;Each element of coefficients will be between -1000 and 1000, inclusive.&lt;/li&gt;
+&lt;li&gt;Each element of initial will be between -1000 and 1000, inclusive.&lt;/li&gt;
+&lt;li&gt;N will be between 0 and 100000, inclusive.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h6 id="examples"&gt;Examples&lt;/h6&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;{2,1} &lt;br&gt;
+{9,7}
+6 &lt;br&gt;
+Returns: 5 &lt;br&gt;
+As described in the problem statement.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;{1,1} &lt;br&gt;
+{0,1}
+9 &lt;br&gt;
+Returns: 4 &lt;br&gt;
+This is the famous Fibonacci sequence, which goes 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, ...&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;{2} &lt;br&gt;
+{1}
+20 &lt;br&gt;
+Returns: 6 &lt;br&gt;
+This sequence is 1, 2, 4, 8, 16, ...&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;{2} &lt;br&gt;
+{1}
+64 &lt;br&gt;
+Returns: 6 &lt;br&gt;
+Watch out for overflow.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;{25,143} &lt;br&gt;
+{0,0}
+100000 &lt;br&gt;
+Returns: 0 &lt;br&gt;
+This sequence will always be zero.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;{9,8,7,6,5,4,3,2,1,0} &lt;br&gt;
+{1,2,3,4,5,6,7,8,9,10}
+654 &lt;br&gt;
+Returns: 5&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;{901,492,100} &lt;br&gt;
+{-6,-15,-39}
+0 &lt;br&gt;
+Returns: 4 &lt;br&gt;
+Watch out for negative numbers.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr&gt;
+
+&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;vector&amp;gt;
+
+using namespace std;
+
+class RecurrenceRelation {  
+    private:
+        int mod(int a, int b) {
+            return a % b &amp;lt; 0 ? a % b + b : a % b;
+        }
+    public:
+        int moduloTen(vector&amp;lt;int&amp;gt; coefficients, vector&amp;lt;int&amp;gt; initial, int N) {
+            vector&amp;lt;int&amp;gt; ans(N + 1, 0);
+            for (int i = 0; i &amp;lt;= N; ++i) {
+                if (i &amp;lt; initial.size()) {
+                    ans[i] = mod(initial[i], 10);
+                } else {
+                    for (int j = 0, k = coefficients.size(); j &amp;lt; coefficients.size(); ++j, --k) {
+                        ans[i] = mod(ans[i] + (ans[i - k] * coefficients[j]), 10);
+                    }
+                }
+            }
+            return ans[N];
+        }
+};
+&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/12/01/recurrencerelation/</link><guid isPermaLink="false">9054eb6f-d90c-4b5b-a168-e7a7f09bf156</guid><category>TopCoder</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Mon, 01 Dec 2014 06:08:07 GMT</pubDate></item><item><title>QuickSums</title><description>&lt;p&gt;Used In:    SRM 197 &lt;br&gt;
+Used As:    Division II Level Three&lt;/p&gt;
+
+&lt;h6 id="problemstatement"&gt;Problem Statement&lt;/h6&gt;
+
+&lt;p&gt;Given a string of digits, find the minimum number of additions required for the string to equal some target number. Each addition is the equivalent of inserting a plus sign somewhere into the string of digits. After all plus signs are inserted, evaluate the sum as usual. For example, consider the string "12" (quotes for clarity). With zero additions, we can achieve the number 12. If we insert one plus sign into the string, we get "1+2", which evaluates to 3. So, in that case, given "12", a minimum of 1 addition is required to get the number 3. As another example, consider "303" and a target sum of 6. The best strategy is not "3+0+3", but "3+03". You can do this because leading zeros do not change the result.&lt;/p&gt;
+
+&lt;p&gt;Write a class QuickSums that contains the method minSums, which takes a String numbers and an int sum. The method should calculate and return the minimum number of additions required to create an expression from numbers that evaluates to sum. If this is impossible, return -1.&lt;/p&gt;
+
+&lt;h6 id="definition"&gt;Definition&lt;/h6&gt;
+
+&lt;p&gt;Class:    QuickSums &lt;br&gt;
+Method:    minSums &lt;br&gt;
+Parameters:    String, int &lt;br&gt;
+Returns:    int &lt;br&gt;
+Method signature:    int minSums(String numbers, int sum) &lt;br&gt;
+(be sure your method is public)&lt;/p&gt;
+
+&lt;h6 id="constraints"&gt;Constraints&lt;/h6&gt;
+
+&lt;ul&gt;
+&lt;li&gt;numbers will contain between 1 and 10 characters, inclusive.&lt;/li&gt;
+&lt;li&gt;Each character in numbers will be a digit.&lt;/li&gt;
+&lt;li&gt;sum will be between 0 and 100, inclusive.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h6 id="examples"&gt;Examples&lt;/h6&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;"99999" &lt;br&gt;
+45 &lt;br&gt;
+Returns: 4 &lt;br&gt;
+In this case, the only way to achieve 45 is to add 9+9+9+9+9. This requires 4 additions.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;"1110" &lt;br&gt;
+3 &lt;br&gt;
+Returns: 3 &lt;br&gt;
+Be careful with zeros. 1+1+1+0=3 and requires 3 additions.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;"0123456789" &lt;br&gt;
+45 &lt;br&gt;
+Returns: 8&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;"99999" &lt;br&gt;
+100 &lt;br&gt;
+Returns: -1&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;"382834" &lt;br&gt;
+100 &lt;br&gt;
+Returns: 2 &lt;br&gt;
+There are 3 ways to get 100. They are 38+28+34, 3+8+2+83+4 and 3+82+8+3+4. The minimum required is 2.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;"9230560001" &lt;br&gt;
+71 &lt;br&gt;
+Returns: 4&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr&gt;
+
+&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;string&amp;gt;
+#include &amp;lt;sstream&amp;gt;
+#include &amp;lt;vector&amp;gt;
+#include &amp;lt;bitset&amp;gt;
+#include &amp;lt;cmath&amp;gt;
+
+using namespace std;
+
+class QuickSums {  
+    public:
+        int minSums(string numbers, int sum) {
+            int n = numbers.size() - 1;
+            int limit = int(pow(2, n));
+            int counter = 10;
+            for (int i = 0; i &amp;lt; limit; ++i) {
+                bitset&amp;lt;9&amp;gt; plusPos(i);
+                long long ans = 0;
+                long long temp = numbers[0] - '0';
+                for (int j = 1; j &amp;lt; numbers.size(); ++j) {
+                    if (plusPos[j - 1]) {
+                        ans += temp;
+                        temp = numbers[j] - '0';
+                    } else {
+                        temp *= 10;
+                        temp += numbers[j] - '0';
+                    }
+                }
+                ans += temp;
+                if (ans == sum &amp;amp;&amp;amp; plusPos.count() &amp;lt; counter) {
+                    counter = plusPos.count();
+                }
+            }
+            return (counter == 10 ? -1 : counter);
+        }
+};
+&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/12/01/quicksums/</link><guid isPermaLink="false">a5e43d8b-2870-4bb1-b8e8-6501937eb179</guid><category>TopCoder</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Mon, 01 Dec 2014 04:06:14 GMT</pubDate></item><item><title>PaperFold</title><description>&lt;p&gt;Used In:    SRM 162 &lt;br&gt;
 Used As:    Division I Level One , Division II Level Two&lt;/p&gt;
 
 &lt;h6 id="problemstatement"&gt;Problem Statement&lt;/h6&gt;
@@ -1248,218 +1690,4 @@ class UserName {
             return newName + intToString(--i);
         }   
 };
-&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/30/username/</link><guid isPermaLink="false">be1ed185-8877-42a7-9d89-8f80236c99b0</guid><category>TopCoder</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Sun, 30 Nov 2014 04:18:37 GMT</pubDate></item><item><title>PIGBANK</title><description>&lt;p&gt;Before ACM can do anything, a budget must be prepared and the necessary financial support obtained. The main income for this action comes from Irreversibly Bound Money (IBM). The idea behind is simple. Whenever some ACM member has any small money, he takes all the coins and throws them into a piggy-bank. You know that this process is irreversible, the coins cannot be removed without breaking the pig. After a sufficiently long time, there should be enough cash in the piggy-bank to pay everything that needs to be paid.&lt;/p&gt;
-
-&lt;p&gt;But there is a big problem with piggy-banks. It is not possible to determine how much money is inside. So we might break the pig into pieces only to find out that there is not enough money. Clearly, we want to avoid this unpleasant situation. The only possibility is to weigh the piggy-bank and try to guess how many coins are inside. Assume that we are able to determine the weight of the pig exactly and that we know the weights of all coins of a given currency. Then there is some minimum amount of money in the piggy-bank that we can guarantee. Your task is to find out this worst case and determine the minimum amount of cash inside the piggy-bank. We need your help. No more prematurely broken pigs!&lt;/p&gt;
-
-&lt;h6 id="input"&gt;Input&lt;/h6&gt;
-
-&lt;p&gt;The input consists of T test cases. The number of them (T) is given on the first line of the input file. Each test case begins with a line containing two integers E and F. They indicate the weight of an empty pig and of the pig filled with coins. Both weights are given in grams. No pig will weigh more than 10 kg, that means 1 &amp;lt;= E &amp;lt;= F &amp;lt;= 10000. On the second line of each test case, there is an integer number N (1 &amp;lt;= N &amp;lt;= 500) that gives the number of various coins used in the given currency. Following this are exactly N lines, each specifying one coin type. These lines contain two integers each, Pand W (1 &amp;lt;= P &amp;lt;= 50000, 1 &amp;lt;= W &amp;lt;=10000). P is the value of the coin in monetary units, W is it's weight in grams.&lt;/p&gt;
-
-&lt;h6 id="output"&gt;Output&lt;/h6&gt;
-
-&lt;p&gt;Print exactly one line of output for each test case. The line must contain the sentence "The minimum amount of money in the piggy-bank is X." where X is the minimum amount of money that can be achieved using coins with the given total weight. If the weight cannot be reached exactly, print a line "This is impossible.".&lt;/p&gt;
-
-&lt;p&gt;Example&lt;/p&gt;
-
-&lt;p&gt;Input: &lt;br&gt;
-3 &lt;br&gt;
-10 110 &lt;br&gt;
-2 &lt;br&gt;
-1 1 &lt;br&gt;
-30 50 &lt;br&gt;
-10 110 &lt;br&gt;
-2 &lt;br&gt;
-1 1 &lt;br&gt;
-50 30 &lt;br&gt;
-1 6 &lt;br&gt;
-2 &lt;br&gt;
-10 3 &lt;br&gt;
-20 4&lt;/p&gt;
-
-&lt;p&gt;Output: &lt;br&gt;
-The minimum amount of money in the piggy-bank is 60. &lt;br&gt;
-The minimum amount of money in the piggy-bank is 100. &lt;br&gt;
-This is impossible.&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
-#include &amp;lt;vector&amp;gt;
-
-using namespace std;
-
-int main() {  
-    int T;
-    cin &amp;gt;&amp;gt; T;
-    for (;T--;) {
-        int E,F;
-        cin &amp;gt;&amp;gt; E &amp;gt;&amp;gt; F;
-        F -= E;
-        vector&amp;lt;int&amp;gt; dp(F + 1, 100000000);
-        int N;
-        cin &amp;gt;&amp;gt; N;
-        for (int i = 0; i &amp;lt; N; ++i) {
-            int p, w;
-            cin &amp;gt;&amp;gt; p &amp;gt;&amp;gt; w;
-            if (dp[w] &amp;gt; p) {
-                dp[w] = p;
-                for (int j = 1; j &amp;lt;= F - w; ++j) {
-                    if(dp[j + w] &amp;gt; dp[j] + dp[w]) {
-                        dp[j + w] = dp[j] + dp[w];
-                    }
-                }
-            }
-        }
-        if(dp[F] &amp;lt; 100000000) {
-            cout &amp;lt;&amp;lt; "The minimum amount of money in the piggy-bank is " &amp;lt;&amp;lt; dp[F] &amp;lt;&amp;lt; ".\n";
-        } else {
-            cout &amp;lt;&amp;lt; "This is impossible.\n";
-        }
-    }
-    return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/29/pigbank/</link><guid isPermaLink="false">44f5c2a6-ccfd-484d-b43f-343a3c927f1e</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Sat, 29 Nov 2014 13:08:54 GMT</pubDate></item><item><title>PARTY</title><description>&lt;p&gt;You just received another bill which you cannot pay because you lack the money. Unfortunately, this is not the first time to happen, and now you decide to investigate the cause of your constant monetary shortness. The reason is quite obvious: the lion's share of your money routinely disappears at the entrance of party localities. &lt;/p&gt;
-
-&lt;p&gt;You make up your mind to solve the problem where it arises, namely at the parties themselves. You introduce a limit for your party budget and try to have the most possible fun with regard to this limit. &lt;/p&gt;
-
-&lt;p&gt;You inquire beforehand about the entrance fee to each party and estimate how much fun you might have there. The list is readily compiled, but how do you actually pick the parties that give you the most fun and do not exceed your budget? &lt;/p&gt;
-
-&lt;p&gt;Write a program which finds this optimal set of parties that offer the most fun. Keep in mind that your budget need not necessarily be reached exactly. Achieve the highest possible fun level, and do not spend more money than is absolutely necessary.&lt;/p&gt;
-
-&lt;h6 id="input"&gt;Input&lt;/h6&gt;
-
-&lt;p&gt;The first line of the input specifies your party budget and the number n of parties. &lt;/p&gt;
-
-&lt;p&gt;The following n lines contain two numbers each. The first number indicates the entrance fee of each party. Parties cost between 5 and 25 francs. The second number indicates the amount of fun of each party, given as an integer number ranging from 0 to 10. &lt;/p&gt;
-
-&lt;p&gt;The budget will not exceed 500 and there will be at most 100 parties. All numbers are separated by a single space. &lt;/p&gt;
-
-&lt;p&gt;There are many test cases. Input ends with 0 0.&lt;/p&gt;
-
-&lt;h6 id="output"&gt;Output&lt;/h6&gt;
-
-&lt;p&gt;For each test case your program must output the sum of the entrance fees and the sum of all fun values of an optimal solution. Both numbers must be separated by a single space.&lt;/p&gt;
-
-&lt;p&gt;Example&lt;/p&gt;
-
-&lt;p&gt;Input: &lt;br&gt;
-50 10 &lt;br&gt;
-12 3 &lt;br&gt;
-15 8 &lt;br&gt;
-16 9 &lt;br&gt;
-16 6 &lt;br&gt;
-10 2 &lt;br&gt;
-21 9 &lt;br&gt;
-18 4 &lt;br&gt;
-12 4 &lt;br&gt;
-17 8 &lt;br&gt;
-18 9 &lt;/p&gt;
-
-&lt;p&gt;50 10 &lt;br&gt;
-13 8 &lt;br&gt;
-19 10 &lt;br&gt;
-16 8 &lt;br&gt;
-12 9 &lt;br&gt;
-10 2 &lt;br&gt;
-12 8 &lt;br&gt;
-13 5 &lt;br&gt;
-15 5 &lt;br&gt;
-11 7 &lt;br&gt;
-16 2&lt;/p&gt;
-
-&lt;p&gt;0 0&lt;/p&gt;
-
-&lt;p&gt;Output: &lt;br&gt;
-49 26 &lt;br&gt;
-48 32&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
-#include &amp;lt;vector&amp;gt;
-
-using namespace std;
-
-pair&amp;lt;int, int&amp;gt; knapSack(int b, vector&amp;lt;int&amp;gt; budget, vector&amp;lt;int&amp;gt; fun) {  
-    int n = budget.size();
-    vector&amp;lt;vector&amp;lt;int&amp;gt; &amp;gt; k(n + 1, vector&amp;lt;int&amp;gt; (b + 1));
-    for (int i = 0; i &amp;lt;= n; ++i) {
-        for (int j = 0; j &amp;lt;= b; ++j) {
-            if (i == 0 || j == 0) {
-                k[i][j] = 0;
-            } else if ((budget[i - 1] &amp;lt;= j) &amp;amp;&amp;amp; (fun[i - 1] + k[i - 1][j - budget[i - 1]]) &amp;gt; k[i - 1][j]) {
-                k[i][j] = fun[i - 1] + k[i - 1][j - budget[i - 1]];
-            } else {
-                k[i][j] = k[i - 1][j];
-            }
-        }
-    }
-    int ans = 0;
-    for (int i = 0; i &amp;lt;= b; ++i) {
-        if (k[n][i] == k[n][b]) {
-            ans = i;
-            break;
-        }
-    }
-    return make_pair(ans, k[n][b]);
-}
-
-int main() {  
-    int b, p;
-    while ((cin &amp;gt;&amp;gt; b &amp;gt;&amp;gt; p) &amp;amp;&amp;amp; !(b == 0 &amp;amp;&amp;amp; p == 0)) {
-        vector&amp;lt;int&amp;gt; budget(p),
-                    fun(p);
-        for (int i = 0; i &amp;lt; p; ++i) {
-            cin &amp;gt;&amp;gt; budget[i] &amp;gt;&amp;gt; fun[i];
-        }
-        pair&amp;lt;int, int&amp;gt; ans = knapSack(b, budget, fun);
-        cout &amp;lt;&amp;lt; ans.first &amp;lt;&amp;lt; " " &amp;lt;&amp;lt; ans.second &amp;lt;&amp;lt; "\n";
-    } 
-    return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/29/party/</link><guid isPermaLink="false">1efbd2f9-8f70-4162-bc1e-79717acbe02e</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Sat, 29 Nov 2014 11:37:15 GMT</pubDate></item><item><title>CRDS</title><description>&lt;p&gt;Maricruz have a lot of cards, she always uses her cards to build pyramids as shown in the following image:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://code-jedi.chintanghate.me/content/images/2014/11/francky-cards.png" alt="Cards"&gt;&lt;/p&gt;
-
-&lt;p&gt;A pyramid card of 3 levels. &lt;br&gt;
-She always wonder how many cards does she need to make a pyramid card of N levels. Your task is to answer that question.&lt;/p&gt;
-
-&lt;h6 id="input"&gt;Input&lt;/h6&gt;
-
-&lt;p&gt;The first line of the input contains an integer 1&amp;lt;= T &amp;lt;= 1,000. Each of the following T lines will have an integer 1&amp;lt;= N &amp;lt;= 1,000,000.&lt;/p&gt;
-
-&lt;h6 id="output"&gt;Output&lt;/h6&gt;
-
-&lt;p&gt;For each case, output a single line consisting of the number of cards needed to build a pyramid card of level N modulo 1,000,007.&lt;/p&gt;
-
-&lt;p&gt;Example&lt;/p&gt;
-
-&lt;p&gt;Input: &lt;br&gt;
-2 &lt;br&gt;
-3 &lt;br&gt;
-7&lt;/p&gt;
-
-&lt;p&gt;Output: &lt;br&gt;
-15 &lt;br&gt;
-77&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;pre&gt;&lt;code class="prettyprint"&gt;#include &amp;lt;iostream&amp;gt;
-
-using namespace std;
-
-int main() {  
-    int T;
-    cin &amp;gt;&amp;gt; T;
-    for (;T--;) {
-        unsigned long long levels;
-        cin &amp;gt;&amp;gt; levels;
-        unsigned long long cards = 
-        (((levels * (levels + 1) / 2) * 3) - levels);
-        cout &amp;lt;&amp;lt; cards % 1000007 &amp;lt;&amp;lt; "\n";
-    }
-    return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/28/crds/</link><guid isPermaLink="false">80d9e6f9-0109-4490-a9b5-32d931259a55</guid><category>SPOJ</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Fri, 28 Nov 2014 17:25:46 GMT</pubDate></item></channel></rss>
+&lt;/code&gt;&lt;/pre&gt;</description><link>http://code-jedi.chintanghate.me/2014/11/30/username/</link><guid isPermaLink="false">be1ed185-8877-42a7-9d89-8f80236c99b0</guid><category>TopCoder</category><dc:creator>Chintan Ghate</dc:creator><pubDate>Sun, 30 Nov 2014 04:18:37 GMT</pubDate></item></channel></rss>
