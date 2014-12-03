@@ -1,5 +1,243 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[TopCoder - Code Jedi]]></title><description><![CDATA[Code, algorithms and design.]]></description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Mon, 01 Dec 2014 19:56:39 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/tag/topcoder/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Twain]]></title><description><![CDATA[<p>Used In:    SRM 169 <br>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[TopCoder - Code Jedi]]></title><description><![CDATA[Code, algorithms and design.]]></description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Wed, 03 Dec 2014 18:04:04 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/tag/topcoder/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Jumper]]></title><description><![CDATA[<p>Used In:    SRM 158 <br>
+Used As:    Division I Level Three</p>
+
+<h6 id="problemstatement">Problem Statement</h6>
+
+<p>In a certain video game, a jumping player must jump across an area which has floating hoverpads in it. The hoverpads are organized on the screen into evenly spaced rows that move left or right across the screen with a constant speed and direction. The jumper can only cross the area by jumping onto the pads. If the jumper lands on a space that is not a pad, he loses the game. If the jumper is standing on a pad that goes off the side of the screen, he loses the game. The jumper starts out on the bottom of the screen in a non-moving row of solid ground. He must use the pads to jump all the way to the top of the screen, where there is another non-moving row of solid ground. The score of the game depends on how fast the player jumps to the other side.</p>
+
+<p>The screen is made up of 1x1 blocks and is 20 blocks wide. Each pad is comprised of 1 or more 1x1 blocks in a horizontal line. The jumper can only jump a distance of 1 block at a time, and can only jump from one row to another, or to another part of the pad he is currently on that is 1 block away. At the beginning of each second, the jumper either jumps or does not move, and then the pads move a certain distance for the remainder of the second. Jumping takes no time at all, but the jumper must wait for the next second to move again.</p>
+
+<p>You will be given three arguments. patterns will be a String[], with each element having a 5-character pattern in it. In each pattern, a '#' represents hoverpad, and a '.' represents empty space. speeds will be a int[] which represents the speeds of each of the patterns in blocks per second. Positive speeds are to the right, negative speeds are to the left. rows is a String where each character specifies what pattern and speed each row has (Note that this does not include the non-moving solid ground on the bottom and top of the screen). Characters that appear earlier in rows represent rows that are closer to the player's starting row. For example, if rows starts with "01", it would mean that the first row (the row closest to the starting row) is using element 0 of patterns and speeds to define its hoverpads, and the next row is using element 1.</p>
+
+<p>Each row starts out filled with repeated values of its given pattern. For example, the pattern "#..##" would start out as:</p>
+
+<p>"#..###..###..###..##"</p>
+
+<p>The speed determines how fast and in what direction the pads move. As the pads move off the screen, more pads move in on the opposite side of the screen to fill in the space. The pads which move in take on exactly the same pattern as the pads that moved out. For example, if the above pattern had a speed of 3, then ".##" would move off of the right side of the screen and ".##" would move in on the left side, to get:</p>
+
+<p>".###..###..###..###."</p>
+
+<p>Note that if the player were standing on either of the blocks which moved off the screen, he would lose the game.</p>
+
+<p>The character starts on the bottom of the screen in the leftmost column on solid ground (which has no holes and does not move). He can wait any amount of time before jumping onto the first row of hoverpads, and may jump left or right on the solid ground. The player may also jump back to solid ground after jumping to a hoverpad. The player wins if he jumps off of the last row of pads to the solid ground at the top of the screen.</p>
+
+<p>Your method should return the minimum time it takes to get from the bottom to the top of the screen, or -1 if it is not possible.</p>
+
+<h6 id="definition">Definition</h6>
+
+<p>Class:    Jumper <br>
+Method:    minTime <br>
+Parameters:    String[], int[], String <br>
+Returns:    int <br>
+Method signature:    int minTime(String[] patterns, int[] speeds, String rows) <br>
+(be sure your method is public)</p>
+
+<h6 id="notes">Notes</h6>
+
+<ul>
+<li>Since it takes no time to jump, the pads do not move while the actual jump is occurring. They move after the jumper lands.</li>
+<li>A pad with the player on it also moves the player.</li>
+</ul>
+
+<h6 id="constraints">Constraints</h6>
+
+<ul>
+<li>patterns will have between 1 and 4 elements, inclusive</li>
+<li>Each element of patterns will consist of exactly 5 characters, and will only contain the characters '#' and '.'.</li>
+<li>speeds will have the same number of elements as patterns.</li>
+<li>Each element of speeds will be between -10 and 10, inclusive except 0.</li>
+<li>rows will have between 2 and 20 characters, inclusive.</li>
+<li>Each character in rows will be a digit between 0 and the number of elements in patterns - 1, inclusive.</li>
+</ul>
+
+<h6 id="examples">Examples</h6>
+
+<ol>
+<li>{"###..", "..###"} <br>
+{1,1}
+"01"
+Returns: 5  </li>
+</ol>
+
+<pre><code>The screen looks like this at the beginning:
+
+..###..###..###..###
+###..###..###..###..
+P###################  
+The player can jump up once, and then both rows of pads move to the right 1 space. The screen is now:
+
+#..###..###..###..##
+.P##..###..###..###.
+####################
+The player can now jump twice to the right. By this time, the pads have moved over twice:
+
+###..###..###..###..
+#..##P..###..###..##
+####################
+Now, the player jumps up to the second row of pads:
+
+.###..P##..###..###.
+##..###..###..###..#
+####################
+And finally, jumps up one more time to victory.  
+</code></pre>
+
+<ol>
+<li>{"###..", "..###"} <br>
+{5,5}
+"01"
+Returns: 5 <br>
+The player cannot follow the same pattern as above, because he would lose when the pads go off the right side of the screen. Instead, he can jump to the right twice, and then he has a straight path up. In the following sequence, remember that the pads move to the right 5 spaces, even though they do not appear to move from frame to frame:  </li>
+</ol>
+
+<pre><code>..###..###..###..###
+###..###..###..###..  Start
+P###################
+
+..###..###..###..###
+###..###..###..###..  Right
+#P##################
+
+..###..###..###..###
+###..###..###..###..  Right
+##P#################
+
+..###..###..###..###
+###..##P..###..###..  Up (pad carries player right 5 spaces)
+####################
+
+..###..###..P##..###
+###..###..###..###..  Up (pad carries player right 5 spaces)
+####################
+
+Final jump up.  
+</code></pre>
+
+<ol>
+<li><p>{"....#", "....#"} <br>
+{4,5}
+"0111"
+Returns: 9 <br>
+In this example, the only way to make it up to the top is to wait for the first row of pads to line up with the left-most column. Then the player barely has time to jump up through all three other rows of pads before jumping to the very top. It takes 4 seconds for the pads to line up with the player, so he waits for 4 seconds, then he jumps up 5 times to get to the top.</p></li>
+<li><p>{"#....", "#...."} <br>
+{-4,-5}
+"0111"
+Returns: 24 <br>
+This is the same as the last example, except everything is reversed. Since the only safe place to jump off the bottom is the right-most square, the player must first jump right 19 spaces before jumping up 5 times.</p></li>
+<li><p>{"#####","#####"} <br>
+{10,10}
+"01"
+Returns: -1 <br>
+Although a straight path exists, the player cannot jump up twice without hitting the wall on the right.</p></li>
+<li><p>{"#####","#####","....."} <br>
+{1,-1,1}
+"01010101010101010102"
+Returns: -1 <br>
+Be careful of timeouts.</p></li>
+<li><p>{"#....", "#....", "#...."} <br>
+{5,-5,6}
+"2012"
+Returns: 12 <br>
+Here, in order to use 12 jumps, the player must jump back at least once. One possible ordering of jumps is: <br>
+Right, Right, Right, Right, Up, Up, Up, Stand, Down, Up, Up, Up.</p></li>
+</ol>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+#include &lt;queue&gt;
+#include &lt;set&gt;
+
+#define X front().first.first
+#define Y front().first.second
+#define T front().second
+
+using namespace std;
+
+class Jumper {
+
+    private:
+        int mod(int a, int b) {
+            return a % b &lt; 0 ? a % b + b : a % b;
+        }
+
+        bool isValidPos(vector&lt;pair&lt;string,int&gt; &gt; patternNSpeed, int x, int y, int t) {
+            if(x &lt; 0 || x &gt;= patternNSpeed.size()) {
+                return false;
+            }
+            int s = patternNSpeed[x].second;
+            if (y &lt; 0 || y &gt; 19 || y + s &lt; 0 || y + s &gt; 19) {
+                return false;
+            }
+            string p = patternNSpeed[x].first;
+            if (p[mod(y - t * s, 20)] != '#') {
+                return false;
+            }
+            return true;
+        }
+
+    public:
+        int minTime(vector&lt;string&gt; patterns, vector&lt;int&gt; speeds, string rows) {
+            int n = rows.size();
+            vector&lt;pair&lt;string,int&gt; &gt; patternNSpeed(n + 2);
+            patternNSpeed[0] = patternNSpeed[n + 1] = make_pair("####################", 0);
+            for (int i = 1; i &lt;= n; ++i) {
+                int j = rows[i - 1] - '0';
+                string p = patterns[j];
+                int s = speeds[j];
+                patternNSpeed[i] = make_pair(p + p + p + p, s);
+            }   
+
+            int x = 0,
+                y = 0,
+                t = 0;
+            queue&lt;pair&lt;pair&lt;int, int&gt;, int&gt; &gt; bfsQ;
+            set&lt;pair&lt;pair&lt;int, int&gt;, int&gt; &gt; uniquePos;
+            int Time = -1;
+            bfsQ.push(make_pair(make_pair(x, y), t));
+            while (!bfsQ.empty()) {
+                x = bfsQ.X, y = bfsQ.Y, t = bfsQ.T;
+                bfsQ.pop();
+                if (x == n + 1) {
+                    Time = t;
+                    break;
+                }
+                if (t == 200) {
+                    t = -1;
+                    break;
+                }
+                pair&lt;pair&lt;int, int&gt;, int&gt; temp = make_pair(make_pair(x, y), t % 5);
+                if (uniquePos.find(temp) != uniquePos.end()) {
+                    if (isValidPos(patternNSpeed, x, y - 1, t)) {
+                        bfsQ.push(make_pair(make_pair(x, y - 1 + patternNSpeed[x].second), t + 1));
+                    }
+                    continue;
+                }
+                uniquePos.insert(make_pair(make_pair(x, y), t % 5));
+
+                if (y + patternNSpeed[x].second &gt;= 0 &amp;&amp; y + patternNSpeed[x].second &lt;= 19) {
+                    bfsQ.push(make_pair(make_pair(x, y + patternNSpeed[x].second), t + 1));
+                }
+                if (isValidPos(patternNSpeed, x + 1, y, t)) {
+                    bfsQ.push(make_pair(make_pair(x + 1, y + patternNSpeed[x + 1].second), t + 1));
+                }
+                if (isValidPos(patternNSpeed, x - 1, y, t)) {
+                    bfsQ.push(make_pair(make_pair(x - 1, y + patternNSpeed[x - 1].second), t + 1));
+                }
+                if (isValidPos(patternNSpeed, x, y + 1, t)) {
+                    bfsQ.push(make_pair(make_pair(x, y + 1 + patternNSpeed[x].second), t + 1));
+                }
+                if (isValidPos(patternNSpeed, x, y - 1, t)) {
+                    bfsQ.push(make_pair(make_pair(x, y - 1 + patternNSpeed[x].second), t + 1));
+                }
+            }
+            return Time;
+        }
+};
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/12/03/jumper/</link><guid isPermaLink="false">78d6e088-7b26-477b-9fc3-74a1cb1b400a</guid><category><![CDATA[TopCoder]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Wed, 03 Dec 2014 17:58:14 GMT</pubDate></item><item><title><![CDATA[Twain]]></title><description><![CDATA[<p>Used In:    SRM 169 <br>
 Used As:    Division II Level Two</p>
 
 <h6 id="problemstatement">Problem Statement</h6>
@@ -1596,99 +1834,4 @@ class BettingMoney {
             return profit;
         }
 };
-</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/30/bettingname/</link><guid isPermaLink="false">99b30a41-e004-409d-a143-0e90ec6c8f90</guid><category><![CDATA[TopCoder]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Sun, 30 Nov 2014 05:18:42 GMT</pubDate></item><item><title><![CDATA[UserName]]></title><description><![CDATA[<p>Used In:    SRM 203 <br>
-Used As:    Division II Level One</p>
-
-<h6 id="problemstatement">Problem Statement</h6>
-
-<p>You are implementing the member registration system of an online dating site. When a new member signs up, it is possible that she initially chooses the same username as an existing member. The system must then inform the new member of the conflict and suggest a variant of the chosen name with a number attached to the end.</p>
-
-<p>If an existing member is named "FunkyMonkey", for example, and a new member wants the same username, the simplest suggestion the system can make is "FunkyMonkey1". If there is already a member by that name, the system must suggest "FunkyMonkey2", unless that variant is also taken. If all names from "FunkyMonkey1" through "FunkyMonkey9" are taken as well as the original "FunkyMonkey", the system moves on to consider "FunkyMonkey10", and so on. The goal is to use the smallest possible number in the variant. Note that each username consists of letters (the characters from 'a' to 'z' and from 'A' to 'Z') and numerals ('0' to '9').</p>
-
-<p>You are given a String[], existingNames, containing all usernames that have already been registered in the system. You are also given a single String, newName, containing the username that a new member wants to use. In the event of a conflict, this member will accept the suggestion offered by your system in accordance with the principles above. Return a String containing the username finally assigned to the new member.</p>
-
-<h6 id="definition">Definition</h6>
-
-<p>Class:    UserName <br>
-Method:    newMember <br>
-Parameters:    String[], String <br>
-Returns:    String <br>
-Method signature:    String newMember(String[] existingNames, String newName) <br>
-(be sure your method is public)</p>
-
-<h6 id="notes">Notes</h6>
-
-<ul>
-<li>The constraints rule out names that end in a number with a leading zero, such as "grokster006" and "bart0".</li>
-</ul>
-
-<h6 id="constraints">Constraints</h6>
-
-<ul>
-<li>existingNames contains between 1 and 50 elements, inclusive</li>
-<li>each element of existingNames is between 1 and 50 characters long, inclusive</li>
-<li>the only characters permitted in elements of existingNames are 'a' to 'z', 'A' to 'Z', and '0' to '9'</li>
-<li>no element of existingNames ends in a number that has a leading zero</li>
-<li>newName is between 1 and 50 characters long, inclusive</li>
-<li>the only characters permitted in newName are 'a' to 'z' and 'A' to 'Z'</li>
-</ul>
-
-<h6 id="examples">Examples</h6>
-
-<ol>
-<li><p>{"MasterOfDisaster", "DingBat", "Orpheus", "WolfMan", "MrKnowItAll"} <br>
-"TygerTyger"
-Returns: "TygerTyger" <br>
-"TygerTyger" is available.</p></li>
-<li><p>{"MasterOfDisaster", "TygerTyger1", "DingBat", "Orpheus", <br>
-"TygerTyger", "WolfMan", "MrKnowItAll"}
-"TygerTyger"
-Returns: "TygerTyger2" <br>
-"TygerTyger" and "TygerTyger1" are taken.</p></li>
-<li><p>{"TygerTyger2000", "TygerTyger1", "MasterDisaster", "DingBat", <br>
-"Orpheus", "WolfMan", "MrKnowItAll"}
-"TygerTyger"
-Returns: "TygerTyger" <br>
-There are higher-numbered variants of "TygerTyger", but the base name is available.</p></li>
-<li><p>{"grokster2", "BrownEyedBoy", "Yoop", "BlueEyedGirl", <br>
-"grokster", "Elemental", "NightShade", "Grokster1"}
-"grokster"
-Returns: "grokster1" <br>
-Note that "Grokster1" is not the same as "grokster1".</p></li>
-<li><p>{"Bart4", "Bart5", "Bart6", "Bart7", "Bart8", "Bart9", "Bart10", <br>
-"Lisa", "Marge", "Homer", "Bart", "Bart1", "Bart2", "Bart3",
-"Bart11", "Bart12"}
-"Bart"
-Returns: "Bart13"</p></li>
-</ol>
-
-<hr>
-
-<pre><code class="prettyprint">#include &lt;iostream&gt;
-#include &lt;string&gt;
-#include &lt;vector&gt;
-#include &lt;algorithm&gt;
-#include &lt;sstream&gt;
-
-using namespace std;
-
-class UserName {  
-    private:
-        string intToString(int n) {
-            ostringstream oss;
-            oss &lt;&lt; n;
-            return oss.str();
-        }
-    public:
-        string newMember(vector&lt;string&gt; existingNames, string newName) {
-            if (find(existingNames.begin(), existingNames.end(), 
-               newName) == existingNames.end()) {
-                return newName;
-            }
-            int i = 1;
-            while (find(existingNames.begin(), existingNames.end(), 
-            newName + intToString(i++)) != existingNames.end());
-            return newName + intToString(--i);
-        }   
-};
-</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/30/username/</link><guid isPermaLink="false">be1ed185-8877-42a7-9d89-8f80236c99b0</guid><category><![CDATA[TopCoder]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Sun, 30 Nov 2014 04:18:37 GMT</pubDate></item></channel></rss>
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/30/bettingname/</link><guid isPermaLink="false">99b30a41-e004-409d-a143-0e90ec6c8f90</guid><category><![CDATA[TopCoder]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Sun, 30 Nov 2014 05:18:42 GMT</pubDate></item></channel></rss>
