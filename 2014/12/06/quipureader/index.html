@@ -1,0 +1,317 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>QuipuReader</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css?v=ae9754f34d">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+    <link href="../../../../assets/css/prettify.css?v=ae9754f34d" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="../../../../assets/js/prettify.js?v=ae9754f34d"></script>
+    <link rel="canonical" href="http://code-jedi.chintanghate.me/2014/12/06/quipureader/">
+    
+    <meta property="og:site_name" content="Code Jedi">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="QuipuReader">
+    <meta property="og:description" content="Used In:    SRM 155  Used As:    Division I Level Two Problem Statement The Incas used a sophisticated system of record keeping consisting of bundles of knotted cords. Such a bundle of cords is called a quipu. Each individual cord represents...">
+    <meta property="og:url" content="http://code-jedi.chintanghate.me/2014/12/06/quipureader/">
+    <meta property="article:published_time" content="2014-12-06T14:36:07.066Z">
+    <meta property="article:modified_time" content="2014-12-06T14:36:07.064Z">
+    <meta property="article:tag" content="TopCoder">
+    
+    <meta name="twitter:card" content="content">
+    <meta name="twitter:title" content="QuipuReader">
+    <meta name="twitter:description" content="Used In:    SRM 155  Used As:    Division I Level Two Problem Statement The Incas used a sophisticated system of record keeping consisting of bundles of knotted cords. Such a bundle of cords is called a quipu. Each individual cord represents...">
+    <meta name="twitter:url" content="http://code-jedi.chintanghate.me/2014/12/06/quipureader/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Code Jedi",
+    "author": {
+        "@type": "Person",
+        "name": "Chintan Ghate",
+        "url": "http://code-jedi.chintanghate.me/author/chintan",
+        "sameAs": ""
+    },
+    "headline": "QuipuReader",
+    "url": "http://code-jedi.chintanghate.me/2014/12/06/quipureader/",
+    "datePublished": "2014-12-06T14:36:07.066Z",
+    "dateModified": "2014-12-06T14:36:07.064Z",
+    "keywords": "TopCoder",
+    "description": "Used In:    SRM 155  Used As:    Division I Level Two Problem Statement The Incas used a sophisticated system of record keeping consisting of bundles of knotted cords. Such a bundle of cords is called a quipu. Each individual cord represents"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Code Jedi" href="../../../../rss/index.html">
+</head>
+<body class="post-template tag-topcoder" onload="prettyPrint()">
+
+    
+
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        <a class="back-button icon-arrow-left" href="http://code-jedi.chintanghate.me">Home</a>
+        <a class="subscribe-button icon-feed" href="http://code-jedi.chintanghate.me/rss/index.rss">Subscribe</a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+
+    <article class="post tag-topcoder">
+
+        <header class="post-header">
+            <h1 class="post-title">QuipuReader</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2014-12-06">06 December 2014</time>  on <a href="../../../../tag/topcoder/">TopCoder</a>
+            </section>
+        </header>
+
+        <section class="post-content">
+            <p>Used In:    SRM 155 <br>
+Used As:    Division I Level Two</p>
+
+<h6 id="problemstatement">Problem Statement</h6>
+
+<p>The Incas used a sophisticated system of record keeping consisting of bundles of knotted cords. Such a bundle of cords is called a quipu. Each individual cord represents a single number. Surprisingly, the Incas used a base-10 positional system, just like we do today. Each digit of a number is represented by a cluster of adjacent knots, with spaces between neighboring clusters. The digit is determined by the number of knots in the cluster. For example, the number 243 could be represented by a cord with knots tied in the following pattern</p>
+
+<pre><code> -XX-XXXX-XXX-
+</code></pre>
+
+<p>where each uppercase 'X' represents a knot and each '-' represents an unknotted segment of cord (all quotes for clarity only). <br>
+A sequence of numbers is represented by a sequence of cords. For example, the numbers 725, 234, and 558 could be represented by the cords</p>
+
+<pre><code> -XXXXXXX--XX-----XXXXX---
+ ---XX----XXX-----XXXX----
+ -XXXXX---XXXXX--XXXXXXXX-
+</code></pre>
+
+<p>Notice how consecutive dashes are used to align clusters of knots on different cords. Clusters representing digits in the same position are required to overlap completely. Clusters representing digits in different positions never overlap. All quipus obey these rules. For example, the following configurations would all be illegal:</p>
+
+<pre><code> -XXXXX---
+ ----XXX--    [The 3 and 5 must overlap completely or not at all.]
+
+ -XXXXXXXXX-
+ --XX------- 
+ -------XX--  [Both 2s overlap with the 9, but not each other.]
+
+ -XXXXXXXX-
+ --XX----X-   [The 2 and 1 cannot both overlap with the 8.]
+</code></pre>
+
+<p>Unlike many ancient civilizations, the Incas were aware of the concept of zero, and used it in their quipus. A zero is represented by a cluster containing no knots. For example, the numbers 105 and 340 could be represented by the cords</p>
+
+<pre><code> --X--------XXXXX-
+ -XXX--XXXX-------
+</code></pre>
+
+<p>Assume that the numbers being represented do not all contain zeros in the same position. For example, any input that you could conceivably interpret as representing the numbers 105 and 802, you should interpret as 15 and 82 instead. <br>
+Write a method to translate a sequence of quipu cords (of type String[]) into a sequence of integers (of type int[]), where the integer in position i corresponds to the cord in position i.</p>
+
+<h6 id="definition">Definition</h6>
+
+<p>Class:    QuipuReader <br>
+Method:    readKnots <br>
+Parameters:    String[] <br>
+Returns:    int[] <br>
+Method signature:    int[] readKnots(String[] knots) <br>
+(be sure your method is public)</p>
+
+<h6 id="constraints">Constraints</h6>
+
+<ul>
+<li>knots contains between 1 and 10 elements, inclusive.</li>
+<li>Each element of knots contains the same number of characters, between 1 and 50, inclusive.</li>
+<li>Each element of knots contains only the characters 'X' and '-'. Note that 'X' is uppercase.</li>
+<li>At least one element of knots contains at least one 'X'.</li>
+<li>No element of knots contains 10 consecutive 'X's.</li>
+<li>If two (non-empty) clusters of knots A and B overlap at all, then they must overlap completely. More formally, let A0 be the position of the first 'X' in cluster A, and let A1 be the position of the last 'X' in cluster A. Let B0 and B1 be defined similarly for cluster B. Assume, without loss of generality, that A0 &lt;= B0. Then either B1 &lt;= A1 (they overlap completely) or A1 &lt; B0 (they do not overlap at all).</li>
+<li>All clusters of knots that overlap with some particular cluster also overlap with each other. More formally, if two (non-empty) clusters of knots A and B both overlap with a third (non-empty) cluster C, then A and B also overlap with other.</li>
+<li>Each element of knots will represent a number between 0 and 1000000, inclusive.</li>
+</ul>
+
+<h6 id="examples">Examples</h6>
+
+<p>1)  </p>
+
+<pre><code class="    ">{ "-XXXXXXX--XX-----XXXXX---",
+  "---XX----XXX-----XXXX----",
+  "-XXXXX---XXXXX--XXXXXXXX-" }
+  Returns: { 725,  234,  558 }
+</code></pre>
+
+<p>One of the examples above. Notice that adjacent digit positions are usually separated by one or more columns of dashes. In this example, the first and second positions are separated by one column of dashes, and the second and third positions are separated by two columns of dashes.</p>
+
+<p>2)  </p>
+
+<pre><code>{ "XX---XXXX",
+  "XXX-----X" }
+Returns: { 24,  31 }  
+</code></pre>
+
+<p>Notice that leading and trailing dashes are not required.</p>
+
+<p>3)  </p>
+
+<pre><code>{ "-XXX---XX----X",
+  "--X----X-XXXXX",
+  "-XX--XXXX---XX" }
+Returns: { 321,  115,  242 }  
+</code></pre>
+
+<p>Notice that adjacent digit positions are not always separated by columns of dashes. In this example, the first and second positions are separated by a column of dashes, but the second and third positions are not.</p>
+
+<p>4)  </p>
+
+<pre><code>{ "-------X--------",
+  "--XXX----XXXX---",
+  "--------------XX" }
+Returns: { 100,  3040,  2 }  
+</code></pre>
+
+<p>Notice that leading zeros are permitted. For example, 100 is really 0100 and 2 is really 0002.</p>
+
+<p>5)  </p>
+
+<pre><code>{ "--XXX-XXXXXXXX----------XXXXXXXXX--XXXXXXXX-",
+  "--XX----XXXX-----XXXXXX---XXX------XXXXXXXX-",
+  "--------------------X----XXXXXXXX--XXXXXXXX-",
+  "--XX-------X------XXXX----XXX-------XXXXXX--",
+  "--XXX---XXXXX-------X------XX--------X------",
+  "-XXXX--XXXXXXX-----------XXXXXXX----XXXXX---",
+  "-----------X---XXXXXXXX----XX--------XXX----",
+  "-----------X---XXXXXXXX----X----------------",
+  "---X--XXXXXXXX--XXXXXXX---XXX---------------",
+  "--XX---XXXXXXX--XXXXXXX----XX-------XXXXX---" }
+Returns: { 38098,  24638,  188,  21436,  35121,  47075,  1823,  1810,  18730,  27725 }  
+</code></pre>
+
+<p>6)  </p>
+
+<pre><code>{"X","-"}
+Returns: { 1,  0 }  
+</code></pre>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+#include &lt;sstream&gt;
+
+using namespace std;
+
+class QuipuReader {  
+    private:
+        int stringToInt(string s) {
+            istringstream iss(s);
+            int n;
+            iss &gt;&gt; n;
+            return n;
+        }
+
+    public:
+        vector&lt;int&gt; readKnots(vector&lt;string&gt; knots) {
+            int m = knots.size();
+            int n = knots[0].size();
+            for (int i = 0; i &lt; m ; ++i) {
+                for (int j = 0; j &lt; n; ++j) {
+                    if (knots[i][j] != 'X') {
+                        knots[i][j] = 0;
+                    }
+                }
+            }
+            vector&lt;bool&gt; f(60, false),
+                         g(60, false);
+
+            for (int i = 0; i &lt; m ; ++i) {
+                for (int j = 0; j &lt; n; ++j) {
+                    if (knots[i][j] &amp;&amp; knots[i][j - 1]) {
+                        f[j] = true;
+                    }
+                    if (knots[i][j]) {
+                        g[j] = true;
+                    }
+                }
+            }
+
+            for (int j = 0; j &lt; n; ++j) {
+                if (!g[j]) {
+                    f[j] = true;
+                }
+            }
+            vector&lt;int&gt; r(m, 0);
+
+            for (int i = 0; i &lt; m ; ++i) {
+                for (int j = 0; j &lt; n; ++j) {
+                    if (!f[j]) {
+                        r[i] *= 10;
+                    }
+                    if (knots[i][j]) {
+                        ++r[i];
+                    }
+                }
+            }
+            return r;
+        }
+};
+</code></pre>
+        </section>
+
+        <footer class="post-footer">
+
+
+
+            <section class="author">
+                <h4><a href="../../../../author/chintan/">Chintan Ghate</a></h4>
+
+                    <p>I run very fast...almost at O(1) !!!</p>
+                <div class="author-meta">
+                    <span class="author-location icon-location">India</span>
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/share?text=QuipuReader&amp;url=http://code-jedi.chintanghate.me/2014/12/06/quipureader/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://code-jedi.chintanghate.me/2014/12/06/quipureader/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://code-jedi.chintanghate.me/2014/12/06/quipureader/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+    </article>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+         <section class="copyright"><a href="http://code-jedi.chintanghate.me">Code Jedi</a> © 2014</section>
+         <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+    </footer>
+
+    <script src="../../../../public/jquery.js?v=ae9754f34d"></script>
+
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js?v=ae9754f34d"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js?v=ae9754f34d"></script>
+
+</body>

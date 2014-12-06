@@ -1,5 +1,281 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Chintan Ghate - Code Jedi]]></title><description><![CDATA[Code, algorithms and design.]]></description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Wed, 03 Dec 2014 18:04:04 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/author/chintan/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Jumper]]></title><description><![CDATA[<p>Used In:    SRM 158 <br>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Chintan Ghate - Code Jedi]]></title><description><![CDATA[Code, algorithms and design.]]></description><link>http://code-jedi.chintanghate.me/</link><generator>Ghost 0.5</generator><lastBuildDate>Sat, 06 Dec 2014 17:55:14 GMT</lastBuildDate><atom:link href="http://code-jedi.chintanghate.me/author/chintan/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[QuipuReader]]></title><description><![CDATA[<p>Used In:    SRM 155 <br>
+Used As:    Division I Level Two</p>
+
+<h6 id="problemstatement">Problem Statement</h6>
+
+<p>The Incas used a sophisticated system of record keeping consisting of bundles of knotted cords. Such a bundle of cords is called a quipu. Each individual cord represents a single number. Surprisingly, the Incas used a base-10 positional system, just like we do today. Each digit of a number is represented by a cluster of adjacent knots, with spaces between neighboring clusters. The digit is determined by the number of knots in the cluster. For example, the number 243 could be represented by a cord with knots tied in the following pattern</p>
+
+<pre><code> -XX-XXXX-XXX-
+</code></pre>
+
+<p>where each uppercase 'X' represents a knot and each '-' represents an unknotted segment of cord (all quotes for clarity only). <br>
+A sequence of numbers is represented by a sequence of cords. For example, the numbers 725, 234, and 558 could be represented by the cords</p>
+
+<pre><code> -XXXXXXX--XX-----XXXXX---
+ ---XX----XXX-----XXXX----
+ -XXXXX---XXXXX--XXXXXXXX-
+</code></pre>
+
+<p>Notice how consecutive dashes are used to align clusters of knots on different cords. Clusters representing digits in the same position are required to overlap completely. Clusters representing digits in different positions never overlap. All quipus obey these rules. For example, the following configurations would all be illegal:</p>
+
+<pre><code> -XXXXX---
+ ----XXX--    [The 3 and 5 must overlap completely or not at all.]
+
+ -XXXXXXXXX-
+ --XX------- 
+ -------XX--  [Both 2s overlap with the 9, but not each other.]
+
+ -XXXXXXXX-
+ --XX----X-   [The 2 and 1 cannot both overlap with the 8.]
+</code></pre>
+
+<p>Unlike many ancient civilizations, the Incas were aware of the concept of zero, and used it in their quipus. A zero is represented by a cluster containing no knots. For example, the numbers 105 and 340 could be represented by the cords</p>
+
+<pre><code> --X--------XXXXX-
+ -XXX--XXXX-------
+</code></pre>
+
+<p>Assume that the numbers being represented do not all contain zeros in the same position. For example, any input that you could conceivably interpret as representing the numbers 105 and 802, you should interpret as 15 and 82 instead. <br>
+Write a method to translate a sequence of quipu cords (of type String[]) into a sequence of integers (of type int[]), where the integer in position i corresponds to the cord in position i.</p>
+
+<h6 id="definition">Definition</h6>
+
+<p>Class:    QuipuReader <br>
+Method:    readKnots <br>
+Parameters:    String[] <br>
+Returns:    int[] <br>
+Method signature:    int[] readKnots(String[] knots) <br>
+(be sure your method is public)</p>
+
+<h6 id="constraints">Constraints</h6>
+
+<ul>
+<li>knots contains between 1 and 10 elements, inclusive.</li>
+<li>Each element of knots contains the same number of characters, between 1 and 50, inclusive.</li>
+<li>Each element of knots contains only the characters 'X' and '-'. Note that 'X' is uppercase.</li>
+<li>At least one element of knots contains at least one 'X'.</li>
+<li>No element of knots contains 10 consecutive 'X's.</li>
+<li>If two (non-empty) clusters of knots A and B overlap at all, then they must overlap completely. More formally, let A0 be the position of the first 'X' in cluster A, and let A1 be the position of the last 'X' in cluster A. Let B0 and B1 be defined similarly for cluster B. Assume, without loss of generality, that A0 &lt;= B0. Then either B1 &lt;= A1 (they overlap completely) or A1 &lt; B0 (they do not overlap at all).</li>
+<li>All clusters of knots that overlap with some particular cluster also overlap with each other. More formally, if two (non-empty) clusters of knots A and B both overlap with a third (non-empty) cluster C, then A and B also overlap with other.</li>
+<li>Each element of knots will represent a number between 0 and 1000000, inclusive.</li>
+</ul>
+
+<h6 id="examples">Examples</h6>
+
+<p>1)  </p>
+
+<pre><code class="    ">{ "-XXXXXXX--XX-----XXXXX---",
+  "---XX----XXX-----XXXX----",
+  "-XXXXX---XXXXX--XXXXXXXX-" }
+  Returns: { 725,  234,  558 }
+</code></pre>
+
+<p>One of the examples above. Notice that adjacent digit positions are usually separated by one or more columns of dashes. In this example, the first and second positions are separated by one column of dashes, and the second and third positions are separated by two columns of dashes.</p>
+
+<p>2)  </p>
+
+<pre><code>{ "XX---XXXX",
+  "XXX-----X" }
+Returns: { 24,  31 }  
+</code></pre>
+
+<p>Notice that leading and trailing dashes are not required.</p>
+
+<p>3)  </p>
+
+<pre><code>{ "-XXX---XX----X",
+  "--X----X-XXXXX",
+  "-XX--XXXX---XX" }
+Returns: { 321,  115,  242 }  
+</code></pre>
+
+<p>Notice that adjacent digit positions are not always separated by columns of dashes. In this example, the first and second positions are separated by a column of dashes, but the second and third positions are not.</p>
+
+<p>4)  </p>
+
+<pre><code>{ "-------X--------",
+  "--XXX----XXXX---",
+  "--------------XX" }
+Returns: { 100,  3040,  2 }  
+</code></pre>
+
+<p>Notice that leading zeros are permitted. For example, 100 is really 0100 and 2 is really 0002.</p>
+
+<p>5)  </p>
+
+<pre><code>{ "--XXX-XXXXXXXX----------XXXXXXXXX--XXXXXXXX-",
+  "--XX----XXXX-----XXXXXX---XXX------XXXXXXXX-",
+  "--------------------X----XXXXXXXX--XXXXXXXX-",
+  "--XX-------X------XXXX----XXX-------XXXXXX--",
+  "--XXX---XXXXX-------X------XX--------X------",
+  "-XXXX--XXXXXXX-----------XXXXXXX----XXXXX---",
+  "-----------X---XXXXXXXX----XX--------XXX----",
+  "-----------X---XXXXXXXX----X----------------",
+  "---X--XXXXXXXX--XXXXXXX---XXX---------------",
+  "--XX---XXXXXXX--XXXXXXX----XX-------XXXXX---" }
+Returns: { 38098,  24638,  188,  21436,  35121,  47075,  1823,  1810,  18730,  27725 }  
+</code></pre>
+
+<p>6)  </p>
+
+<pre><code>{"X","-"}
+Returns: { 1,  0 }  
+</code></pre>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+#include &lt;sstream&gt;
+
+using namespace std;
+
+class QuipuReader {  
+    private:
+        int stringToInt(string s) {
+            istringstream iss(s);
+            int n;
+            iss &gt;&gt; n;
+            return n;
+        }
+
+    public:
+        vector&lt;int&gt; readKnots(vector&lt;string&gt; knots) {
+            int m = knots.size();
+            int n = knots[0].size();
+            for (int i = 0; i &lt; m ; ++i) {
+                for (int j = 0; j &lt; n; ++j) {
+                    if (knots[i][j] != 'X') {
+                        knots[i][j] = 0;
+                    }
+                }
+            }
+            vector&lt;bool&gt; f(60, false),
+                         g(60, false);
+
+            for (int i = 0; i &lt; m ; ++i) {
+                for (int j = 0; j &lt; n; ++j) {
+                    if (knots[i][j] &amp;&amp; knots[i][j - 1]) {
+                        f[j] = true;
+                    }
+                    if (knots[i][j]) {
+                        g[j] = true;
+                    }
+                }
+            }
+
+            for (int j = 0; j &lt; n; ++j) {
+                if (!g[j]) {
+                    f[j] = true;
+                }
+            }
+            vector&lt;int&gt; r(m, 0);
+
+            for (int i = 0; i &lt; m ; ++i) {
+                for (int j = 0; j &lt; n; ++j) {
+                    if (!f[j]) {
+                        r[i] *= 10;
+                    }
+                    if (knots[i][j]) {
+                        ++r[i];
+                    }
+                }
+            }
+            return r;
+        }
+};
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/12/06/quipureader/</link><guid isPermaLink="false">6406347d-a6a0-4376-9c58-fb76fa89cbd3</guid><category><![CDATA[TopCoder]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Sat, 06 Dec 2014 14:36:07 GMT</pubDate></item><item><title><![CDATA[TickTick]]></title><description><![CDATA[<p>Used In:    SRM 177 <br>
+Used As:    Division I Level One</p>
+
+<h6 id="problemstatement">Problem Statement</h6>
+
+<p>Our computer clock is not continuous. It "ticks" every millisecond and keeps track of how many ticks have occurred since the beginning of the "epoch" (Jan 1, 1970). The clocktime does not change between ticks.</p>
+
+<p>Time is continuous, and events (such as interrupts from hardware devices and the starting of a program) can happen anytime. We have a program that experiences a sequence of events. At each event in our program, our logic gets the current clocktime and compares it with the clocktime stored from the previous event. It outputs either 'D' or 'S' indicating whether the current clocktime is Different or the Same as the previous event's clocktime. (The first event after the program starts generates the first 'S' or 'D' based on comparison with the clocktime at the start of the program.)</p>
+
+<p>Because the first tick during our program can occur anytime within one millisecond after the start of the program, the string of 'D's and 'S's output from our program cannot be predicted, even given the exact timing of the program. Create a class TickTick that contains a method count that is given event, a String[] of the times of events relative to the start of the program, and returns the number of different output sequences that might be generated. The event times are given in milliseconds elapsed since the start of the program, formatted to contain digits and exactly one decimal point.</p>
+
+<p>Time is continuous, so exact coincidences do not occur (or occur with probability 0). You should not consider the possibility that a tick occurs at exactly the same time as an event or at the exact start of the program. The constraints on event guarantee that two different events can never be exactly an integral number of milliseconds apart.</p>
+
+<h6 id="definition">Definition</h6>
+
+<p>Class:    TickTick <br>
+Method:    count <br>
+Parameters:    String[] <br>
+Returns:    int <br>
+Method signature:    int count(String[] events) <br>
+(be sure your method is public)</p>
+
+<h6 id="constraints">Constraints</h6>
+
+<ul>
+<li>events has between 1 and 50 elements inclusive</li>
+<li>each element of events has length between 2 and 8, and contains exactly one decimal point '.'. All the other characters are digits '0'-'9'</li>
+<li>no element of events has a value equal to an integer</li>
+<li>no two elements of events have values that differ by an integer</li>
+<li>the elements of events have values that are strictly increasing</li>
+</ul>
+
+<h6 id="examples">Examples</h6>
+
+<ol>
+<li><p>{".222","00.223","1.221","4.220"} <br>
+Returns: 4 <br>
+If the clock's first tick occurs approximately .100 milliseconds after the start of the program, then the clocktime at time .222 will be Different from the clocktime at the start. The clocktime at .223 will be the same as at .222, the clocktime at 1.221 will be different from the clocktime at .223 since a tick occurs at 1.100. The clocktime at 4.220 will always be different from the clocktime at 1.221. So in this case, the program generates DSDD. Similarly, <br>
+if the clock's first tick is at .2215, DSSD
+if the clock's first tick is at .2225, SDSD
+if the clock's first tick is at .2235, SSDD 
+These are the only possible sequences that can be generated.</p></li>
+<li><p>{"4.220112","4.221","4.222","4.223"} <br>
+Returns: 4 <br>
+DSSS, DSSD, DSDS, DDSS</p></li>
+<li><p>{"123456.1","123456.7"} <br>
+Returns: 2 <br>
+If the first tick occurs at .05 after the program starts, the output would be DS while if it occurs .5 after the program starts, then the output would be DD. These are the only possible results.</p></li>
+</ol>
+
+<hr>
+
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;sstream&gt;
+#include &lt;vector&gt;
+#include &lt;set&gt;
+#include &lt;cmath&gt;
+
+using namespace std;
+
+class TickTick {  
+    public:
+        int count(vector&lt;string&gt; events) {
+            vector&lt;double&gt; eve(events.size() + 1);
+            eve[0] = 0;
+            for (int i = 1; i &lt; eve.size(); ++i) {
+                istringstream iss(events[i - 1]);
+                iss &gt;&gt; eve[i];
+            }
+            set&lt;string&gt; patterns;
+            for (int i = 0; i &lt; eve.size(); ++i) {
+                double tick = eve[i] + 5e-8,
+                       prev = NAN;
+                string s = "";
+                for (int j = 0; j &lt; eve.size(); ++j) {
+                    double tickIndex = floor(eve[j] - tick);
+                    if (tickIndex == prev) {
+                        s += 'S';
+                    } else {
+                        s += 'D';
+                    }
+                    prev = tickIndex;
+                }
+                patterns.insert(s);
+            }
+            return patterns.size();
+        }
+};
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/12/04/ticktick/</link><guid isPermaLink="false">443c2f66-7c9f-47f5-8d3f-025e9825535b</guid><category><![CDATA[TopCoder]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Thu, 04 Dec 2014 05:37:24 GMT</pubDate></item><item><title><![CDATA[Jumper]]></title><description><![CDATA[<p>Used In:    SRM 158 <br>
 Used As:    Division I Level Three</p>
 
 <h6 id="problemstatement">Problem Statement</h6>
@@ -1543,295 +1819,4 @@ class Poetry {
             return scheme;
         }
 };
-</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/30/poetry/</link><guid isPermaLink="false">7b987ce1-2551-4210-9070-76a824bb2ab6</guid><category><![CDATA[TopCoder]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Sun, 30 Nov 2014 10:25:31 GMT</pubDate></item><item><title><![CDATA[MatchMaking]]></title><description><![CDATA[<p>Used In:    SRM 203 <br>
-Used As:    Division I Level One , Division II Level Two</p>
-
-<h6 id="problemstatement">Problem Statement</h6>
-
-<p>You are developing the matchmaking component of an online dating site. Prospective members must fill out a questionnaire consisting of binary questions such as Do you prefer to vacation (a) in the mountains or (b) at the seaside? and Would you rather travel (a) by plane or (b) by train?</p>
-
-<p>You are to match up men with women by maximizing the number of answers each couple has in common. A man and a woman have an answer in common whenever they give the same answer to the same question. Conflicts can easily arise due to numerical ties, but you will be able to resolve all such conflicts using the following procedure. Note that there will be equal numbers of men and women, with names being unique in each sex.</p>
-
-<p>Take the woman whose name comes earliest in lexicographic order, and consider the men with whom she has the greatest number of answers in common. Among these men, pick the one whose name comes earliest in lexicographic order. You have found the woman's best match. Remove this couple from the dating pool, and repeat the matching procedure until there are no more singles left.</p>
-
-<p>You are given a String[], namesWomen, containing the names of single women, and another String[], answersWomen, containing their answers. The kth element of answersWomen lists the answers of the woman whose name is the kth element of namesWomen. If there are n questions in the questionnaire, then every element of answersWomen consists of n characters, each of which is either 'a' or 'b'. The answers are always given in the fixed questionnaire order. You are similarly given the String[]s namesMen and answersMen for the single men. Lastly, you are given a String, queryWoman, containing the name of a woman. Return the name of the man to whom she is matched after you have formed all couples according to the above rules.</p>
-
-<h6 id="definition">Definition</h6>
-
-<p>Class:    MatchMaking <br>
-Method:    makeMatch <br>
-Parameters:    String[], String[], String[], String[], String <br>
-Returns:    String <br>
-Method signature:    String makeMatch(String[] namesWomen, String[] answersWomen, String[] namesMen, String[] answersMen, String queryWoman) <br>
-(be sure your method is public)</p>
-
-<h6 id="notes">Notes</h6>
-
-<ul>
-<li>Lexicographic order is like dictionary order, with the difference that case matters. All uppercase letters take precedence over all lowercase letters. Thus, "boolean" comes before "boot"; "boo" comes before "boolean"; "Boot" comes before "boo"; "Zoo" comes before "boo".</li>
-</ul>
-
-<h6 id="constraints">Constraints</h6>
-
-<ul>
-<li>namesWomen contains between 1 and 50 elements, inclusive</li>
-<li>if namesWomen consists of n elements, then answersWomen, namesMen, and answersMen consist of n elements each</li>
-<li>each element of namesWomen and each element of namesMen is between 1 and 50 characters long, inclusive</li>
-<li>the only characters that may appear in namesMen and namesWomen are 'a' to 'z' and 'A' to 'Z'</li>
-<li>no two elements of namesWomen are alike</li>
-<li>no two elements of namesMen are alike</li>
-<li>the first element of answersWomen is between 1 and 50 characters long, inclusive</li>
-<li>if the first element of answersWomen consists of m characters, then each element of answersWomen and of answersMen is m characters long</li>
-<li>the only characters that may appear in answersWomen and answersMen are 'a' and 'b'</li>
-<li>queryWoman is one of the Strings in namesWomen</li>
-</ul>
-
-<p>Examples</p>
-
-<ol>
-<li><p>{"Constance", "Bertha", "Alice"} <br>
-{"aaba", "baab", "aaaa"}
-{"Chip", "Biff", "Abe"}
-{"bbaa", "baaa", "aaab"}
-"Bertha"
-Returns: "Biff" <br>
-Alice has two answers in common with Chip and three answers in common with both Abe and Biff; Abe gets lexicographic preference. Bertha also has two answers in common with Chip and three answers in common with both Abe and Biff. Since Abe has already been matched to Alice, Bertha lands Biff.</p></li>
-<li><p>{"Constance", "Bertha", "Alice"} <br>
-{"aaba", "baab", "aaaa"}
-{"Chip", "Biff", "Abe"}
-{"bbaa", "baaa", "aaab"}
-"Constance"
-Returns: "Chip" <br>
-We are dealing with the same names and answers as before. Constance is the last to go. Although she has two answers in common with Abe and Biff, they are both taken. She ends up with Chip, with whom she has only one answer in common.</p></li>
-<li><p>{"Constance", "Alice", "Bertha", "Delilah", "Emily"} <br>
-{"baabaa", "ababab", "aaabbb", "bababa", "baabba"}
-{"Ed", "Duff", "Chip", "Abe", "Biff"}
-{"aabaab", "babbab", "bbbaaa", "abbbba", "abaaba"}
-"Constance"
-Returns: "Duff"</p></li>
-<li><p>{"Constance", "Alice", "Bertha", "Delilah", "Emily"} <br>
-{"baabaa", "ababab", "aaabbb", "bababa", "baabba"}
-{"Ed", "Duff", "Chip", "Abe", "Biff"}
-{"aabaab", "babbab", "bbbaaa", "abbbba", "abaaba"}
-"Delilah"
-Returns: "Chip"</p></li>
-<li><p>{"Constance", "Alice", "Bertha", "Delilah", "Emily"} <br>
-{"baabaa", "ababab", "aaabbb", "bababa", "baabba"}
-{"Ed", "Duff", "Chip", "Abe", "Biff"}
-{"aabaab", "babbab", "bbbaaa", "abbbba", "abaaba"}
-"Emily"
-Returns: "Ed"</p></li>
-<li><p>{"anne", "Zoe"} <br>
-{"a", "a"}
-{"bob", "chuck"}
-{"a", "a"}
-"Zoe"
-Returns: "bob"</p></li>
-<li><p>{"F", "M", "S", "h", "q", "g", "r", "N", "U", "x", "H", "P", <br>
-"o", "E", "R", "z", "L", "m", "e", "u", "K", "A", "w", "Q",
-"O", "v", "j", "a", "t", "p", "C", "G", "k", "c", "V", "B",
-"D", "s", "n", "i", "f", "T", "I", "l", "d", "J", "y", "b"}
-{"abaabbbb", "bbaabbbb", "aaabaaab", "aabbaaaa", "baabbaab",
-"aaababba", "bbabbbbb", "bbbabbba", "aaabbbba", "aabbbaaa",
-"abbabaaa", "babbabbb", "aaaaabba", "aaaabbaa", "abbbabaa",
-"babababa", "abbaaaaa", "bbababba", "baaaaaba", "baaaaabb",
-"bbbbabba", "ababbaaa", "abbbabab", "baabbbaa", "bbbaabbb",
-"aababbab", "ababbabb", "abbaabba", "baabbabb", "aaabaaab",
-"aabbbaba", "aabaaabb", "abababba", "aabbaaaa", "aabbabaa",
-"bababaaa", "aabaaaab", "bbbbaabb", "baaababb", "abaabbab",
-"aabbbaaa", "baabbaba", "bbabbbaa", "aabbbbaa", "abbbaaab",
-"abababbb", "ababaaba", "bababaaa"}
-{"f", "C", "v", "g", "Q", "z", "n", "c", "B", "o", "M", "F",
-"u", "x", "I", "T", "K", "L", "E", "U", "w", "A", "d", "t",
-"e", "R", "D", "s", "p", "q", "m", "r", "H", "j", "J", "V",
-"l", "a", "k", "h", "G", "y", "i", "P", "O", "N", "b", "S"}
-{"bbbaabab", "bbabaabb", "ababbbbb", "bbbababb", "baababaa",
-"bbaaabab", "abbabbaa", "bbbabbbb", "aabbabab", "abbababa",
-"aababbbb", "bababaab", "aaababbb", "baabbaba", "abaaaaab",
-"bbaababa", "babaabab", "abbabbba", "ababbbab", "baabbbab",
-"babbaaab", "abbbbaba", "bbabbbba", "baaabaab", "ababbabb",
-"abbbaabb", "bbbbaabb", "bbbaaabb", "baabbaba", "bbabaaab",
-"aabbbaab", "abbbbabb", "bbaaaaba", "bbbababa", "abbaabba",
-"bababbbb", "aabaaabb", "babbabab", "baaaabaa", "ababbaba",
-"aaabaabb", "bbaaabaa", "baaaaabb", "bbaabaab", "bbababab",
-"aabaaaab", "aaaaabab", "aabbaaba"}
-"U"
-Returns: "x"</p></li>
-<li><p>{"q", "M", "w", "y", "p", "N", "s", "r", "a", "H", "o", "n", <br>
-"F", "m", "l", "b", "D", "j", "C", "u", "f", "I", "g", "L",
-"i", "x", "A", "G", "O", "k", "h", "d", "c", "E", "B", "v",
-"J", "z", "K", "e", "t"}
-{"aabbaaabb", "baabababb", "bbaababba", "bbbaaaaaa", "abaaaabaa",
-"bababbbab", "abbaabbaa", "aabababbb", "bababaaaa", "abbababaa",
-"aabbbbbba", "bbabbabab", "babaabbba", "babbabbbb", "baaabbbbb",
-"baaabaaaa", "aaabbaaab", "abbaabbbb", "abbabbbab", "bbaaaabba",
-"babbaaabb", "aabbabbab", "baaababba", "ababaabab", "bbbaabbab",
-"aaaabbabb", "babaaaaaa", "abbbbaaab", "aabaaabba", "bbbaaaaba",
-"bbbbbbaab", "aabbaaabb", "aabaabbab", "aababaaba", "bbabbbbab",
-"abbabaaab", "babaaabbb", "bababbaaa", "aabbaabaa", "baaabbabb",
-"bbbbbbbbb"}
-{"m", "k", "n", "q", "L", "E", "M", "l", "w", "x", "g", "e",
-"i", "z", "F", "r", "a", "h", "f", "D", "J", "K", "j", "v",
-"A", "t", "N", "y", "s", "c", "o", "p", "d", "b", "B", "G",
-"O", "I", "u", "C", "H"}
-{"bbaaabbba", "bbaaaaaab", "abaaababb", "baaaabbbb", "abbbababa",
-"baaaaaaaa", "aabbbbbab", "aaaaabbba", "baabababb", "babaaabab",
-"baaababaa", "bbbbaabba", "bbaabbabb", "bbaaababb", "abbabbaba",
-"aababaaab", "abbbbbbaa", "aabbaabaa", "bbbaabbba", "abbabbaba",
-"aaabbbaaa", "bbaabaaaa", "aabababbb", "abbbbabab", "baaabbbba",
-"bababbbba", "aababbaab", "bbaabbaab", "bbbaaabbb", "babbbbabb",
-"ababababb", "babaaabab", "bbaaaaaba", "aaaaabaaa", "abbaaabbb",
-"bbbbababb", "baabababb", "bbaabaaaa", "aaababbbb", "abbbbbbba",
-"bbaabbaaa"}
-"o"
-Returns: "C"</p></li>
-</ol>
-
-<hr>
-
-<pre><code class="prettyprint">#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;string&gt;
-#include &lt;map&gt;
-
-using namespace std;
-
-class MatchMaking {  
-    private:
-        int mathches(string a, string b) {
-            int match = 0;
-            for (int i = 0; i &lt; a.size(); ++i) {
-                if (a[i] == b[i]) {
-                    ++match;
-                }
-            }
-            return match;
-        }
-
-    public:
-        string makeMatch(vector&lt;string&gt; namesWomen, vector&lt;string&gt; answerWomen, vector&lt;string&gt; namesMen, vector&lt;string&gt; answerMen, string queryWoman) {
-            int n = namesMen.size();
-            string theChosenOne = "";
-            map&lt;string, string&gt; women, men;
-            vector&lt;bool&gt; taken(n, false);
-            for (int i = 0; i &lt; n; ++i) {
-                women[namesWomen[i]] = answerWomen[i];
-                men[namesMen[i]] = answerMen[i];
-            }
-            for (map&lt;string, string&gt; :: iterator i = women.begin(); 
-                i != women.end(); ++i) {
-                int compatibility = -1;
-                int index = 0,
-                    jn = 0;
-                for (map&lt;string, string&gt; :: iterator j = 
-                    men.begin(); j != men.end(); ++j, ++jn) {
-                    if (!taken[jn]) {
-                        int match = mathches(i-&gt;second, j-&gt;second);
-                        if (match &gt; compatibility) {
-                            compatibility = match;
-                            index = jn;
-                            theChosenOne = j-&gt;first;
-                        }
-                    }
-                }
-                taken[index] = true;
-                if (i-&gt;first == queryWoman) {
-                    break;
-                }
-            }
-            return theChosenOne;
-        }
-};
-</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/30/matchmaking/</link><guid isPermaLink="false">42d8c9c0-ad89-4714-8b3f-6c6396e3864a</guid><category><![CDATA[TopCoder]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Sun, 30 Nov 2014 07:37:33 GMT</pubDate></item><item><title><![CDATA[BettingMoney]]></title><description><![CDATA[<p>Used In:    SRM 191 <br>
-Used As:    Division II Level One</p>
-
-<h6 id="problemstatement">Problem Statement</h6>
-
-<p>You run a gambling business in which people place bets on the margin of victory in a football game. At the end of the day, the company would like to know what the day's net gain has been.</p>
-
-<p>Just as in any other betting system, people place certain amounts as their bets and if they guess correctly, they get their money back plus a pre-specified percentage of their bet; otherwise they lose the money they bet. </p>
-
-<p>You are given a int[], amounts, the ith element of which is the number of dollars people have placed on a victory margin of i (i = 0 refers to the first element). You are also given a int[], centsPerDollar, the ith element of which is the number of cents the company has to pay for every dollar the people bet on a victory margin of i, if the final outcome is a victory margin of i. Finally, you are given an int, finalResult, which is the final margin of victory. You have to determine what the net gain for the day was and return the amount in cents.</p>
-
-<p>For example, if amounts were {10,20,30}, it would mean that people placed $10 on a draw outcome, $20 on a victory margin of 1 and $30 on a victory margin of 2, and if centsPerDollar were {20,30,40}, it would mean the people would win 20 cents per dollar bet if the match were a draw, 30 cents per dollar if the victory margin were 1 and 40 cents per dollar if the victory margin were 2. </p>
-
-<p>Suppose the final result is a victory margin of 1 (i.e., finalResult = 1). Then the people who guessed the outcome as a margin of 0 or 2 were wrong and the company receives the amounts they bet, $10+$30. However, the people who guessed that the outcome would be a margin of 1 were correct, and they receive money from the company according to the amount they bet (20 dollars) and the pre-set payoff percentage (30 cents per dollar) . This amounts to 20*30 = 600 cents. Hence, the day's net gain is 40 dollars - 600 cents = 3400 cents. You should return 3400.</p>
-
-<h6 id="definition">Definition</h6>
-
-<p>Class:    BettingMoney <br>
-Method:    moneyMade <br>
-Parameters:    int[], int[], int <br>
-Returns:    int <br>
-Method signature:    int moneyMade(int[] amounts, int[] centsPerDollar, int finalResult) <br>
-(be sure your method is public)</p>
-
-<h6 id="notes">Notes</h6>
-
-<ul>
-<li>Keep in mind that it is not relevant which team wins. Only the margin of victory matters.</li>
-<li>A victory margin of 0 and a draw are the same thing.</li>
-<li>There are 100 cents in a dollar.</li>
-<li>If the company has to pay more than it receives, the day's net gain will be negative.</li>
-</ul>
-
-<h6 id="constraints">Constraints</h6>
-
-<ul>
-<li>amounts will contain between 1 and 50 elements, inclusive.</li>
-<li>centsPerDollar will contain the same number of elements as amounts.</li>
-<li>finalResult will be between 0 and n-1, inclusive, where n is the number of elements in amounts.</li>
-<li>Each element of amounts will be between 0 and 5000, inclusive.</li>
-<li>Each element of centsPerDollar will be between 0 and 5000, inclusive.</li>
-</ul>
-
-<h6 id="examples">Examples</h6>
-
-<ol>
-<li><p>{10,20,30} <br>
-{20,30,40}
-1 <br>
-Returns: 3400 <br>
-The case explained in the problem statement above.</p></li>
-<li><p>{200,300,100} <br>
-{10,10,10}
-2 <br>
-Returns: 49000 <br>
-The company gains 200+300 = 500 dollars from the people who bet on margins of 0 and 1. The company loses 100*10 = 1000 cents to the people who bet on a victory margin of 2. Hence, the net gain is 49000 cents.</p></li>
-<li><p>{100,100,100,100} <br>
-{5,5,5,5}
-0 <br>
-Returns: 29500</p></li>
-<li><p>{5000,5000} <br>
-{100,2}
-0 <br>
-Returns: 0</p></li>
-<li><p>{100} <br>
-{10}
-0 <br>
-Returns: -1000 <br>
-The company doesn't gain anything! It has to pay the people who bet on the only outcome possible. It pays 100*10 cents. Hence, the net gain is -1000. (Negative indicates loss.)</p></li>
-</ol>
-
-<hr>
-
-<pre><code class="prettyprint">#include &lt;iostream&gt;
-#include &lt;vector&gt;
-
-using namespace std;
-
-class BettingMoney {  
-    public:
-        int moneyMade(vector&lt;int&gt; amounts, vector&lt;int&gt; centsPerDollar, int finalResult) {
-            int profit = 0;
-            for (int i = 0; i &lt; amounts.size(); ++i) {
-                if (i == finalResult) {
-                    profit -= (amounts[i] * centsPerDollar[i]);
-                } else {
-                    profit += (amounts[i] * 100);
-                }
-            }
-            return profit;
-        }
-};
-</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/30/bettingname/</link><guid isPermaLink="false">99b30a41-e004-409d-a143-0e90ec6c8f90</guid><category><![CDATA[TopCoder]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Sun, 30 Nov 2014 05:18:42 GMT</pubDate></item></channel></rss>
+</code></pre>]]></description><link>http://code-jedi.chintanghate.me/2014/11/30/poetry/</link><guid isPermaLink="false">7b987ce1-2551-4210-9070-76a824bb2ab6</guid><category><![CDATA[TopCoder]]></category><dc:creator><![CDATA[Chintan Ghate]]></dc:creator><pubDate>Sun, 30 Nov 2014 10:25:31 GMT</pubDate></item></channel></rss>
